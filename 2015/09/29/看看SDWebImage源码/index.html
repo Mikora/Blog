@@ -18,7 +18,7 @@ SD的流程：(以UIImageView加载方式讲述)
 SD的流程：(以UIImageView加载方式讲述)
 在UIImageView+WebCache类别中，判断是否正在进行，并使用关联添加参数,然后调用SDWebImage">
 <meta property="og:image" content="http://7xn4sb.com2.z0.glb.qiniucdn.com/网络图片加载流程.jpg">
-<meta property="og:updated_time" content="2015-09-29T10:53:32.000Z">
+<meta property="og:updated_time" content="2015-09-29T10:54:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看看SDWebImage源码">
 <meta name="twitter:description" content="SDWebImageSDWebImage 是很多iOS应用的网络图片管理第三方库，github地址：https://github.com/rs/SDWebImage 本文主要从框架到细节对SD进行剖析。
@@ -243,7 +243,8 @@ SD的流程：(以UIImageView加载方式讲述)
 <p>返回</p>
 <p>在SDWebImageDownloader<br>初始化一个operation</p>
 <figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[<span class="collection">[wself.operationClass alloc]</span> initWithRequest:request                                           options:options                                                      progress:^<span class="list">(<span class="keyword">NSInteger</span> receivedSize, NSInteger expectedSize)</span> <span class="collection">&#123;&#125;</span></span><br><span class="line">completed:^<span class="list">(<span class="keyword">UIImage</span> *image, NSData *data, NSError *error, BOOL finished)</span> <span class="collection">&#123;&#125;</span></span><br><span class="line">cancelled:<span class="comment">^&#123;&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<p>再添加到downloadQueue，设置优先级，如果设置了串行，则进行<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[wself.lastAddedOperation addDependency:operation]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>再添加到downloadQueue，设置优先级，如果设置了串行，则进行</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[wself.lastAddedOperation addDependency:operation]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>依赖。</p>
 <p>在SDWebImageDownloaderOperation中进行下载</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.connection</span> = [[<span class="built_in">NSURLConnection</span> alloc] initWithRequest:<span class="keyword">self</span><span class="variable">.request</span> delegate:<span class="keyword">self</span> startImmediately:<span class="literal">NO</span>];</span><br><span class="line"><span class="keyword">self</span><span class="variable">.thread</span> = [<span class="built_in">NSThread</span> currentThread];</span><br></pre></td></tr></table></figure>
