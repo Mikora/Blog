@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>构建framework | 随笔</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="构建framework原因：同种业务需要在不同的客户端项目中使用。
+问题：
+1.代码只能存在一个项目中，便于维护。
+2.对业务依赖很大
+几种构建的方式1. 选择pod构建私有库的形式(略)pod lib create “” 
+配置等东西自行查找
+注意：在podfile里面有一个use_frameworks! 注释掉，这个选项会使生成的结构变成在[nsbundle mainbundle]/frame">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建framework">
+<meta property="og:url" content="http://blog.huangcheng.com/2015/10/23/构建framework/index.html">
+<meta property="og:site_name" content="随笔">
+<meta property="og:description" content="构建framework原因：同种业务需要在不同的客户端项目中使用。
+问题：
+1.代码只能存在一个项目中，便于维护。
+2.对业务依赖很大
+几种构建的方式1. 选择pod构建私有库的形式(略)pod lib create “” 
+配置等东西自行查找
+注意：在podfile里面有一个use_frameworks! 注释掉，这个选项会使生成的结构变成在[nsbundle mainbundle]/frame">
+<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/1422339219527730.png?imageView/1/w/220/h/160">
+<meta property="og:updated_time" content="2015-12-18T03:13:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="构建framework">
+<meta name="twitter:description" content="构建framework原因：同种业务需要在不同的客户端项目中使用。
+问题：
+1.代码只能存在一个项目中，便于维护。
+2.对业务依赖很大
+几种构建的方式1. 选择pod构建私有库的形式(略)pod lib create “” 
+配置等东西自行查找
+注意：在podfile里面有一个use_frameworks! 注释掉，这个选项会使生成的结构变成在[nsbundle mainbundle]/frame">
+  
+    <link rel="alternative" href="/atom.xml" title="随笔" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://raw.githubusercontent.com/Mikora/CCFilter/master/IMG_0733.JPG" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">黄 成</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Mikora" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">黄 成</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://raw.githubusercontent.com/Mikora/CCFilter/master/IMG_0733.JPG" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">黄 成</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Mikora" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-构建framework" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/23/构建framework/" class="article-date">
+  	<time datetime="2015-10-23T06:33:56.000Z" itemprop="datePublished">2015-10-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      构建framework
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="构建framework">构建framework</h2><p>原因：同种业务需要在不同的客户端项目中使用。</p>
+<p>问题：</p>
+<p>1.代码只能存在一个项目中，便于维护。</p>
+<p>2.对业务依赖很大</p>
+<h3 id="几种构建的方式">几种构建的方式</h3><h6 id="1-_选择pod构建私有库的形式(略)">1. 选择pod构建私有库的形式(略)</h6><p>pod lib create “” </p>
+<p>配置等东西自行查找</p>
+<pre><code>注意：在podfile里面有一个use_frameworks! 注释掉，这个选项会使生成的结构变成在[nsbundle mainbundle]<span class="regexp">/framework/</span>xxx.framework<span class="regexp">/xxx.bundle，导致一般使用xxx.bundle/</span>xxx.png找不到路径
+
+配置s.subspec的时候，如果里面的文件依赖了什么，都需要s.dependency,所以，如果不是依赖关系很大的可以使用，这样会使文件结构很清晰
+</code></pre><h6 id="2-_选择library和bundle构建形式">2. 选择library和bundle构建形式</h6><p>1.创建static library</p>
+<pre><code><span class="literal">new</span><span class="subst">-&gt;</span>project<span class="subst">-&gt;</span>framework <span class="subst">&amp;</span> library <span class="subst">-&gt; </span>任选 一个包含uikit，一个包含foundation，可后面引入
+在这个target的build phases加入一个run script phases，然后加入如下代码，目的：使输出的frame拥有如下结构：
+</code></pre><p><img src="http://7xpas5.com1.z0.glb.clouddn.com/1422339219527730.png?imageView/1/w/220/h/160" alt="image"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="operator">-e</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> FRAMEWORK_LOCN=<span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;PRODUCT_NAME&#125;</span>.framework"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the path to the real Headers die</span></span><br><span class="line">mkdir -p <span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Versions/A/Headers"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the required symlinks</span></span><br><span class="line">/bin/ln -sfh A <span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Versions/Current"</span></span><br><span class="line">/bin/ln -sfh Versions/Current/Headers <span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Headers"</span></span><br><span class="line">/bin/ln -sfh <span class="string">"Versions/Current/<span class="variable">$&#123;PRODUCT_NAME&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/<span class="variable">$&#123;PRODUCT_NAME&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the public headers into the framework</span></span><br><span class="line">/bin/cp <span class="operator">-a</span> <span class="string">"<span class="variable">$&#123;TARGET_BUILD_DIR&#125;</span>/<span class="variable">$&#123;PUBLIC_HEADERS_FOLDER_PATH&#125;</span>/"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Versions/A/Headers"</span></span><br></pre></td></tr></table></figure>
+<p>2.创建一个能生成bundle的target</p>
+<pre><code><span class="literal">new</span><span class="subst">-&gt;</span>target<span class="subst">-&gt; </span>OS X<span class="subst">-&gt;</span>framework <span class="subst">&amp;</span> library <span class="subst">-&gt; </span>bundle
+
+选择这个target，然后在buildsettings里面，找到baseSDK删除，会出现变成iOS的版本
+
+加入图片等资源是，在选择的时候选择options，勾选这个bundle的target
+</code></pre><p>3.创建一个管理上面bundle和frame的target</p>
+<pre><code><span class="keyword">new</span>-&gt;<span class="keyword">target</span>-&gt;other-&gt;Aggregate
+选择此<span class="keyword">target</span>-&gt;build phases. 在<span class="keyword">target</span> dependencies里面添加依赖的其他两个<span class="keyword">target</span>
+在这里我们需要导出.framework和.bundle，并且需要对不同平台进行编译
+创建run script,添加如下代码 
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="operator">-e</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If we're already inside this script then die</span></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$RW_MULTIPLATFORM_BUILD_IN_PROGRESS</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">export</span> RW_MULTIPLATFORM_BUILD_IN_PROGRESS=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">RW_FRAMEWORK_NAME=<span class="variable">$&#123;PROJECT_NAME&#125;</span></span><br><span class="line">RW_INPUT_STATIC_LIB=<span class="string">"lib<span class="variable">$&#123;PROJECT_NAME&#125;</span>.a"</span></span><br><span class="line">RW_FRAMEWORK_LOCATION=<span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.framework"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> build_static_library &#123;</span><br><span class="line">    <span class="comment"># Will rebuild the static library as specified</span></span><br><span class="line">    <span class="comment">#     build_static_library sdk</span></span><br><span class="line">    xcrun xcodebuild -project <span class="string">"<span class="variable">$&#123;PROJECT_FILE_PATH&#125;</span>"</span> \</span><br><span class="line">    -target <span class="string">"<span class="variable">$&#123;TARGET_NAME&#125;</span>"</span> \</span><br><span class="line">    -configuration <span class="string">"<span class="variable">$&#123;CONFIGURATION&#125;</span>"</span> \</span><br><span class="line">    -sdk <span class="string">"<span class="variable">$&#123;1&#125;</span>"</span> \</span><br><span class="line">    ONLY_ACTIVE_ARCH=NO \</span><br><span class="line">    BUILD_DIR=<span class="string">"<span class="variable">$&#123;BUILD_DIR&#125;</span>"</span> \</span><br><span class="line">    OBJROOT=<span class="string">"<span class="variable">$&#123;OBJROOT&#125;</span>"</span> \</span><br><span class="line">    BUILD_ROOT=<span class="string">"<span class="variable">$&#123;BUILD_ROOT&#125;</span>"</span> \</span><br><span class="line">    SYMROOT=<span class="string">"<span class="variable">$&#123;SYMROOT&#125;</span>"</span> <span class="variable">$ACTION</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> make_fat_library &#123;</span><br><span class="line">    <span class="comment"># Will smash 2 static libs together</span></span><br><span class="line">    <span class="comment">#     make_fat_library in1 in2 out</span></span><br><span class="line">    xcrun lipo -create <span class="string">"<span class="variable">$&#123;1&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;2&#125;</span>"</span> -output <span class="string">"<span class="variable">$&#123;3&#125;</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1 - Extract the platform (iphoneos/iphonesimulator) from the SDK name</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$SDK_NAME</span>"</span> =~ ([A-Za-z]+) ]]; <span class="keyword">then</span></span><br><span class="line">RW_SDK_PLATFORM=<span class="variable">$&#123;BASH_REMATCH[1]&#125;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Could not find platform name from SDK_NAME: <span class="variable">$SDK_NAME</span>"</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 - Extract the version from the SDK</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$SDK_NAME</span>"</span> =~ ([<span class="number">0</span>-<span class="number">9</span>]+.*$) ]]; <span class="keyword">then</span></span><br><span class="line">RW_SDK_VERSION=<span class="variable">$&#123;BASH_REMATCH[1]&#125;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Could not find sdk version from SDK_NAME: <span class="variable">$SDK_NAME</span>"</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 - Determine the other platform</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$RW_SDK_PLATFORM</span>"</span> == <span class="string">"iphoneos"</span> ]; <span class="keyword">then</span></span><br><span class="line">RW_OTHER_PLATFORM=iphonesimulator</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">RW_OTHER_PLATFORM=iphoneos</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4 - Find the build directory</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$BUILT_PRODUCTS_DIR</span>"</span> =~ (.*)<span class="variable">$RW_SDK_PLATFORM</span>$ ]]; <span class="keyword">then</span></span><br><span class="line">RW_OTHER_BUILT_PRODUCTS_DIR=<span class="string">"<span class="variable">$&#123;BASH_REMATCH[1]&#125;</span><span class="variable">$&#123;RW_OTHER_PLATFORM&#125;</span>"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Could not find other platform build directory."</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Build the other platform.</span></span><br><span class="line">build_static_library <span class="string">"<span class="variable">$&#123;RW_OTHER_PLATFORM&#125;</span><span class="variable">$&#123;RW_SDK_VERSION&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If we're currently building for iphonesimulator, then need to rebuild</span></span><br><span class="line"><span class="comment">#   to ensure that we get both i386 and x86_64</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$RW_SDK_PLATFORM</span>"</span> == <span class="string">"iphonesimulator"</span> ]; <span class="keyword">then</span></span><br><span class="line">build_static_library <span class="string">"<span class="variable">$&#123;SDK_NAME&#125;</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Join the 2 static libs into 1 and push into the .framework</span></span><br><span class="line">make_fat_library <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_INPUT_STATIC_LIB&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;RW_OTHER_BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_INPUT_STATIC_LIB&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;RW_FRAMEWORK_LOCATION&#125;</span>/Versions/A/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ensure that the framework is present in both platform's build directories</span></span><br><span class="line">cp <span class="operator">-a</span> <span class="string">"<span class="variable">$&#123;RW_FRAMEWORK_LOCATION&#125;</span>/Versions/A/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;RW_OTHER_BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.framework/Versions/A/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the framework to the user's desktop</span></span><br><span class="line">ditto <span class="string">"<span class="variable">$&#123;RW_FRAMEWORK_LOCATION&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;HOME&#125;</span><span class="variable">$&#123;PROJECT_AUCTION_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.framework"</span></span><br><span class="line">ditto <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.bundle"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;HOME&#125;</span><span class="variable">$&#123;PROJECT_AUCTION_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.bundle"</span></span><br></pre></td></tr></table></figure>
+<h4 id="写在最后：">写在最后：</h4><p>项目中可导入config文件，手动配置一些路径名字等</p>
+<p>new-&gt;other-&gt;configuration setting file</p>
+<p>里面放入</p>
+<p>PROJECT_NAME = xxx</p>
+<p>那么你在target里面的buildsetting里最下面可以看到User-Defined,在buildsetting其他地方使用，只需要输入PROJECT_NAME。</p>
+<p>最后选择项目project不是target，选择configurations，选择你要使用的config文件.</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/08/AFNetWorking源码见解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AFNetWorking源码见解</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="构建framework" data-title="构建framework" data-url="http://blog.huangcheng.com/2015/10/23/构建framework/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"e53801293b4838a0700cb899db615f4a"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 黄 成
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

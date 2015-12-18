@@ -192,6 +192,192 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-构建framework" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/23/构建framework/" class="article-date">
+  	<time datetime="2015-10-23T06:33:56.000Z" itemprop="datePublished">2015-10-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/23/构建framework/">构建framework</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="构建framework">构建framework</h2><p>原因：同种业务需要在不同的客户端项目中使用。</p>
+<p>问题：</p>
+<p>1.代码只能存在一个项目中，便于维护。</p>
+<p>2.对业务依赖很大</p>
+<h3 id="几种构建的方式">几种构建的方式</h3><h6 id="1-_选择pod构建私有库的形式(略)">1. 选择pod构建私有库的形式(略)</h6><p>pod lib create “” </p>
+<p>配置等东西自行查找</p>
+<pre><code>注意：在podfile里面有一个use_frameworks! 注释掉，这个选项会使生成的结构变成在[nsbundle mainbundle]<span class="regexp">/framework/</span>xxx.framework<span class="regexp">/xxx.bundle，导致一般使用xxx.bundle/</span>xxx.png找不到路径
+
+配置s.subspec的时候，如果里面的文件依赖了什么，都需要s.dependency,所以，如果不是依赖关系很大的可以使用，这样会使文件结构很清晰
+</code></pre><h6 id="2-_选择library和bundle构建形式">2. 选择library和bundle构建形式</h6><p>1.创建static library</p>
+<pre><code><span class="literal">new</span><span class="subst">-&gt;</span>project<span class="subst">-&gt;</span>framework <span class="subst">&amp;</span> library <span class="subst">-&gt; </span>任选 一个包含uikit，一个包含foundation，可后面引入
+在这个target的build phases加入一个run script phases，然后加入如下代码，目的：使输出的frame拥有如下结构：
+</code></pre><p><img src="http://7xpas5.com1.z0.glb.clouddn.com/1422339219527730.png?imageView/1/w/220/h/160" alt="image"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="operator">-e</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> FRAMEWORK_LOCN=<span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;PRODUCT_NAME&#125;</span>.framework"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the path to the real Headers die</span></span><br><span class="line">mkdir -p <span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Versions/A/Headers"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the required symlinks</span></span><br><span class="line">/bin/ln -sfh A <span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Versions/Current"</span></span><br><span class="line">/bin/ln -sfh Versions/Current/Headers <span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Headers"</span></span><br><span class="line">/bin/ln -sfh <span class="string">"Versions/Current/<span class="variable">$&#123;PRODUCT_NAME&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/<span class="variable">$&#123;PRODUCT_NAME&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the public headers into the framework</span></span><br><span class="line">/bin/cp <span class="operator">-a</span> <span class="string">"<span class="variable">$&#123;TARGET_BUILD_DIR&#125;</span>/<span class="variable">$&#123;PUBLIC_HEADERS_FOLDER_PATH&#125;</span>/"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Versions/A/Headers"</span></span><br></pre></td></tr></table></figure>
+<p>2.创建一个能生成bundle的target</p>
+<pre><code><span class="literal">new</span><span class="subst">-&gt;</span>target<span class="subst">-&gt; </span>OS X<span class="subst">-&gt;</span>framework <span class="subst">&amp;</span> library <span class="subst">-&gt; </span>bundle
+
+选择这个target，然后在buildsettings里面，找到baseSDK删除，会出现变成iOS的版本
+
+加入图片等资源是，在选择的时候选择options，勾选这个bundle的target
+</code></pre><p>3.创建一个管理上面bundle和frame的target</p>
+<pre><code><span class="keyword">new</span>-&gt;<span class="keyword">target</span>-&gt;other-&gt;Aggregate
+选择此<span class="keyword">target</span>-&gt;build phases. 在<span class="keyword">target</span> dependencies里面添加依赖的其他两个<span class="keyword">target</span>
+在这里我们需要导出.framework和.bundle，并且需要对不同平台进行编译
+创建run script,添加如下代码 
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="operator">-e</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If we're already inside this script then die</span></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$RW_MULTIPLATFORM_BUILD_IN_PROGRESS</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">export</span> RW_MULTIPLATFORM_BUILD_IN_PROGRESS=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">RW_FRAMEWORK_NAME=<span class="variable">$&#123;PROJECT_NAME&#125;</span></span><br><span class="line">RW_INPUT_STATIC_LIB=<span class="string">"lib<span class="variable">$&#123;PROJECT_NAME&#125;</span>.a"</span></span><br><span class="line">RW_FRAMEWORK_LOCATION=<span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.framework"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> build_static_library &#123;</span><br><span class="line">    <span class="comment"># Will rebuild the static library as specified</span></span><br><span class="line">    <span class="comment">#     build_static_library sdk</span></span><br><span class="line">    xcrun xcodebuild -project <span class="string">"<span class="variable">$&#123;PROJECT_FILE_PATH&#125;</span>"</span> \</span><br><span class="line">    -target <span class="string">"<span class="variable">$&#123;TARGET_NAME&#125;</span>"</span> \</span><br><span class="line">    -configuration <span class="string">"<span class="variable">$&#123;CONFIGURATION&#125;</span>"</span> \</span><br><span class="line">    -sdk <span class="string">"<span class="variable">$&#123;1&#125;</span>"</span> \</span><br><span class="line">    ONLY_ACTIVE_ARCH=NO \</span><br><span class="line">    BUILD_DIR=<span class="string">"<span class="variable">$&#123;BUILD_DIR&#125;</span>"</span> \</span><br><span class="line">    OBJROOT=<span class="string">"<span class="variable">$&#123;OBJROOT&#125;</span>"</span> \</span><br><span class="line">    BUILD_ROOT=<span class="string">"<span class="variable">$&#123;BUILD_ROOT&#125;</span>"</span> \</span><br><span class="line">    SYMROOT=<span class="string">"<span class="variable">$&#123;SYMROOT&#125;</span>"</span> <span class="variable">$ACTION</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> make_fat_library &#123;</span><br><span class="line">    <span class="comment"># Will smash 2 static libs together</span></span><br><span class="line">    <span class="comment">#     make_fat_library in1 in2 out</span></span><br><span class="line">    xcrun lipo -create <span class="string">"<span class="variable">$&#123;1&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;2&#125;</span>"</span> -output <span class="string">"<span class="variable">$&#123;3&#125;</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1 - Extract the platform (iphoneos/iphonesimulator) from the SDK name</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$SDK_NAME</span>"</span> =~ ([A-Za-z]+) ]]; <span class="keyword">then</span></span><br><span class="line">RW_SDK_PLATFORM=<span class="variable">$&#123;BASH_REMATCH[1]&#125;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Could not find platform name from SDK_NAME: <span class="variable">$SDK_NAME</span>"</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 - Extract the version from the SDK</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$SDK_NAME</span>"</span> =~ ([<span class="number">0</span>-<span class="number">9</span>]+.*$) ]]; <span class="keyword">then</span></span><br><span class="line">RW_SDK_VERSION=<span class="variable">$&#123;BASH_REMATCH[1]&#125;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Could not find sdk version from SDK_NAME: <span class="variable">$SDK_NAME</span>"</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 - Determine the other platform</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$RW_SDK_PLATFORM</span>"</span> == <span class="string">"iphoneos"</span> ]; <span class="keyword">then</span></span><br><span class="line">RW_OTHER_PLATFORM=iphonesimulator</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">RW_OTHER_PLATFORM=iphoneos</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4 - Find the build directory</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$BUILT_PRODUCTS_DIR</span>"</span> =~ (.*)<span class="variable">$RW_SDK_PLATFORM</span>$ ]]; <span class="keyword">then</span></span><br><span class="line">RW_OTHER_BUILT_PRODUCTS_DIR=<span class="string">"<span class="variable">$&#123;BASH_REMATCH[1]&#125;</span><span class="variable">$&#123;RW_OTHER_PLATFORM&#125;</span>"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Could not find other platform build directory."</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Build the other platform.</span></span><br><span class="line">build_static_library <span class="string">"<span class="variable">$&#123;RW_OTHER_PLATFORM&#125;</span><span class="variable">$&#123;RW_SDK_VERSION&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If we're currently building for iphonesimulator, then need to rebuild</span></span><br><span class="line"><span class="comment">#   to ensure that we get both i386 and x86_64</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$RW_SDK_PLATFORM</span>"</span> == <span class="string">"iphonesimulator"</span> ]; <span class="keyword">then</span></span><br><span class="line">build_static_library <span class="string">"<span class="variable">$&#123;SDK_NAME&#125;</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Join the 2 static libs into 1 and push into the .framework</span></span><br><span class="line">make_fat_library <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_INPUT_STATIC_LIB&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;RW_OTHER_BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_INPUT_STATIC_LIB&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;RW_FRAMEWORK_LOCATION&#125;</span>/Versions/A/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ensure that the framework is present in both platform's build directories</span></span><br><span class="line">cp <span class="operator">-a</span> <span class="string">"<span class="variable">$&#123;RW_FRAMEWORK_LOCATION&#125;</span>/Versions/A/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;RW_OTHER_BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.framework/Versions/A/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the framework to the user's desktop</span></span><br><span class="line">ditto <span class="string">"<span class="variable">$&#123;RW_FRAMEWORK_LOCATION&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;HOME&#125;</span><span class="variable">$&#123;PROJECT_AUCTION_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.framework"</span></span><br><span class="line">ditto <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.bundle"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;HOME&#125;</span><span class="variable">$&#123;PROJECT_AUCTION_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.bundle"</span></span><br></pre></td></tr></table></figure>
+<h4 id="写在最后：">写在最后：</h4><p>项目中可导入config文件，手动配置一些路径名字等</p>
+<p>new-&gt;other-&gt;configuration setting file</p>
+<p>里面放入</p>
+<p>PROJECT_NAME = xxx</p>
+<p>那么你在target里面的buildsetting里最下面可以看到User-Defined,在buildsetting其他地方使用，只需要输入PROJECT_NAME。</p>
+<p>最后选择项目project不是target，选择configurations，选择你要使用的config文件.</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-AFNetWorking源码见解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/08/AFNetWorking源码见解/" class="article-date">
+  	<time datetime="2015-10-08T06:37:18.000Z" itemprop="datePublished">2015-10-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/08/AFNetWorking源码见解/">AFNetWorking源码见解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###AFNetWorking源码见解</p>
+<p>文件结构：</p>
+<ol>
+<li><p>AFHTTPRequestOperationManager用于生成和管理AFHTTPRequestOperation,</p>
+</li>
+<li><p>AFHTTPRequestOperation继承于AFURLConnectionOperation,</p>
+</li>
+<li><p>AFURLConnectionOperation继承于NSOperation</p>
+</li>
+</ol>
+<p>普通的网络请求：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr_selector">[[AFHTTPRequestOperationManager manager]</span> <span class="tag">GET</span><span class="pseudo">:urlString</span> <span class="tag">parameters</span><span class="pseudo">:parameters</span> <span class="tag">success</span><span class="pseudo">:successBlock</span> <span class="tag">failure</span><span class="pseudo">:failureBlock</span>];</span><br></pre></td></tr></table></figure>
+<p>1.单例初始化manager，同时初始化</p>
+<p>a.AFHTTPRequestSerializer(请求头里面有关客户端的信息)，</p>
+<p>b.AFJSONResponseSerializer(返回数据接收和处理格式)，</p>
+<p>c.AFSecurityPolicy(请求安全，https)，</p>
+<p>d.AFNetworkReachabilityManager(网络状态，wifi，2g，3g)，</p>
+<p>e.operationQueue队列；</p>
+<p>2.创建request，</p>
+<p>3.由request创建操作，加入队列</p>
+<p>4.开始操作，利用一个NSURLConnection进行网络请求，delegate回调</p>
+<p>5.完成后，操作调用completionBlock回调，在回调中由response和error判断成功失败</p>
+<h5 id="start方法">start方法</h5><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[self performSelector:@selector<span class="list">(<span class="keyword">operationDidStart</span>)</span> onThread:<span class="collection">[<span class="collection">[self class]</span> networkRequestThread]</span> withObject:nil waitUntilDone:NO modes:<span class="collection">[self.runLoopModes allObjects]</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>单例生成的Thread,runloop里面只有一个NSRunLoopCommonModes</p>
+<h6 id="生成常驻线程">生成常驻线程</h6><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)networkRequestThreadEntryPoint:(<span class="keyword">id</span>)__unused object &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        [[<span class="built_in">NSThread</span> currentThread] setName:<span class="string">@"AFNetworking"</span>];</span><br><span class="line"></span><br><span class="line">        <span class="built_in">NSRunLoop</span> *runLoop = [<span class="built_in">NSRunLoop</span> currentRunLoop];</span><br><span class="line">        [runLoop addPort:[<span class="built_in">NSMachPort</span> port] forMode:<span class="built_in">NSDefaultRunLoopMode</span>];</span><br><span class="line">        [runLoop run];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">NSThread</span> *)networkRequestThread &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">NSThread</span> *_networkRequestThread = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> oncePredicate;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;oncePredicate, ^&#123;</span><br><span class="line">        _networkRequestThread = [[<span class="built_in">NSThread</span> alloc] initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(networkRequestThreadEntryPoint:) object:<span class="literal">nil</span>];</span><br><span class="line">        [_networkRequestThread start];</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _networkRequestThread;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用runloop生成一个常驻的线程，所有的网络请求都使用这个线程</p>
+<p>所有的connection都由这个runloop发起，回调也是它接收</p>
+<h6 id="把一个异步任务加入group,防止多线程不执行block">把一个异步任务加入group,防止多线程不执行block</h6><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dispatch_group_enter(group)<span class="comment">; </span></span><br><span class="line">[strongSelf performBlock:^()&#123; </span><br><span class="line">    block()<span class="comment">; </span></span><br><span class="line">    dispatch_group_leave(group)<span class="comment">; </span></span><br><span class="line">&#125;]<span class="comment">;</span></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">###### 回调代码</span><br></pre></td></tr></table></figure>
+<ul>
+<li>(void)setCompletionBlock:(void (^)(void))block {<br>  [self.lock lock];<br>  if (!block) {<pre><code>[<span class="keyword">super</span> <span class="symbol">setCompletionBlock:</span><span class="literal">nil</span>];
+</code></pre>  } else {<pre><code>__<span class="keyword">weak</span> __<span class="keyword">typeof</span>(<span class="keyword">self</span>)weakSelf = <span class="keyword">self</span>;
+[<span class="keyword">super</span> setCompletionBlock:^ {
+    __<span class="keyword">strong</span> __<span class="keyword">typeof</span>(weakSelf)strongSelf = weakSelf;
+</code></pre></li>
+</ul>
+<p>#pragma clang diagnostic push</p>
+<p>#pragma clang diagnostic ignored “-Wgnu”<br>            dispatch_group_t group = strongSelf.completionGroup ?: url_request_operation_completion_group();<br>            dispatch_queue_t queue = strongSelf.completionQueue ?: dispatch_get_main_queue();</p>
+<p>#pragma clang diagnostic pop</p>
+<pre><code>        dispatch_group_async(group, queue, ^{
+            block()<span class="comment">;</span>
+        })<span class="comment">;</span>
+
+        dispatch_group_notify(group, url_request_operation_completion_queue(), ^{
+            [strongSelf setCompletionBlock:nil]<span class="comment">;</span>
+        })<span class="comment">;</span>
+    }]<span class="comment">;</span>
+}
+[self.lock unlock]<span class="comment">;</span>
+</code></pre><p>}<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">1.</span> 成员变量的对外接口都加了<span class="built_in">NSRecursiveLock</span>递归锁</span><br><span class="line"><span class="number">2.</span> __<span class="keyword">weak</span> __<span class="keyword">typeof</span>(<span class="keyword">self</span>)weakSelf = <span class="keyword">self</span>;防止循环引用__<span class="keyword">strong</span> __<span class="keyword">typeof</span>(weakSelf)strongSelf = weakSelf;强引用防止被释放后出错</span><br><span class="line"><span class="number">3.</span> dispatch_group_t group = strongSelf<span class="variable">.completionGroup</span> ?: url_request_operation_completion_group();单例生成，完成时候，在group和main线程里面执行，执行完后回收</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">######使用batchOfRequest访问多组网络请求</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>(NSArray <em>)batchOfRequestOperations:(NSArray </em>)operations<pre><code>  progressBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NSUInteger</span> numberOfFinishedOperations, <span class="built_in">NSUInteger</span> totalNumberOfOperations))progressBlock
+completionBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NSArray</span> *operations))completionBlock
+</code></pre>```</li>
+</ul>
+<h6 id="使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求">使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求</h6>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-看看SDWebImage源码" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -256,6 +442,83 @@
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[UIImage <span class="string">animatedImageWithImages:</span>images <span class="string">duration:</span>duration];</span><br></pre></td></tr></table></figure>
 <h6 id="UIImage+MultiFormat">UIImage+MultiFormat</h6><p>图片的处理：方向</p>
 <h2 id="注意">注意</h2><p>最后提及 SDWebImage里面的队列有一个maxConcurrentOperationCount，默认设置为6个，那么也就最大会有同时六个线程进行下载操作，如果为1，则相当于是先入先出的概念。<br>这个和异步并行操作和异步串行操作有关。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-iOS中关键字" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/29/iOS中关键字/" class="article-date">
+  	<time datetime="2015-09-29T05:22:14.000Z" itemprop="datePublished">2015-09-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/29/iOS中关键字/">iOS中关键字</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###iOS 关键字区别</p>
+<ul>
+<li>retain copy</li>
+</ul>
+<p>这两个关键字是针对对象可变不可变的才会有影响。如果是可变对象，使用retain，只会计数器加一，使用copy，会开辟新的内存地址。如果不可变，那么一样。</p>
+<p>在我们自定义对象需要使用copy的时候，需要考虑可变不可变：(继承<nscopying,nsmutablecopying>)</nscopying,nsmutablecopying></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (id)copyWithZone:(NSZone *)zone&#123;</span><br><span class="line">    Demo1 *demo = [[Demo1 <span class="class"><span class="keyword">class</span>]<span class="title">allocWithZone</span>:<span class="typename">zone];</span></span></span><br><span class="line">    demo.str = [_str copy];</span><br><span class="line">    <span class="keyword">return</span> demo;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)mutableCopyWithZone:(NSZone *)zone&#123;</span><br><span class="line">    Demo1 *demo = [[Demo1 <span class="class"><span class="keyword">class</span>] <span class="title">allocWithZone</span>:<span class="typename">zone];</span></span></span><br><span class="line">    demo.str = [_str copy];</span><br><span class="line">    <span class="keyword">return</span> demo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableString</span> *mustr = [<span class="built_in">NSMutableString</span> stringWithFormat:<span class="string">@"123"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变mustr point == %p"</span>,mustr);</span><br><span class="line"><span class="keyword">self</span><span class="variable">.sStr</span> = mustr;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变retain  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="keyword">self</span><span class="variable">.cStr</span> = mustr;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变copy  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br><span class="line"></span><br><span class="line">[mustr appendString:<span class="string">@"12"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变mustr == %@"</span>,mustr);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变retain  str == %@"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变copy  str == %@"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"1234"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变str  str point == %p"</span>,str);</span><br><span class="line"><span class="keyword">self</span><span class="variable">.sStr</span> = str;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变retain  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="keyword">self</span><span class="variable">.cStr</span> = str;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变copy  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br></pre></td></tr></table></figure>
+<p>返回值：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.130</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变mustr point == <span class="number">0x7fc1e270f790</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.130</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变retain  str point == <span class="number">0x7fc1e270f790</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变copy  str point == <span class="number">0xa000000003332313</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变mustr == <span class="number">12312</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变retain  str == <span class="number">12312</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变copy  str == <span class="number">123</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变str  str point == <span class="number">0xa000000343332314</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变retain  str point == <span class="number">0xa000000343332314</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变copy  str point == <span class="number">0xa000000343332314</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>retain strong </li>
+</ul>
+<p>没什么不同，都是修饰强引用</p>
+<ul>
+<li>assign weak</li>
+</ul>
+<p>都可用于修饰弱引用，assign可用于c的基本数据类型(int float ..)<br>weak和assgin,在引用对象被释放后，weak修饰的会被置为nil，向nil对象发送调用不会导致野指针错误</p>
+<ul>
+<li>nonatomic atomic</li>
+</ul>
+<p>原子性，控制在多线程下对象是否线程安全</p>
+<ul>
+<li>readonly readwrite ..</li>
+</ul>
+<p>对外读写权限控制</p>
 
       
     </div>
