@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS自定义视频播放器 | 随笔</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用avplayer实现微博的视频播放效果使用：pod “CTVideoView”
+github地址:https://github.com/Mikora/CTVideoView.git
+实现tableviewcell里面置放一个微型视频播放器 由于AVPlayer继承于NSObject,所以不能直接放上CALayer，需要有一个AVPlayerLayer作为中间承载体，所以第一步我们做一个AVPl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS自定义视频播放器">
+<meta property="og:url" content="http://blog.huangcheng.com/2015/12/30/iOS自定义视频播放器/index.html">
+<meta property="og:site_name" content="随笔">
+<meta property="og:description" content="使用avplayer实现微博的视频播放效果使用：pod “CTVideoView”
+github地址:https://github.com/Mikora/CTVideoView.git
+实现tableviewcell里面置放一个微型视频播放器 由于AVPlayer继承于NSObject,所以不能直接放上CALayer，需要有一个AVPlayerLayer作为中间承载体，所以第一步我们做一个AVPl">
+<meta property="og:updated_time" content="2015-12-30T06:16:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS自定义视频播放器">
+<meta name="twitter:description" content="使用avplayer实现微博的视频播放效果使用：pod “CTVideoView”
+github地址:https://github.com/Mikora/CTVideoView.git
+实现tableviewcell里面置放一个微型视频播放器 由于AVPlayer继承于NSObject,所以不能直接放上CALayer，需要有一个AVPlayerLayer作为中间承载体，所以第一步我们做一个AVPl">
+  
+    <link rel="alternative" href="/atom.xml" title="随笔" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://raw.githubusercontent.com/Mikora/CCFilter/master/IMG_0733.JPG" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">黄 成</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Mikora" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/iOS/" style="font-size: 10px;">iOS</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">黄 成</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://raw.githubusercontent.com/Mikora/CCFilter/master/IMG_0733.JPG" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">黄 成</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Mikora" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-iOS自定义视频播放器" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/30/iOS自定义视频播放器/" class="article-date">
+  	<time datetime="2015-12-30T05:43:18.000Z" itemprop="datePublished">2015-12-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS自定义视频播放器
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用avplayer实现微博的视频播放效果">使用avplayer实现微博的视频播放效果</h2><p>使用：<br>pod “CTVideoView”</p>
+<p>github地址:<br><a href="https://github.com/Mikora/CTVideoView.git" target="_blank" rel="external">https://github.com/Mikora/CTVideoView.git</a></p>
+<h5 id="实现tableviewcell里面置放一个微型视频播放器">实现tableviewcell里面置放一个微型视频播放器</h5><p> 由于AVPlayer继承于NSObject,所以不能直接放上CALayer，需要有一个AVPlayerLayer作为中间承载体，所以第一步我们做一个AVPlayerLayer。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CTPlayerView</span> : <span class="title">UIView</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">AVPlayer</span> *player;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CTPlayerView</span></span></span><br><span class="line"></span><br><span class="line">+ (Class)layerClass &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">AVPlayerLayer</span> class];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">AVPlayer</span> *)player &#123;</span><br><span class="line">    <span class="keyword">return</span> [(<span class="built_in">AVPlayerLayer</span> *)[<span class="keyword">self</span> layer] player];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setPlayer:(<span class="built_in">AVPlayer</span> *)player &#123;</span><br><span class="line">    [(<span class="built_in">AVPlayerLayer</span> *)[<span class="keyword">self</span> layer] setPlayer:player];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好处：如果我们需要做暂停的时候放置一个播放按钮等后续操作方便</p>
+<p>第二步，做一个view，用来放置CTPlayerView，并在这个view里面处理逻辑。<br>传入参数：</p>
+<ol>
+<li>视频地址，</li>
+<li>是否播放声音(在列表的时候，取消声音)</li>
+<li>是否直接播放(列表中只有当前cell和在wifi下才自动播放，播放由外部控制)</li>
+</ol>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CTVideoView</span> : <span class="title">UIView</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) CTPlayerView *playView;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)packageWithUrl:(<span class="built_in">NSString</span> *)url hasSound:(<span class="built_in">BOOL</span>)hasSound play:(<span class="built_in">BOOL</span>)play;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CTVideoView</span></span></span><br><span class="line"> [<span class="keyword">self</span> addSubview:<span class="keyword">self</span><span class="variable">.playView</span>];<span class="comment">//加入到当前view</span></span><br><span class="line"> </span><br><span class="line">- (<span class="keyword">void</span>)packageWithUrl:(<span class="built_in">NSString</span> *)url hasSound:(<span class="built_in">BOOL</span>)hasSound play:(<span class="built_in">BOOL</span>)play&#123;</span><br><span class="line">    <span class="built_in">NSURL</span> *videoUrl = [<span class="built_in">NSURL</span> URLWithString:url];</span><br><span class="line">    <span class="built_in">AVPlayerItem</span> *playerItem = [<span class="built_in">AVPlayerItem</span> playerItemWithURL:videoUrl];<span class="comment">//初始化一个playeritem</span></span><br><span class="line">    <span class="built_in">AVPlayerItem</span> *beforeItem = [<span class="keyword">self</span><span class="variable">.player</span> currentItem];</span><br><span class="line">    <span class="keyword">if</span> (beforeItem == <span class="literal">nil</span>) &#123;<span class="comment">//之所以这样判断，是cell复用的时候，需要处理</span></span><br><span class="line">        [playerItem addObserver:<span class="keyword">self</span> forKeyPath:kPlayerItemStatus options:<span class="built_in">NSKeyValueObservingOptionNew</span> context:<span class="literal">nil</span>];<span class="comment">// 监听status属性,加载完毕的时候，可以获取视频大小，frame</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//url不一致，重新加载</span></span><br><span class="line">        [beforeItem removeObserver:<span class="keyword">self</span> forKeyPath:kPlayerItemStatus];<span class="comment">//之前的item的kvo需要移除，不然会出错的</span></span><br><span class="line">        [playerItem addObserver:<span class="keyword">self</span> forKeyPath:kPlayerItemStatus options:<span class="built_in">NSKeyValueObservingOptionNew</span> context:<span class="literal">nil</span>];<span class="comment">// 监听status属性</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.player</span> = [<span class="built_in">AVPlayer</span> playerWithPlayerItem:playerItem];</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.playView</span><span class="variable">.player</span> = <span class="keyword">self</span><span class="variable">.player</span>;</span><br><span class="line">    <span class="keyword">if</span> (play) &#123;</span><br><span class="line">        [<span class="keyword">self</span><span class="variable">.player</span> play];</span><br><span class="line">        [<span class="keyword">self</span><span class="variable">.playView</span> packagePlayImageHide:<span class="literal">YES</span>];<span class="comment">//这是不显示播放按钮在中间</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (hasSound) &#123;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.player</span><span class="variable">.muted</span> = <span class="literal">NO</span>;<span class="comment">//不静音</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.player</span><span class="variable">.muted</span> = <span class="literal">YES</span>;<span class="comment">//静音</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>kvo监听status，实现kvo：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *,<span class="keyword">id</span>&gt; *)change context:(<span class="keyword">void</span> *)context&#123;</span><br><span class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:kPlayerItemStatus]) &#123;</span><br><span class="line">        <span class="built_in">AVPlayerItem</span> *playerItem = (<span class="built_in">AVPlayerItem</span>*)object;</span><br><span class="line">        <span class="keyword">if</span> (playerItem<span class="variable">.status</span> == <span class="built_in">AVPlayerItemStatusReadyToPlay</span>) &#123;</span><br><span class="line">            <span class="comment">/*</span><br><span class="line">             设置视频frame，获取时长等</span><br><span class="line">             */</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.playView</span><span class="variable">.frame</span> = [<span class="keyword">self</span><span class="variable">.playView</span> frameWithPlayerItem:[<span class="keyword">self</span><span class="variable">.playView</span><span class="variable">.player</span> currentItem] withFrame:<span class="keyword">self</span><span class="variable">.bounds</span>];<span class="comment">//这个是我对view和playerItem.presentationSize的大小做变换</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后把view加到cell上就OK了。</p>
+<h4 id="实现点击后到播放器，需要进度条，声音调节等">实现点击后到播放器，需要进度条，声音调节等</h4><p>第一步：需要把点击的avplayer传入到下一个复杂播放器，把view真对window的位置计算出来，然后有一个放大的动画</p>
+<p>第二步：监听playeritem的status和loadedTimeRanges,分别是状态和缓存。添加一个monitor，监听每秒的操作，在释放的时候需要同时释放</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *,<span class="keyword">id</span>&gt; *)change context:(<span class="keyword">void</span> *)context&#123;</span><br><span class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:kPlayerItemStatus]) &#123;</span><br><span class="line">        <span class="built_in">AVPlayerItem</span> *playerItem = (<span class="built_in">AVPlayerItem</span>*)object;</span><br><span class="line">        <span class="keyword">if</span> (playerItem<span class="variable">.status</span> == <span class="built_in">AVPlayerItemStatusReadyToPlay</span>) &#123;</span><br><span class="line">            <span class="comment">/*</span><br><span class="line">             设置视频frame，获取时长等</span><br><span class="line">             */</span></span><br><span class="line">            [<span class="keyword">self</span> readyToPlay];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> ([keyPath isEqualToString:kPlayerItemLoadedTime])&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSArray</span> *array = [<span class="keyword">self</span><span class="variable">.player</span><span class="variable">.currentItem</span> loadedTimeRanges];</span><br><span class="line">        CMTimeRange range = [array<span class="variable">.firstObject</span> CMTimeRangeValue];<span class="comment">//从哪儿开始的</span></span><br><span class="line">        <span class="built_in">CGFloat</span> start = CMTimeGetSeconds(range<span class="variable">.start</span>);<span class="comment">//缓存了多少</span></span><br><span class="line">        <span class="built_in">CGFloat</span> duration = CMTimeGetSeconds(range<span class="variable">.duration</span>);<span class="comment">//一共缓存了多少</span></span><br><span class="line">        <span class="built_in">CGFloat</span> allCache = start+duration;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.cacheTime</span> = allCache;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.playbackTimeObserver</span> = [<span class="keyword">self</span><span class="variable">.playView</span><span class="variable">.player</span> addPeriodicTimeObserverForInterval:CMTimeMake(<span class="number">1</span>, <span class="number">1</span>) queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>) usingBlock:^(CMTime time) &#123;</span><br><span class="line">        <span class="built_in">AVPlayerItem</span> *beforeItem = [weakSelf<span class="variable">.player</span> currentItem];</span><br><span class="line">        <span class="built_in">CGFloat</span> currentSecond = beforeItem<span class="variable">.currentTime</span><span class="variable">.value</span>/beforeItem<span class="variable">.currentTime</span><span class="variable">.timescale</span>;<span class="comment">//当前时间，秒</span></span><br><span class="line">        weakSelf<span class="variable">.currentTime</span> = currentSecond;<span class="comment">//当前时间，秒</span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            [weakSelf<span class="variable">.controlView</span> packageNowTime:currentSecond maxTime:weakSelf<span class="variable">.totalTime</span> available:weakSelf<span class="variable">.cacheTime</span>];</span><br><span class="line">        &#125;);<span class="comment">//需要回到主线程进行界面更新</span></span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//释放所有kvo</span></span><br><span class="line">    <span class="attr_selector">[self.playView.player removeTimeObserver:self.playbackTimeObserver]</span>;</span><br><span class="line">    <span class="attr_selector">[[self.playView.player currentItem]</span> <span class="tag">removeObserver</span><span class="pseudo">:self</span> <span class="tag">forKeyPath</span><span class="pseudo">:kPlayerItemStatus</span>];</span><br><span class="line">    <span class="attr_selector">[[self.playView.player currentItem]</span> <span class="tag">removeObserver</span><span class="pseudo">:self</span> <span class="tag">forKeyPath</span><span class="pseudo">:kPlayerItemLoadedTime</span>];</span><br></pre></td></tr></table></figure>
+<p>进度控制：</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">[<span class="keyword">self.playView.player</span> seekToTime:CMTimeMake<span class="list">(<span class="keyword">value</span>, <span class="number">1</span>)</span> toleranceBefore:CMTimeMake<span class="list">(<span class="keyword">1</span>, <span class="number">1</span>)</span> toleranceAfter:CMTimeMake<span class="list">(<span class="keyword">1</span>, <span class="number">1</span>)</span>]<span class="comment">;</span></span></span><br></pre></td></tr></table></figure>
+<p>声音控制：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">MPVolumeView</span> *slide = [[<span class="type">MPVolumeView</span> alloc]init];</span><br><span class="line"><span class="type">UISlider</span> *volumeView;</span><br><span class="line"><span class="type">float</span> val = <span class="number">0</span>.<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">UIView</span> *view <span class="keyword">in</span> [slide subviews] ) &#123;</span><br><span class="line">    <span class="keyword">if</span> ([[[view class] description] isEqualToString:@<span class="string">"MPVolumeSlider"</span>]) &#123;</span><br><span class="line">        volumeView = (<span class="type">UISlider</span>*)view;</span><br><span class="line">        [self.volumeSlider setValue:<span class="literal">result</span> animated:<span class="type">YES</span>];//<span class="literal">result</span>为音量大小</span><br><span class="line">        [self.volumeSlider sendActionsForControlEvents:<span class="type">UIControlEventTouchUpInside</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>亮度调节</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="type">UIScreen</span> mainScreen] setBrightness:<span class="literal">result</span>];</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/23/iOS自定义相机和简单马赛克/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS自定义相机和简单马赛克</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="iOS自定义视频播放器" data-title="iOS自定义视频播放器" data-url="http://blog.huangcheng.com/2015/12/30/iOS自定义视频播放器/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"e53801293b4838a0700cb899db615f4a"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 黄 成
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
