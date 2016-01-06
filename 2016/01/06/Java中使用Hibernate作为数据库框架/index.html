@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java中使用Hibernate作为数据库框架 | 随笔</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Java Web中使用hibernate作为对象关系映射框架我这里使用mysql作为数据库
+#####准备工作：
+1.下载hibernate jar文件 http://7xpas5.com1.z0.glb.clouddn.com/hibernate.zip
+2.下载mysql连接 jar文件 http://7xpas5.com1.z0.glb.clouddn.com/mysql.zip
+3.配置好">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中使用Hibernate作为数据库框架">
+<meta property="og:url" content="http://blog.huangcheng.com/2016/01/06/Java中使用Hibernate作为数据库框架/index.html">
+<meta property="og:site_name" content="随笔">
+<meta property="og:description" content="Java Web中使用hibernate作为对象关系映射框架我这里使用mysql作为数据库
+#####准备工作：
+1.下载hibernate jar文件 http://7xpas5.com1.z0.glb.clouddn.com/hibernate.zip
+2.下载mysql连接 jar文件 http://7xpas5.com1.z0.glb.clouddn.com/mysql.zip
+3.配置好">
+<meta property="og:updated_time" content="2016-01-06T06:51:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java中使用Hibernate作为数据库框架">
+<meta name="twitter:description" content="Java Web中使用hibernate作为对象关系映射框架我这里使用mysql作为数据库
+#####准备工作：
+1.下载hibernate jar文件 http://7xpas5.com1.z0.glb.clouddn.com/hibernate.zip
+2.下载mysql连接 jar文件 http://7xpas5.com1.z0.glb.clouddn.com/mysql.zip
+3.配置好">
+  
+    <link rel="alternative" href="/atom.xml" title="随笔" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://raw.githubusercontent.com/Mikora/CCFilter/master/IMG_0733.JPG" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">黄 成</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Mikora" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS-github/" style="font-size: 20px;">iOS github</a> <a href="/tags/iOS-源码解读/" style="font-size: 20px;">iOS 源码解读</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">黄 成</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://raw.githubusercontent.com/Mikora/CCFilter/master/IMG_0733.JPG" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">黄 成</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Mikora" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Java中使用Hibernate作为数据库框架" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/06/Java中使用Hibernate作为数据库框架/" class="article-date">
+  	<time datetime="2016-01-06T06:50:26.000Z" itemprop="datePublished">2016-01-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java中使用Hibernate作为数据库框架
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="Java_Web中使用hibernate作为对象关系映射框架">Java Web中使用hibernate作为对象关系映射框架</h4><p>我这里使用mysql作为数据库</p>
+<p>#####准备工作：</p>
+<p>1.下载hibernate jar文件 <a href="http://7xpas5.com1.z0.glb.clouddn.com/hibernate.zip" target="_blank" rel="external">http://7xpas5.com1.z0.glb.clouddn.com/hibernate.zip</a></p>
+<p>2.下载mysql连接 jar文件 <a href="http://7xpas5.com1.z0.glb.clouddn.com/mysql.zip" target="_blank" rel="external">http://7xpas5.com1.z0.glb.clouddn.com/mysql.zip</a></p>
+<p>3.配置好mysql的权限</p>
+<p>你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称”%” </p>
+<p>$mysql -u root -p<strong>*</strong></p>
+<p>mysql&gt;update user set host = ‘%’ where user = ‘root’; </p>
+<p>mysql&gt;select host, user from user; </p>
+<p>4.配置好mysql的字符集//不需要全部设置</p>
+<p>进入mysql</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_client = utf8 <span class="comment">;  </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_connection = utf8 <span class="comment">;   </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_database = utf8 <span class="comment">;   </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_results = utf8 <span class="comment">;    </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_server = utf8 <span class="comment">;   </span></span><br><span class="line"> </span><br><span class="line">mysql&gt; <span class="keyword">SET</span> collation_connection = utf8 <span class="comment">;  </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> collation_database = utf8 <span class="comment">;   </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> collation_server = utf8 <span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>5.新建工程导入jar</p>
+<h5 id="编写配置文件">编写配置文件</h5><p>1.servlet配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">servlet</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">servlet-name</span>&gt;</span>login<span class="tag">&lt;/<span class="title">servlet-name</span>&gt;</span> <span class="comment">&lt;!-- 名字 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">servlet-class</span>&gt;</span>com.cc.service.servlet.Login<span class="tag">&lt;/<span class="title">servlet-class</span>&gt;</span> <span class="comment">&lt;!-- 路径 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">servlet-mapping</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">servlet-name</span>&gt;</span>login<span class="tag">&lt;/<span class="title">servlet-name</span>&gt;</span> <span class="comment">&lt;!-- 与名字对应 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">url-pattern</span>&gt;</span>/api/v1/login<span class="tag">&lt;/<span class="title">url-pattern</span>&gt;</span> <span class="comment">&lt;!-- 访问的url --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.hibernate配置文件</p>
+<p>新建hibernate.cfg.xml，加入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">hibernate-configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">session-factory</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.dialect"</span>&gt;</span></span><br><span class="line">			org.hibernate.dialect.MySQLDialect</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.driver_class"</span>&gt;</span></span><br><span class="line">			com.mysql.jdbc.Driver</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- 这里是数据库位置和名字 --&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 这里之前是jdbc:mysql://121.43.227.35:3306/test，但是为了设置字符集于是如下 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.url"</span>&gt;</span></span><br><span class="line">			<span class="cdata">&lt;![CDATA[jdbc:mysql://121.43.227.35:3306/test?useUnicode=true&amp;characterEncoding=utf8]]&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.username"</span>&gt;</span><span class="comment">&lt;!-- 数据库登录名字 --&gt;</span></span><br><span class="line">			root</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.password"</span>&gt;</span><span class="comment">&lt;!-- 数据库登录密码 --&gt;</span></span><br><span class="line">			Hc020436</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 这里配置所有.hbm.xml --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">mapping</span> <span class="attribute">resource</span>=<span class="value">"xxx.hbm.xml"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;/<span class="title">session-factory</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">hibernate-configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.表和model映射配置文件</p>
+<p>新建xxx.hbm.xml，这里是最普通的表映射model。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">hibernate-mapping</span> <span class="attribute">package</span>=<span class="value">"com.cc.service.dao"</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="title">class</span> <span class="attribute">name</span>=<span class="value">"User"</span> <span class="attribute">table</span>=<span class="value">"user"</span>&gt;</span><span class="comment">&lt;!-- model - 表 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">meta</span> <span class="attribute">attribute</span>=<span class="value">"class-description"</span>&gt;</span></span><br><span class="line">			This class contains the User detail.</span><br><span class="line">		<span class="tag">&lt;/<span class="title">meta</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">id</span> <span class="attribute">name</span>=<span class="value">"userid"</span> <span class="attribute">type</span>=<span class="value">"int"</span> <span class="attribute">column</span>=<span class="value">"id"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">generator</span> <span class="attribute">class</span>=<span class="value">"native"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">id</span>&gt;</span><span class="comment">&lt;!-- 字段 - 列 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"phone"</span> <span class="attribute">column</span>=<span class="value">"phone"</span> <span class="attribute">type</span>=<span class="value">"string"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"email"</span> <span class="attribute">column</span>=<span class="value">"email"</span> <span class="attribute">type</span>=<span class="value">"string"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">column</span>=<span class="value">"password"</span> <span class="attribute">type</span>=<span class="value">"string"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">hibernate-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>hibernate关联映射：</p>
+<p>1.一对一关联单向映射</p>
+<p>如user用户表和userinfo用户详细信息表</p>
+<p>在.hbm.xml里面的user里面添加：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">User:用户表对应的model</span><br><span class="line"></span><br><span class="line">	private UserInfo userinfo;</span><br><span class="line">	</span><br><span class="line">UserInfo:用户详细信息的model</span><br><span class="line"></span><br><span class="line">.hbm.xml里面添加映射</span><br><span class="line"></span><br><span class="line">&lt;<span class="type">class</span> <span class="property">name</span>=<span class="string">"User"</span> table=<span class="string">"user"</span>&gt;</span><br><span class="line">		&lt;<span class="property">id</span> <span class="property">name</span>=<span class="string">"userid"</span> type=<span class="string">"int"</span> column=<span class="string">"id"</span>&gt;</span><br><span class="line">			&lt;generator <span class="type">class</span>=<span class="string">"native"</span> /&gt;</span><br><span class="line">		&lt;/<span class="property">id</span>&gt;</span><br><span class="line">		&lt;one-<span class="keyword">to</span>-one <span class="property">name</span>=<span class="string">"userinfo"</span>/&gt;</span><br><span class="line">&lt;/<span class="type">class</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>注：一对一的关系为主键映射，所以不会有其他字段来维护他们的关系。所以一般都用多对一的关系来代替，并设置unique为true，限制多的一段的多重性为一</p>
+<p>2.多对一关联单向映射</p>
+<p>many-to-one：再多的一段加入一个外键，指向一的主键</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UserInfo :用户详细信息的model</span><br><span class="line">Trend:用户动态的model</span><br><span class="line">在trend里面添加一个到UserInfo的映射</span><br><span class="line">&lt;many-<span class="built_in">to</span>-<span class="constant">one</span> name=<span class="string">"user"</span> column=<span class="string">"userid"</span> insert=<span class="string">"false"</span> update=<span class="string">"false"</span> <span class="operator">not</span>-<span class="constant">null</span>=<span class="string">"true"</span>/&gt;</span><br></pre></td></tr></table></figure>
+<p>3.一对多关联单向映射</p>
+<p>set：在多的一段加入一个外键，指向一的主键</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Trend:用户动态的model</span><br><span class="line">TrendComment:动态评论的model</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"trendComment"</span> cascade=<span class="string">"all"</span>&gt;</span><br><span class="line">         	&lt;key column=<span class="string">"trendid"</span>/&gt;</span><br><span class="line">         	&lt;one-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"Comment"</span>/&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>4.单向多对多映射</p>
+<p>set：需要一张中间表</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">获取朋友</span><br><span class="line">Friend:朋友关系表</span><br><span class="line">UserInfo:用户信息表</span><br><span class="line"><span class="tag">&lt;<span class="title">set</span> <span class="attribute">name</span>=<span class="value">"friend"</span> <span class="attribute">table</span>=<span class="value">"Friend"</span>&gt;</span>   <span class="comment">&lt;!-- 中间表 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="title">key</span> <span class="attribute">column</span>=<span class="value">"userid"</span>/&gt;</span>   <span class="comment">&lt;!-- 中间表对应表的字段 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="title">many-to-many</span> <span class="attribute">class</span>=<span class="value">"UserInfo"</span> <span class="attribute">column</span>=<span class="value">"touserid"</span>/&gt;</span>  <span class="comment">&lt;!-- 中间表对应关联表的字段 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">set</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>5.双向一对一关联</p>
+<p>one-to-one </p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在用户表和用户详细信息表里面一对一双向关联</span><br><span class="line">用户表</span><br><span class="line">&lt;one-to-one name=<span class="string">"userInfo"</span>&gt;</span><br><span class="line">用户详细信息表</span><br><span class="line">&lt;one-to-one name=<span class="string">"user"</span> property-<span class="keyword">ref</span>=<span class="string">"userInfo"</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>6.双向一对多关联</p>
+<p>one-to-many</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">场景：一个人拥有多本书，一本书只属于一个人</span><br><span class="line">人：</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"book"</span> inverse=<span class="string">"true"</span>&gt;</span><br><span class="line">	&lt;key column=<span class="string">"bookid"</span>&gt;</span><br><span class="line">	&lt;one-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"Book"</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br><span class="line">书：</span><br><span class="line">&lt;many-<span class="keyword">to</span>-one <span class="property">name</span>=<span class="string">"user"</span> column=<span class="string">"userid"</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>7.双向多对多关联</p>
+<p>many-to-many</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">场景一个人有多种角色，角色又多个人</span><br><span class="line">角色端</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"user"</span> table=<span class="string">"userrole"</span>&gt;</span><br><span class="line"> 	&lt;key column=<span class="string">"roleid"</span>&gt;</span><br><span class="line"> 	&lt;many-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"User"</span> column=<span class="string">"userid"</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br><span class="line">用户端</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"role"</span> table=<span class="string">"userrole"</span>&gt;</span><br><span class="line"> 	&lt;key column=<span class="string">"userid"</span>&gt;</span><br><span class="line"> 	&lt;many-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"Role"</span> column=<span class="string">"roleid"</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>注：有时候需要禁止循环引用检测</p>
+<p>String str = JSON.toJSONString(result,SerializerFeature.DisableCircularReferenceDetect);</p>
+<table>
+<thead>
+<tr>
+<th>引用</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“$ref”:”..”</td>
+<td>上一级</td>
+</tr>
+<tr>
+<td>“$ref”:”@”</td>
+<td>当前对象，也就是自引用</td>
+</tr>
+<tr>
+<td>“$ref”:”$”</td>
+<td>根对象</td>
+</tr>
+<tr>
+<td>“$ref”:”$.children.0”</td>
+<td>基于路径的引用，相当于 root.getChildren().get(0)</td>
+</tr>
+</tbody>
+</table>
+<h5 id="写在最后">写在最后</h5><p>用hibernate的时候，有一些场景，我碰到了没解决。后续解决了补上</p>
+<p>1.用户和用户信息表的model合并：比如用户名字存在用户信息表，我在查找用户的时候，希望映射出来的model带着用户名字</p>
+<p>2.多表联合查询：动态表，动态评论表，朋友表。查询动态列表的时候，一对多的查询评论表，评论列表需要是朋友id筛选。</p>
+<p>写这个纯粹是为了总结和记录。如果有误导，望纠正。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/30/iOS自定义视频播放器/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS自定义视频播放器</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Java中使用Hibernate作为数据库框架" data-title="Java中使用Hibernate作为数据库框架" data-url="http://blog.huangcheng.com/2016/01/06/Java中使用Hibernate作为数据库框架/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"e53801293b4838a0700cb899db615f4a"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 黄 成
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
