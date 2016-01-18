@@ -99,12 +99,6 @@
 							
 								<a class="github" target="_blank" href="https://github.com/Mikora" title="github">github</a>
 					        
-								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
-					        
-								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
-					        
-								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
-					        
 						</div>
 					</nav>
 				</section>
@@ -112,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS-github/" style="font-size: 20px;">iOS github</a> <a href="/tags/iOS-源码解读/" style="font-size: 20px;">iOS 源码解读</a>
+						<a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS-github/" style="font-size: 15px;">iOS github</a> <a href="/tags/iOS-源码解读/" style="font-size: 15px;">iOS 源码解读</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a>
 					</div>
 				</section>
 				
@@ -121,17 +115,11 @@
 				<section class="switch-part switch-part3">
 					<div id="js-friends">
 					
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.startry.com">Startry的博客</a>
 			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://casatwy.com">casatwy的博客</a>
 			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
-			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
-			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
-			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/Mikora">我的github</a>
 			        
 			        </div>
 				</section>
@@ -141,7 +129,7 @@
 				
 				<section class="switch-part switch-part4">
 				
-					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+					<div id="js-aboutme">记录，目前做iOS</div>
 				</section>
 				
 			</div>
@@ -179,18 +167,332 @@
 					
 						<a class="github" target="_blank" href="https://github.com/Mikora" title="github">github</a>
 			        
-						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
-			        
-						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
-			        
-						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
-			        
 				</div>
 			</nav>
 		</header>				
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-用协议模式打开对应controller" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/18/用协议模式打开对应controller/" class="article-date">
+  	<time datetime="2016-01-18T03:18:24.000Z" itemprop="datePublished">2016-01-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/18/用协议模式打开对应controller/">用协议模式打开对应Controller</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="用协议模式打开对应Controller">用协议模式打开对应Controller</h3><p>在开发iOS的时候，经常会遇到根据一个值为string的key去打开一个controller，然后陪着一些参数。例如远程通知，webview打开本地页面等等。或者两个子模块应用并行开发，需要在特定地方打开对方某个controller。</p>
+<p>打开某个controller，需要考虑的几点东西：</p>
+<ol>
+<li>如何得到指定的vc</li>
+<li>参数传递</li>
+<li>上级页面的操作，如：订单详情，返回上级页面为订单列表</li>
+</ol>
+<p>这里我给一个指定的url：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxxdemo://push/second/third?second[<span class="link_label">a</span>]=1&amp;second[<span class="link_label">b</span>]=2&amp;third[<span class="link_label">a</span>]=3&amp;third[<span class="link_label">b</span>]=4&amp;e=5&amp;f[<span class="link_label">a</span>][<span class="link_reference"></span>]=6&amp;f[<span class="link_label">a</span>][<span class="link_reference"></span>]=7&amp;second[<span class="link_label">c</span>][<span class="link_reference"></span>]=1&amp;second[<span class="link_label">c</span>][<span class="link_reference"></span>]=2</span><br></pre></td></tr></table></figure>
+<p>这里是标准的url格式，当我们在参数中需要添加一个url的时候，我们需要对url进行urlencode再放入(例：xxxdemo://open/third?url=www.baidu.com%3Ftoken%3D123%26a%3D3&amp;b=1)</p>
+<p>1.如何得到指定的vc</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用对应表</td>
+<td>简单易懂，而且性能比较好</td>
+<td>扩展性差，难维护</td>
+</tr>
+<tr>
+<td>使用类名对应</td>
+<td>简单，性能好，扩展好</td>
+<td>比较蠢，android和iOS不通用</td>
+</tr>
+<tr>
+<td>使用协议查询</td>
+<td>扩展性好，便于维护</td>
+<td>在查询过程会比其它方法消耗更多资源</td>
+</tr>
+</tbody>
+</table>
+<p>这里我们使用第三种，因为作为一个通用库，考虑的更多是其它项目通用性，可扩展性以及维护。</p>
+<p>在库中，我们会给出一个协议，当业务方在业务中实现这个协议，那么就相当于在我们的注册表中注册了，我们把对应的内容拿出来为映射的key值，然后存储在我们的沙盒里面。下一次，只需要根据版本号是否增加，去判断是否需要更新这个文件（当然在debug环境下，是都更新的）。</p>
+<p>在调用的时候，我们只需要去寻找这个key，然后根据value去找到这个class，最后把参数根据实现协议的另外一个方法传入，如此便可。</p>
+<p>使用url则是得到url里面的paths、pathComponents，如果用pathComponents，需要移除：”/“，然后根据paths去获取不同的value，可以对应多个viewcontroller。</p>
+<p>2.如何传递参数</p>
+<p>如果打开单个viewcontroller，那么在viewcontroller里面实现协议，然后把url的query传入即可，但是有些时候，我们会遇到一次打开多个页面的情况。</p>
+<p>首先，在对url进行解析的时候，判断是否为多个paths，单个则直接把所有query传入，多个，则先根据query里面的key值找出对应那一个path的所有参数，然后传入</p>
+<p>3.上级页面的操作，如：订单详情，返回上级页面为订单列表</p>
+<p>这个问题在1中已经解决。</p>
+<p>这里的demo我不放出来，如果需要思路可以直接找我 632300630@qq.com</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-NSUrl和NSUrlCompents" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/15/NSUrl和NSUrlCompents/" class="article-date">
+  	<time datetime="2016-01-15T07:30:57.000Z" itemprop="datePublished">2016-01-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/15/NSUrl和NSUrlCompents/">NSUrl和NSUrlCompents</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>写如下文章的场景：</p>
+<p>在项目中我需要对自定义的url进行解析，例如：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">example:</span><span class="comment">//push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;a=3</span></span><br></pre></td></tr></table></figure>
+<p>注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.</p>
+<p>普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比较麻烦，于是用到了NSUrlCompents，解析出来的queryItems为：</p>
+<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">"&lt;NSURLQueryItem 0x7fb9f1f3f790&gt; &#123;name = url, value = www.baidu.com?TOKEN=123&#125;"</span>,</span><br><span class="line"><span class="comment">"&lt;NSURLQueryItem 0x7fb9f1f3f7b0&gt; &#123;name = a, value = 3&#125;"</span></span><br></pre></td></tr></table></figure>
+<h3 id="NSUrl_:">NSUrl :</h3><p>Url：统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。</p>
+<p>1.url基础语法：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">scheme</span>&gt;</span> :// <span class="tag">&lt;<span class="title">username</span>&gt;</span> : <span class="tag">&lt;<span class="title">password</span>&gt;</span> @ <span class="tag">&lt;<span class="title">host</span> <span class="attribute">name</span>&gt;</span> : <span class="tag">&lt;<span class="title">port</span>&gt;</span> / <span class="tag">&lt;<span class="title">path</span>&gt;</span> / <span class="tag">&lt;<span class="title">extension</span>&gt;</span> ? <span class="tag">&lt;<span class="title">query</span>&gt;</span> # <span class="tag">&lt;<span class="title">fragment</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.示例： xxx://username:password@host.com/path/extension.html?query=1#nose</p>
+<p>3.通常我们使用url的时候为： xxx://host/path/extension.xml?query=1</p>
+<p>在iOS中，foundation库提供了NSUrl代表URL.</p>
+<p>使用方法不介绍了。</p>
+<h3 id="NSUrlCompents">NSUrlCompents</h3><p>在iOS7中加入了NSUrlCompents，可以完美替代NSMutableUrl.<br>其中提供如下property用于修改</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scheme</span><br><span class="line"><span class="keyword">user</span></span><br><span class="line">password</span><br><span class="line">host</span><br><span class="line"><span class="keyword">port</span></span><br><span class="line">path</span><br><span class="line">query</span><br><span class="line"><span class="keyword">fragment</span></span><br></pre></td></tr></table></figure>
+<p>还提供了readwrite属性对每个compent进行[percent-encoded]</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">percentEncodedUser</span></span><br><span class="line">percentEncodedPassword</span><br><span class="line">percentEncodedHost</span><br><span class="line">percentEncodedPath</span><br><span class="line">percentEncodedQuery</span><br><span class="line">percentEncodedFragment</span><br></pre></td></tr></table></figure>
+<p>如果需要对url进行比较深入的解析的时候，使用NSUrlCompents十分方便</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-Base64编码" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/15/Base64编码/" class="article-date">
+  	<time datetime="2016-01-15T02:20:35.000Z" itemprop="datePublished">2016-01-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/15/Base64编码/">Base64编码</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Base64编码">Base64编码</h3><p>base64是一种很常见的编码，常用于URL、Cookie、网页中传输少量二进制数据</p>
+<ol>
+<li><p>编码方式：</p>
+<p> 准备一个包含64个字符的数组：</p>
+<p> [‘A’,’B’,’C’,…,’a’,’b’,’c’,…,’0’,’1’,’2’,…,’+’,’/‘]</p>
+<p> 把需要转码的字符串进行二进制处理，每三个字符一组，一共3*8=24位，划分为4组，每组6个，然后根据每组的数字作为索引，查找准备好的64个字符的数组中对应的字符。</p>
+<p> 如果多出一个或者两个字符，那么就在字符后面加\x00,在完成的字符后面加一个或者两个＝号表示补了几个字节。</p>
+</li>
+<li><p>示例：</p>
+<p> 字符 bin ：二进制为 62696e =&gt; 01100010 01101001 01101110</p>
+<p> 分为四组： 011000  100110 100101 101110 =&gt; 第24个字符，第38个字符，第37个字符，第46个字符</p>
+<p> 结果为：Ymlu</p>
+</li>
+</ol>
+<ol>
+<li><p>当作为url使用的时候，不能出现’+’,’/‘.所以通常把这两个字符换成’-‘,’_’</p>
+</li>
+<li><p>结果里面也不能出现’=’，都是3个字符结果4个字符，那么在结果里面解码时重新加上即可。</p>
+</li>
+</ol>
+<h3 id="MD5_DES_Feistel加密">MD5 DES Feistel加密</h3>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-使用AssetsLibrary做自定义相册选择器" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/08/使用AssetsLibrary做自定义相册选择器/" class="article-date">
+  	<time datetime="2016-01-08T07:58:26.000Z" itemprop="datePublished">2016-01-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/08/使用AssetsLibrary做自定义相册选择器/">使用AssetsLibrary做自定义相册选择器</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用AssetsLibrary做自定义相册选择器">使用AssetsLibrary做自定义相册选择器</h2><h6 id="场景：">场景：</h6><p>在许多时候，系统自带的图片选择器不能满足我们的需求，例如一次选择多张图片，在选择图片的时候有图片选择的提示，以及图片的数量限制，甚至选择图片后续的图片编辑。</p>
+<p>目前有两种自定义的相册图片选择的方式：AssetsLibrary和photokit。</p>
+<p>photokit只能用于iOS8以上的版本，在photokit里面可以使用iOS9出来的live picture。在性能和过滤上优于AssetsLibrary。<br>AssetsLibrary比较常规，能满足遇到的大部分需求。</p>
+<p>这里为第一篇，主要讲AssetsLibrary自定义选择。下篇为photokit以及混合使用，做iOS版本控制上区分。</p>
+<p>这里我放出我做的一个选择器：<br><a href="https://github.com/Mikora/CTImagePicker" target="_blank" rel="external">github</a></p>
+<h6 id="流程">流程</h6><ol>
+<li>创建一个navigationcontroller,把相册列表(2)和全部照片列表(3里面url为第一个相册的url)两个viewcontroller塞进去。</li>
+<li>创建相册列表，获取所有数量不为零的ALAssetsGroup，取出第一张缩略图和名字放进去</li>
+<li>创建照片列表，把ALAssetsGroup的url初始化进去，根据url获取ALAssetsGroup，然后根据ALAssetsGroup获取所有group下的ALAsset，展示出来</li>
+</ol>
+<h6 id="实现">实现</h6><p>在navigationcontroller里面先把第一个相册找出来：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsLibrary *library = [[ALAssetsLibrary alloc]init];</span><br><span class="line">[library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    <span class="keyword">if</span> (group == <span class="literal">nil</span> &amp;&amp; *stop == <span class="literal">NO</span>) &#123;</span><br><span class="line">        [<span class="keyword">self</span> showAlbumList];<span class="comment">//一个都没有直接跳到列表</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (*stop == <span class="literal">YES</span>) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        *stop = <span class="literal">YES</span>;</span><br><span class="line">        <span class="built_in">NSURL</span> *assetsUrl = [group valueForProperty:ALAssetsGroupPropertyURL];<span class="comment">//获取第一个相册url,默认第一个为所有照片</span></span><br><span class="line">        CTImageAlbumViewController *albumVC = [[CTImageAlbumViewController alloc]init];<span class="comment">//相册列表</span></span><br><span class="line">        <span class="keyword">if</span> (assetsUrl) &#123;</span><br><span class="line">            CTImageCollectionViewController *collectionVC = [[CTImageCollectionViewController alloc]initWithAssetsGroupUrl:assetsUrl];<span class="comment">//所有照片列表</span></span><br><span class="line">            [<span class="keyword">self</span> setViewControllers:@[albumVC,collectionVC]];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            [<span class="keyword">self</span> setViewControllers:@[albumVC]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; failureBlock:^(<span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">    </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>上面初始化CTImageAlbumViewController,在里面先找出所有数量不为零的相册，添加到cell里面</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.assetsLibrary</span> = [[ALAssetsLibrary alloc]init];</span><br><span class="line">type = @(ALAssetsGroupAll);<span class="comment">//视频和照片都一起</span></span><br><span class="line">[<span class="keyword">self</span><span class="variable">.assetsLibrary</span> enumerateGroupsWithTypes:[type unsignedIntegerValue] usingBlock:^(ALAssetsGroup *group, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">            __<span class="keyword">strong</span> <span class="keyword">typeof</span>(weakSelf) weakSelf = weakSelf;</span><br><span class="line">            <span class="keyword">if</span> (group) &#123;</span><br><span class="line">                <span class="keyword">if</span> (group<span class="variable">.numberOfAssets</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    [assetsGroups addObject:group];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                numberOfFinishedType++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (numberOfFinishedType == array<span class="variable">.count</span>) &#123;<span class="comment">//当numberOfFinishedType为1的时候便结束并且拍戏</span></span><br><span class="line">                <span class="built_in">NSArray</span> *sortAssetsGroup = [assetsGroups sortedArrayUsingComparator:^<span class="built_in">NSComparisonResult</span>(<span class="keyword">id</span>  _Nonnull obj1, <span class="keyword">id</span>  _Nonnull obj2) &#123;</span><br><span class="line">                    ALAssetsGroup *a = obj1;</span><br><span class="line">                    ALAssetsGroup *b = obj2;</span><br><span class="line">                    <span class="built_in">NSNumber</span> *apropertyType = [a valueForProperty:ALAssetsGroupPropertyType];</span><br><span class="line">                    <span class="built_in">NSNumber</span> *bpropertyType = [b valueForProperty:ALAssetsGroupPropertyType];</span><br><span class="line">                    <span class="keyword">if</span> ([apropertyType compare:bpropertyType] == <span class="built_in">NSOrderedAscending</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="built_in">NSOrderedDescending</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span> <span class="built_in">NSOrderedSame</span>;</span><br><span class="line">                &#125;];</span><br><span class="line">                <span class="keyword">self</span><span class="variable">.groupArray</span> = [<span class="built_in">NSMutableArray</span> arrayWithArray: sortAssetsGroup];</span><br><span class="line">                [<span class="keyword">self</span><span class="variable">.tableview</span> reloadData];</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125; failureBlock:^(<span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"获取相册失败"</span>);</span><br><span class="line">        &#125;];</span><br></pre></td></tr></table></figure>
+<p>这里的数据都放入了assetsGroups，在tableview里面使用就好</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsGroup *algroup = [<span class="keyword">self</span><span class="variable">.groupArray</span> objectAtIndex:indexPath<span class="variable">.row</span>];</span><br><span class="line"><span class="built_in">NSString</span> *name = [algroup valueForProperty:ALAssetsGroupPropertyName];</span><br><span class="line"><span class="built_in">NSInteger</span> count = [algroup numberOfAssets];</span><br><span class="line"><span class="built_in">UIImage</span> *photo = [<span class="built_in">UIImage</span> imageWith<span class="built_in">CGImage</span>:[algroup posterImage]];</span><br></pre></td></tr></table></figure>
+<p>点击item跳转：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsGroup *algroup = [self.groupArray objectAtIndex:indexPath.row];</span><br><span class="line">CTImageCollectionViewController *collectionVC = <span class="string">[[CTImageCollectionViewController alloc]initWithAssetsGroupUrl:[algroup valueForProperty:ALAssetsGroupPropertyURL]]</span>;</span><br></pre></td></tr></table></figure>
+<p>在CTImageCollectionViewController拿出照片展示：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">dispatch_async(dispatch_get_global_queue(<span class="type">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;//使用后台线程</span><br><span class="line">        [self.alAssetsGroup enumerateAssetsWithOptions:<span class="type">NSEnumerationReverse</span> usingBlock:^(<span class="type">ALAsset</span> *<span class="literal">result</span>, <span class="type">NSUInteger</span> index, <span class="type">BOOL</span> *stop) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="literal">result</span>) &#123;</span><br><span class="line">                [self.resultArray insertObject:<span class="literal">result</span> atIndex:<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (index == <span class="number">0</span>) &#123;</span><br><span class="line">                *stop = <span class="type">YES</span>;</span><br><span class="line">                <span class="keyword">return</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">        dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            [self.collectionView reloadData];</span><br><span class="line">            [self scrollToBottom:<span class="type">NO</span>];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-Java中使用Hibernate作为数据库框架" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -768,146 +1070,10 @@ completionBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NS
 
 
   
-    <article id="post-iOS中关键字" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2015/09/29/iOS中关键字/" class="article-date">
-  	<time datetime="2015-09-29T05:22:14.000Z" itemprop="datePublished">2015-09-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/29/iOS中关键字/">iOS中关键字</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>###iOS 关键字区别</p>
-<ul>
-<li>retain copy</li>
-</ul>
-<p>这两个关键字是针对对象可变不可变的才会有影响。如果是可变对象，使用retain，只会计数器加一，使用copy，会开辟新的内存地址。如果不可变，那么一样。</p>
-<p>在我们自定义对象需要使用copy的时候，需要考虑可变不可变：(继承<nscopying,nsmutablecopying>)</nscopying,nsmutablecopying></p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (id)copyWithZone:(NSZone *)zone&#123;</span><br><span class="line">    Demo1 *demo = [[Demo1 <span class="class"><span class="keyword">class</span>]<span class="title">allocWithZone</span>:<span class="typename">zone];</span></span></span><br><span class="line">    demo.str = [_str copy];</span><br><span class="line">    <span class="keyword">return</span> demo;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)mutableCopyWithZone:(NSZone *)zone&#123;</span><br><span class="line">    Demo1 *demo = [[Demo1 <span class="class"><span class="keyword">class</span>] <span class="title">allocWithZone</span>:<span class="typename">zone];</span></span></span><br><span class="line">    demo.str = [_str copy];</span><br><span class="line">    <span class="keyword">return</span> demo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试代码：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableString</span> *mustr = [<span class="built_in">NSMutableString</span> stringWithFormat:<span class="string">@"123"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变mustr point == %p"</span>,mustr);</span><br><span class="line"><span class="keyword">self</span><span class="variable">.sStr</span> = mustr;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变retain  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="keyword">self</span><span class="variable">.cStr</span> = mustr;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变copy  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br><span class="line"></span><br><span class="line">[mustr appendString:<span class="string">@"12"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变mustr == %@"</span>,mustr);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变retain  str == %@"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变copy  str == %@"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"1234"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变str  str point == %p"</span>,str);</span><br><span class="line"><span class="keyword">self</span><span class="variable">.sStr</span> = str;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变retain  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="keyword">self</span><span class="variable">.cStr</span> = str;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变copy  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br></pre></td></tr></table></figure>
-<p>返回值：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.130</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变mustr point == <span class="number">0x7fc1e270f790</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.130</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变retain  str point == <span class="number">0x7fc1e270f790</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变copy  str point == <span class="number">0xa000000003332313</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变mustr == <span class="number">12312</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变retain  str == <span class="number">12312</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变copy  str == <span class="number">123</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变str  str point == <span class="number">0xa000000343332314</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变retain  str point == <span class="number">0xa000000343332314</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变copy  str point == <span class="number">0xa000000343332314</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>retain strong </li>
-</ul>
-<p>没什么不同，都是修饰强引用</p>
-<ul>
-<li>assign weak</li>
-</ul>
-<p>都可用于修饰弱引用，assign可用于c的基本数据类型(int float ..)<br>weak和assgin,在引用对象被释放后，weak修饰的会被置为nil，向nil对象发送调用不会导致野指针错误</p>
-<ul>
-<li>nonatomic atomic</li>
-</ul>
-<p>原子性，控制在多线程下对象是否线程安全</p>
-<ul>
-<li>readonly readwrite ..</li>
-</ul>
-<p>对外读写权限控制</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/09/29/hello-world/" class="article-date">
-  	<time datetime="2015-09-29T02:16:55.000Z" itemprop="datePublished">2015-09-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/29/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">

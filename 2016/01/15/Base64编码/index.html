@@ -3,21 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | 随笔</title>
+  <title>Base64编码 | 随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+  <meta name="description" content="Base64编码base64是一种很常见的编码，常用于URL、Cookie、网页中传输少量二进制数据
+
+编码方式：
+ 准备一个包含64个字符的数组：
+ [‘A’,’B’,’C’,…,’a’,’b’,’c’,…,’0’,’1’,’2’,…,’+’,’/‘]
+ 把需要转码的字符串进行二进制处理，每三个字符一组，一共3*8=24位，划分为4组，每组6个，然后根据每组的数字作为索引，查找准备好的64个字符">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://blog.huangcheng.com/2015/09/29/hello-world/index.html">
+<meta property="og:title" content="Base64编码">
+<meta property="og:url" content="http://blog.huangcheng.com/2016/01/15/Base64编码/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2015-09-29T02:16:55.000Z">
+<meta property="og:description" content="Base64编码base64是一种很常见的编码，常用于URL、Cookie、网页中传输少量二进制数据
+
+编码方式：
+ 准备一个包含64个字符的数组：
+ [‘A’,’B’,’C’,…,’a’,’b’,’c’,…,’0’,’1’,’2’,…,’+’,’/‘]
+ 把需要转码的字符串进行二进制处理，每三个字符一组，一共3*8=24位，划分为4组，每组6个，然后根据每组的数字作为索引，查找准备好的64个字符">
+<meta property="og:updated_time" content="2016-01-15T02:56:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="Base64编码">
+<meta name="twitter:description" content="Base64编码base64是一种很常见的编码，常用于URL、Cookie、网页中传输少量二进制数据
+
+编码方式：
+ 准备一个包含64个字符的数组：
+ [‘A’,’B’,’C’,…,’a’,’b’,’c’,…,’0’,’1’,’2’,…,’+’,’/‘]
+ 把需要转码的字符串进行二进制处理，每三个字符一组，一共3*8=24位，划分为4组，每组6个，然后根据每组的数字作为索引，查找准备好的64个字符">
   
     <link rel="alternative" href="/atom.xml" title="随笔" type="application/atom+xml">
   
@@ -176,11 +188,11 @@ Quick">
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Base64编码" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/09/29/hello-world/" class="article-date">
-  	<time datetime="2015-09-29T02:16:55.000Z" itemprop="datePublished">2015-09-29</time>
+      <a href="/2016/01/15/Base64编码/" class="article-date">
+  	<time datetime="2016-01-15T02:20:35.000Z" itemprop="datePublished">2016-01-15</time>
 </a>
     </div>
   
@@ -193,7 +205,7 @@ Quick">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      Base64编码
     </h1>
   
 
@@ -201,6 +213,10 @@ Quick">
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -209,16 +225,27 @@ Quick">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+        <h3 id="Base64编码">Base64编码</h3><p>base64是一种很常见的编码，常用于URL、Cookie、网页中传输少量二进制数据</p>
+<ol>
+<li><p>编码方式：</p>
+<p> 准备一个包含64个字符的数组：</p>
+<p> [‘A’,’B’,’C’,…,’a’,’b’,’c’,…,’0’,’1’,’2’,…,’+’,’/‘]</p>
+<p> 把需要转码的字符串进行二进制处理，每三个字符一组，一共3*8=24位，划分为4组，每组6个，然后根据每组的数字作为索引，查找准备好的64个字符的数组中对应的字符。</p>
+<p> 如果多出一个或者两个字符，那么就在字符后面加\x00,在完成的字符后面加一个或者两个＝号表示补了几个字节。</p>
+</li>
+<li><p>示例：</p>
+<p> 字符 bin ：二进制为 62696e =&gt; 01100010 01101001 01101110</p>
+<p> 分为四组： 011000  100110 100101 101110 =&gt; 第24个字符，第38个字符，第37个字符，第46个字符</p>
+<p> 结果为：Ymlu</p>
+</li>
+</ol>
+<ol>
+<li><p>当作为url使用的时候，不能出现’+’,’/‘.所以通常把这两个字符换成’-‘,’_’</p>
+</li>
+<li><p>结果里面也不能出现’=’，都是3个字符结果4个字符，那么在结果里面解码时重新加上即可。</p>
+</li>
+</ol>
+<h3 id="MD5_DES_Feistel加密">MD5 DES Feistel加密</h3>
       
     </div>
     
@@ -227,15 +254,20 @@ Quick">
     
 <nav id="article-nav">
   
-    <a href="/2015/09/29/iOS中关键字/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/01/15/NSUrl和NSUrlCompents/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          iOS中关键字
+          NSUrl和NSUrlCompents
         
       </div>
     </a>
   
+  
+    <a href="/2016/01/08/使用AssetsLibrary做自定义相册选择器/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用AssetsLibrary做自定义相册选择器</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -262,7 +294,7 @@ Quick">
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="hello-world" data-title="Hello World" data-url="http://blog.huangcheng.com/2015/09/29/hello-world/"></div>
+	<div class="ds-thread" data-thread-key="Base64编码" data-title="Base64编码" data-url="http://blog.huangcheng.com/2016/01/15/Base64编码/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

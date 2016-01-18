@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用AssetsLibrary做自定义相册选择器 | 随笔</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用AssetsLibrary做自定义相册选择器场景：在许多时候，系统自带的图片选择器不能满足我们的需求，例如一次选择多张图片，在选择图片的时候有图片选择的提示，以及图片的数量限制，甚至选择图片后续的图片编辑。
+目前有两种自定义的相册图片选择的方式：AssetsLibrary和photokit。
+photokit只能用于iOS8以上的版本，在photokit里面可以使用iOS9出来的live pi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用AssetsLibrary做自定义相册选择器">
+<meta property="og:url" content="http://blog.huangcheng.com/2016/01/08/使用AssetsLibrary做自定义相册选择器/index.html">
+<meta property="og:site_name" content="随笔">
+<meta property="og:description" content="使用AssetsLibrary做自定义相册选择器场景：在许多时候，系统自带的图片选择器不能满足我们的需求，例如一次选择多张图片，在选择图片的时候有图片选择的提示，以及图片的数量限制，甚至选择图片后续的图片编辑。
+目前有两种自定义的相册图片选择的方式：AssetsLibrary和photokit。
+photokit只能用于iOS8以上的版本，在photokit里面可以使用iOS9出来的live pi">
+<meta property="og:updated_time" content="2016-01-08T08:39:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用AssetsLibrary做自定义相册选择器">
+<meta name="twitter:description" content="使用AssetsLibrary做自定义相册选择器场景：在许多时候，系统自带的图片选择器不能满足我们的需求，例如一次选择多张图片，在选择图片的时候有图片选择的提示，以及图片的数量限制，甚至选择图片后续的图片编辑。
+目前有两种自定义的相册图片选择的方式：AssetsLibrary和photokit。
+photokit只能用于iOS8以上的版本，在photokit里面可以使用iOS9出来的live pi">
+  
+    <link rel="alternative" href="/atom.xml" title="随笔" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://raw.githubusercontent.com/Mikora/CCFilter/master/IMG_0733.JPG" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">黄 成</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Mikora" title="github">github</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS-github/" style="font-size: 15px;">iOS github</a> <a href="/tags/iOS-源码解读/" style="font-size: 15px;">iOS 源码解读</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.startry.com">Startry的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://casatwy.com">casatwy的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/Mikora">我的github</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">记录，目前做iOS</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">黄 成</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://raw.githubusercontent.com/Mikora/CCFilter/master/IMG_0733.JPG" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">黄 成</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Mikora" title="github">github</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-使用AssetsLibrary做自定义相册选择器" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/08/使用AssetsLibrary做自定义相册选择器/" class="article-date">
+  	<time datetime="2016-01-08T07:58:26.000Z" itemprop="datePublished">2016-01-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用AssetsLibrary做自定义相册选择器
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用AssetsLibrary做自定义相册选择器">使用AssetsLibrary做自定义相册选择器</h2><h6 id="场景：">场景：</h6><p>在许多时候，系统自带的图片选择器不能满足我们的需求，例如一次选择多张图片，在选择图片的时候有图片选择的提示，以及图片的数量限制，甚至选择图片后续的图片编辑。</p>
+<p>目前有两种自定义的相册图片选择的方式：AssetsLibrary和photokit。</p>
+<p>photokit只能用于iOS8以上的版本，在photokit里面可以使用iOS9出来的live picture。在性能和过滤上优于AssetsLibrary。<br>AssetsLibrary比较常规，能满足遇到的大部分需求。</p>
+<p>这里为第一篇，主要讲AssetsLibrary自定义选择。下篇为photokit以及混合使用，做iOS版本控制上区分。</p>
+<p>这里我放出我做的一个选择器：<br><a href="https://github.com/Mikora/CTImagePicker" target="_blank" rel="external">github</a></p>
+<h6 id="流程">流程</h6><ol>
+<li>创建一个navigationcontroller,把相册列表(2)和全部照片列表(3里面url为第一个相册的url)两个viewcontroller塞进去。</li>
+<li>创建相册列表，获取所有数量不为零的ALAssetsGroup，取出第一张缩略图和名字放进去</li>
+<li>创建照片列表，把ALAssetsGroup的url初始化进去，根据url获取ALAssetsGroup，然后根据ALAssetsGroup获取所有group下的ALAsset，展示出来</li>
+</ol>
+<h6 id="实现">实现</h6><p>在navigationcontroller里面先把第一个相册找出来：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsLibrary *library = [[ALAssetsLibrary alloc]init];</span><br><span class="line">[library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    <span class="keyword">if</span> (group == <span class="literal">nil</span> &amp;&amp; *stop == <span class="literal">NO</span>) &#123;</span><br><span class="line">        [<span class="keyword">self</span> showAlbumList];<span class="comment">//一个都没有直接跳到列表</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (*stop == <span class="literal">YES</span>) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        *stop = <span class="literal">YES</span>;</span><br><span class="line">        <span class="built_in">NSURL</span> *assetsUrl = [group valueForProperty:ALAssetsGroupPropertyURL];<span class="comment">//获取第一个相册url,默认第一个为所有照片</span></span><br><span class="line">        CTImageAlbumViewController *albumVC = [[CTImageAlbumViewController alloc]init];<span class="comment">//相册列表</span></span><br><span class="line">        <span class="keyword">if</span> (assetsUrl) &#123;</span><br><span class="line">            CTImageCollectionViewController *collectionVC = [[CTImageCollectionViewController alloc]initWithAssetsGroupUrl:assetsUrl];<span class="comment">//所有照片列表</span></span><br><span class="line">            [<span class="keyword">self</span> setViewControllers:@[albumVC,collectionVC]];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            [<span class="keyword">self</span> setViewControllers:@[albumVC]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; failureBlock:^(<span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">    </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>上面初始化CTImageAlbumViewController,在里面先找出所有数量不为零的相册，添加到cell里面</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.assetsLibrary</span> = [[ALAssetsLibrary alloc]init];</span><br><span class="line">type = @(ALAssetsGroupAll);<span class="comment">//视频和照片都一起</span></span><br><span class="line">[<span class="keyword">self</span><span class="variable">.assetsLibrary</span> enumerateGroupsWithTypes:[type unsignedIntegerValue] usingBlock:^(ALAssetsGroup *group, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">            __<span class="keyword">strong</span> <span class="keyword">typeof</span>(weakSelf) weakSelf = weakSelf;</span><br><span class="line">            <span class="keyword">if</span> (group) &#123;</span><br><span class="line">                <span class="keyword">if</span> (group<span class="variable">.numberOfAssets</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    [assetsGroups addObject:group];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                numberOfFinishedType++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (numberOfFinishedType == array<span class="variable">.count</span>) &#123;<span class="comment">//当numberOfFinishedType为1的时候便结束并且拍戏</span></span><br><span class="line">                <span class="built_in">NSArray</span> *sortAssetsGroup = [assetsGroups sortedArrayUsingComparator:^<span class="built_in">NSComparisonResult</span>(<span class="keyword">id</span>  _Nonnull obj1, <span class="keyword">id</span>  _Nonnull obj2) &#123;</span><br><span class="line">                    ALAssetsGroup *a = obj1;</span><br><span class="line">                    ALAssetsGroup *b = obj2;</span><br><span class="line">                    <span class="built_in">NSNumber</span> *apropertyType = [a valueForProperty:ALAssetsGroupPropertyType];</span><br><span class="line">                    <span class="built_in">NSNumber</span> *bpropertyType = [b valueForProperty:ALAssetsGroupPropertyType];</span><br><span class="line">                    <span class="keyword">if</span> ([apropertyType compare:bpropertyType] == <span class="built_in">NSOrderedAscending</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="built_in">NSOrderedDescending</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span> <span class="built_in">NSOrderedSame</span>;</span><br><span class="line">                &#125;];</span><br><span class="line">                <span class="keyword">self</span><span class="variable">.groupArray</span> = [<span class="built_in">NSMutableArray</span> arrayWithArray: sortAssetsGroup];</span><br><span class="line">                [<span class="keyword">self</span><span class="variable">.tableview</span> reloadData];</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125; failureBlock:^(<span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"获取相册失败"</span>);</span><br><span class="line">        &#125;];</span><br></pre></td></tr></table></figure>
+<p>这里的数据都放入了assetsGroups，在tableview里面使用就好</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsGroup *algroup = [<span class="keyword">self</span><span class="variable">.groupArray</span> objectAtIndex:indexPath<span class="variable">.row</span>];</span><br><span class="line"><span class="built_in">NSString</span> *name = [algroup valueForProperty:ALAssetsGroupPropertyName];</span><br><span class="line"><span class="built_in">NSInteger</span> count = [algroup numberOfAssets];</span><br><span class="line"><span class="built_in">UIImage</span> *photo = [<span class="built_in">UIImage</span> imageWith<span class="built_in">CGImage</span>:[algroup posterImage]];</span><br></pre></td></tr></table></figure>
+<p>点击item跳转：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsGroup *algroup = [self.groupArray objectAtIndex:indexPath.row];</span><br><span class="line">CTImageCollectionViewController *collectionVC = <span class="string">[[CTImageCollectionViewController alloc]initWithAssetsGroupUrl:[algroup valueForProperty:ALAssetsGroupPropertyURL]]</span>;</span><br></pre></td></tr></table></figure>
+<p>在CTImageCollectionViewController拿出照片展示：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">dispatch_async(dispatch_get_global_queue(<span class="type">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;//使用后台线程</span><br><span class="line">        [self.alAssetsGroup enumerateAssetsWithOptions:<span class="type">NSEnumerationReverse</span> usingBlock:^(<span class="type">ALAsset</span> *<span class="literal">result</span>, <span class="type">NSUInteger</span> index, <span class="type">BOOL</span> *stop) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="literal">result</span>) &#123;</span><br><span class="line">                [self.resultArray insertObject:<span class="literal">result</span> atIndex:<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (index == <span class="number">0</span>) &#123;</span><br><span class="line">                *stop = <span class="type">YES</span>;</span><br><span class="line">                <span class="keyword">return</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">        dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            [self.collectionView reloadData];</span><br><span class="line">            [self scrollToBottom:<span class="type">NO</span>];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/15/Base64编码/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Base64编码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/06/Java中使用Hibernate作为数据库框架/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java中使用Hibernate作为数据库框架</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="使用AssetsLibrary做自定义相册选择器" data-title="使用AssetsLibrary做自定义相册选择器" data-url="http://blog.huangcheng.com/2016/01/08/使用AssetsLibrary做自定义相册选择器/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"e53801293b4838a0700cb899db615f4a"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 黄 成
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

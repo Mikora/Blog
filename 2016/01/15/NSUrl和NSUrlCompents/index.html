@@ -3,21 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | 随笔</title>
+  <title>NSUrl和NSUrlCompents | 随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+  <meta name="description" content="写如下文章的场景：
+在项目中我需要对自定义的url进行解析，例如：
+1example://push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;amp;a=3
+注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.
+普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://blog.huangcheng.com/2015/09/29/hello-world/index.html">
+<meta property="og:title" content="NSUrl和NSUrlCompents">
+<meta property="og:url" content="http://blog.huangcheng.com/2016/01/15/NSUrl和NSUrlCompents/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2015-09-29T02:16:55.000Z">
+<meta property="og:description" content="写如下文章的场景：
+在项目中我需要对自定义的url进行解析，例如：
+1example://push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;amp;a=3
+注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.
+普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比">
+<meta property="og:updated_time" content="2016-01-15T07:55:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="NSUrl和NSUrlCompents">
+<meta name="twitter:description" content="写如下文章的场景：
+在项目中我需要对自定义的url进行解析，例如：
+1example://push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;amp;a=3
+注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.
+普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比">
   
     <link rel="alternative" href="/atom.xml" title="随笔" type="application/atom+xml">
   
@@ -176,11 +185,11 @@ Quick">
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-NSUrl和NSUrlCompents" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/09/29/hello-world/" class="article-date">
-  	<time datetime="2015-09-29T02:16:55.000Z" itemprop="datePublished">2015-09-29</time>
+      <a href="/2016/01/15/NSUrl和NSUrlCompents/" class="article-date">
+  	<time datetime="2016-01-15T07:30:57.000Z" itemprop="datePublished">2016-01-15</time>
 </a>
     </div>
   
@@ -193,7 +202,7 @@ Quick">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      NSUrl和NSUrlCompents
     </h1>
   
 
@@ -201,6 +210,10 @@ Quick">
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -209,15 +222,24 @@ Quick">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>写如下文章的场景：</p>
+<p>在项目中我需要对自定义的url进行解析，例如：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">example:</span><span class="comment">//push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;a=3</span></span><br></pre></td></tr></table></figure>
+<p>注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.</p>
+<p>普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比较麻烦，于是用到了NSUrlCompents，解析出来的queryItems为：</p>
+<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">"&lt;NSURLQueryItem 0x7fb9f1f3f790&gt; &#123;name = url, value = www.baidu.com?TOKEN=123&#125;"</span>,</span><br><span class="line"><span class="comment">"&lt;NSURLQueryItem 0x7fb9f1f3f7b0&gt; &#123;name = a, value = 3&#125;"</span></span><br></pre></td></tr></table></figure>
+<h3 id="NSUrl_:">NSUrl :</h3><p>Url：统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。</p>
+<p>1.url基础语法：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">scheme</span>&gt;</span> :// <span class="tag">&lt;<span class="title">username</span>&gt;</span> : <span class="tag">&lt;<span class="title">password</span>&gt;</span> @ <span class="tag">&lt;<span class="title">host</span> <span class="attribute">name</span>&gt;</span> : <span class="tag">&lt;<span class="title">port</span>&gt;</span> / <span class="tag">&lt;<span class="title">path</span>&gt;</span> / <span class="tag">&lt;<span class="title">extension</span>&gt;</span> ? <span class="tag">&lt;<span class="title">query</span>&gt;</span> # <span class="tag">&lt;<span class="title">fragment</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.示例： xxx://username:password@host.com/path/extension.html?query=1#nose</p>
+<p>3.通常我们使用url的时候为： xxx://host/path/extension.xml?query=1</p>
+<p>在iOS中，foundation库提供了NSUrl代表URL.</p>
+<p>使用方法不介绍了。</p>
+<h3 id="NSUrlCompents">NSUrlCompents</h3><p>在iOS7中加入了NSUrlCompents，可以完美替代NSMutableUrl.<br>其中提供如下property用于修改</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scheme</span><br><span class="line"><span class="keyword">user</span></span><br><span class="line">password</span><br><span class="line">host</span><br><span class="line"><span class="keyword">port</span></span><br><span class="line">path</span><br><span class="line">query</span><br><span class="line"><span class="keyword">fragment</span></span><br></pre></td></tr></table></figure>
+<p>还提供了readwrite属性对每个compent进行[percent-encoded]</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">percentEncodedUser</span></span><br><span class="line">percentEncodedPassword</span><br><span class="line">percentEncodedHost</span><br><span class="line">percentEncodedPath</span><br><span class="line">percentEncodedQuery</span><br><span class="line">percentEncodedFragment</span><br></pre></td></tr></table></figure>
+<p>如果需要对url进行比较深入的解析的时候，使用NSUrlCompents十分方便</p>
 
       
     </div>
@@ -227,15 +249,20 @@ Quick">
     
 <nav id="article-nav">
   
-    <a href="/2015/09/29/iOS中关键字/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/01/18/用协议模式打开对应controller/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          iOS中关键字
+          用协议模式打开对应Controller
         
       </div>
     </a>
   
+  
+    <a href="/2016/01/15/Base64编码/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Base64编码</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -262,7 +289,7 @@ Quick">
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="hello-world" data-title="Hello World" data-url="http://blog.huangcheng.com/2015/09/29/hello-world/"></div>
+	<div class="ds-thread" data-thread-key="NSUrl和NSUrlCompents" data-title="NSUrl和NSUrlCompents" data-url="http://blog.huangcheng.com/2016/01/15/NSUrl和NSUrlCompents/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
