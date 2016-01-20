@@ -207,7 +207,8 @@
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString *<span class="built_in">string</span> = @<span class="string">"123"</span>;//被查找的<span class="built_in">string</span></span><br><span class="line">   NSString *str = @<span class="string">"xxx正则表达式"</span>;</span><br><span class="line">   <span class="keyword">return</span> [<span class="built_in">string</span> rangeOfStrin<span class="variable">g:str</span> option<span class="variable">s:NSRegularExpressionSearch</span>];</span><br></pre></td></tr></table></figure>
 <p>查看字符串是否满足正则表达式</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *phoneRegex = <span class="string">@"^1\\d&#123;10&#125;$"</span>;<span class="comment">//正则表达式</span></span><br><span class="line"><span class="built_in">NSPredicate</span> *phone = [<span class="built_in">NSPredicate</span> predicateWithFormat:<span class="string">@"SELF MATCHES %@"</span>,phoneRegex];</span><br><span class="line"><span class="keyword">return</span> [phone evaluateWithObject:str];</span><br></pre></td></tr></table></figure>
-<h4 id="电话号码的正则表达式：(常用的号码格式)">电话号码的正则表达式：(常用的号码格式)</h4><table>
+<h4 id="电话号码的正则表达式：(常用的号码格式)">电话号码的正则表达式：(常用的号码格式)</h4><p>这里正则放到列表里有问题，转义也不行，如果需要自行在下面拆分。</p>
+<table>
 <thead>
 <tr>
 <th>序号</th>
