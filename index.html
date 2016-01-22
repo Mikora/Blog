@@ -240,6 +240,7 @@
 <p>直接运行即可</p>
 <hr>
 <p>4.最后脚本打包</p>
+<p>脚本打包可以忽视项目配置的config，直接给出需要打包的config即可</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -workspace cheniu_shop<span class="class">.xcworkspace</span> -sdk iphoneos -scheme scheme_your_name -xcconfig <span class="string">"相对目录下的某个.config"</span> -configuration <span class="string">"Release Adhoc"</span> SYMROOT=<span class="string">'$(PWD)/build'</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">xcrun</span> -sdk iphoneos PackageApplication -v <span class="string">"build/Release-iphoneos/scheme_your_name.app"</span> -o <span class="string">"<span class="variable">$PWD</span>/build/release-iphoneos/your_name.ipa"</span></span><br></pre></td></tr></table></figure>
 <p>第一个build一个.app出来，第二个打包成.ipa</p>

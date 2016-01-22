@@ -14,7 +14,7 @@
 <meta property="og:description" content="何为渠道包同一个项目源码，但是名字，启动图，bundleid等不一样。同样请求里面也是根据不同bundleid不同的，但是这个在服务器作处理。总体说来，渠道包仅仅是资源不一样，样式相同，源码一致的app。
 如何管理第一种，创建target，给每一个渠道包一个target一致用到二十来个target的时候，发现这种工作量太大，并不真正合适大量渠道包。如果在target比较少的时候，用这个十分棒。教程">
 <meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/0FAC5B07-D8B3-4F49-B3C7-5315A9EF9DD9.png?imageView/1/w/500/h/190">
-<meta property="og:updated_time" content="2016-01-22T07:47:49.000Z">
+<meta property="og:updated_time" content="2016-01-22T07:54:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS管理大量渠道包">
 <meta name="twitter:description" content="何为渠道包同一个项目源码，但是名字，启动图，bundleid等不一样。同样请求里面也是根据不同bundleid不同的，但是这个在服务器作处理。总体说来，渠道包仅仅是资源不一样，样式相同，源码一致的app。
@@ -254,6 +254,7 @@
 <p>直接运行即可</p>
 <hr>
 <p>4.最后脚本打包</p>
+<p>脚本打包可以忽视项目配置的config，直接给出需要打包的config即可</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -workspace cheniu_shop<span class="class">.xcworkspace</span> -sdk iphoneos -scheme scheme_your_name -xcconfig <span class="string">"相对目录下的某个.config"</span> -configuration <span class="string">"Release Adhoc"</span> SYMROOT=<span class="string">'$(PWD)/build'</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">xcrun</span> -sdk iphoneos PackageApplication -v <span class="string">"build/Release-iphoneos/scheme_your_name.app"</span> -o <span class="string">"<span class="variable">$PWD</span>/build/release-iphoneos/your_name.ipa"</span></span><br></pre></td></tr></table></figure>
 <p>第一个build一个.app出来，第二个打包成.ipa</p>
