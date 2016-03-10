@@ -3,24 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>ARC与MRC必知必会 | 随笔</title>
+  <title>c++学习(一)之基本概念 | 随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我们习惯将ARC的每个字母分开读即读A R C，但是实际上正式的叫法叫ɑ:k，即啊克。好了，下面开始进入正题，谈谈ARC与MRC有什么不同。    
-ARC下的autorelease poolARC下最明显的就是对autorelease pool的改进。
-Autorelease pool会自动管理对象的生命周期，每个发送autorelease消息的对象不会马上被释放，它们会被加入到NSAutore">
+  <meta name="description" content="C++命名空间
+
+为了避免命名冲突，c++ 引入命名空间
+123456namespace A&amp;#123;	int flag=1;&amp;#125;namespace B&amp;#123;	bool flag=true;&amp;#125;
+若把两个变量放入一个函数体里面使用，则需要指明是哪个命名空间里的,使用域解析操作符”::”操作符
+1&amp;#10;&amp;#36824;&amp;#21487;&amp;#20197;&amp;#20351;&amp;#2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ARC与MRC必知必会">
-<meta property="og:url" content="http://blog.huangcheng.com/2016/01/26/ARC与MRC必知必会/index.html">
+<meta property="og:title" content="c++学习(一)之基本概念">
+<meta property="og:url" content="http://blog.huangcheng.com/2016/02/25/c-学习-一-之基本概念/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="我们习惯将ARC的每个字母分开读即读A R C，但是实际上正式的叫法叫ɑ:k，即啊克。好了，下面开始进入正题，谈谈ARC与MRC有什么不同。    
-ARC下的autorelease poolARC下最明显的就是对autorelease pool的改进。
-Autorelease pool会自动管理对象的生命周期，每个发送autorelease消息的对象不会马上被释放，它们会被加入到NSAutore">
-<meta property="og:updated_time" content="2016-01-29T02:44:16.000Z">
+<meta property="og:description" content="C++命名空间
+
+为了避免命名冲突，c++ 引入命名空间
+123456namespace A&amp;#123;	int flag=1;&amp;#125;namespace B&amp;#123;	bool flag=true;&amp;#125;
+若把两个变量放入一个函数体里面使用，则需要指明是哪个命名空间里的,使用域解析操作符”::”操作符
+1&amp;#10;&amp;#36824;&amp;#21487;&amp;#20197;&amp;#20351;&amp;#2">
+<meta property="og:updated_time" content="2016-02-26T06:11:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ARC与MRC必知必会">
-<meta name="twitter:description" content="我们习惯将ARC的每个字母分开读即读A R C，但是实际上正式的叫法叫ɑ:k，即啊克。好了，下面开始进入正题，谈谈ARC与MRC有什么不同。    
-ARC下的autorelease poolARC下最明显的就是对autorelease pool的改进。
-Autorelease pool会自动管理对象的生命周期，每个发送autorelease消息的对象不会马上被释放，它们会被加入到NSAutore">
+<meta name="twitter:title" content="c++学习(一)之基本概念">
+<meta name="twitter:description" content="C++命名空间
+
+为了避免命名冲突，c++ 引入命名空间
+123456namespace A&amp;#123;	int flag=1;&amp;#125;namespace B&amp;#123;	bool flag=true;&amp;#125;
+若把两个变量放入一个函数体里面使用，则需要指明是哪个命名空间里的,使用域解析操作符”::”操作符
+1&amp;#10;&amp;#36824;&amp;#21487;&amp;#20197;&amp;#20351;&amp;#2">
   
     <link rel="alternative" href="/atom.xml" title="随笔" type="application/atom+xml">
   
@@ -113,7 +122,7 @@ Autorelease pool会自动管理对象的生命周期，每个发送autorelease�
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS-github/" style="font-size: 15px;">iOS github</a> <a href="/tags/iOS-源码解读/" style="font-size: 15px;">iOS 源码解读</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a>
+						<a href="/tags/C-学习/" style="font-size: 10px;">C++学习</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS-github/" style="font-size: 15px;">iOS github</a> <a href="/tags/iOS-源码解读/" style="font-size: 15px;">iOS 源码解读</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a>
 					</div>
 				</section>
 				
@@ -179,11 +188,11 @@ Autorelease pool会自动管理对象的生命周期，每个发送autorelease�
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-ARC与MRC必知必会" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-c-学习-一-之基本概念" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/26/ARC与MRC必知必会/" class="article-date">
-  	<time datetime="2016-01-25T16:00:00.000Z" itemprop="datePublished">2016-01-26</time>
+      <a href="/2016/02/25/c-学习-一-之基本概念/" class="article-date">
+  	<time datetime="2016-02-25T05:42:22.000Z" itemprop="datePublished">2016-02-25</time>
 </a>
     </div>
   
@@ -196,7 +205,7 @@ Autorelease pool会自动管理对象的生命周期，每个发送autorelease�
         
   
     <h1 class="article-title" itemprop="name">
-      ARC与MRC必知必会
+      c++学习(一)之基本概念
     </h1>
   
 
@@ -204,6 +213,10 @@ Autorelease pool会自动管理对象的生命周期，每个发送autorelease�
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-学习/">C++学习</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -212,19 +225,17 @@ Autorelease pool会自动管理对象的生命周期，每个发送autorelease�
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我们习惯将ARC的每个字母分开读即读A R C，但是实际上正式的叫法叫<code>ɑ:k</code>，即啊克。好了，下面开始进入正题，谈谈ARC与MRC有什么不同。    </p>
-<h4 id="ARC下的autorelease_pool">ARC下的autorelease pool</h4><p>ARC下最明显的就是对autorelease pool的改进。</p>
-<p>Autorelease pool会自动管理对象的生命周期，每个发送<code>autorelease</code>消息的对象不会马上被释放，它们会被加入到NSAutoreleasePool中，当pool被drain的时候，它会依次给池子中的每个对象发送<code>release</code>消息。因此，使用autorelease管理内存的对象的生命周期被延长了。</p>
-<p>MRC下main函数是这么写的</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSAutoreleasePool</span> *pool = [[<span class="built_in">NSAutoreleasePool</span> alloc] init];</span><br><span class="line">    <span class="keyword">int</span> retVal = <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="literal">nil</span>);</span><br><span class="line">    [pool release];</span><br><span class="line">    <span class="keyword">return</span> retVal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ARC下，我们不需要直接管理autorelease pool了，使用@autorelease即可，并且比NSAutoreleasePool更高效。</p>
-<pre><code>int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil,NSStringFromClass([AppDelegate class]));
-    }
-}
-<span class="comment"><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">那么<span class="variable">@autoreleasepool</span>到底干啥了呢，文档上是这样说的</span><br><span class="line"></span><br><span class="line">&gt;  On entry, an autorelease pool is pushed. On normal <span class="keyword">exit</span> (<span class="keyword">break</span>, <span class="keyword">return</span>, <span class="keyword">goto</span>, fall-through, <span class="keyword">and</span> so on) the autorelease pool is popped</span><br><span class="line"></span><br><span class="line">意思是说在<span class="variable">@autoreleasepool</span>入口处，一个autorelease pool会被<span class="keyword">push</span>进去，出口处会被<span class="keyword">pop</span>出来。实际上通过断点查看反汇编代码可以发现，所谓的<span class="keyword">push</span>是调用了<span class="string">`objc_autoreleasePoolPush`</span>，<span class="keyword">pop</span>是调用了<span class="string">`objc_autoreleasePoolPop`</span>。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#### ARC下对象的创建和使用</span></span><br><span class="line"></span><br><span class="line">MRC下，我们创建一个对象并且使用完的时候，必须释放它。以数组为例</span><br></pre></td></tr></table></figure></span>
-</code></pre>
+        <blockquote>
+<p>C++命名空间</p>
+</blockquote>
+<p>为了避免命名冲突，c++ 引入命名空间</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">A</span>&#123;</span><br><span class="line">	<span class="keyword">int</span> flag=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">B</span>&#123;</span><br><span class="line">	<span class="keyword">bool</span> flag=<span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若把两个变量放入一个函数体里面使用，则需要指明是哪个命名空间里的,使用域解析操作符”::”操作符</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#36824;&#21487;&#20197;&#20351;&#29992;using&#65292;using&#22768;&#26126;&#21518;&#38754;&#30340;flag&#26159;&#23646;&#20110;&#21738;&#19968;&#20010;&#21629;&#21517;&#31354;&#38388;&#37324;&#38754;&#30340;&#12290; using A:flag;&#34920;&#31034;&#21518;&#38754;flag&#37117;&#26159;A&#37324;&#38754;&#30340;&#65292;&#32780;B&#37324;&#38754;&#30340;flag&#36824;&#26159;&#35201;&#29992;B:flag&#21435;&#35843;&#29992;&#10;&#10;&#21516;&#29702;using&#21487;&#20197;&#30452;&#25509;&#29992;namespace&#65292;using namespace A,&#34920;&#31034;A&#37324;&#38754;&#25152;&#26377;&#21464;&#37327;&#37117;&#30452;&#25509;&#33021;&#20351;&#29992;&#10;&#10;&#10;&#62; c&#25351;&#38024;&#10;&#10;&#20989;&#25968;&#25351;&#38024;&#65306;&#25351;&#21521;&#20989;&#25968;&#30340;&#25351;&#38024;</span><br></pre></td></tr></table></figure>
+<p>int max(a,b){<br>}</p>
+<p>main(){<br>int (*mMax)();<br>mMax = max;</p>
+<p>int i = (*mMax)(a,b);<br>}<br>```</p>
+
       
     </div>
     
@@ -233,9 +244,18 @@ Autorelease pool会自动管理对象的生命周期，每个发送autorelease�
     
 <nav id="article-nav">
   
+    <a href="/2016/02/26/gcd深入理解/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          gcd深入理解
+        
+      </div>
+    </a>
   
-    <a href="/2016/01/22/iOS管理大量渠道包/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">iOS管理大量渠道包</div>
+  
+    <a href="/2016/02/17/iOS学习收藏的文章/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS学习收藏的文章</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -264,7 +284,7 @@ Autorelease pool会自动管理对象的生命周期，每个发送autorelease�
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="ARC与MRC必知必会" data-title="ARC与MRC必知必会" data-url="http://blog.huangcheng.com/2016/01/26/ARC与MRC必知必会/"></div>
+	<div class="ds-thread" data-thread-key="c-学习-一-之基本概念" data-title="c++学习(一)之基本概念" data-url="http://blog.huangcheng.com/2016/02/25/c-学习-一-之基本概念/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

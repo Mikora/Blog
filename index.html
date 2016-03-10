@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS-github/" style="font-size: 15px;">iOS github</a> <a href="/tags/iOS-源码解读/" style="font-size: 15px;">iOS 源码解读</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a>
+						<a href="/tags/C-学习/" style="font-size: 10px;">C++学习</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS-github/" style="font-size: 15px;">iOS github</a> <a href="/tags/iOS-源码解读/" style="font-size: 15px;">iOS 源码解读</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a>
 					</div>
 				</section>
 				
@@ -174,11 +174,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-ARC与MRC必知必会" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-java-OSGI简单使用" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/26/ARC与MRC必知必会/" class="article-date">
-  	<time datetime="2016-01-25T16:00:00.000Z" itemprop="datePublished">2016-01-26</time>
+      <a href="/2016/03/08/java-OSGI简单使用/" class="article-date">
+  	<time datetime="2016-03-08T01:56:13.000Z" itemprop="datePublished">2016-03-08</time>
 </a>
     </div>
   
@@ -191,7 +191,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/26/ARC与MRC必知必会/">ARC与MRC必知必会</a>
+      <a class="article-title" href="/2016/03/08/java-OSGI简单使用/">java OSGI简单使用</a>
     </h1>
   
 
@@ -200,25 +200,296 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我们习惯将ARC的每个字母分开读即读A R C，但是实际上正式的叫法叫<code>ɑ:k</code>，即啊克。好了，下面开始进入正题，谈谈ARC与MRC有什么不同。    </p>
-<h4 id="ARC下的autorelease_pool">ARC下的autorelease pool</h4><p>ARC下最明显的就是对autorelease pool的改进。</p>
-<p>Autorelease pool会自动管理对象的生命周期，每个发送<code>autorelease</code>消息的对象不会马上被释放，它们会被加入到NSAutoreleasePool中，当pool被drain的时候，它会依次给池子中的每个对象发送<code>release</code>消息。因此，使用autorelease管理内存的对象的生命周期被延长了。</p>
-<p>MRC下main函数是这么写的</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSAutoreleasePool</span> *pool = [[<span class="built_in">NSAutoreleasePool</span> alloc] init];</span><br><span class="line">    <span class="keyword">int</span> retVal = <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="literal">nil</span>);</span><br><span class="line">    [pool release];</span><br><span class="line">    <span class="keyword">return</span> retVal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ARC下，我们不需要直接管理autorelease pool了，使用@autorelease即可，并且比NSAutoreleasePool更高效。</p>
-<pre><code>int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil,NSStringFromClass([AppDelegate class]));
-    }
-}
-<span class="comment"><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">那么<span class="variable">@autoreleasepool</span>到底干啥了呢，文档上是这样说的</span><br><span class="line"></span><br><span class="line">&gt;  On entry, an autorelease pool is pushed. On normal <span class="keyword">exit</span> (<span class="keyword">break</span>, <span class="keyword">return</span>, <span class="keyword">goto</span>, fall-through, <span class="keyword">and</span> so on) the autorelease pool is popped</span><br><span class="line"></span><br><span class="line">意思是说在<span class="variable">@autoreleasepool</span>入口处，一个autorelease pool会被<span class="keyword">push</span>进去，出口处会被<span class="keyword">pop</span>出来。实际上通过断点查看反汇编代码可以发现，所谓的<span class="keyword">push</span>是调用了<span class="string">`objc_autoreleasePoolPush`</span>，<span class="keyword">pop</span>是调用了<span class="string">`objc_autoreleasePoolPop`</span>。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#### ARC下对象的创建和使用</span></span><br><span class="line"></span><br><span class="line">MRC下，我们创建一个对象并且使用完的时候，必须释放它。以数组为例</span><br></pre></td></tr></table></figure></span>
-</code></pre>
+        <blockquote>
+<p>OGSI的项目流程</p>
+</blockquote>
+<h6 id="新建项目">新建项目</h6><ul>
+<li>启动Eclipse，依次点 File –&gt; New –&gt; Project。</li>
+<li>选择Plug-in Project，next。</li>
+<li>输入Project Name项目名称，比如com.howard.sample.HelloWorld,Target Platform(目标* 平台)里的an OSGI framework，选择standard。</li>
+<li>剩下的保持默认，next。</li>
+<li>下个对话框也默认，next。</li>
+<li>然后选择Hello OSGI Bundle作为模版。Finish。</li>
+</ul>
+<p>生成的项目中只包含两个文件：activator和mainfest</p>
+<p>注：</p>
+<ul>
+<li>你的Activator类需要一个公有的无参数构造函数。OSGI框架会通过类反射的方式来实例化一个Activator类。</li>
+<li>容器启动bundle过程中负责调用你的Activator类的start方法。bundle可以在此初始化资源比如说初始化数据库连接。start方法需要一个参数，BundleContext对象。这个对象允许bundles以取得OSGI容器相关信息的方式和框架交互。如果某一个bundle有异常抛出，容器将对该bundle标记为stopped并不将其纳入service列表。</li>
+<li>容器关闭的时候会调用你的Activator类方法stop(),你可以利用这个机会做一些清理的操作。</li>
+</ul>
+<p>mainfest里面的值：</p>
+<ul>
+<li>Bundle-ManifestVersion<br>   数值为2意味着本bundle支持OSGI规范第四版；如果是1那就是支持OSGI规范第三版。</li>
+<li>Bundle-Name<br>   给bundle定义一个短名，方便人员阅读</li>
+<li>Bundle-SymbolicName<br>   给bundle定义一个唯一的非局部名。方便分辨。</li>
+<li>Bundle-Activator<br>   声明在start和stop事件发生时会被通知的监听类的名字。</li>
+<li>Import-Package<br>   定义bundle的导入包。</li>
+</ul>
+<h6 id="运行项目">运行项目</h6><ul>
+<li>点击Run –&gt; Run Configuration</li>
+<li>在左边的OSGI Framework选项里右键 new ，创建一个新的OSGI Run Configuration<br>名字随便取好了，我们取个OSGi hello world。</li>
+<li>你会注意到中间的窗口里Workspace项目里有一子项 我们刚新建的项目,将其勾选上，其他的不用管。这时的状态应该如下图。<br>点击Run按钮。在控制台你应该可以看见点东西了。那是叫做OSGI控制台的东东。与子相伴，还有一个我们start里面输出的东西。</li>
+</ul>
+<h6 id="依赖管理">依赖管理</h6><ol>
+<li>创建一个被依赖的项目：com.xxxservice</li>
+<li>在mainfest里面runtime的exported package选项里面导入我们的项目com.xxxservice</li>
+<li>创建一个依赖上面项目的项目：com.xxx</li>
+<li>在mainfest里面的dependencies里面import packages导入com.xxxservice</li>
+<li>然后在com.xxx的activator里面使用com.xxxservice里面的接口等</li>
+</ol>
+<h6 id="可见区域">可见区域</h6><p>osgi的容器自定义了java class loader来有选择的加载类ogsi为每个bundle都创建的不同的class loader，所以bundle能访问的classes包括：</p>
+<ul>
+<li>Boot classpath：所有的java基础类。</li>
+<li>Framework classpath：OSGI框架级别的classloader加载的类</li>
+<li>Bundle classpath：Bundle本身引用的关系紧密的JAR的路径</li>
+<li>Imported packages：就是在MANIFEST.MF里声明的导入包，一旦声明，在bundle内就可见了。</li>
+</ul>
+<h6 id="导出services">导出services</h6><p>假设我们com.xxxservice里面新建了一个serviceActivator implements BundleActivator代码如下</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class <span class="type">HelloServiceActivator</span> implements <span class="type">BundleActivator</span> &#123;</span><br><span class="line">	<span class="type">ServiceRegistration</span> helloServiceRegistration;</span><br><span class="line">	@<span class="type">Override</span></span><br><span class="line">	public <span class="type">void</span> start(<span class="type">BundleContext</span> arg0) throws <span class="type">Exception</span> &#123;</span><br><span class="line">		// <span class="type">TODO</span> <span class="type">Auto</span>-generated <span class="keyword">method</span> stub</span><br><span class="line">		<span class="type">HelloService</span> hello = new <span class="type">HelloServiceImp</span>();</span><br><span class="line">		helloServiceRegistration = arg0.registerService(<span class="type">HelloService</span>.class.getName(), hello, null);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@<span class="type">Override</span></span><br><span class="line">	public <span class="type">void</span> stop(<span class="type">BundleContext</span> arg0) throws <span class="type">Exception</span> &#123;</span><br><span class="line">		// <span class="type">TODO</span> <span class="type">Auto</span>-generated <span class="keyword">method</span> stub</span><br><span class="line">		helloServiceRegistration.unregister();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>改变mainfest里面的bundle-activator为这个</p>
+<p>导入：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Activator <span class="keyword">implements</span> BundleActivator &#123;</span><br><span class="line"></span><br><span class="line">	ServiceReference helloServiceReference;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> start(BundleContext context) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		System.out.<span class="keyword">println</span>(<span class="string">"start World!!"</span>);</span><br><span class="line">		 helloServiceReference = context.getServiceReference(HelloService.<span class="keyword">class</span>.getName());</span><br><span class="line">		 HelloService hello = (HelloService)context.getService(helloServiceReference);</span><br><span class="line">		 System.out.<span class="keyword">println</span>(hello.sayHello());</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> stop(BundleContext context) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		System.out.<span class="keyword">println</span>(<span class="string">"Goodbye World!!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="创建服务工厂">创建服务工厂</h6><p>上面我们是在bundle启动的时候去创建和注册service，有时候service十分耗资源，希望用的时候创建，其他时候销毁。</p>
+<p>解决问题：使用ServiceFactory接口实现来代替原来的实现方式</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class <span class="type">HelloServiceFactory</span> implements <span class="type">ServiceFactory</span> &#123;</span><br><span class="line">	private <span class="type">int</span> usageCounter = <span class="number">0</span>;</span><br><span class="line">	@<span class="type">Override</span></span><br><span class="line">	public <span class="type">Object</span> getService(<span class="type">Bundle</span> arg0, <span class="type">ServiceRegistration</span> arg1) &#123;</span><br><span class="line">		// <span class="type">TODO</span> <span class="type">Auto</span>-generated <span class="keyword">method</span> stub</span><br><span class="line">		<span class="type">System</span>.<span class="keyword">out</span>.println(<span class="string">"create object of hellservice for"</span> + arg0.getSymbolicName());</span><br><span class="line">		usageCounter ++;</span><br><span class="line">		<span class="type">System</span>.<span class="keyword">out</span>.println(<span class="string">"number of bundle using service"</span> + usageCounter);</span><br><span class="line">		<span class="type">HelloService</span> helloService = new <span class="type">HelloServiceImp</span>();</span><br><span class="line">		<span class="keyword">return</span> helloService;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@<span class="type">Override</span></span><br><span class="line">	public <span class="type">void</span> ungetService(<span class="type">Bundle</span> arg0, <span class="type">ServiceRegistration</span> arg1, <span class="type">Object</span> arg2) &#123;</span><br><span class="line">		// <span class="type">TODO</span> <span class="type">Auto</span>-generated <span class="keyword">method</span> stub</span><br><span class="line"></span><br><span class="line">        <span class="type">System</span>.<span class="keyword">out</span>.println(<span class="string">"Release object of HelloService for "</span> + arg0.getSymbolicName());  </span><br><span class="line">        usageCounter--;  </span><br><span class="line">        <span class="type">System</span>.<span class="keyword">out</span>.println(<span class="string">"Number of bundles using service "</span> + usageCounter); </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改HelloService的start方法</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HelloServiceFactory <span class="literal">factory</span> = <span class="keyword">new</span> HelloServiceFactory();</span><br><span class="line">helloServiceRegistration = arg0.registerService(HelloService.<span class="keyword">class</span>.getName(), <span class="literal">factory</span>, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+<h6 id="services跟踪">services跟踪</h6><p>1.在HelloWorld bundle里的MANIFEST.MF导入org.util.tracker包。</p>
+<p>2.创建HelloServiceTracker类，代码如下：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">HelloServiceTracker</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">ServiceTracker</span> &#123;</span>  </span><br><span class="line">    public <span class="type">HelloServiceTracker</span>(<span class="type">BundleContext</span> context) &#123;  </span><br><span class="line">        <span class="keyword">super</span>(context, <span class="type">HelloService</span>.<span class="keyword">class</span>.getName(),<span class="literal">null</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">    public <span class="type">Object</span> addingService(<span class="type">ServiceReference</span> reference) &#123;  </span><br><span class="line">        <span class="type">System</span>.out.println(<span class="string">"Inside HelloServiceTracker.addingService "</span> + reference.getBundle());  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.addingService(reference);  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void removedService(<span class="type">ServiceReference</span> reference, <span class="type">Object</span> service) &#123;  </span><br><span class="line">        <span class="type">System</span>.out.println(<span class="string">"Inside HelloServiceTracker.removedService "</span> + reference.getBundle());  </span><br><span class="line">        <span class="keyword">super</span>.removedService(reference, service);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.修改调用方： </p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">helloServiceTracker = new HelloServiceTracker(context)<span class="comment">;</span></span><br><span class="line">helloServiceTracker.open()<span class="comment">;</span></span><br><span class="line">HelloService hello = (HelloService)helloServiceTracker.getService()<span class="comment">;</span></span><br><span class="line">System.out.println(hello.sayHello())<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>OGSI命令</p>
+</blockquote>
+<p>下面列出一些常用的OSGI命令，你可以试着和OSGI容器交互。</p>
+<ol>
+<li>ss 显示已安装的bundles的状态信息，信息包括bundle ID，短名，状态等等。</li>
+<li>start 启动一个bundle</li>
+<li>stop  关闭一个bundle</li>
+<li>update  载入一个新的JAR文件更新一个bundle</li>
+<li>install  安装一个新的bundle到容器中</li>
+<li>uninstall  卸载一个已在容器中的bundle</li>
+</ol>
+
       
     </div>
     
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-gcd深入理解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/26/gcd深入理解/" class="article-date">
+  	<time datetime="2016-02-26T07:22:47.000Z" itemprop="datePublished">2016-02-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/26/gcd深入理解/">gcd深入理解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="GCD基本概念">GCD基本概念</h3><ol>
+<li>gcd里面有三种队列(queue)</li>
+</ol>
+<blockquote>
+<p>主线程队列 ：main_queue </p>
+</blockquote>
+<p>由 dispatch_get_main_queue()获取；</p>
+<blockquote>
+<p>并行队列：global dispatch queue</p>
+</blockquote>
+<p>由dispatch_get_global_queue(int,int);</p>
+<p>由系统创建三个不同优先级的队列，并行队列的执行顺序和加入顺序一致，完成顺序不确定，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DISPATCH_QUEUE_PRIORITY_HIGH <span class="number">2</span></span><br><span class="line">DISPATCH_QUEUE_PRIORITY_DEFAULT <span class="number">0</span></span><br><span class="line">DISPATCH_QUEUE_PRIORITY_LOW －<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>或者使用dispatch_queue_create(“”, DISPATCH_QUEUE_CONCURRENT);创建</p>
+<blockquote>
+<p>串行队列：serial queue</p>
+</blockquote>
+<p>dispatch_queue_create(“”, DISPATCH_QUEUE_SERIAL);//DISPATCH_QUEUE_SERIAL=NULL</p>
+<p>顺序同步访问，可以创建大量串行队列，各个队列之间是并发的，队列里面每次只能执行一个任务，这样可以保护数据，有锁的功能</p>
+<h4 id="简单用法">简单用法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="comment">//dispatch_async异步执行</span></span><br><span class="line"> dispatch_async(mainQueue, ^&#123;</span><br><span class="line">     [NSThread sleepForTimeInterval:<span class="number">5</span>];</span><br><span class="line"> &#125;);</span><br><span class="line">  <span class="comment">//dispatch_sync阻塞执行</span></span><br><span class="line">  dispatch_sync(mainQueue, ^&#123;</span><br><span class="line">  [NSThread sleepForTimeInterval:<span class="number">5</span>];</span><br><span class="line">  &#125;);<span class="comment">//这样会死锁主线程  dispatch_sync等待block执行完，block需要在主线程中运行，相互死锁</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">//2.gcd group用法</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">dispatch_group_t</span> group = dispatch_group_create();</span><br><span class="line"> dispatch_group_async(group, concurrentQueue, ^&#123;</span><br><span class="line">     <span class="comment">//</span></span><br><span class="line"> &#125;);</span><br><span class="line"> dispatch_group_async(group, concurrentQueue, ^&#123;</span><br><span class="line">     </span><br><span class="line"> &#125;);</span><br><span class="line"> dispatch_group_notify(group, mainQueue, ^&#123;</span><br><span class="line">     <span class="comment">//group执行完后</span></span><br><span class="line"> &#125;);</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//如果是新启一个线程去执行任务，可以使用enter和leave</span></span><br><span class="line"> dispatch_group_enter(group);</span><br><span class="line"> dispatch_group_leave(group);</span><br><span class="line"> </span><br><span class="line"> <span class="number">3.</span> dispatch_after</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//延迟执行</span></span><br><span class="line"> </span><br><span class="line"> dispatch_after(<span class="number">3.0</span>, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="用途">用途</h4><p>信号量dispatch semaphore</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">dispatch_semaphore_create</span>(1);<span class="comment">//创建一个初始信号量为1的semaphore</span></span><br><span class="line"><span class="function">dispatch_semaphore_wait</span>(semaphore, DISPATCH_TIME_FOREVER);<span class="comment">//等待信号量大于0，时间：永远</span></span><br><span class="line"><span class="function">dispatch_semaphore_signal</span>(semaphore);<span class="comment">//释放一个资源，使信号量加1</span></span><br></pre></td></tr></table></figure>
+<p>分发栅栏dispatch barrier</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">dispatch_barrier_async</span>(queue, ^&#123;</span><br><span class="line">&#125;);<span class="comment">//作用等待queue里面的操作完成后进行block操作</span></span><br></pre></td></tr></table></figure>
+<p>分发源dispatch source//待补充</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">监听指定的各种事件</span><br><span class="line">变量增加dispatch_<span class="built_in">source</span>_<span class="built_in">type</span>_data_add</span><br><span class="line">变量OR  dispatch_<span class="built_in">source</span>_<span class="built_in">type</span>_data_or</span><br><span class="line">进程相关dispatch_<span class="built_in">source</span>_<span class="built_in">type</span>_proc</span><br><span class="line">文件读写</span><br><span class="line">.......</span><br></pre></td></tr></table></figure>
+<h4 id="GCD实现operation的功能">GCD实现operation的功能</h4><p>operation提供的功能有：</p>
+<blockquote>
+<p>取消<br>开始<br>依赖<br>获取各种状态：op.isCancelled，op.isExecuting，op.isFinished，op.isReady，op.isConcurrent</p>
+</blockquote>
+<p>感觉就是各种标志位的组合使用。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-c-学习-一-之基本概念" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/25/c-学习-一-之基本概念/" class="article-date">
+  	<time datetime="2016-02-25T05:42:22.000Z" itemprop="datePublished">2016-02-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/25/c-学习-一-之基本概念/">c++学习(一)之基本概念</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>C++命名空间</p>
+</blockquote>
+<p>为了避免命名冲突，c++ 引入命名空间</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">A</span>&#123;</span><br><span class="line">	<span class="keyword">int</span> flag=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">B</span>&#123;</span><br><span class="line">	<span class="keyword">bool</span> flag=<span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若把两个变量放入一个函数体里面使用，则需要指明是哪个命名空间里的,使用域解析操作符”::”操作符</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#36824;&#21487;&#20197;&#20351;&#29992;using&#65292;using&#22768;&#26126;&#21518;&#38754;&#30340;flag&#26159;&#23646;&#20110;&#21738;&#19968;&#20010;&#21629;&#21517;&#31354;&#38388;&#37324;&#38754;&#30340;&#12290; using A:flag;&#34920;&#31034;&#21518;&#38754;flag&#37117;&#26159;A&#37324;&#38754;&#30340;&#65292;&#32780;B&#37324;&#38754;&#30340;flag&#36824;&#26159;&#35201;&#29992;B:flag&#21435;&#35843;&#29992;&#10;&#10;&#21516;&#29702;using&#21487;&#20197;&#30452;&#25509;&#29992;namespace&#65292;using namespace A,&#34920;&#31034;A&#37324;&#38754;&#25152;&#26377;&#21464;&#37327;&#37117;&#30452;&#25509;&#33021;&#20351;&#29992;&#10;&#10;&#10;&#62; c&#25351;&#38024;&#10;&#10;&#20989;&#25968;&#25351;&#38024;&#65306;&#25351;&#21521;&#20989;&#25968;&#30340;&#25351;&#38024;</span><br></pre></td></tr></table></figure>
+<p>int max(a,b){<br>}</p>
+<p>main(){<br>int (*mMax)();<br>mMax = max;</p>
+<p>int i = (*mMax)(a,b);<br>}<br>```</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-学习/">C++学习</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-iOS学习收藏的文章" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/17/iOS学习收藏的文章/" class="article-date">
+  	<time datetime="2016-02-17T02:15:55.000Z" itemprop="datePublished">2016-02-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/17/iOS学习收藏的文章/">iOS学习收藏的文章</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www.cocoachina.com/ios/20150610/12093.html" target="_blank" rel="external">Objective-C Autorelease Pool 的实现原理</a></p>
+<p><a href="http://www.cocoachina.com/ios/20150601/11970.html" target="_blank" rel="external">深入理解RunLoop</a></p>
+<p><a href="http://www.cocoachina.com/ios/20150803/12872.html" target="_blank" rel="external">《招聘一个靠谱的iOS》面试题参考答案（上）</a></p>
+<p><a href="http://www.cocoachina.com/ios/20150825/13195.html" target="_blank" rel="external">《招聘一个靠谱的iOS》面试题参考答案（下）</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
       
 
       
@@ -781,295 +1052,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-Java中使用Hibernate作为数据库框架" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/06/Java中使用Hibernate作为数据库框架/" class="article-date">
-  	<time datetime="2016-01-06T06:50:26.000Z" itemprop="datePublished">2016-01-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/06/Java中使用Hibernate作为数据库框架/">Java中使用Hibernate作为数据库框架</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Java_Web中使用hibernate作为对象关系映射框架">Java Web中使用hibernate作为对象关系映射框架</h4><p>我这里使用mysql作为数据库</p>
-<p>#####准备工作：</p>
-<p>1.下载hibernate jar文件 <a href="http://7xpas5.com1.z0.glb.clouddn.com/hibernate.zip" target="_blank" rel="external">http://7xpas5.com1.z0.glb.clouddn.com/hibernate.zip</a></p>
-<p>2.下载mysql连接 jar文件 <a href="http://7xpas5.com1.z0.glb.clouddn.com/mysql.zip" target="_blank" rel="external">http://7xpas5.com1.z0.glb.clouddn.com/mysql.zip</a></p>
-<p>3.配置好mysql的权限</p>
-<p>你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称”%” </p>
-<p>$mysql -u root -p<strong>*</strong></p>
-<p>mysql&gt;update user set host = ‘%’ where user = ‘root’; </p>
-<p>mysql&gt;select host, user from user; </p>
-<p>4.配置好mysql的字符集//不需要全部设置</p>
-<p>进入mysql</p>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_client = utf8 <span class="comment">;  </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_connection = utf8 <span class="comment">;   </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_database = utf8 <span class="comment">;   </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_results = utf8 <span class="comment">;    </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_server = utf8 <span class="comment">;   </span></span><br><span class="line"> </span><br><span class="line">mysql&gt; <span class="keyword">SET</span> collation_connection = utf8 <span class="comment">;  </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> collation_database = utf8 <span class="comment">;   </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> collation_server = utf8 <span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<p>5.新建工程导入jar</p>
-<h5 id="编写配置文件">编写配置文件</h5><p>1.servlet配置文件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">servlet</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">servlet-name</span>&gt;</span>login<span class="tag">&lt;/<span class="title">servlet-name</span>&gt;</span> <span class="comment">&lt;!-- 名字 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">servlet-class</span>&gt;</span>com.cc.service.servlet.Login<span class="tag">&lt;/<span class="title">servlet-class</span>&gt;</span> <span class="comment">&lt;!-- 路径 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">servlet-mapping</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">servlet-name</span>&gt;</span>login<span class="tag">&lt;/<span class="title">servlet-name</span>&gt;</span> <span class="comment">&lt;!-- 与名字对应 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">url-pattern</span>&gt;</span>/api/v1/login<span class="tag">&lt;/<span class="title">url-pattern</span>&gt;</span> <span class="comment">&lt;!-- 访问的url --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>2.hibernate配置文件</p>
-<p>新建hibernate.cfg.xml，加入</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">hibernate-configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">session-factory</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.dialect"</span>&gt;</span></span><br><span class="line">			org.hibernate.dialect.MySQLDialect</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.driver_class"</span>&gt;</span></span><br><span class="line">			com.mysql.jdbc.Driver</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- 这里是数据库位置和名字 --&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 这里之前是jdbc:mysql://121.43.227.35:3306/test，但是为了设置字符集于是如下 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.url"</span>&gt;</span></span><br><span class="line">			<span class="cdata">&lt;![CDATA[jdbc:mysql://121.43.227.35:3306/test?useUnicode=true&amp;characterEncoding=utf8]]&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.username"</span>&gt;</span><span class="comment">&lt;!-- 数据库登录名字 --&gt;</span></span><br><span class="line">			root</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.password"</span>&gt;</span><span class="comment">&lt;!-- 数据库登录密码 --&gt;</span></span><br><span class="line">			Hc020436</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 这里配置所有.hbm.xml --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">mapping</span> <span class="attribute">resource</span>=<span class="value">"xxx.hbm.xml"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;/<span class="title">session-factory</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">hibernate-configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>3.表和model映射配置文件</p>
-<p>新建xxx.hbm.xml，这里是最普通的表映射model。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">hibernate-mapping</span> <span class="attribute">package</span>=<span class="value">"com.cc.service.dao"</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="title">class</span> <span class="attribute">name</span>=<span class="value">"User"</span> <span class="attribute">table</span>=<span class="value">"user"</span>&gt;</span><span class="comment">&lt;!-- model - 表 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">meta</span> <span class="attribute">attribute</span>=<span class="value">"class-description"</span>&gt;</span></span><br><span class="line">			This class contains the User detail.</span><br><span class="line">		<span class="tag">&lt;/<span class="title">meta</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">id</span> <span class="attribute">name</span>=<span class="value">"userid"</span> <span class="attribute">type</span>=<span class="value">"int"</span> <span class="attribute">column</span>=<span class="value">"id"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">generator</span> <span class="attribute">class</span>=<span class="value">"native"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">id</span>&gt;</span><span class="comment">&lt;!-- 字段 - 列 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"phone"</span> <span class="attribute">column</span>=<span class="value">"phone"</span> <span class="attribute">type</span>=<span class="value">"string"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"email"</span> <span class="attribute">column</span>=<span class="value">"email"</span> <span class="attribute">type</span>=<span class="value">"string"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">column</span>=<span class="value">"password"</span> <span class="attribute">type</span>=<span class="value">"string"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">hibernate-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>hibernate关联映射：</p>
-<p>1.一对一关联单向映射</p>
-<p>如user用户表和userinfo用户详细信息表</p>
-<p>在.hbm.xml里面的user里面添加：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">User:用户表对应的model</span><br><span class="line"></span><br><span class="line">	private UserInfo userinfo;</span><br><span class="line">	</span><br><span class="line">UserInfo:用户详细信息的model</span><br><span class="line"></span><br><span class="line">.hbm.xml里面添加映射</span><br><span class="line"></span><br><span class="line">&lt;<span class="type">class</span> <span class="property">name</span>=<span class="string">"User"</span> table=<span class="string">"user"</span>&gt;</span><br><span class="line">		&lt;<span class="property">id</span> <span class="property">name</span>=<span class="string">"userid"</span> type=<span class="string">"int"</span> column=<span class="string">"id"</span>&gt;</span><br><span class="line">			&lt;generator <span class="type">class</span>=<span class="string">"native"</span> /&gt;</span><br><span class="line">		&lt;/<span class="property">id</span>&gt;</span><br><span class="line">		&lt;one-<span class="keyword">to</span>-one <span class="property">name</span>=<span class="string">"userinfo"</span>/&gt;</span><br><span class="line">&lt;/<span class="type">class</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>注：一对一的关系为主键映射，所以不会有其他字段来维护他们的关系。所以一般都用多对一的关系来代替，并设置unique为true，限制多的一段的多重性为一</p>
-<p>2.多对一关联单向映射</p>
-<p>many-to-one：再多的一段加入一个外键，指向一的主键</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UserInfo :用户详细信息的model</span><br><span class="line">Trend:用户动态的model</span><br><span class="line">在trend里面添加一个到UserInfo的映射</span><br><span class="line">&lt;many-<span class="built_in">to</span>-<span class="constant">one</span> name=<span class="string">"user"</span> column=<span class="string">"userid"</span> insert=<span class="string">"false"</span> update=<span class="string">"false"</span> <span class="operator">not</span>-<span class="constant">null</span>=<span class="string">"true"</span>/&gt;</span><br></pre></td></tr></table></figure>
-<p>3.一对多关联单向映射</p>
-<p>set：在多的一段加入一个外键，指向一的主键</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Trend:用户动态的model</span><br><span class="line">TrendComment:动态评论的model</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"trendComment"</span> cascade=<span class="string">"all"</span>&gt;</span><br><span class="line">         	&lt;key column=<span class="string">"trendid"</span>/&gt;</span><br><span class="line">         	&lt;one-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"Comment"</span>/&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>4.单向多对多映射</p>
-<p>set：需要一张中间表</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">获取朋友</span><br><span class="line">Friend:朋友关系表</span><br><span class="line">UserInfo:用户信息表</span><br><span class="line"><span class="tag">&lt;<span class="title">set</span> <span class="attribute">name</span>=<span class="value">"friend"</span> <span class="attribute">table</span>=<span class="value">"Friend"</span>&gt;</span>   <span class="comment">&lt;!-- 中间表 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="title">key</span> <span class="attribute">column</span>=<span class="value">"userid"</span>/&gt;</span>   <span class="comment">&lt;!-- 中间表对应表的字段 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="title">many-to-many</span> <span class="attribute">class</span>=<span class="value">"UserInfo"</span> <span class="attribute">column</span>=<span class="value">"touserid"</span>/&gt;</span>  <span class="comment">&lt;!-- 中间表对应关联表的字段 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">set</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>5.双向一对一关联</p>
-<p>one-to-one </p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在用户表和用户详细信息表里面一对一双向关联</span><br><span class="line">用户表</span><br><span class="line">&lt;one-to-one name=<span class="string">"userInfo"</span>&gt;</span><br><span class="line">用户详细信息表</span><br><span class="line">&lt;one-to-one name=<span class="string">"user"</span> property-<span class="keyword">ref</span>=<span class="string">"userInfo"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>6.双向一对多关联</p>
-<p>one-to-many</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">场景：一个人拥有多本书，一本书只属于一个人</span><br><span class="line">人：</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"book"</span> inverse=<span class="string">"true"</span>&gt;</span><br><span class="line">	&lt;key column=<span class="string">"bookid"</span>&gt;</span><br><span class="line">	&lt;one-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"Book"</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br><span class="line">书：</span><br><span class="line">&lt;many-<span class="keyword">to</span>-one <span class="property">name</span>=<span class="string">"user"</span> column=<span class="string">"userid"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>7.双向多对多关联</p>
-<p>many-to-many</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">场景一个人有多种角色，角色又多个人</span><br><span class="line">角色端</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"user"</span> table=<span class="string">"userrole"</span>&gt;</span><br><span class="line"> 	&lt;key column=<span class="string">"roleid"</span>&gt;</span><br><span class="line"> 	&lt;many-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"User"</span> column=<span class="string">"userid"</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br><span class="line">用户端</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"role"</span> table=<span class="string">"userrole"</span>&gt;</span><br><span class="line"> 	&lt;key column=<span class="string">"userid"</span>&gt;</span><br><span class="line"> 	&lt;many-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"Role"</span> column=<span class="string">"roleid"</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>注：有时候需要禁止循环引用检测</p>
-<p>String str = JSON.toJSONString(result,SerializerFeature.DisableCircularReferenceDetect);</p>
-<table>
-<thead>
-<tr>
-<th>引用</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>“$ref”:”..”</td>
-<td>上一级</td>
-</tr>
-<tr>
-<td>“$ref”:”@”</td>
-<td>当前对象，也就是自引用</td>
-</tr>
-<tr>
-<td>“$ref”:”$”</td>
-<td>根对象</td>
-</tr>
-<tr>
-<td>“$ref”:”$.children.0”</td>
-<td>基于路径的引用，相当于 root.getChildren().get(0)</td>
-</tr>
-</tbody>
-</table>
-<h5 id="写在最后">写在最后</h5><p>用hibernate的时候，有一些场景，我碰到了没解决。后续解决了补上</p>
-<p>1.用户和用户信息表的model合并：比如用户名字存在用户信息表，我在查找用户的时候，希望映射出来的model带着用户名字</p>
-<p>2.多表联合查询：动态表，动态评论表，朋友表。查询动态列表的时候，一对多的查询评论表，评论列表需要是朋友id筛选。</p>
-<p>写这个纯粹是为了总结和记录。如果有误导，望纠正。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-iOS自定义视频播放器" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/12/30/iOS自定义视频播放器/" class="article-date">
-  	<time datetime="2015-12-30T05:43:18.000Z" itemprop="datePublished">2015-12-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/30/iOS自定义视频播放器/">iOS自定义视频播放器</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="使用avplayer实现微博的视频播放效果">使用avplayer实现微博的视频播放效果</h2><p>使用：<br>pod “CTVideoView”</p>
-<p>github地址:<br><a href="https://github.com/Mikora/CTVideoView.git" target="_blank" rel="external">https://github.com/Mikora/CTVideoView.git</a></p>
-<h5 id="实现tableviewcell里面置放一个微型视频播放器">实现tableviewcell里面置放一个微型视频播放器</h5><p> 由于AVPlayer继承于NSObject,所以不能直接放上CALayer，需要有一个AVPlayerLayer作为中间承载体，所以第一步我们做一个AVPlayerLayer。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CTPlayerView</span> : <span class="title">UIView</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">AVPlayer</span> *player;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CTPlayerView</span></span></span><br><span class="line"></span><br><span class="line">+ (Class)layerClass &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">AVPlayerLayer</span> class];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">AVPlayer</span> *)player &#123;</span><br><span class="line">    <span class="keyword">return</span> [(<span class="built_in">AVPlayerLayer</span> *)[<span class="keyword">self</span> layer] player];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setPlayer:(<span class="built_in">AVPlayer</span> *)player &#123;</span><br><span class="line">    [(<span class="built_in">AVPlayerLayer</span> *)[<span class="keyword">self</span> layer] setPlayer:player];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>好处：如果我们需要做暂停的时候放置一个播放按钮等后续操作方便</p>
-<p>第二步，做一个view，用来放置CTPlayerView，并在这个view里面处理逻辑。<br>传入参数：</p>
-<ol>
-<li>视频地址，</li>
-<li>是否播放声音(在列表的时候，取消声音)</li>
-<li>是否直接播放(列表中只有当前cell和在wifi下才自动播放，播放由外部控制)</li>
-</ol>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CTVideoView</span> : <span class="title">UIView</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) CTPlayerView *playView;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)packageWithUrl:(<span class="built_in">NSString</span> *)url hasSound:(<span class="built_in">BOOL</span>)hasSound play:(<span class="built_in">BOOL</span>)play;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CTVideoView</span></span></span><br><span class="line"> [<span class="keyword">self</span> addSubview:<span class="keyword">self</span><span class="variable">.playView</span>];<span class="comment">//加入到当前view</span></span><br><span class="line"> </span><br><span class="line">- (<span class="keyword">void</span>)packageWithUrl:(<span class="built_in">NSString</span> *)url hasSound:(<span class="built_in">BOOL</span>)hasSound play:(<span class="built_in">BOOL</span>)play&#123;</span><br><span class="line">    <span class="built_in">NSURL</span> *videoUrl = [<span class="built_in">NSURL</span> URLWithString:url];</span><br><span class="line">    <span class="built_in">AVPlayerItem</span> *playerItem = [<span class="built_in">AVPlayerItem</span> playerItemWithURL:videoUrl];<span class="comment">//初始化一个playeritem</span></span><br><span class="line">    <span class="built_in">AVPlayerItem</span> *beforeItem = [<span class="keyword">self</span><span class="variable">.player</span> currentItem];</span><br><span class="line">    <span class="keyword">if</span> (beforeItem == <span class="literal">nil</span>) &#123;<span class="comment">//之所以这样判断，是cell复用的时候，需要处理</span></span><br><span class="line">        [playerItem addObserver:<span class="keyword">self</span> forKeyPath:kPlayerItemStatus options:<span class="built_in">NSKeyValueObservingOptionNew</span> context:<span class="literal">nil</span>];<span class="comment">// 监听status属性,加载完毕的时候，可以获取视频大小，frame</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//url不一致，重新加载</span></span><br><span class="line">        [beforeItem removeObserver:<span class="keyword">self</span> forKeyPath:kPlayerItemStatus];<span class="comment">//之前的item的kvo需要移除，不然会出错的</span></span><br><span class="line">        [playerItem addObserver:<span class="keyword">self</span> forKeyPath:kPlayerItemStatus options:<span class="built_in">NSKeyValueObservingOptionNew</span> context:<span class="literal">nil</span>];<span class="comment">// 监听status属性</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.player</span> = [<span class="built_in">AVPlayer</span> playerWithPlayerItem:playerItem];</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.playView</span><span class="variable">.player</span> = <span class="keyword">self</span><span class="variable">.player</span>;</span><br><span class="line">    <span class="keyword">if</span> (play) &#123;</span><br><span class="line">        [<span class="keyword">self</span><span class="variable">.player</span> play];</span><br><span class="line">        [<span class="keyword">self</span><span class="variable">.playView</span> packagePlayImageHide:<span class="literal">YES</span>];<span class="comment">//这是不显示播放按钮在中间</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (hasSound) &#123;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.player</span><span class="variable">.muted</span> = <span class="literal">NO</span>;<span class="comment">//不静音</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.player</span><span class="variable">.muted</span> = <span class="literal">YES</span>;<span class="comment">//静音</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>kvo监听status，实现kvo：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *,<span class="keyword">id</span>&gt; *)change context:(<span class="keyword">void</span> *)context&#123;</span><br><span class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:kPlayerItemStatus]) &#123;</span><br><span class="line">        <span class="built_in">AVPlayerItem</span> *playerItem = (<span class="built_in">AVPlayerItem</span>*)object;</span><br><span class="line">        <span class="keyword">if</span> (playerItem<span class="variable">.status</span> == <span class="built_in">AVPlayerItemStatusReadyToPlay</span>) &#123;</span><br><span class="line">            <span class="comment">/*</span><br><span class="line">             设置视频frame，获取时长等</span><br><span class="line">             */</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.playView</span><span class="variable">.frame</span> = [<span class="keyword">self</span><span class="variable">.playView</span> frameWithPlayerItem:[<span class="keyword">self</span><span class="variable">.playView</span><span class="variable">.player</span> currentItem] withFrame:<span class="keyword">self</span><span class="variable">.bounds</span>];<span class="comment">//这个是我对view和playerItem.presentationSize的大小做变换</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最后把view加到cell上就OK了。</p>
-<h4 id="实现点击后到播放器，需要进度条，声音调节等">实现点击后到播放器，需要进度条，声音调节等</h4><p>第一步：需要把点击的avplayer传入到下一个复杂播放器，把view真对window的位置计算出来，然后有一个放大的动画</p>
-<p>第二步：监听playeritem的status和loadedTimeRanges,分别是状态和缓存。添加一个monitor，监听每秒的操作，在释放的时候需要同时释放</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *,<span class="keyword">id</span>&gt; *)change context:(<span class="keyword">void</span> *)context&#123;</span><br><span class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:kPlayerItemStatus]) &#123;</span><br><span class="line">        <span class="built_in">AVPlayerItem</span> *playerItem = (<span class="built_in">AVPlayerItem</span>*)object;</span><br><span class="line">        <span class="keyword">if</span> (playerItem<span class="variable">.status</span> == <span class="built_in">AVPlayerItemStatusReadyToPlay</span>) &#123;</span><br><span class="line">            <span class="comment">/*</span><br><span class="line">             设置视频frame，获取时长等</span><br><span class="line">             */</span></span><br><span class="line">            [<span class="keyword">self</span> readyToPlay];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> ([keyPath isEqualToString:kPlayerItemLoadedTime])&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSArray</span> *array = [<span class="keyword">self</span><span class="variable">.player</span><span class="variable">.currentItem</span> loadedTimeRanges];</span><br><span class="line">        CMTimeRange range = [array<span class="variable">.firstObject</span> CMTimeRangeValue];<span class="comment">//从哪儿开始的</span></span><br><span class="line">        <span class="built_in">CGFloat</span> start = CMTimeGetSeconds(range<span class="variable">.start</span>);<span class="comment">//缓存了多少</span></span><br><span class="line">        <span class="built_in">CGFloat</span> duration = CMTimeGetSeconds(range<span class="variable">.duration</span>);<span class="comment">//一共缓存了多少</span></span><br><span class="line">        <span class="built_in">CGFloat</span> allCache = start+duration;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.cacheTime</span> = allCache;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.playbackTimeObserver</span> = [<span class="keyword">self</span><span class="variable">.playView</span><span class="variable">.player</span> addPeriodicTimeObserverForInterval:CMTimeMake(<span class="number">1</span>, <span class="number">1</span>) queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>) usingBlock:^(CMTime time) &#123;</span><br><span class="line">        <span class="built_in">AVPlayerItem</span> *beforeItem = [weakSelf<span class="variable">.player</span> currentItem];</span><br><span class="line">        <span class="built_in">CGFloat</span> currentSecond = beforeItem<span class="variable">.currentTime</span><span class="variable">.value</span>/beforeItem<span class="variable">.currentTime</span><span class="variable">.timescale</span>;<span class="comment">//当前时间，秒</span></span><br><span class="line">        weakSelf<span class="variable">.currentTime</span> = currentSecond;<span class="comment">//当前时间，秒</span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            [weakSelf<span class="variable">.controlView</span> packageNowTime:currentSecond maxTime:weakSelf<span class="variable">.totalTime</span> available:weakSelf<span class="variable">.cacheTime</span>];</span><br><span class="line">        &#125;);<span class="comment">//需要回到主线程进行界面更新</span></span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//释放所有kvo</span></span><br><span class="line">    <span class="attr_selector">[self.playView.player removeTimeObserver:self.playbackTimeObserver]</span>;</span><br><span class="line">    <span class="attr_selector">[[self.playView.player currentItem]</span> <span class="tag">removeObserver</span><span class="pseudo">:self</span> <span class="tag">forKeyPath</span><span class="pseudo">:kPlayerItemStatus</span>];</span><br><span class="line">    <span class="attr_selector">[[self.playView.player currentItem]</span> <span class="tag">removeObserver</span><span class="pseudo">:self</span> <span class="tag">forKeyPath</span><span class="pseudo">:kPlayerItemLoadedTime</span>];</span><br></pre></td></tr></table></figure>
-<p>进度控制：</p>
-<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">[<span class="keyword">self.playView.player</span> seekToTime:CMTimeMake<span class="list">(<span class="keyword">value</span>, <span class="number">1</span>)</span> toleranceBefore:CMTimeMake<span class="list">(<span class="keyword">1</span>, <span class="number">1</span>)</span> toleranceAfter:CMTimeMake<span class="list">(<span class="keyword">1</span>, <span class="number">1</span>)</span>]<span class="comment">;</span></span></span><br></pre></td></tr></table></figure>
-<p>声音控制：</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">MPVolumeView</span> *slide = [[<span class="type">MPVolumeView</span> alloc]init];</span><br><span class="line"><span class="type">UISlider</span> *volumeView;</span><br><span class="line"><span class="type">float</span> val = <span class="number">0</span>.<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">UIView</span> *view <span class="keyword">in</span> [slide subviews] ) &#123;</span><br><span class="line">    <span class="keyword">if</span> ([[[view class] description] isEqualToString:@<span class="string">"MPVolumeSlider"</span>]) &#123;</span><br><span class="line">        volumeView = (<span class="type">UISlider</span>*)view;</span><br><span class="line">        [self.volumeSlider setValue:<span class="literal">result</span> animated:<span class="type">YES</span>];//<span class="literal">result</span>为音量大小</span><br><span class="line">        [self.volumeSlider sendActionsForControlEvents:<span class="type">UIControlEventTouchUpInside</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>亮度调节</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="type">UIScreen</span> mainScreen] setBrightness:<span class="literal">result</span>];</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-github/">iOS github</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-iOS自定义相机和简单马赛克" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/12/23/iOS自定义相机和简单马赛克/" class="article-date">
-  	<time datetime="2015-12-23T10:21:04.000Z" itemprop="datePublished">2015-12-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/23/iOS自定义相机和简单马赛克/">iOS自定义相机和简单马赛克</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="iOS自定义相机">iOS自定义相机</h2><p>我们选择拍照的时候，系统提供了一个UIImagePickerController，但是功能太弱，很多时候我们不得不自己实现拍照等。</p>
-<p>在iOS里面系统提供一个AVFoundation的库，供用户使用相机，图片，音频，视频等一系列多媒体api。</p>
-<p>做自定义相机大致如下几个步骤：</p>
-<ul>
-<li><p>在view上添加一个AVCaptureVideoPreviewLayer，将输出图像预览在layer上</p>
-</li>
-<li><p>初始化一个AVCaptureSession，并且赋值给layer，给AVCaptureSession添加AVCaptureDeviceInput和AVCaptureDeviceOutput,设置捕捉的对象为setSessionPreset:AVCaptureSessionPresetPhoto</p>
-</li>
-<li><p>点击拍照时候，使用如下获取捕捉到的图片</p>
-</li>
-</ul>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[_stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^<span class="list">(<span class="keyword">CMSampleBufferRef</span> imageDataSampleBuffer, NSError *error)</span> <span class="collection">&#123;&#125;</span></span></span><br></pre></td></tr></table></figure>
-<p>这里给出一个最简单的demo示例：(略)</p>
-<p>上述只是实现了拍照的功能，其中我们很可能还需要许多其他功能，比如：闪光灯，摄像头切换等等。</p>
-<p>摄像头切换：</p>
-<p>1.判断是否支持多相机模式：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr_selector">[[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]</span> <span class="tag">count</span>] &gt; 1 ? <span class="rule"><span class="attribute">YES </span>:<span class="value"> NO</span></span>;</span><br></pre></td></tr></table></figure>
-<p>2.判断当前摄像头是前后：</p>
-<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AVCaptureDevicePosition <span class="keyword">position</span> = _videoInput.device.<span class="keyword">position</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">position</span> == AVCaptureDevicePositionBack) </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">position</span> == AVCaptureDevicePositionFront)</span><br></pre></td></tr></table></figure>
-<p>3.将新的摄像头输入设备放入,并且生效配置：</p>
-<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">newVideoInput = <span class="comment">[<span class="comment">[AVCaptureDeviceInput alloc]</span>initWithDevice:<span class="comment">[self frontCamera]</span> error:&amp;error]</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">[_captureSession beginConfiguration]</span>;</span><br><span class="line"><span class="comment">[_captureSession removeInput:_videoInput]</span>;</span><br><span class="line">if (<span class="comment">[_captureSession canAddInput:newVideoInput]</span>) &#123;</span><br><span class="line">    <span class="comment">[_captureSession addInput:newVideoInput]</span>;</span><br><span class="line">    _videoInput = newVideoInput;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    <span class="comment">[_captureSession addInput:_videoInput]</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">[_captureSession commitConfiguration]</span>;</span><br></pre></td></tr></table></figure>
-<p>同理：闪关灯，白平衡等有类似api设置</p>
-<h3 id="在相机输出图片后，我们可能需要对图片进行处理。">在相机输出图片后，我们可能需要对图片进行处理。</h3><p>我这里需要用户对图片进行区域马赛克，我参考了in的做法(不一定相同).用一张png图片和点击坐标的颜色值进行组合，最后在layer上加入sublayer。<br>注：滤镜可在coreimage库里面做，这里我不涉及。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> pixel[<span class="number">4</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="built_in">CGColorSpaceRef</span> colorSpace = <span class="built_in">CGColorSpaceCreateDeviceRGB</span>();</span><br><span class="line"><span class="built_in">CGContextRef</span> context = <span class="built_in">CGBitmapContextCreate</span>(pixel, <span class="number">1</span>, <span class="number">1</span>, <span class="number">8</span>, <span class="number">4</span>, colorSpace, k<span class="built_in">CGImageAlphaPremultipliedLast</span>);</span><br><span class="line"><span class="built_in">CGContextTranslateCTM</span>(context, -point<span class="variable">.x</span>, -point<span class="variable">.y</span>);</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.layer</span> renderInContext:context];</span><br><span class="line"><span class="built_in">CGContextRelease</span>(context);</span><br><span class="line"><span class="built_in">CGColorSpaceRelease</span>(colorSpace);</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIColor</span> *color = [<span class="built_in">UIColor</span> colorWithRed:pixel[<span class="number">0</span>]/<span class="number">255.0</span> green:pixel[<span class="number">1</span>]/<span class="number">255.0</span> blue:pixel[<span class="number">2</span>]/<span class="number">255.0</span> alpha:pixel[<span class="number">3</span>]/<span class="number">255.0</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span><span class="variable">.viewImage</span><span class="variable">.backgroundColor</span> = color;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">CALayer</span> *layer = [[<span class="built_in">CALayer</span> alloc]init];</span><br><span class="line">layer<span class="variable">.frame</span> = rect;</span><br><span class="line">layer<span class="variable">.contents</span> = (<span class="keyword">id</span>)[[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"camera_masico_icon"</span>] tintImageWithColor:color]<span class="variable">.CGImage</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.layer</span> addSublayer:layer];</span><br></pre></td></tr></table></figure>
-<p>该demo我放在Github上面：<a href="https://github.com/Mikora/CustomCamera.git" target="_blank" rel="external">点击这里</a></p>
-<p>pod里面导入： CTCamera</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-github/">iOS github</a></li></ul>
 	</div>
 
       
