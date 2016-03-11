@@ -174,6 +174,153 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Base64编码" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/15/Base64编码/" class="article-date">
+  	<time datetime="2016-01-15T02:20:35.000Z" itemprop="datePublished">2016-01-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/15/Base64编码/">Base64编码</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Base64编码">Base64编码</h3><p>base64是一种很常见的编码，常用于URL、Cookie、网页中传输少量二进制数据</p>
+<ol>
+<li><p>编码方式：</p>
+<p> 准备一个包含64个字符的数组：</p>
+<p> [‘A’,’B’,’C’,…,’a’,’b’,’c’,…,’0’,’1’,’2’,…,’+’,’/‘]</p>
+<p> 把需要转码的字符串进行二进制处理，每三个字符一组，一共3*8=24位，划分为4组，每组6个，然后根据每组的数字作为索引，查找准备好的64个字符的数组中对应的字符。</p>
+<p> 如果多出一个或者两个字符，那么就在字符后面加\x00,在完成的字符后面加一个或者两个＝号表示补了几个字节。</p>
+</li>
+<li><p>示例：</p>
+<p> 字符 bin ：二进制为 62696e =&gt; 01100010 01101001 01101110</p>
+<p> 分为四组： 011000  100110 100101 101110 =&gt; 第24个字符，第38个字符，第37个字符，第46个字符</p>
+<p> 结果为：Ymlu</p>
+</li>
+</ol>
+<ol>
+<li><p>当作为url使用的时候，不能出现’+’,’/‘.所以通常把这两个字符换成’-‘,’_’</p>
+</li>
+<li><p>结果里面也不能出现’=’，都是3个字符结果4个字符，那么在结果里面解码时重新加上即可。</p>
+</li>
+</ol>
+<h3 id="MD5_DES_Feistel加密">MD5 DES Feistel加密</h3>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-使用AssetsLibrary做自定义相册选择器" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/08/使用AssetsLibrary做自定义相册选择器/" class="article-date">
+  	<time datetime="2016-01-08T07:58:26.000Z" itemprop="datePublished">2016-01-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/08/使用AssetsLibrary做自定义相册选择器/">使用AssetsLibrary做自定义相册选择器</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用AssetsLibrary做自定义相册选择器">使用AssetsLibrary做自定义相册选择器</h2><h6 id="场景：">场景：</h6><p>在许多时候，系统自带的图片选择器不能满足我们的需求，例如一次选择多张图片，在选择图片的时候有图片选择的提示，以及图片的数量限制，甚至选择图片后续的图片编辑。</p>
+<p>目前有两种自定义的相册图片选择的方式：AssetsLibrary和photokit。</p>
+<p>photokit只能用于iOS8以上的版本，在photokit里面可以使用iOS9出来的live picture。在性能和过滤上优于AssetsLibrary。<br>AssetsLibrary比较常规，能满足遇到的大部分需求。</p>
+<p>这里为第一篇，主要讲AssetsLibrary自定义选择。下篇为photokit以及混合使用，做iOS版本控制上区分。</p>
+<p>这里我放出我做的一个选择器：<br><a href="https://github.com/Mikora/CTImagePicker" target="_blank" rel="external">github</a></p>
+<h6 id="流程">流程</h6><ol>
+<li>创建一个navigationcontroller,把相册列表(2)和全部照片列表(3里面url为第一个相册的url)两个viewcontroller塞进去。</li>
+<li>创建相册列表，获取所有数量不为零的ALAssetsGroup，取出第一张缩略图和名字放进去</li>
+<li>创建照片列表，把ALAssetsGroup的url初始化进去，根据url获取ALAssetsGroup，然后根据ALAssetsGroup获取所有group下的ALAsset，展示出来</li>
+</ol>
+<h6 id="实现">实现</h6><p>在navigationcontroller里面先把第一个相册找出来：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsLibrary *library = [[ALAssetsLibrary alloc]init];</span><br><span class="line">[library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    <span class="keyword">if</span> (group == <span class="literal">nil</span> &amp;&amp; *stop == <span class="literal">NO</span>) &#123;</span><br><span class="line">        [<span class="keyword">self</span> showAlbumList];<span class="comment">//一个都没有直接跳到列表</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (*stop == <span class="literal">YES</span>) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        *stop = <span class="literal">YES</span>;</span><br><span class="line">        <span class="built_in">NSURL</span> *assetsUrl = [group valueForProperty:ALAssetsGroupPropertyURL];<span class="comment">//获取第一个相册url,默认第一个为所有照片</span></span><br><span class="line">        CTImageAlbumViewController *albumVC = [[CTImageAlbumViewController alloc]init];<span class="comment">//相册列表</span></span><br><span class="line">        <span class="keyword">if</span> (assetsUrl) &#123;</span><br><span class="line">            CTImageCollectionViewController *collectionVC = [[CTImageCollectionViewController alloc]initWithAssetsGroupUrl:assetsUrl];<span class="comment">//所有照片列表</span></span><br><span class="line">            [<span class="keyword">self</span> setViewControllers:@[albumVC,collectionVC]];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            [<span class="keyword">self</span> setViewControllers:@[albumVC]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; failureBlock:^(<span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">    </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>上面初始化CTImageAlbumViewController,在里面先找出所有数量不为零的相册，添加到cell里面</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.assetsLibrary</span> = [[ALAssetsLibrary alloc]init];</span><br><span class="line">type = @(ALAssetsGroupAll);<span class="comment">//视频和照片都一起</span></span><br><span class="line">[<span class="keyword">self</span><span class="variable">.assetsLibrary</span> enumerateGroupsWithTypes:[type unsignedIntegerValue] usingBlock:^(ALAssetsGroup *group, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">            __<span class="keyword">strong</span> <span class="keyword">typeof</span>(weakSelf) weakSelf = weakSelf;</span><br><span class="line">            <span class="keyword">if</span> (group) &#123;</span><br><span class="line">                <span class="keyword">if</span> (group<span class="variable">.numberOfAssets</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    [assetsGroups addObject:group];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                numberOfFinishedType++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (numberOfFinishedType == array<span class="variable">.count</span>) &#123;<span class="comment">//当numberOfFinishedType为1的时候便结束并且拍戏</span></span><br><span class="line">                <span class="built_in">NSArray</span> *sortAssetsGroup = [assetsGroups sortedArrayUsingComparator:^<span class="built_in">NSComparisonResult</span>(<span class="keyword">id</span>  _Nonnull obj1, <span class="keyword">id</span>  _Nonnull obj2) &#123;</span><br><span class="line">                    ALAssetsGroup *a = obj1;</span><br><span class="line">                    ALAssetsGroup *b = obj2;</span><br><span class="line">                    <span class="built_in">NSNumber</span> *apropertyType = [a valueForProperty:ALAssetsGroupPropertyType];</span><br><span class="line">                    <span class="built_in">NSNumber</span> *bpropertyType = [b valueForProperty:ALAssetsGroupPropertyType];</span><br><span class="line">                    <span class="keyword">if</span> ([apropertyType compare:bpropertyType] == <span class="built_in">NSOrderedAscending</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="built_in">NSOrderedDescending</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span> <span class="built_in">NSOrderedSame</span>;</span><br><span class="line">                &#125;];</span><br><span class="line">                <span class="keyword">self</span><span class="variable">.groupArray</span> = [<span class="built_in">NSMutableArray</span> arrayWithArray: sortAssetsGroup];</span><br><span class="line">                [<span class="keyword">self</span><span class="variable">.tableview</span> reloadData];</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125; failureBlock:^(<span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"获取相册失败"</span>);</span><br><span class="line">        &#125;];</span><br></pre></td></tr></table></figure>
+<p>这里的数据都放入了assetsGroups，在tableview里面使用就好</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsGroup *algroup = [<span class="keyword">self</span><span class="variable">.groupArray</span> objectAtIndex:indexPath<span class="variable">.row</span>];</span><br><span class="line"><span class="built_in">NSString</span> *name = [algroup valueForProperty:ALAssetsGroupPropertyName];</span><br><span class="line"><span class="built_in">NSInteger</span> count = [algroup numberOfAssets];</span><br><span class="line"><span class="built_in">UIImage</span> *photo = [<span class="built_in">UIImage</span> imageWith<span class="built_in">CGImage</span>:[algroup posterImage]];</span><br></pre></td></tr></table></figure>
+<p>点击item跳转：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsGroup *algroup = [self.groupArray objectAtIndex:indexPath.row];</span><br><span class="line">CTImageCollectionViewController *collectionVC = <span class="string">[[CTImageCollectionViewController alloc]initWithAssetsGroupUrl:[algroup valueForProperty:ALAssetsGroupPropertyURL]]</span>;</span><br></pre></td></tr></table></figure>
+<p>在CTImageCollectionViewController拿出照片展示：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">dispatch_async(dispatch_get_global_queue(<span class="type">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;//使用后台线程</span><br><span class="line">        [self.alAssetsGroup enumerateAssetsWithOptions:<span class="type">NSEnumerationReverse</span> usingBlock:^(<span class="type">ALAsset</span> *<span class="literal">result</span>, <span class="type">NSUInteger</span> index, <span class="type">BOOL</span> *stop) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="literal">result</span>) &#123;</span><br><span class="line">                [self.resultArray insertObject:<span class="literal">result</span> atIndex:<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (index == <span class="number">0</span>) &#123;</span><br><span class="line">                *stop = <span class="type">YES</span>;</span><br><span class="line">                <span class="keyword">return</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">        dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            [self.collectionView reloadData];</span><br><span class="line">            [self scrollToBottom:<span class="type">NO</span>];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-Java中使用Hibernate作为数据库框架" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
