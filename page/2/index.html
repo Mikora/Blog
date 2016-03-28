@@ -216,6 +216,247 @@
             
               
                 
+                <a class="post-title-link" href="/2016/01/18/用协议模式打开对应controller/" itemprop="url">
+                  用协议模式打开对应Controller
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-18T11:18:24+08:00" content="2016-01-18">
+              2016-01-18
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="用协议模式打开对应Controller">用协议模式打开对应Controller</h3><p>在开发iOS的时候，经常会遇到根据一个值为string的key去打开一个controller，然后陪着一些参数。例如远程通知，webview打开本地页面等等。或者两个子模块应用并行开发，需要在特定地方打开对方某个controller。</p>
+<p>打开某个controller，需要考虑的几点东西：</p>
+<ol>
+<li>如何得到指定的vc</li>
+<li>参数传递</li>
+<li>上级页面的操作，如：订单详情，返回上级页面为订单列表</li>
+</ol>
+<p>这里我给一个指定的url：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxxdemo://push/second/third?second[<span class="link_label">a</span>]=1&amp;second[<span class="link_label">b</span>]=2&amp;third[<span class="link_label">a</span>]=3&amp;third[<span class="link_label">b</span>]=4&amp;e=5&amp;f[<span class="link_label">a</span>][<span class="link_reference"></span>]=6&amp;f[<span class="link_label">a</span>][<span class="link_reference"></span>]=7&amp;second[<span class="link_label">c</span>][<span class="link_reference"></span>]=1&amp;second[<span class="link_label">c</span>][<span class="link_reference"></span>]=2</span><br></pre></td></tr></table></figure>
+<p>这里是标准的url格式，当我们在参数中需要添加一个url的时候，我们需要对url进行urlencode再放入(例：xxxdemo://open/third?url=www.baidu.com%3Ftoken%3D123%26a%3D3&amp;b=1)</p>
+<p>1.如何得到指定的vc</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用对应表</td>
+<td>简单易懂，而且性能比较好</td>
+<td>扩展性差，难维护</td>
+</tr>
+<tr>
+<td>使用类名对应</td>
+<td>简单，性能好，扩展好</td>
+<td>比较蠢，android和iOS不通用</td>
+</tr>
+<tr>
+<td>使用协议查询</td>
+<td>扩展性好，便于维护</td>
+<td>在查询过程会比其它方法消耗更多资源</td>
+</tr>
+</tbody>
+</table>
+<p>这里我们使用第三种，因为作为一个通用库，考虑的更多是其它项目通用性，可扩展性以及维护。</p>
+<p>在库中，我们会给出一个协议，当业务方在业务中实现这个协议，那么就相当于在我们的注册表中注册了，我们把对应的内容拿出来为映射的key值，然后存储在我们的沙盒里面。下一次，只需要根据版本号是否增加，去判断是否需要更新这个文件（当然在debug环境下，是都更新的）。</p>
+<p>在调用的时候，我们只需要去寻找这个key，然后根据value去找到这个class，最后把参数根据实现协议的另外一个方法传入，如此便可。</p>
+<p>使用url则是得到url里面的paths、pathComponents，如果用pathComponents，需要移除：”/“，然后根据paths去获取不同的value，可以对应多个viewcontroller。</p>
+<p>2.如何传递参数</p>
+<p>如果打开单个viewcontroller，那么在viewcontroller里面实现协议，然后把url的query传入即可，但是有些时候，我们会遇到一次打开多个页面的情况。</p>
+<p>首先，在对url进行解析的时候，判断是否为多个paths，单个则直接把所有query传入，多个，则先根据query里面的key值找出对应那一个path的所有参数，然后传入</p>
+<p>3.上级页面的操作，如：订单详情，返回上级页面为订单列表</p>
+<p>这个问题在1中已经解决。</p>
+<p>这里的demo我不放出来，如果需要思路可以直接找我 632300630@qq.com</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/01/15/NSUrl和NSUrlCompents/" itemprop="url">
+                  NSUrl和NSUrlCompents
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-15T15:30:57+08:00" content="2016-01-15">
+              2016-01-15
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>写如下文章的场景：</p>
+<p>在项目中我需要对自定义的url进行解析，例如：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">example:</span><span class="comment">//push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;a=3</span></span><br></pre></td></tr></table></figure>
+<p>注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.</p>
+<p>普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比较麻烦，于是用到了NSUrlCompents，解析出来的queryItems为：</p>
+<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">"&lt;NSURLQueryItem 0x7fb9f1f3f790&gt; &#123;name = url, value = www.baidu.com?TOKEN=123&#125;"</span>,</span><br><span class="line"><span class="comment">"&lt;NSURLQueryItem 0x7fb9f1f3f7b0&gt; &#123;name = a, value = 3&#125;"</span></span><br></pre></td></tr></table></figure>
+<h3 id="NSUrl_:">NSUrl :</h3><p>Url：统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。</p>
+<p>1.url基础语法：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">scheme</span>&gt;</span> :// <span class="tag">&lt;<span class="title">username</span>&gt;</span> : <span class="tag">&lt;<span class="title">password</span>&gt;</span> @ <span class="tag">&lt;<span class="title">host</span> <span class="attribute">name</span>&gt;</span> : <span class="tag">&lt;<span class="title">port</span>&gt;</span> / <span class="tag">&lt;<span class="title">path</span>&gt;</span> / <span class="tag">&lt;<span class="title">extension</span>&gt;</span> ? <span class="tag">&lt;<span class="title">query</span>&gt;</span> # <span class="tag">&lt;<span class="title">fragment</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.示例： xxx://username:password@host.com/path/extension.html?query=1#nose</p>
+<p>3.通常我们使用url的时候为： xxx://host/path/extension.xml?query=1</p>
+<p>在iOS中，foundation库提供了NSUrl代表URL.</p>
+<p>使用方法不介绍了。</p>
+<h3 id="NSUrlCompents">NSUrlCompents</h3><p>在iOS7中加入了NSUrlCompents，可以完美替代NSMutableUrl.<br>其中提供如下property用于修改</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scheme</span><br><span class="line"><span class="keyword">user</span></span><br><span class="line">password</span><br><span class="line">host</span><br><span class="line"><span class="keyword">port</span></span><br><span class="line">path</span><br><span class="line">query</span><br><span class="line"><span class="keyword">fragment</span></span><br></pre></td></tr></table></figure>
+<p>还提供了readwrite属性对每个compent进行[percent-encoded]</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">percentEncodedUser</span></span><br><span class="line">percentEncodedPassword</span><br><span class="line">percentEncodedHost</span><br><span class="line">percentEncodedPath</span><br><span class="line">percentEncodedQuery</span><br><span class="line">percentEncodedFragment</span><br></pre></td></tr></table></figure>
+<p>如果需要对url进行比较深入的解析的时候，使用NSUrlCompents十分方便</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/01/15/Base64编码/" itemprop="url">
                   Base64编码
                 </a>
@@ -1190,223 +1431,11 @@ completionBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NS
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/09/29/iOS中关键字/" itemprop="url">
-                  iOS中关键字
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-29T13:22:14+08:00" content="2015-09-29">
-              2015-09-29
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>###iOS 关键字区别</p>
-<ul>
-<li>retain copy</li>
-</ul>
-<p>这两个关键字是针对对象可变不可变的才会有影响。如果是可变对象，使用retain，只会计数器加一，使用copy，会开辟新的内存地址。如果不可变，那么一样。</p>
-<p>在我们自定义对象需要使用copy的时候，需要考虑可变不可变：(继承<nscopying,nsmutablecopying>)</nscopying,nsmutablecopying></p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (id)copyWithZone:(NSZone *)zone&#123;</span><br><span class="line">    Demo1 *demo = [[Demo1 <span class="class"><span class="keyword">class</span>]<span class="title">allocWithZone</span>:<span class="typename">zone];</span></span></span><br><span class="line">    demo.str = [_str copy];</span><br><span class="line">    <span class="keyword">return</span> demo;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)mutableCopyWithZone:(NSZone *)zone&#123;</span><br><span class="line">    Demo1 *demo = [[Demo1 <span class="class"><span class="keyword">class</span>] <span class="title">allocWithZone</span>:<span class="typename">zone];</span></span></span><br><span class="line">    demo.str = [_str copy];</span><br><span class="line">    <span class="keyword">return</span> demo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试代码：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableString</span> *mustr = [<span class="built_in">NSMutableString</span> stringWithFormat:<span class="string">@"123"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变mustr point == %p"</span>,mustr);</span><br><span class="line"><span class="keyword">self</span><span class="variable">.sStr</span> = mustr;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变retain  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="keyword">self</span><span class="variable">.cStr</span> = mustr;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变copy  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br><span class="line"></span><br><span class="line">[mustr appendString:<span class="string">@"12"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变mustr == %@"</span>,mustr);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变retain  str == %@"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变copy  str == %@"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"1234"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变str  str point == %p"</span>,str);</span><br><span class="line"><span class="keyword">self</span><span class="variable">.sStr</span> = str;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变retain  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="keyword">self</span><span class="variable">.cStr</span> = str;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变copy  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br></pre></td></tr></table></figure>
-<p>返回值：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.130</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变mustr point == <span class="number">0x7fc1e270f790</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.130</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变retain  str point == <span class="number">0x7fc1e270f790</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变copy  str point == <span class="number">0xa000000003332313</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变mustr == <span class="number">12312</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变retain  str == <span class="number">12312</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变copy  str == <span class="number">123</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变str  str point == <span class="number">0xa000000343332314</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变retain  str point == <span class="number">0xa000000343332314</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变copy  str point == <span class="number">0xa000000343332314</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>retain strong </li>
-</ul>
-<p>没什么不同，都是修饰强引用</p>
-<ul>
-<li>assign weak</li>
-</ul>
-<p>都可用于修饰弱引用，assign可用于c的基本数据类型(int float ..)<br>weak和assgin,在引用对象被释放后，weak修饰的会被置为nil，向nil对象发送调用不会导致野指针错误</p>
-<ul>
-<li>nonatomic atomic</li>
-</ul>
-<p>原子性，控制在多线程下对象是否线程安全</p>
-<ul>
-<li>readonly readwrite ..</li>
-</ul>
-<p>对外读写权限控制</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/09/29/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-29T10:16:55+08:00" content="2015-09-29">
-              2015-09-29
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1447,7 +1476,7 @@ completionBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NS
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

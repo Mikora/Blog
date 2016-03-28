@@ -57,44 +57,57 @@
 
 
 
-<meta name="description" content="iOS9通用链接Universal Links目前我们使用打开自己应用的方法是在safari里面使用“xxxappname://”的模式。
+<meta name="description" content="启动时间：使用time profiler查看
+如图
 
-缺点
+第一次加载
 
 
-无法在一些内置浏览器里面打开应用，比如微信，QQ.
-在safari里面打开的时候，会提升是否打开应用
-在进行跳转的时候，会有其他网页跟随（这个可能是我们前端没有进行优化）
 
-iOS9后，苹果推出了通用链接（universal links），实现了上">
+使用后台异步加载：
+
+
+可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。
+内存使用Allocations和Leaks
+不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般leaks只知道有泄漏，但是无法定位。
+这里为了方">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS9通用链接Universal Links">
-<meta property="og:url" content="http://blog.huangcheng.com/2016/03/11/iOS9通用链接Universal-Links/index.html">
+<meta property="og:title" content="使用instruments查看app性能和调试">
+<meta property="og:url" content="http://blog.huangcheng.com/2016/03/28/使用instruments查看app性能和调试/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="iOS9通用链接Universal Links目前我们使用打开自己应用的方法是在safari里面使用“xxxappname://”的模式。
+<meta property="og:description" content="启动时间：使用time profiler查看
+如图
 
-缺点
+第一次加载
 
 
-无法在一些内置浏览器里面打开应用，比如微信，QQ.
-在safari里面打开的时候，会提升是否打开应用
-在进行跳转的时候，会有其他网页跟随（这个可能是我们前端没有进行优化）
 
-iOS9后，苹果推出了通用链接（universal links），实现了上">
-<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/66B41F17-9C42-43C5-9C7A-7A7D85C73081.png">
-<meta property="og:updated_time" content="2016-03-11T06:40:12.000Z">
+使用后台异步加载：
+
+
+可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。
+内存使用Allocations和Leaks
+不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般leaks只知道有泄漏，但是无法定位。
+这里为了方">
+<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/5E5E1189-90F4-4F79-9B3A-5996C005AB94.png?imageView/1/w/700/h/250">
+<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/243FFCBB-052E-4BBB-8382-FF4B00940492.png?imageView/1/w/680/h/200">
+<meta property="og:updated_time" content="2016-03-28T08:49:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS9通用链接Universal Links">
-<meta name="twitter:description" content="iOS9通用链接Universal Links目前我们使用打开自己应用的方法是在safari里面使用“xxxappname://”的模式。
+<meta name="twitter:title" content="使用instruments查看app性能和调试">
+<meta name="twitter:description" content="启动时间：使用time profiler查看
+如图
 
-缺点
+第一次加载
 
 
-无法在一些内置浏览器里面打开应用，比如微信，QQ.
-在safari里面打开的时候，会提升是否打开应用
-在进行跳转的时候，会有其他网页跟随（这个可能是我们前端没有进行优化）
 
-iOS9后，苹果推出了通用链接（universal links），实现了上">
+使用后台异步加载：
+
+
+可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。
+内存使用Allocations和Leaks
+不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般leaks只知道有泄漏，但是无法定位。
+这里为了方">
 
 
 
@@ -112,7 +125,7 @@ iOS9后，苹果推出了通用链接（universal links），实现了上">
   };
 </script>
 
-  <title> iOS9通用链接Universal Links | 随笔 </title>
+  <title> 使用instruments查看app性能和调试 | 随笔 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -242,7 +255,7 @@ iOS9后，苹果推出了通用链接（universal links），实现了上">
             
             
               
-                iOS9通用链接Universal Links
+                使用instruments查看app性能和调试
               
             
           </h1>
@@ -254,8 +267,8 @@ iOS9后，苹果推出了通用链接（universal links），实现了上">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-11T14:15:35+08:00" content="2016-03-11">
-              2016-03-11
+            <time itemprop="dateCreated" datetime="2016-03-28T16:41:51+08:00" content="2016-03-28">
+              2016-03-28
             </time>
           </span>
 
@@ -281,52 +294,57 @@ iOS9后，苹果推出了通用链接（universal links），实现了上">
       
 
       
-        <h4 id="iOS9通用链接Universal_Links">iOS9通用链接Universal Links</h4><p>目前我们使用打开自己应用的方法是在safari里面使用“xxxappname://”的模式。</p>
+        <h6 id="启动时间：">启动时间：</h6><p>使用time profiler查看</p>
+<p>如图</p>
 <blockquote>
-<p>缺点</p>
+<p>第一次加载</p>
 </blockquote>
-<ol>
-<li>无法在一些内置浏览器里面打开应用，比如微信，QQ.</li>
-<li>在safari里面打开的时候，会提升是否打开应用</li>
-<li>在进行跳转的时候，会有其他网页跟随（这个可能是我们前端没有进行优化）</li>
-</ol>
-<p>iOS9后，苹果推出了通用链接（universal links），实现了上述功能，无缝链接到我们自己的应用上</p>
+<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/5E5E1189-90F4-4F79-9B3A-5996C005AB94.png?imageView/1/w/700/h/250" alt="image"></p>
 <blockquote>
-<p>优点</p>
+<p>使用后台异步加载：</p>
 </blockquote>
-<ol>
-<li>通过唯一的网址, 就可以链接一个特定的视图到你的 APP 里面, 不需要特别的 schema</li>
-<li>可以在任何访问这个链接的地方链接到我们的应用</li>
-<li>不会影响到我们iOS9以前的打开方式</li>
-</ol>
-<h4 id="使用">使用</h4><blockquote>
-<p>前提</p>
-</blockquote>
-<ol>
-<li>有ssl域名，也就是正轨的https访问</li>
-<li>必须域名，不能是ip</li>
-<li>必须上传一个文件到域名根目录下面</li>
-<li>iOS9</li>
-</ol>
+<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/243FFCBB-052E-4BBB-8382-FF4B00940492.png?imageView/1/w/680/h/200" alt="image"></p>
+<p>可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。</p>
+<h6 id="内存">内存</h6><p>使用Allocations和Leaks</p>
+<p>不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般leaks只知道有泄漏，但是无法定位。</p>
+<p>这里为了方便看应用的内存占用走势，我们可以用alloctions里面的mark genneration，进入返回viewcontroller，有一点增长是很正常的，如果太大就有问题了。</p>
+<h6 id="图形和动画">图形和动画</h6><p>使用Core Animation，这个貌似只能在真机上使用</p>
 <blockquote>
-<p>添加域名到我们的项目里面</p>
+<p>Color Blended Layers</p>
 </blockquote>
-<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/66B41F17-9C42-43C5-9C7A-7A7D85C73081.png" alt="image"></p>
-<p>这里的域名和我们将要上传文件的域名一致，可以包括一些子域名和扩展域名。app启动的时候，将会在这个域名下载我们上传的文件</p>
+<p>Instruments可以在物理机上显示出被混合的图层Blended Layer(用红色标注)，Blended Layer是因为这些Layer是透明的(Transparent)，系统在渲染这些view时需要将该view和下层view混合(Blend)后才能计算出该像素点的实际颜色，如果这种blended layer很多，那么在滚动列表时就甭想有流畅的效果。</p>
+<p>解决blended layer问题也很简单，检查红色区域view的opaque属性，记得设置成YES；检查backgroundColor属性是不是[UIColor clearColor]，要知道背景颜色为clear color那可是图形性能的大敌，基本意味着blended layer是跑不了的了，为什么？自己思考一下:)</p>
 <blockquote>
-<p>上传文件到我们的域名根目录下面</p>
+<p>Color Hits Green and Misses Red</p>
 </blockquote>
-<p>使用编辑工具创建一个文本：文件名必须为apple-app-site-association</p>
-<p>注：文本不能有后缀，我使用vim</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">applinks</span>": <span class="value">&#123;</span><br><span class="line">        "<span class="attribute">apps</span>": <span class="value">[]</span>,</span><br><span class="line">        "<span class="attribute">details</span>": <span class="value">[</span><br><span class="line">            &#123;</span><br><span class="line">                "<span class="attribute">appID</span>": <span class="value"><span class="string">"ME8P9RGZ87.com.cc.CTChat"</span></span>,</span><br><span class="line">                "<span class="attribute">paths</span>": <span class="value">[ <span class="string">"*"</span>,<span class="string">"/*"</span>,<span class="string">"/home"</span>, <span class="string">"/cooperation"</span>,<span class="string">"/cooperationList"</span>,<span class="string">"/coopDetail"</span>,<span class="string">"/darenmine"</span>,<span class="string">"/merchantmine"</span>,<span class="string">"/darenhome"</span>,<span class="string">"/merchanthome"</span>,<span class="string">"/subject"</span>]</span><br><span class="line">            </span>&#125;</span><br><span class="line">        ]</span><br><span class="line">    </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<p>这里的appid为teamid+bundleid，teamid在苹果开发者账号下可以查到，bundleid在项目中</p>
-<p>path为你想在链接的path为xxx的时候打开我们的应用</p>
-<p>上传到我们的域名根目录下面。可以在<a href="https://search.developer.apple.com/appsearch-validation-tool/" target="_blank" rel="external">苹果开发工具</a>里面检测是否有效</p>
+<p>很多视图Layer由于Shadow、Mask和Gradient等原因渲染很高，因此UIKit提供了API用于缓存这些Layer：[layer setShouldRasterize:YES]，系统会将这些Layer缓存成Bitmap位图供渲染使用，如果失效时便丢弃这些Bitmap重新生成。图层Rasterization栅格化好处是对刷新率影响较小，坏处是删格化处理后的Bitmap缓存需要占用内存，而且当图层需要缩放时，要对删格化后的Bitmap做额外计算。</p>
+<p>使用这个选项后时，如果Rasterized的Layer失效，便会标注为红色，如果有效标注为绿色。当测试的应用频繁闪现出红色标注图层时，表明对图层做的Rasterization作用不大。</p>
 <blockquote>
-<p>实现打开链接的协议</p>
+<p>Color Misaligned Images</p>
 </blockquote>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application continueUserActivity:(<span class="built_in">NSUserActivity</span> *)userActivity restorationHandler:(<span class="keyword">void</span> (^)(<span class="built_in">NSArray</span> * _Nullable))restorationHandler&#123;</span><br><span class="line">    <span class="keyword">if</span> (userActivity<span class="variable">.activityType</span> == <span class="built_in">NSUserActivityTypeBrowsingWeb</span>) &#123;</span><br><span class="line">        <span class="built_in">NSURL</span> *url = userActivity<span class="variable">.webpageURL</span>;</span><br><span class="line">        <span class="keyword">if</span> (![<span class="keyword">self</span> handleUniversalLink:url]) &#123;</span><br><span class="line">            [[<span class="built_in">UIApplication</span> sharedApplication] openURL:url];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)handleUniversalLink:(<span class="built_in">NSURL</span>*)url&#123;<span class="comment">//这个为处理链接的方法</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上就是所有步骤</p>
+<p>Misaligned Image表示要绘制的点无法直接映射到频幕上的像素点，此时系统需要对相邻的像素点做anti-aliasing反锯齿计算，增加了图形负担，通常这种问题出在对某些View的Frame重新计算和设置时产生的。</p>
+<p>上图中被标注为黄色的图层，这是由于图层显示的是被缩放后的图片，如果这些图片是通过网络下载的，可以通过程序更新为确定的绘制大小来解决。还有些系统Navigation Bar和Tool Bar的背景图片使用的是拉伸(Streched)图片，也会被表示为黄色，这是属于正常情况，通常无需修改。这种问题一般对性能影响不大，而是可能会在边缘处虚化。</p>
+<blockquote>
+<p>Color Offscreen-Rendered Yellow</p>
+</blockquote>
+<p>Offscreen-Rendering离屏渲染意思是iOS要显示一个视图时，需要先在后台用CPU计算出视图的Bitmap，再交给GPU做Onscreen-Rendering显示在屏幕上，因为显示一个视图需要两次计算，所以这种Offscreen-Rendering会导致app的图形性能下降。</p>
+<p>大部分Offscreen-Rendering都是和视图Layer的Shadow和Mask相关，下列情况会导致视图的Offscreen-Rendering：</p>
+<p>使用Core Graphics (CG开头的类)。</p>
+<p>使用drawRect()方法，即使为空。</p>
+<p>将CALayer的属性shouldRasterize设置为YES。</p>
+<p>使用了CALayer的setMasksToBounds(masks)和setShadow*(shadow)方法。</p>
+<p>在屏幕上直接显示文字，包括Core Text。</p>
+<p>设置UIViewGroupOpacity。</p>
+<p>这篇博文Designing for iOS: Graphics &amp; Performance对offsreen以及图形性能有个很棒的介绍，</p>
+<blockquote>
+<p>Color Copied Images</p>
+</blockquote>
+<p>Copied Image选项可以标注应用绘制时被Core Animation复制的图片，标注成蓝绿色。虽然我在运行时遇到过，不过个人感觉对图形性能影响不大。</p>
+<blockquote>
+<p>Color Immediately，Flash Updated Regions， Color OpenGL Fast Path Blue</p>
+</blockquote>
+<p>Color Immediately选项表示Instruments在做color-flush操作时取消10毫秒的延时。<br>Flash Updated Regions选项用于用红色示标示出在屏幕上使用GPU计算绘制的图层。<br>Color OpenGL Fast Path Blue选项用于用蓝色标示出在屏幕上由OpenGL compositor绘制的内容。</p>
+<p><a href="http://www.hrchen.com/2013/05/performance-with-instruments/?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">引用</a></p>
 
       
     </div>
@@ -350,17 +368,13 @@ iOS9后，苹果推出了通用链接（universal links），实现了上">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/11/iOS捕捉错误日志/" rel="next" title="iOS捕捉错误日志">
-                <i class="fa fa-chevron-left"></i> iOS捕捉错误日志
+              <a href="/2016/03/14/iOS组件化详解/" rel="next" title="iOS组件化详解">
+                <i class="fa fa-chevron-left"></i> iOS组件化详解
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/14/iOS组件化详解/" rel="prev" title="iOS组件化详解">
-                iOS组件化详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -471,7 +485,7 @@ iOS9后，苹果推出了通用链接（universal links），实现了上">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS9通用链接Universal_Links"><span class="nav-number">1.</span> <span class="nav-text">iOS9通用链接Universal Links</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#启动时间："><span class="nav-number">1.</span> <span class="nav-text">启动时间：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#内存"><span class="nav-number">2.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#图形和动画"><span class="nav-number">3.</span> <span class="nav-text">图形和动画</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
