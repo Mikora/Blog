@@ -57,34 +57,28 @@
 
 
 
-<meta name="description" content="###iOS 关键字区别
+<meta name="description" content="为什么要用wkwebview去替换uiwebview
 
-retain copy
+加载时间
 
-这两个关键字是针对对象可变不可变的才会有影响。如果是可变对象，使用retain，只会计数器加一，使用copy，会开辟新的内存地址。如果不可变，那么一样。
-在我们自定义对象需要使用copy的时候，需要考虑可变不可变：(继承)
-123456789101112- (id)copyWithZone:(NSZone *)zone&amp;#123;    Dem">
+加载百度首页：不使用缓存的情况下wkwebview：0.45uiwebview：0.55-0.60">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS中关键字">
-<meta property="og:url" content="http://blog.huangcheng.com/2015/09/29/iOS中关键字/index.html">
+<meta property="og:title" content="兼容wkwebview与uiwebview">
+<meta property="og:url" content="http://blog.huangcheng.com/2016/04/13/兼容wkwebview与uiwebview/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="###iOS 关键字区别
+<meta property="og:description" content="为什么要用wkwebview去替换uiwebview
 
-retain copy
+加载时间
 
-这两个关键字是针对对象可变不可变的才会有影响。如果是可变对象，使用retain，只会计数器加一，使用copy，会开辟新的内存地址。如果不可变，那么一样。
-在我们自定义对象需要使用copy的时候，需要考虑可变不可变：(继承)
-123456789101112- (id)copyWithZone:(NSZone *)zone&amp;#123;    Dem">
-<meta property="og:updated_time" content="2016-01-06T06:52:40.000Z">
+加载百度首页：不使用缓存的情况下wkwebview：0.45uiwebview：0.55-0.60">
+<meta property="og:updated_time" content="2016-04-13T03:37:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS中关键字">
-<meta name="twitter:description" content="###iOS 关键字区别
+<meta name="twitter:title" content="兼容wkwebview与uiwebview">
+<meta name="twitter:description" content="为什么要用wkwebview去替换uiwebview
 
-retain copy
+加载时间
 
-这两个关键字是针对对象可变不可变的才会有影响。如果是可变对象，使用retain，只会计数器加一，使用copy，会开辟新的内存地址。如果不可变，那么一样。
-在我们自定义对象需要使用copy的时候，需要考虑可变不可变：(继承)
-123456789101112- (id)copyWithZone:(NSZone *)zone&amp;#123;    Dem">
+加载百度首页：不使用缓存的情况下wkwebview：0.45uiwebview：0.55-0.60">
 
 
 
@@ -102,7 +96,7 @@ retain copy
   };
 </script>
 
-  <title> iOS中关键字 | 随笔 </title>
+  <title> 兼容wkwebview与uiwebview | 随笔 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -232,7 +226,7 @@ retain copy
             
             
               
-                iOS中关键字
+                兼容wkwebview与uiwebview
               
             
           </h1>
@@ -244,8 +238,8 @@ retain copy
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-29T13:22:14+08:00" content="2015-09-29">
-              2015-09-29
+            <time itemprop="dateCreated" datetime="2016-04-13T10:26:04+08:00" content="2016-04-13">
+              2016-04-13
             </time>
           </span>
 
@@ -271,33 +265,11 @@ retain copy
       
 
       
-        <p>###iOS 关键字区别</p>
-<ul>
-<li>retain copy</li>
-</ul>
-<p>这两个关键字是针对对象可变不可变的才会有影响。如果是可变对象，使用retain，只会计数器加一，使用copy，会开辟新的内存地址。如果不可变，那么一样。</p>
-<p>在我们自定义对象需要使用copy的时候，需要考虑可变不可变：(继承<nscopying,nsmutablecopying>)</nscopying,nsmutablecopying></p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (id)copyWithZone:(NSZone *)zone&#123;</span><br><span class="line">    Demo1 *demo = [[Demo1 <span class="class"><span class="keyword">class</span>]<span class="title">allocWithZone</span>:<span class="typename">zone];</span></span></span><br><span class="line">    demo.str = [_str copy];</span><br><span class="line">    <span class="keyword">return</span> demo;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)mutableCopyWithZone:(NSZone *)zone&#123;</span><br><span class="line">    Demo1 *demo = [[Demo1 <span class="class"><span class="keyword">class</span>] <span class="title">allocWithZone</span>:<span class="typename">zone];</span></span></span><br><span class="line">    demo.str = [_str copy];</span><br><span class="line">    <span class="keyword">return</span> demo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试代码：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableString</span> *mustr = [<span class="built_in">NSMutableString</span> stringWithFormat:<span class="string">@"123"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变mustr point == %p"</span>,mustr);</span><br><span class="line"><span class="keyword">self</span><span class="variable">.sStr</span> = mustr;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变retain  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="keyword">self</span><span class="variable">.cStr</span> = mustr;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变copy  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br><span class="line"></span><br><span class="line">[mustr appendString:<span class="string">@"12"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变mustr == %@"</span>,mustr);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变retain  str == %@"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变copy  str == %@"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"1234"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变str  str point == %p"</span>,str);</span><br><span class="line"><span class="keyword">self</span><span class="variable">.sStr</span> = str;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变retain  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="keyword">self</span><span class="variable">.cStr</span> = str;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变copy  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br></pre></td></tr></table></figure>
-<p>返回值：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.130</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变mustr point == <span class="number">0x7fc1e270f790</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.130</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变retain  str point == <span class="number">0x7fc1e270f790</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变copy  str point == <span class="number">0xa000000003332313</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变mustr == <span class="number">12312</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变retain  str == <span class="number">12312</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变copy  str == <span class="number">123</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变str  str point == <span class="number">0xa000000343332314</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变retain  str point == <span class="number">0xa000000343332314</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变copy  str point == <span class="number">0xa000000343332314</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>retain strong </li>
-</ul>
-<p>没什么不同，都是修饰强引用</p>
-<ul>
-<li>assign weak</li>
-</ul>
-<p>都可用于修饰弱引用，assign可用于c的基本数据类型(int float ..)<br>weak和assgin,在引用对象被释放后，weak修饰的会被置为nil，向nil对象发送调用不会导致野指针错误</p>
-<ul>
-<li>nonatomic atomic</li>
-</ul>
-<p>原子性，控制在多线程下对象是否线程安全</p>
-<ul>
-<li>readonly readwrite ..</li>
-</ul>
-<p>对外读写权限控制</p>
+        <p>为什么要用wkwebview去替换uiwebview</p>
+<ol>
+<li>加载时间</li>
+</ol>
+<p>加载百度首页：不使用缓存的情况下<br>wkwebview：0.45<br>uiwebview：0.55-0.60</p>
 
       
     </div>
@@ -321,16 +293,16 @@ retain copy
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/29/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2016/03/28/使用instruments查看app性能和调试/" rel="next" title="使用instruments查看app性能和调试">
+                <i class="fa fa-chevron-left"></i> 使用instruments查看app性能和调试
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/29/看看SDWebImage源码/" rel="prev" title="看看SDWebImage源码">
-                看看SDWebImage源码 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/22/OC-runtime理解/" rel="prev" title="OC-runtime理解">
+                OC-runtime理解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

@@ -57,34 +57,47 @@
 
 
 
-<meta name="description" content="###iOS 关键字区别
+<meta name="description" content="OC runtime个人理解在类的层级结构里面，我们可以看到
 
-retain copy
+NSObject 包含一个指向class的isa指针
 
-这两个关键字是针对对象可变不可变的才会有影响。如果是可变对象，使用retain，只会计数器加一，使用copy，会开辟新的内存地址。如果不可变，那么一样。
-在我们自定义对象需要使用copy的时候，需要考虑可变不可变：(继承)
-123456789101112- (id)copyWithZone:(NSZone *)zone&amp;#123;    Dem">
+Class是指向objc_class的指针
+
+objc_class里面包含这些东西
+objc_class里面的isa指针，指向metaclass
+super_class 指向父class，如果为root，则为null
+oc对象的isa指针会指向一个普通的class，这个class">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS中关键字">
-<meta property="og:url" content="http://blog.huangcheng.com/2015/09/29/iOS中关键字/index.html">
+<meta property="og:title" content="OC-runtime理解">
+<meta property="og:url" content="http://blog.huangcheng.com/2016/04/22/OC-runtime理解/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="###iOS 关键字区别
+<meta property="og:description" content="OC runtime个人理解在类的层级结构里面，我们可以看到
 
-retain copy
+NSObject 包含一个指向class的isa指针
 
-这两个关键字是针对对象可变不可变的才会有影响。如果是可变对象，使用retain，只会计数器加一，使用copy，会开辟新的内存地址。如果不可变，那么一样。
-在我们自定义对象需要使用copy的时候，需要考虑可变不可变：(继承)
-123456789101112- (id)copyWithZone:(NSZone *)zone&amp;#123;    Dem">
-<meta property="og:updated_time" content="2016-01-06T06:52:40.000Z">
+Class是指向objc_class的指针
+
+objc_class里面包含这些东西
+objc_class里面的isa指针，指向metaclass
+super_class 指向父class，如果为root，则为null
+oc对象的isa指针会指向一个普通的class，这个class">
+<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/523CAC82-7C67-4D1D-9E41-08F5BAD5BD40.png?imageView/1/w/400/h/100">
+<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/952B1246-2130-4E52-80F8-0EB6F9B68EA4.png?imageView/1/w/450/h/145">
+<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/9EB2AF02-A57E-46A3-B897-D22DE927C464.png?imageView/1/w/600/h/230">
+<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/1413628797629491.png?imageView/1/w/275/h/280">
+<meta property="og:updated_time" content="2016-04-22T06:02:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS中关键字">
-<meta name="twitter:description" content="###iOS 关键字区别
+<meta name="twitter:title" content="OC-runtime理解">
+<meta name="twitter:description" content="OC runtime个人理解在类的层级结构里面，我们可以看到
 
-retain copy
+NSObject 包含一个指向class的isa指针
 
-这两个关键字是针对对象可变不可变的才会有影响。如果是可变对象，使用retain，只会计数器加一，使用copy，会开辟新的内存地址。如果不可变，那么一样。
-在我们自定义对象需要使用copy的时候，需要考虑可变不可变：(继承)
-123456789101112- (id)copyWithZone:(NSZone *)zone&amp;#123;    Dem">
+Class是指向objc_class的指针
+
+objc_class里面包含这些东西
+objc_class里面的isa指针，指向metaclass
+super_class 指向父class，如果为root，则为null
+oc对象的isa指针会指向一个普通的class，这个class">
 
 
 
@@ -102,7 +115,7 @@ retain copy
   };
 </script>
 
-  <title> iOS中关键字 | 随笔 </title>
+  <title> OC-runtime理解 | 随笔 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -232,7 +245,7 @@ retain copy
             
             
               
-                iOS中关键字
+                OC-runtime理解
               
             
           </h1>
@@ -244,8 +257,8 @@ retain copy
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-29T13:22:14+08:00" content="2015-09-29">
-              2015-09-29
+            <time itemprop="dateCreated" datetime="2016-04-22T11:23:42+08:00" content="2016-04-22">
+              2016-04-22
             </time>
           </span>
 
@@ -271,33 +284,41 @@ retain copy
       
 
       
-        <p>###iOS 关键字区别</p>
+        <h4 id="OC_runtime个人理解">OC runtime个人理解</h4><p>在类的层级结构里面，我们可以看到</p>
+<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/523CAC82-7C67-4D1D-9E41-08F5BAD5BD40.png?imageView/1/w/400/h/100" alt="image"></p>
+<p>NSObject 包含一个指向class的isa指针</p>
+<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/952B1246-2130-4E52-80F8-0EB6F9B68EA4.png?imageView/1/w/450/h/145" alt="image"></p>
+<p>Class是指向objc_class的指针</p>
+<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/9EB2AF02-A57E-46A3-B897-D22DE927C464.png?imageView/1/w/600/h/230" alt="image"></p>
+<p>objc_class里面包含这些东西</p>
+<p>objc_class里面的isa指针，指向metaclass</p>
+<p>super_class 指向父class，如果为root，则为null</p>
+<p>oc对象的isa指针会指向一个普通的class，这个class中存储所有普通成员变量和实例方法，普通的class里面的isa指针会指向静态的class，静态class中存储所有的static变量和类方法</p>
+<p> 用一张图说面：</p>
+<p> <img src="http://7xpas5.com1.z0.glb.clouddn.com/1413628797629491.png?imageView/1/w/275/h/280" alt="image"></p>
+<p> 所有metaclass中isa指针都指向跟metaclass。而跟metaclass则指向自身。Root metaclass是通过继承Root class产生的</p>
+<blockquote>
+<p>在运行过程中的流程是什么？</p>
+</blockquote>
+<p> 例： [obj getName];</p>
+<p> 编译器将代码[obj getName];转化为objc_msgSend(obj, @selector (getName));，在objc_msgSend函数中。首先通过obj的isa指针找到obj对应的class。在Class中先去cache中 通过SEL查找对应函数method，若 cache中未找到。再去methodList中查找，若methodlist中未找到，则取superClass中查找。若能找到，则将method加 入到cache中，以方便下次查找，并通过method中的函数指针跳转到对应的函数中去执行。</p>
+<p> 如果没有找到指定方法，那么就会调用以下流程：</p>
 <ul>
-<li>retain copy</li>
+<li><p>提供一个方法实现并且告诉 runtime 你已经解析了这个方法，如果它开始查找，这回就会找到这个方法</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">+ </span>(BOOL)resolveInstanceMethod:(SEL)sel</span><br><span class="line"><span class="bullet">+ </span>(BOOL)resolveClassMethod:(SEL)sel</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>这两个关键字是针对对象可变不可变的才会有影响。如果是可变对象，使用retain，只会计数器加一，使用copy，会开辟新的内存地址。如果不可变，那么一样。</p>
-<p>在我们自定义对象需要使用copy的时候，需要考虑可变不可变：(继承<nscopying,nsmutablecopying>)</nscopying,nsmutablecopying></p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (id)copyWithZone:(NSZone *)zone&#123;</span><br><span class="line">    Demo1 *demo = [[Demo1 <span class="class"><span class="keyword">class</span>]<span class="title">allocWithZone</span>:<span class="typename">zone];</span></span></span><br><span class="line">    demo.str = [_str copy];</span><br><span class="line">    <span class="keyword">return</span> demo;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)mutableCopyWithZone:(NSZone *)zone&#123;</span><br><span class="line">    Demo1 *demo = [[Demo1 <span class="class"><span class="keyword">class</span>] <span class="title">allocWithZone</span>:<span class="typename">zone];</span></span></span><br><span class="line">    demo.str = [_str copy];</span><br><span class="line">    <span class="keyword">return</span> demo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试代码：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableString</span> *mustr = [<span class="built_in">NSMutableString</span> stringWithFormat:<span class="string">@"123"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变mustr point == %p"</span>,mustr);</span><br><span class="line"><span class="keyword">self</span><span class="variable">.sStr</span> = mustr;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变retain  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="keyword">self</span><span class="variable">.cStr</span> = mustr;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变copy  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br><span class="line"></span><br><span class="line">[mustr appendString:<span class="string">@"12"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变mustr == %@"</span>,mustr);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变retain  str == %@"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"可变copy  str == %@"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"1234"</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变str  str point == %p"</span>,str);</span><br><span class="line"><span class="keyword">self</span><span class="variable">.sStr</span> = str;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变retain  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.sStr</span> );</span><br><span class="line"><span class="keyword">self</span><span class="variable">.cStr</span> = str;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"不可变copy  str point == %p"</span>,<span class="keyword">self</span><span class="variable">.cStr</span> );</span><br></pre></td></tr></table></figure>
-<p>返回值：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.130</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变mustr point == <span class="number">0x7fc1e270f790</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.130</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变retain  str point == <span class="number">0x7fc1e270f790</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变copy  str point == <span class="number">0xa000000003332313</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变mustr == <span class="number">12312</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变retain  str == <span class="number">12312</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 可变copy  str == <span class="number">123</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变str  str point == <span class="number">0xa000000343332314</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变retain  str point == <span class="number">0xa000000343332314</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">12</span>-<span class="number">17</span> <span class="number">19</span>:<span class="number">00</span>:<span class="number">29.131</span> Demo1[<span class="number">28489</span>:<span class="number">1573461</span>] 不可变copy  str point == <span class="number">0xa000000343332314</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>retain strong </li>
+<li><p>引导 Objective-C runtime 到另一个可以响应这个消息的对象上</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="pp">- <span class="params">(id)</span>forwardingTargetForSelector:<span class="params">(<span class="variable">SEL</span>)</span>aSelector</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>没什么不同，都是修饰强引用</p>
 <ul>
-<li>assign weak</li>
+<li><p>一个 NSInvocation 你可以改变这个消息的一切，包括目标对象，selector 和参数。 覆盖这个方法去做一些事情</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="pp">- <span class="params">(void)</span>forwardInvocation:<span class="params">(<span class="variable">NSInvocation</span> *)</span>anInvocation</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>都可用于修饰弱引用，assign可用于c的基本数据类型(int float ..)<br>weak和assgin,在引用对象被释放后，weak修饰的会被置为nil，向nil对象发送调用不会导致野指针错误</p>
-<ul>
-<li>nonatomic atomic</li>
-</ul>
-<p>原子性，控制在多线程下对象是否线程安全</p>
-<ul>
-<li>readonly readwrite ..</li>
-</ul>
-<p>对外读写权限控制</p>
+<p> runtime里面有很多东西：比如获取ivar，获取method，增加ivar，method等等，具体可以查询官方文档或者在runtime的类库里面查看使用方法</p>
 
       
     </div>
@@ -321,17 +342,13 @@ retain copy
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/29/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2016/04/13/兼容wkwebview与uiwebview/" rel="next" title="兼容wkwebview与uiwebview">
+                <i class="fa fa-chevron-left"></i> 兼容wkwebview与uiwebview
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/09/29/看看SDWebImage源码/" rel="prev" title="看看SDWebImage源码">
-                看看SDWebImage源码 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -442,7 +459,7 @@ retain copy
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#OC_runtime个人理解"><span class="nav-number">1.</span> <span class="nav-text">OC runtime个人理解</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

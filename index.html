@@ -216,6 +216,222 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/22/OC-runtime理解/" itemprop="url">
+                  OC-runtime理解
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-22T11:23:42+08:00" content="2016-04-22">
+              2016-04-22
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="OC_runtime个人理解">OC runtime个人理解</h4><p>在类的层级结构里面，我们可以看到</p>
+<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/523CAC82-7C67-4D1D-9E41-08F5BAD5BD40.png?imageView/1/w/400/h/100" alt="image"></p>
+<p>NSObject 包含一个指向class的isa指针</p>
+<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/952B1246-2130-4E52-80F8-0EB6F9B68EA4.png?imageView/1/w/450/h/145" alt="image"></p>
+<p>Class是指向objc_class的指针</p>
+<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/9EB2AF02-A57E-46A3-B897-D22DE927C464.png?imageView/1/w/600/h/230" alt="image"></p>
+<p>objc_class里面包含这些东西</p>
+<p>objc_class里面的isa指针，指向metaclass</p>
+<p>super_class 指向父class，如果为root，则为null</p>
+<p>oc对象的isa指针会指向一个普通的class，这个class中存储所有普通成员变量和实例方法，普通的class里面的isa指针会指向静态的class，静态class中存储所有的static变量和类方法</p>
+<p> 用一张图说面：</p>
+<p> <img src="http://7xpas5.com1.z0.glb.clouddn.com/1413628797629491.png?imageView/1/w/275/h/280" alt="image"></p>
+<p> 所有metaclass中isa指针都指向跟metaclass。而跟metaclass则指向自身。Root metaclass是通过继承Root class产生的</p>
+<blockquote>
+<p>在运行过程中的流程是什么？</p>
+</blockquote>
+<p> 例： [obj getName];</p>
+<p> 编译器将代码[obj getName];转化为objc_msgSend(obj, @selector (getName));，在objc_msgSend函数中。首先通过obj的isa指针找到obj对应的class。在Class中先去cache中 通过SEL查找对应函数method，若 cache中未找到。再去methodList中查找，若methodlist中未找到，则取superClass中查找。若能找到，则将method加 入到cache中，以方便下次查找，并通过method中的函数指针跳转到对应的函数中去执行。</p>
+<p> 如果没有找到指定方法，那么就会调用以下流程：</p>
+<ul>
+<li><p>提供一个方法实现并且告诉 runtime 你已经解析了这个方法，如果它开始查找，这回就会找到这个方法</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">+ </span>(BOOL)resolveInstanceMethod:(SEL)sel</span><br><span class="line"><span class="bullet">+ </span>(BOOL)resolveClassMethod:(SEL)sel</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>引导 Objective-C runtime 到另一个可以响应这个消息的对象上</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="pp">- <span class="params">(id)</span>forwardingTargetForSelector:<span class="params">(<span class="variable">SEL</span>)</span>aSelector</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>一个 NSInvocation 你可以改变这个消息的一切，包括目标对象，selector 和参数。 覆盖这个方法去做一些事情</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="pp">- <span class="params">(void)</span>forwardInvocation:<span class="params">(<span class="variable">NSInvocation</span> *)</span>anInvocation</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p> runtime里面有很多东西：比如获取ivar，获取method，增加ivar，method等等，具体可以查询官方文档或者在runtime的类库里面查看使用方法</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/13/兼容wkwebview与uiwebview/" itemprop="url">
+                  兼容wkwebview与uiwebview
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-13T10:26:04+08:00" content="2016-04-13">
+              2016-04-13
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>为什么要用wkwebview去替换uiwebview</p>
+<ol>
+<li>加载时间</li>
+</ol>
+<p>加载百度首页：不使用缓存的情况下<br>wkwebview：0.45<br>uiwebview：0.55-0.60</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/28/使用instruments查看app性能和调试/" itemprop="url">
                   使用instruments查看app性能和调试
                 </a>
@@ -1194,318 +1410,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/22/iOS管理大量渠道包/" itemprop="url">
-                  iOS管理大量渠道包
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-22T13:29:45+08:00" content="2016-01-22">
-              2016-01-22
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="何为渠道包">何为渠道包</h3><p>同一个项目源码，但是名字，启动图，bundleid等不一样。同样请求里面也是根据不同bundleid不同的，但是这个在服务器作处理。总体说来，渠道包仅仅是资源不一样，样式相同，源码一致的app。</p>
-<h3 id="如何管理">如何管理</h3><h5 id="第一种，创建target，给每一个渠道包一个target">第一种，创建target，给每一个渠道包一个target</h5><p>一致用到二十来个target的时候，发现这种工作量太大，并不真正合适大量渠道包。如果在target比较少的时候，用这个十分棒。教程附上：<a href="http://blog.startry.com/2015/09/06/Optional-solutions-for-iOS-multi-target/" target="_blank" rel="external">玄书</a></p>
-<p>正如他博客中写道的：</p>
-<hr>
-<p>优点：</p>
-<ol>
-<li>直观<br>一目了然, 可以看到所有已创建的Target醒目的列在Build列表中。每一个Target都有对应的Tagret配置界面可以看到每一个项目配置图标以及Info.plist对应信息。</li>
-<li>灵活性高<br>可以根据项目需要Link需要的类, 根据Target来指定链接不同的类和资源文件, 而不用一口气全部都Link进来。</li>
-</ol>
-<hr>
-<p>缺点：</p>
-<p>配置相当麻烦，如果希望减少包体积，许多资源文件要重复选择target。新建一些源文件可能随手没勾选options，后面又要找到源码勾选target。</p>
-<p>多人协作开发的时候，project.pbxproj会有极大的冲突需要修改。</p>
-<hr>
-<h4 id="第二种，使用config来管理每个渠道包">第二种，使用config来管理每个渠道包</h4><p>经过了第一种方法的洗礼，在重构的时候我调研了config配置的形式，解决几乎所有我的所有问题，现在已经用入重构和新项目中。</p>
-<p>config文件的简单使用教程：（pod依赖管理环境下的使用）</p>
-<hr>
-<p> 1.新建一个config文件，假设我在config文件中加入如下代码</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"../../Pods/Target Support Files/Pods-shop/Pods-shop.debug.xcconfig"</span></span></span><br><span class="line"></span><br><span class="line">DISPLAY_NAME = hello</span><br><span class="line">IDENTIFIER = .hello</span><br><span class="line">APP_ID = hello</span><br><span class="line"></span><br><span class="line">LaunchImage = hello_LaunchImage</span><br><span class="line">AppIcon = hello_AppIcon</span><br><span class="line"></span><br><span class="line"><span class="comment">//:configuration = Debug</span></span><br><span class="line"><span class="comment">//PROVISIONING_PROFILE = 22f0006a-d829-41a2-934f-b789b3b0e7bc</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//:configuration = Release</span></span><br><span class="line">PROVISIONING_PROFILE = <span class="number">9598</span>b567-<span class="number">999</span>c-<span class="number">465</span>e-b377-<span class="number">757</span>bb5e63db4</span><br></pre></td></tr></table></figure>
-<p>从上面的字面意思可以理解：</p>
-<ol>
-<li>先引入了pod的config，因为pod的config在依赖中会被用到</li>
-<li>修改显示的名字为hello</li>
-<li>修改bundleid为后面加.hello</li>
-<li>app_id 为hello</li>
-<li>launchimage和appicon</li>
-<li>证书</li>
-</ol>
-<hr>
-<p>2.引入到项目</p>
-<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/0FAC5B07-D8B3-4F49-B3C7-5315A9EF9DD9.png?imageView/1/w/500/h/190" alt="image"></p>
-<hr>
-<p>3.使用</p>
-<p>首先我们build setting里面可以看到 User-Defined的里面出现了我们定义的这些东西。</p>
-<p>修改bundleid:在buildsetting里面PRODUCT_BUNDLE_IDENTIFIER栏目改成xxx.xxx.com${IDENTIFIER} ＝ xxx.xxx.com.hello，其它类似</p>
-<p>修改launchimage：bundle setting里面搜索launchimage，替换为${LaunchImage}</p>
-<p>修改证书：自动被修改</p>
-<p>直接运行即可</p>
-<hr>
-<p>4.最后脚本打包</p>
-<p>脚本打包可以忽视项目配置的config，直接给出需要打包的config即可</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -workspace cheniu_shop<span class="class">.xcworkspace</span> -sdk iphoneos -scheme scheme_your_name -xcconfig <span class="string">"相对目录下的某个.config"</span> -configuration <span class="string">"Release Adhoc"</span> SYMROOT=<span class="string">'$(PWD)/build'</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">xcrun</span> -sdk iphoneos PackageApplication -v <span class="string">"build/Release-iphoneos/scheme_your_name.app"</span> -o <span class="string">"<span class="variable">$PWD</span>/build/release-iphoneos/your_name.ipa"</span></span><br></pre></td></tr></table></figure>
-<p>第一个build一个.app出来，第二个打包成.ipa</p>
-<hr>
-<p>5.如果需要修改里面style，比如文字颜色，背景图片，可以根据appid或者自己定义的渠道号去加载一个style源文件，读取里面自己定义的参数。</p>
-<hr>
-<p>总结：</p>
-<p>渠道包在很多公司都会用到，经常被放在一些分发平台上，提供给别人测试或者进行少量分发使用。这里我介绍了有关使用config创建大量渠道包的方式，有问题可以联系我。有更好的方法也希望能提出来学习学习。</p>
-<p><a href="mikora.github.io">github</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/20/iOS中正则匹配电话url和email/" itemprop="url">
-                  iOS中正则匹配电话url和email
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-20T17:38:45+08:00" content="2016-01-20">
-              2016-01-20
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>正则表达式语法可以去<a href="https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解" target="_blank" rel="external">https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解</a></p>
-<p>iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机号码是否有效验证，email是否为正常的email格式。</p>
-<p>现在我在做一个拥有富文本的小应用，用YYText,在富文本中需要把url电话email特殊处理，找出所有range。</p>
-<p>正则表达式查找range在oc里面比较方便：</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString *<span class="built_in">string</span> = @<span class="string">"123"</span>;//被查找的<span class="built_in">string</span></span><br><span class="line">   NSString *str = @<span class="string">"xxx正则表达式"</span>;</span><br><span class="line">   <span class="keyword">return</span> [<span class="built_in">string</span> rangeOfStrin<span class="variable">g:str</span> option<span class="variable">s:NSRegularExpressionSearch</span>];</span><br></pre></td></tr></table></figure>
-<p>查看字符串是否满足正则表达式</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *phoneRegex = <span class="string">@"^1\\d&#123;10&#125;$"</span>;<span class="comment">//正则表达式</span></span><br><span class="line"><span class="built_in">NSPredicate</span> *phone = [<span class="built_in">NSPredicate</span> predicateWithFormat:<span class="string">@"SELF MATCHES %@"</span>,phoneRegex];</span><br><span class="line"><span class="keyword">return</span> [phone evaluateWithObject:str];</span><br></pre></td></tr></table></figure>
-<h4 id="电话号码的正则表达式：(常用的号码格式)">电话号码的正则表达式：(常用的号码格式)</h4><p>这里正则放到列表里有问题，转义也不行，如果需要自行在下面拆分。</p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>描述</th>
-<th>示例</th>
-<th>正则表达式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td> 1</td>
-<td>11位</td>
-<td>137xxx3923</td>
-<td>(\d{11})</td>
-</tr>
-<tr>
-<td> 2</td>
-<td>4位3位区号-7位8位直播号码－1位到4位分机号</td>
-<td>123-12345678-123</td>
-<td>(\d{4}</td>
-<td>\d{3})-(\d{7,8})-(\d{4}</td>
-<td>\d{3}</td>
-<td>\d{2}</td>
-<td>\d{1})</td>
-</tr>
-<tr>
-<td> 3</td>
-<td>4位3位区号 7位8位直播号码 1位到4位分机号</td>
-<td>123 12345678 123</td>
-<td>(\d{4}</td>
-<td>\d{3})\s(\d{7,8})\s(\d{4}</td>
-<td>\d{3}</td>
-<td>\d{2}</td>
-<td>\d{1})</td>
-</tr>
-<tr>
-<td> 4</td>
-<td>4位3位区号－7位8位直播号码</td>
-<td>123-12345678</td>
-<td>(\d{4}</td>
-<td>\d{3})-(\d{7,8}) </td>
-</tr>
-<tr>
-<td> 5</td>
-<td>4位3位区号 7位8位直播号码</td>
-<td>123 12345678</td>
-<td>(\d{4}</td>
-<td>\d{3})\s(\d{7,8}) </td>
-</tr>
-<tr>
-<td> 6</td>
-<td>7位8位直播号码－1位到4位分机号</td>
-<td>12345678-123</td>
-<td>(\d{7,8})-(\d{4}</td>
-<td>\d{3}</td>
-<td>\d{2}</td>
-<td>\d{1})</td>
-</tr>
-<tr>
-<td> 7</td>
-<td>7位8位直播号码 1位到4位分机号</td>
-<td>12345678 1234</td>
-<td>(\d{7,8})\s(\d{4}</td>
-<td>\d{3}</td>
-<td>\d{2}</td>
-<td>\d{1})</td>
-</tr>
-<tr>
-<td> 8</td>
-<td>7位8位电话号码</td>
-<td>12345678</td>
-<td>(\d{7,8})</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NSString *str = @"((<span class="command">\\</span>d<span class="special">&#123;</span>11<span class="special">&#125;</span>)|((<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>)-(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)-(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>2<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>1<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>)<span class="command">\\</span>s(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)<span class="command">\\</span>s(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>2<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>1<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>)-(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>)<span class="command">\\</span>s(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)-(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>2<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>1<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)<span class="command">\\</span>s(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>2<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>1<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)))";</span><br></pre></td></tr></table></figure>
-<h3 id="url匹配表达式">url匹配表达式</h3><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *str = @<span class="string">"((http|ftp|https)://)?((<span class="subst">[a-zA-Z0-9\\._-]</span>+\\.<span class="subst">[a-zA-Z]</span>&#123;2,6&#125;)|(<span class="subst">[0-9]</span>&#123;1,3&#125;\\.<span class="subst">[0-9]</span>&#123;1,3&#125;\\.<span class="subst">[0-9]</span>&#123;1,3&#125;\\.<span class="subst">[0-9]</span>&#123;1,3&#125;))(:<span class="subst">[0-9]</span>&#123;1,4&#125;)*(/<span class="subst">[a-zA-Z0-9\\&amp;%_\\./-~-]</span>*)?"</span></span><br></pre></td></tr></table></figure>
-<h3 id="email匹配表达式">email匹配表达式</h3><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *emailRegex = @"[<span class="keyword">A</span>-Z0-9a-z._%+-]+@[<span class="keyword">A</span>-Za-z0-9.-]+\\.[<span class="keyword">A</span>-Za-z]&#123;2,4&#125;"<span class="comment">;</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1551,7 +1455,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">24</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
