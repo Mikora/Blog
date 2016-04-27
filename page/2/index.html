@@ -216,6 +216,102 @@
             
               
                 
+                <a class="post-title-link" href="/2016/02/17/iOS学习收藏的文章/" itemprop="url">
+                  iOS学习收藏的文章
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-17T10:15:55+08:00" content="2016-02-17">
+              2016-02-17
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="http://www.cocoachina.com/ios/20150610/12093.html" target="_blank" rel="external">Objective-C Autorelease Pool 的实现原理</a></p>
+<p><a href="http://www.cocoachina.com/ios/20150601/11970.html" target="_blank" rel="external">深入理解RunLoop</a></p>
+<p><a href="http://www.cocoachina.com/ios/20150803/12872.html" target="_blank" rel="external">《招聘一个靠谱的iOS》面试题参考答案（上）</a></p>
+<p><a href="http://www.cocoachina.com/ios/20150825/13195.html" target="_blank" rel="external">《招聘一个靠谱的iOS》面试题参考答案（下）</a></p>
+<p><a href="http://www.olinone.com/?p=198" target="_blank" rel="external">使用签名导出渠道包iOS</a></p>
+<p><a href="https://github.com/lzyy/iOS-Developer-Interview-Questions" target="_blank" rel="external">iOS实际开发问题－面试集锦</a></p>
+<p><a href="http://www.cocoachina.com/ios/20150519/11809.html" target="_blank" rel="external">NSHashTable的特性和使用</a></p>
+<p><a href="http://www.hrchen.com/2013/05/performance-with-instruments/?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">iOS中应用的优化：启动时间，内存和GUI</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/01/22/iOS管理大量渠道包/" itemprop="url">
                   iOS管理大量渠道包
                 </a>
@@ -1354,127 +1450,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/10/23/构建framework/" itemprop="url">
-                  构建framework
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-23T14:33:56+08:00" content="2015-10-23">
-              2015-10-23
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="iOS构建framework">iOS构建framework</h2><p>原因：同种业务需要在不同的客户端项目中使用。</p>
-<p>问题：</p>
-<p>1.代码只能存在一个项目中，便于维护。</p>
-<p>2.对业务依赖很大</p>
-<h3 id="几种构建的方式">几种构建的方式</h3><h6 id="1-_选择pod构建私有库的形式(略)">1. 选择pod构建私有库的形式(略)</h6><p>pod lib create “” </p>
-<p>配置等东西自行查找</p>
-<pre><code>注意：在podfile里面有一个use_frameworks! 注释掉，这个选项会使生成的结构变成在[nsbundle mainbundle]<span class="regexp">/framework/</span>xxx.framework<span class="regexp">/xxx.bundle，导致一般使用xxx.bundle/</span>xxx.png找不到路径
-
-配置s.subspec的时候，如果里面的文件依赖了什么，都需要s.dependency,所以，如果不是依赖关系很大的可以使用，这样会使文件结构很清晰
-</code></pre><h6 id="2-_选择library和bundle构建形式">2. 选择library和bundle构建形式</h6><p>1.创建static library</p>
-<pre><code><span class="literal">new</span><span class="subst">-&gt;</span>project<span class="subst">-&gt;</span>framework <span class="subst">&amp;</span> library <span class="subst">-&gt; </span>任选 一个包含uikit，一个包含foundation，可后面引入
-在这个target的build phases加入一个run script phases，然后加入如下代码，目的：使输出的frame拥有如下结构：
-</code></pre><p><img src="http://7xpas5.com1.z0.glb.clouddn.com/1422339219527730.png?imageView/1/w/220/h/160" alt="image"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="operator">-e</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> FRAMEWORK_LOCN=<span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;PRODUCT_NAME&#125;</span>.framework"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the path to the real Headers die</span></span><br><span class="line">mkdir -p <span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Versions/A/Headers"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the required symlinks</span></span><br><span class="line">/bin/ln -sfh A <span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Versions/Current"</span></span><br><span class="line">/bin/ln -sfh Versions/Current/Headers <span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Headers"</span></span><br><span class="line">/bin/ln -sfh <span class="string">"Versions/Current/<span class="variable">$&#123;PRODUCT_NAME&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/<span class="variable">$&#123;PRODUCT_NAME&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the public headers into the framework</span></span><br><span class="line">/bin/cp <span class="operator">-a</span> <span class="string">"<span class="variable">$&#123;TARGET_BUILD_DIR&#125;</span>/<span class="variable">$&#123;PUBLIC_HEADERS_FOLDER_PATH&#125;</span>/"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;FRAMEWORK_LOCN&#125;</span>/Versions/A/Headers"</span></span><br></pre></td></tr></table></figure>
-<p>2.创建一个能生成bundle的target</p>
-<pre><code><span class="literal">new</span><span class="subst">-&gt;</span>target<span class="subst">-&gt; </span>OS X<span class="subst">-&gt;</span>framework <span class="subst">&amp;</span> library <span class="subst">-&gt; </span>bundle
-
-选择这个target，然后在buildsettings里面，找到baseSDK删除，会出现变成iOS的版本
-
-加入图片等资源是，在选择的时候选择options，勾选这个bundle的target
-</code></pre><p>3.创建一个管理上面bundle和frame的target</p>
-<pre><code><span class="keyword">new</span>-&gt;<span class="keyword">target</span>-&gt;other-&gt;Aggregate
-选择此<span class="keyword">target</span>-&gt;build phases. 在<span class="keyword">target</span> dependencies里面添加依赖的其他两个<span class="keyword">target</span>
-在这里我们需要导出.framework和.bundle，并且需要对不同平台进行编译
-创建run script,添加如下代码 
-</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="operator">-e</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If we're already inside this script then die</span></span><br><span class="line"><span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$RW_MULTIPLATFORM_BUILD_IN_PROGRESS</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">export</span> RW_MULTIPLATFORM_BUILD_IN_PROGRESS=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">RW_FRAMEWORK_NAME=<span class="variable">$&#123;PROJECT_NAME&#125;</span></span><br><span class="line">RW_INPUT_STATIC_LIB=<span class="string">"lib<span class="variable">$&#123;PROJECT_NAME&#125;</span>.a"</span></span><br><span class="line">RW_FRAMEWORK_LOCATION=<span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.framework"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> build_static_library &#123;</span><br><span class="line">    <span class="comment"># Will rebuild the static library as specified</span></span><br><span class="line">    <span class="comment">#     build_static_library sdk</span></span><br><span class="line">    xcrun xcodebuild -project <span class="string">"<span class="variable">$&#123;PROJECT_FILE_PATH&#125;</span>"</span> \</span><br><span class="line">    -target <span class="string">"<span class="variable">$&#123;TARGET_NAME&#125;</span>"</span> \</span><br><span class="line">    -configuration <span class="string">"<span class="variable">$&#123;CONFIGURATION&#125;</span>"</span> \</span><br><span class="line">    -sdk <span class="string">"<span class="variable">$&#123;1&#125;</span>"</span> \</span><br><span class="line">    ONLY_ACTIVE_ARCH=NO \</span><br><span class="line">    BUILD_DIR=<span class="string">"<span class="variable">$&#123;BUILD_DIR&#125;</span>"</span> \</span><br><span class="line">    OBJROOT=<span class="string">"<span class="variable">$&#123;OBJROOT&#125;</span>"</span> \</span><br><span class="line">    BUILD_ROOT=<span class="string">"<span class="variable">$&#123;BUILD_ROOT&#125;</span>"</span> \</span><br><span class="line">    SYMROOT=<span class="string">"<span class="variable">$&#123;SYMROOT&#125;</span>"</span> <span class="variable">$ACTION</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> make_fat_library &#123;</span><br><span class="line">    <span class="comment"># Will smash 2 static libs together</span></span><br><span class="line">    <span class="comment">#     make_fat_library in1 in2 out</span></span><br><span class="line">    xcrun lipo -create <span class="string">"<span class="variable">$&#123;1&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;2&#125;</span>"</span> -output <span class="string">"<span class="variable">$&#123;3&#125;</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1 - Extract the platform (iphoneos/iphonesimulator) from the SDK name</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$SDK_NAME</span>"</span> =~ ([A-Za-z]+) ]]; <span class="keyword">then</span></span><br><span class="line">RW_SDK_PLATFORM=<span class="variable">$&#123;BASH_REMATCH[1]&#125;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Could not find platform name from SDK_NAME: <span class="variable">$SDK_NAME</span>"</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 - Extract the version from the SDK</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$SDK_NAME</span>"</span> =~ ([<span class="number">0</span>-<span class="number">9</span>]+.*$) ]]; <span class="keyword">then</span></span><br><span class="line">RW_SDK_VERSION=<span class="variable">$&#123;BASH_REMATCH[1]&#125;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Could not find sdk version from SDK_NAME: <span class="variable">$SDK_NAME</span>"</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 - Determine the other platform</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$RW_SDK_PLATFORM</span>"</span> == <span class="string">"iphoneos"</span> ]; <span class="keyword">then</span></span><br><span class="line">RW_OTHER_PLATFORM=iphonesimulator</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">RW_OTHER_PLATFORM=iphoneos</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4 - Find the build directory</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$BUILT_PRODUCTS_DIR</span>"</span> =~ (.*)<span class="variable">$RW_SDK_PLATFORM</span>$ ]]; <span class="keyword">then</span></span><br><span class="line">RW_OTHER_BUILT_PRODUCTS_DIR=<span class="string">"<span class="variable">$&#123;BASH_REMATCH[1]&#125;</span><span class="variable">$&#123;RW_OTHER_PLATFORM&#125;</span>"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Could not find other platform build directory."</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Build the other platform.</span></span><br><span class="line">build_static_library <span class="string">"<span class="variable">$&#123;RW_OTHER_PLATFORM&#125;</span><span class="variable">$&#123;RW_SDK_VERSION&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If we're currently building for iphonesimulator, then need to rebuild</span></span><br><span class="line"><span class="comment">#   to ensure that we get both i386 and x86_64</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$RW_SDK_PLATFORM</span>"</span> == <span class="string">"iphonesimulator"</span> ]; <span class="keyword">then</span></span><br><span class="line">build_static_library <span class="string">"<span class="variable">$&#123;SDK_NAME&#125;</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Join the 2 static libs into 1 and push into the .framework</span></span><br><span class="line">make_fat_library <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_INPUT_STATIC_LIB&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;RW_OTHER_BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_INPUT_STATIC_LIB&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;RW_FRAMEWORK_LOCATION&#125;</span>/Versions/A/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ensure that the framework is present in both platform's build directories</span></span><br><span class="line">cp <span class="operator">-a</span> <span class="string">"<span class="variable">$&#123;RW_FRAMEWORK_LOCATION&#125;</span>/Versions/A/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;RW_OTHER_BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.framework/Versions/A/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the framework to the user's desktop</span></span><br><span class="line">ditto <span class="string">"<span class="variable">$&#123;RW_FRAMEWORK_LOCATION&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;HOME&#125;</span><span class="variable">$&#123;PROJECT_AUCTION_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.framework"</span></span><br><span class="line">ditto <span class="string">"<span class="variable">$&#123;BUILT_PRODUCTS_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.bundle"</span> \</span><br><span class="line"><span class="string">"<span class="variable">$&#123;HOME&#125;</span><span class="variable">$&#123;PROJECT_AUCTION_DIR&#125;</span>/<span class="variable">$&#123;RW_FRAMEWORK_NAME&#125;</span>.bundle"</span></span><br></pre></td></tr></table></figure>
-<p><a href="http://www.cocoachina.com/ios/20150127/11022.html" target="_blank" rel="external">点击试试</a></p>
-<h4 id="写在最后：">写在最后：</h4><p>项目中可导入config文件，手动配置一些路径名字等</p>
-<p>new-&gt;other-&gt;configuration setting file</p>
-<p>里面放入</p>
-<p>PROJECT_NAME = xxx</p>
-<p>那么你在target里面的buildsetting里最下面可以看到User-Defined,在buildsetting其他地方使用，只需要输入PROJECT_NAME。</p>
-<p>最后选择项目project不是target，选择configurations，选择你要使用的config文件.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1520,7 +1495,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
