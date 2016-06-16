@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -57,28 +57,52 @@
 
 
 
-<meta name="description" content="写如下文章的场景：
-在项目中我需要对自定义的url进行解析，例如：
-1example://push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;amp;a=3
-注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.
-普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比">
+<meta name="description" content="###react-native的双向通信
+demo项目下载
+
+react-&amp;gt;native
+
+实现提供给react的模块，模块需要实现RCTBridgeModule协议，然后暴露给react的类名和希望react调起的方法
+
+例如：
+
+iOS project：
+
+RNNativeBridgeModule.h
+12345678#import &amp;lt;Foundation/Foundation.h">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NSUrl和NSUrlCompents">
-<meta property="og:url" content="http://blog.huangcheng.com/2016/01/15/NSUrl和NSUrlCompents/index.html">
+<meta property="og:title" content="react-native 入门－相互通信">
+<meta property="og:url" content="http://blog.huangcheng.com/2016/06/16/react-native-入门－相互通信/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="写如下文章的场景：
-在项目中我需要对自定义的url进行解析，例如：
-1example://push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;amp;a=3
-注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.
-普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比">
-<meta property="og:updated_time" content="2016-01-15T07:55:39.000Z">
+<meta property="og:description" content="###react-native的双向通信
+demo项目下载
+
+react-&amp;gt;native
+
+实现提供给react的模块，模块需要实现RCTBridgeModule协议，然后暴露给react的类名和希望react调起的方法
+
+例如：
+
+iOS project：
+
+RNNativeBridgeModule.h
+12345678#import &amp;lt;Foundation/Foundation.h">
+<meta property="og:updated_time" content="2016-06-16T07:40:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSUrl和NSUrlCompents">
-<meta name="twitter:description" content="写如下文章的场景：
-在项目中我需要对自定义的url进行解析，例如：
-1example://push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;amp;a=3
-注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.
-普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比">
+<meta name="twitter:title" content="react-native 入门－相互通信">
+<meta name="twitter:description" content="###react-native的双向通信
+demo项目下载
+
+react-&amp;gt;native
+
+实现提供给react的模块，模块需要实现RCTBridgeModule协议，然后暴露给react的类名和希望react调起的方法
+
+例如：
+
+iOS project：
+
+RNNativeBridgeModule.h
+12345678#import &amp;lt;Foundation/Foundation.h">
 
 
 
@@ -96,7 +120,7 @@
   };
 </script>
 
-  <title> NSUrl和NSUrlCompents | 随笔 </title>
+  <title> react-native 入门－相互通信 | 随笔 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -226,7 +250,7 @@
             
             
               
-                NSUrl和NSUrlCompents
+                react-native 入门－相互通信
               
             
           </h1>
@@ -238,8 +262,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-15T15:30:57+08:00" content="2016-01-15">
-              2016-01-15
+            <time itemprop="dateCreated" datetime="2016-06-16T15:38:00+08:00" content="2016-06-16">
+              2016-06-16
             </time>
           </span>
 
@@ -265,25 +289,58 @@
       
 
       
-        <p>写如下文章的场景：</p>
-<p>在项目中我需要对自定义的url进行解析，例如：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">example:</span><span class="comment">//push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;a=3</span></span><br></pre></td></tr></table></figure>
-<p>注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.</p>
-<p>普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比较麻烦，于是用到了NSUrlCompents，解析出来的queryItems为：</p>
-<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">"&lt;NSURLQueryItem 0x7fb9f1f3f790&gt; &#123;name = url, value = www.baidu.com?TOKEN=123&#125;"</span>,</span><br><span class="line"><span class="comment">"&lt;NSURLQueryItem 0x7fb9f1f3f7b0&gt; &#123;name = a, value = 3&#125;"</span></span><br></pre></td></tr></table></figure>
-<h3 id="NSUrl_:">NSUrl :</h3><p>Url：统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。</p>
-<p>1.url基础语法：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">scheme</span>&gt;</span> :// <span class="tag">&lt;<span class="title">username</span>&gt;</span> : <span class="tag">&lt;<span class="title">password</span>&gt;</span> @ <span class="tag">&lt;<span class="title">host</span> <span class="attribute">name</span>&gt;</span> : <span class="tag">&lt;<span class="title">port</span>&gt;</span> / <span class="tag">&lt;<span class="title">path</span>&gt;</span> / <span class="tag">&lt;<span class="title">extension</span>&gt;</span> ? <span class="tag">&lt;<span class="title">query</span>&gt;</span> # <span class="tag">&lt;<span class="title">fragment</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>2.示例： xxx://username:password@host.com/path/extension.html?query=1#nose</p>
-<p>3.通常我们使用url的时候为： xxx://host/path/extension.xml?query=1</p>
-<p>在iOS中，foundation库提供了NSUrl代表URL.</p>
-<p>使用方法不介绍了。</p>
-<h3 id="NSUrlCompents">NSUrlCompents</h3><p>在iOS7中加入了NSUrlCompents，可以完美替代NSMutableUrl.<br>其中提供如下property用于修改</p>
-<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scheme</span><br><span class="line"><span class="keyword">user</span></span><br><span class="line">password</span><br><span class="line">host</span><br><span class="line"><span class="keyword">port</span></span><br><span class="line">path</span><br><span class="line">query</span><br><span class="line"><span class="keyword">fragment</span></span><br></pre></td></tr></table></figure>
-<p>还提供了readwrite属性对每个compent进行[percent-encoded]</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">percentEncodedUser</span></span><br><span class="line">percentEncodedPassword</span><br><span class="line">percentEncodedHost</span><br><span class="line">percentEncodedPath</span><br><span class="line">percentEncodedQuery</span><br><span class="line">percentEncodedFragment</span><br></pre></td></tr></table></figure>
-<p>如果需要对url进行比较深入的解析的时候，使用NSUrlCompents十分方便</p>
+        <p>###react-native的双向通信</p>
+<p><a href="https://github.com/Mikora/ReactNativeDemo" target="_blank" rel="external">demo项目下载</a></p>
+<blockquote>
+<p>react-&gt;native</p>
+</blockquote>
+<pre><code>实现提供给react的模块，模块需要实现RCTBridgeModule协议，然后暴露给react的类名和希望react调起的方法
 
+例如：
+
+iOS <span class="keyword">project</span>：
+
+RNNativeBridgeModule.h
+</code></pre><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"RCTBridgeModule.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">RNNativeBridgeModule</span> : <span class="title">NSObject</span>  &lt;<span class="title">RCTBridgeModule</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)sendMsg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>RNNativeBridgeModule.m</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"RNNativeBridgeModule.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">RNNativeBridgeModule</span></span></span><br><span class="line"></span><br><span class="line">RCT_EXPORT_MODULE()</span><br><span class="line"></span><br><span class="line">RCT_EXPORT_METHOD(AddEvent:(<span class="built_in">NSDictionary</span> *)dictionary)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"接收到RN传过来的数据为:%@"</span>,dictionary);</span><br><span class="line">    <span class="comment">// Date is ready to use!</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```	</span><br><span class="line">	</span><br><span class="line">React端：</span><br><span class="line">	</span><br><span class="line">导入：</span><br></pre></td></tr></table></figure>
+<p>var { NativeModules } = require(‘react-native’);<br>var RNNativeBridgeModule = NativeModules.RNNativeBridgeModule;<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用：</span><br></pre></td></tr></table></figure></p>
+<p>RNNativeBridgeModule.AddEvent({‘name’:’huangcheng’});<br><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="groovy">&gt; iOS-&gt;react</span><br><span class="line"></span><br><span class="line">在iOS初始化的时候，需要实例一个RCTRootView</span><br><span class="line"></span><br><span class="line">基本我们初始化都是：</span><br><span class="line"></span><br><span class="line">```RCTRootView *view = [[RCTRootView alloc]<span class="string">initWithBundleURL:</span>jsCodeLocation <span class="string">moduleName:</span>@<span class="string">"demo"</span> <span class="string">initialProperties:</span>nil <span class="string">launchOptions:</span>nil];</span></span><br></pre></td></tr></table></figure></p>
+<p>这里面需要仔细阅读源码（我还没怎么看）<br>这种方式会给view生成一个RCTBridge,同时会把这个bridge传给所有实现协议的模块，引用的只需要</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">synthesize</span> bridge = _bridge</span>;</span><br></pre></td></tr></table></figure>
+<p>这里给react发送消息，需要通过bridge的eventDispatcher，简单做法就是：</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[self.rtView.bridge.eventDispatcher sendAppEventWithName:@<span class="string">"EventReminder"</span> body:@<span class="collection">&#123;@<span class="string">"name"</span>:@<span class="string">"huangcheng"</span>&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>这时候需要在react端监听：</p>
+<p>导入:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; NativeAppEventEmitter &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br></pre></td></tr></table></figure>
+<p>添加监听：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NativeAppEventEmitter.addListener(</span><br><span class="line">         <span class="string">'EventReminder'</span>,</span><br><span class="line">          <span class="function"><span class="params">(reminder)</span> =&gt;</span> &#123;</span><br><span class="line">            let errorCode=reminder.errorCode;</span><br><span class="line">            <span class="regexp">//m</span><span class="attribute">sg</span>:reminder.name获取获取的消息</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">         );</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>react-&gt;native并且回调结果给react</p>
+</blockquote>
+<p>在之前的原生模块中加入如下模式的方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RCT_EXPORT_METHOD(RNInvokeOCCallBack:(<span class="built_in">NSDictionary</span> *)dictionary callback:(RCTResponseSenderBlock)callback)&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"接收到RN传过来的数据为:%@"</span>,dictionary);</span><br><span class="line">    <span class="built_in">NSArray</span> *events = [[<span class="built_in">NSArray</span> alloc] initWithObjects:<span class="string">@"黄成"</span>,<span class="string">@"huangcheng"</span>, <span class="literal">nil</span>];</span><br><span class="line">    callback(@[[<span class="built_in">NSNull</span> null], events]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>react端调用：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RNNativeBridgeModule.RNInvokeOCCallBack(&#123;<span class="string">'name'</span>:<span class="string">'huangcheng'</span>&#125;, <span class="function"><span class="params">(error,events)</span>=&gt;</span>&#123;</span><br><span class="line">				<span class="regexp">//</span><span class="attribute">events</span>:events获取到的数据</span><br><span class="line">          &#125;)</span><br></pre></td></tr></table></figure>
+<p>附带：</p>
+<ol>
+<li>下载atom<a href="https://atom.io" target="_blank" rel="external">下载地址</a></li>
+<li>安装nuclide：atom-&gt;setting-&gt;install-&gt;nuclide</li>
+<li>设置atom-&gt;setting-&gt;install recommended packages on startup</li>
+<li>安装nuclide server:</li>
+</ol>
+<p>iOS上使用：</p>
+<p>运行后会自动启动react的服务，地址为<a href="http://localhost:8081/index.ios.bundle" target="_blank" rel="external">http://localhost:8081/index.ios.bundle</a></p>
+<ol>
+<li><p>iOS IDE: Xcode </p>
+<pre><code>依赖管理: cocoapods
+</code></pre><p> 假如react项目地址:/Users/xxx/Desktop/reactnative/demo<br> 那么pod依赖为这样:<br> pod ‘React’, :path =&gt; ‘/Users/xxx/Desktop/reactnative/demo/    node_modules/react-native’, :subspecs =&gt; [<br> ‘Core’,<br> ‘RCTImage’,<br> ‘RCTNetwork’,<br> ‘RCTText’,<br> ‘RCTWebSocket’,<br> ]</p>
+</li>
+<li><p>加载：</p>
+<p> 服务启动后访问<a href="http://localhost:8081/index.ios.bundle可以看到实际加载的东西" target="_blank" rel="external">http://localhost:8081/index.ios.bundle可以看到实际加载的东西</a><br>然后假设一个view去加载：</p>
+</li>
+</ol>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[self.view addSubview:<span class="list">(<span class="collection">&#123;</span><br><span class="line">       NSURL *jsCodeLocation = <span class="collection">[NSURL URLWithString:@<span class="string">"http://localhost:8081/index.ios.bundle?platform=ios&amp;dev=true"</span>]</span><span class="comment">;</span></span><br><span class="line">       RCTRootView *view = <span class="collection">[<span class="collection">[RCTRootView alloc]</span>initWithBundleURL:jsCodeLocation moduleName:@<span class="string">"Project"</span> initialProperties:nil launchOptions:nil]</span><span class="comment">;</span></span><br><span class="line">       view.frame = self.view.bounds;</span><br><span class="line">       view;</span><br><span class="line">   &#125;</span>)</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -295,28 +352,18 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/15/Base64编码/" rel="next" title="Base64编码">
-                <i class="fa fa-chevron-left"></i> Base64编码
+              <a href="/2016/04/28/iOS开发中各种优化/" rel="next" title="iOS开发中各种优化">
+                <i class="fa fa-chevron-left"></i> iOS开发中各种优化
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/18/用协议模式打开对应controller/" rel="prev" title="用协议模式打开对应Controller">
-                用协议模式打开对应Controller <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -427,7 +474,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSUrl_:"><span class="nav-number">1.</span> <span class="nav-text">NSUrl :</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSUrlCompents"><span class="nav-number">2.</span> <span class="nav-text">NSUrlCompents</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

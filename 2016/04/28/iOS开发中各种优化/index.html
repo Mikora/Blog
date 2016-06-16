@@ -57,28 +57,28 @@
 
 
 
-<meta name="description" content="写如下文章的场景：
-在项目中我需要对自定义的url进行解析，例如：
-1example://push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;amp;a=3
-注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.
-普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比">
+<meta name="description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing
+对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。
+1.round corner 
+优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如
+123456">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NSUrl和NSUrlCompents">
-<meta property="og:url" content="http://blog.huangcheng.com/2016/01/15/NSUrl和NSUrlCompents/index.html">
+<meta property="og:title" content="iOS开发中各种优化">
+<meta property="og:url" content="http://blog.huangcheng.com/2016/04/28/iOS开发中各种优化/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="写如下文章的场景：
-在项目中我需要对自定义的url进行解析，例如：
-1example://push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;amp;a=3
-注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.
-普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比">
-<meta property="og:updated_time" content="2016-01-15T07:55:39.000Z">
+<meta property="og:description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing
+对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。
+1.round corner 
+优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如
+123456">
+<meta property="og:updated_time" content="2016-05-24T06:58:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSUrl和NSUrlCompents">
-<meta name="twitter:description" content="写如下文章的场景：
-在项目中我需要对自定义的url进行解析，例如：
-1example://push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;amp;a=3
-注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.
-普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比">
+<meta name="twitter:title" content="iOS开发中各种优化">
+<meta name="twitter:description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing
+对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。
+1.round corner 
+优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如
+123456">
 
 
 
@@ -96,7 +96,7 @@
   };
 </script>
 
-  <title> NSUrl和NSUrlCompents | 随笔 </title>
+  <title> iOS开发中各种优化 | 随笔 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -226,7 +226,7 @@
             
             
               
-                NSUrl和NSUrlCompents
+                iOS开发中各种优化
               
             
           </h1>
@@ -238,8 +238,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-15T15:30:57+08:00" content="2016-01-15">
-              2016-01-15
+            <time itemprop="dateCreated" datetime="2016-04-28T11:13:48+08:00" content="2016-04-28">
+              2016-04-28
             </time>
           </span>
 
@@ -265,24 +265,37 @@
       
 
       
-        <p>写如下文章的场景：</p>
-<p>在项目中我需要对自定义的url进行解析，例如：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">example:</span><span class="comment">//push/second/third?url=www.baidu.com%3FTOKEN%3D123&amp;a=3</span></span><br></pre></td></tr></table></figure>
-<p>注：里面嵌套了url,所以对嵌套的url进行encodeurl转义.</p>
-<p>普通NSUrl可以解析出来scheme,host,port,path,query。但是query为一个字符串，如果自己解析比较麻烦，于是用到了NSUrlCompents，解析出来的queryItems为：</p>
-<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">"&lt;NSURLQueryItem 0x7fb9f1f3f790&gt; &#123;name = url, value = www.baidu.com?TOKEN=123&#125;"</span>,</span><br><span class="line"><span class="comment">"&lt;NSURLQueryItem 0x7fb9f1f3f7b0&gt; &#123;name = a, value = 3&#125;"</span></span><br></pre></td></tr></table></figure>
-<h3 id="NSUrl_:">NSUrl :</h3><p>Url：统一资源定位符是对可以从互联网上得到的资源的位置和访问方法的一种简洁的表示，是互联网上标准资源的地址。</p>
-<p>1.url基础语法：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">scheme</span>&gt;</span> :// <span class="tag">&lt;<span class="title">username</span>&gt;</span> : <span class="tag">&lt;<span class="title">password</span>&gt;</span> @ <span class="tag">&lt;<span class="title">host</span> <span class="attribute">name</span>&gt;</span> : <span class="tag">&lt;<span class="title">port</span>&gt;</span> / <span class="tag">&lt;<span class="title">path</span>&gt;</span> / <span class="tag">&lt;<span class="title">extension</span>&gt;</span> ? <span class="tag">&lt;<span class="title">query</span>&gt;</span> # <span class="tag">&lt;<span class="title">fragment</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>2.示例： xxx://username:password@host.com/path/extension.html?query=1#nose</p>
-<p>3.通常我们使用url的时候为： xxx://host/path/extension.xml?query=1</p>
-<p>在iOS中，foundation库提供了NSUrl代表URL.</p>
-<p>使用方法不介绍了。</p>
-<h3 id="NSUrlCompents">NSUrlCompents</h3><p>在iOS7中加入了NSUrlCompents，可以完美替代NSMutableUrl.<br>其中提供如下property用于修改</p>
-<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scheme</span><br><span class="line"><span class="keyword">user</span></span><br><span class="line">password</span><br><span class="line">host</span><br><span class="line"><span class="keyword">port</span></span><br><span class="line">path</span><br><span class="line">query</span><br><span class="line"><span class="keyword">fragment</span></span><br></pre></td></tr></table></figure>
-<p>还提供了readwrite属性对每个compent进行[percent-encoded]</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">percentEncodedUser</span></span><br><span class="line">percentEncodedPassword</span><br><span class="line">percentEncodedHost</span><br><span class="line">percentEncodedPath</span><br><span class="line">percentEncodedQuery</span><br><span class="line">percentEncodedFragment</span><br></pre></td></tr></table></figure>
-<p>如果需要对url进行比较深入的解析的时候，使用NSUrlCompents十分方便</p>
+        <h4 id="离屏渲染">离屏渲染</h4><p>触发离屏渲染：mask, shadow, group opacity, edge antialiasing</p>
+<p>对性能的影响等级：Shadow &gt; RoundedCorner &gt; Mask &gt; GroupOpacity(迷之效果)。</p>
+<p>1.round corner </p>
+<p>优化方案：<br>uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CGRect imageFrame = CGRectMake(<span class="number">0.</span>, <span class="number">0.</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span>);</span><br><span class="line">UIGraphicsBeginImageContextWithOptions(<span class="built_in">rect</span>.<span class="built_in">size</span>, NO, [UIScreen mainScreen].<span class="built_in">scale</span>);</span><br><span class="line">[[UIBezierPath bezierPathWithRoundedRect:imageFrame cornerRadius:<span class="number">10</span>] addClip];</span><br><span class="line">[self.<span class="built_in">image</span> drawInRect:imageFrame];</span><br><span class="line">self.<span class="built_in">image</span> = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">UIGraphicsEndImageContext();</span><br></pre></td></tr></table></figure>
+<p> 使用一个层级去覆盖： 用一个带圆角中间透明的imageview去盖在上面<br> 问题：如何获取这个带圆角的image</p>
+<p> uilabel使用layer设置颜色<br> uitextview，UITextField不影响</p>
+<p> 2.shadow</p>
+<p> 设置shadowpath，使用圆角优化的混合涂层方法，使用core graphics绘制引用</p>
+<p> shadowpath:</p>
+ <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> let imageViewLayer = avatorView<span class="class">.layer</span></span><br><span class="line">imageViewLayer<span class="class">.shadowColor</span> = UIColor.<span class="function"><span class="title">blackColor</span><span class="params">()</span></span><span class="class">.CGColor</span></span><br><span class="line">imageViewLayer<span class="class">.shadowOpacity</span> = <span class="number">1.0</span> <span class="comment">//此参数默认为0，即阴影不显示</span></span><br><span class="line">imageViewLayer<span class="class">.shadowRadius</span> = <span class="number">2.0</span> <span class="comment">//给阴影加上圆角，对性能无明显影响</span></span><br><span class="line">imageViewLayer<span class="class">.shadowOffset</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: <span class="number">5</span>, height: <span class="number">5</span>)</span></span></span><br><span class="line"><span class="comment">//设定路径：与视图的边界相同</span></span><br><span class="line">let path = <span class="function"><span class="title">UIBezierPath</span><span class="params">(rect: cell.imageView.bounds)</span></span></span><br><span class="line">imageViewLayer<span class="class">.shadowPath</span> = path.CGPath<span class="comment">//路径默认为 nil</span></span><br></pre></td></tr></table></figure>
+<p> 3.mask</p>
+<p> Mask 效果无法取消离屏渲染，使用混合图层的方法来模拟 mask 效果，性能各方面都是和无效果持平。</p>
+<p>使用 mask 来实现圆角时也可以不用图片，而使用 CAShapeLayer 来指定混合的路径。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let roundedRectPath = <span class="function"><span class="title">UIBezierPath</span><span class="params">(roundedRect: avatorView.bounds, byRoundingCorners: .AllCorners, cornerRadii: CGSize(width: <span class="number">10</span>, height: <span class="number">10</span>)</span></span>)</span><br><span class="line">let shapeLayer = <span class="function"><span class="title">CAShapeLayer</span><span class="params">()</span></span></span><br><span class="line">shapeLayer<span class="class">.path</span> = roundedRectPath<span class="class">.CGPath</span></span><br><span class="line">avatorView<span class="class">.layer</span><span class="class">.mask</span> = shapeLayer</span><br></pre></td></tr></table></figure>
+<p>4.group opacity</p>
+<p>只有设置 tableView 的alpha小于1时才会触发离屏渲染，对性能无明显影响；设置 cell 的alpha属性并不会对整体的透明度产生影响，只有设置 cell.contentView 才有效。</p>
+<p>5.edge antialiasing</p>
+<p>开启 edge antialiasing(旋转视图并且设置layer.allowsEdgeAntialiasing = true) 在 iOS 8 和 iOS 9 上并不会触发离屏渲染，对性能也没有什么影响，也许到现在这个功能已经被优化了。</p>
+<blockquote>
+<p>任何时候优先考虑避免触发离屏渲染，无法避免时优化方案有两种：</p>
+</blockquote>
+<ul>
+<li>Rasterization：适用于静态内容的视图，也就是内部结构和内容不发生变化的视图，对上面的所有效果而言，在实现成本以及性能上最均衡的。即使是动态变化的视图，开启 Rasterization 后能够有效降低 GPU 的负荷，不过在动态视图里是否启用还是看 Instruments 的数据。</li>
+<li>规避离屏渲染，用其他手法来模拟效果，混合图层是个性能最好、耗能最少的通用优化方案，尤其对于 rounded corer 和 mask。</li>
+</ul>
+<p>notification 尽量少用</p>
+<ol>
+<li>需要移除，不移除将不会释放self</li>
+<li>一对多，假如有两者用同一个组件，组件使用notification可能会导致微小但是致命麻烦的问题</li>
+</ol>
 
       
     </div>
@@ -306,16 +319,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/15/Base64编码/" rel="next" title="Base64编码">
-                <i class="fa fa-chevron-left"></i> Base64编码
+              <a href="/2016/04/27/iOS利用高斯模糊做涂抹和马赛克效果/" rel="next" title="iOS利用高斯模糊做涂抹和马赛克效果">
+                <i class="fa fa-chevron-left"></i> iOS利用高斯模糊做涂抹和马赛克效果
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/01/18/用协议模式打开对应controller/" rel="prev" title="用协议模式打开对应Controller">
-                用协议模式打开对应Controller <i class="fa fa-chevron-right"></i>
+              <a href="/2016/06/16/react-native-入门－相互通信/" rel="prev" title="react-native 入门－相互通信">
+                react-native 入门－相互通信 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -427,7 +440,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSUrl_:"><span class="nav-number">1.</span> <span class="nav-text">NSUrl :</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSUrlCompents"><span class="nav-number">2.</span> <span class="nav-text">NSUrlCompents</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#离屏渲染"><span class="nav-number">1.</span> <span class="nav-text">离屏渲染</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

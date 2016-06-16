@@ -216,6 +216,264 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/16/react-native-入门－相互通信/" itemprop="url">
+                  react-native 入门－相互通信
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-16T15:38:00+08:00" content="2016-06-16">
+              2016-06-16
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>###react-native的双向通信</p>
+<p><a href="https://github.com/Mikora/ReactNativeDemo" target="_blank" rel="external">demo项目下载</a></p>
+<blockquote>
+<p>react-&gt;native</p>
+</blockquote>
+<pre><code>实现提供给react的模块，模块需要实现RCTBridgeModule协议，然后暴露给react的类名和希望react调起的方法
+
+例如：
+
+iOS <span class="keyword">project</span>：
+
+RNNativeBridgeModule.h
+</code></pre><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"RCTBridgeModule.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">RNNativeBridgeModule</span> : <span class="title">NSObject</span>  &lt;<span class="title">RCTBridgeModule</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)sendMsg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>RNNativeBridgeModule.m</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"RNNativeBridgeModule.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">RNNativeBridgeModule</span></span></span><br><span class="line"></span><br><span class="line">RCT_EXPORT_MODULE()</span><br><span class="line"></span><br><span class="line">RCT_EXPORT_METHOD(AddEvent:(<span class="built_in">NSDictionary</span> *)dictionary)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"接收到RN传过来的数据为:%@"</span>,dictionary);</span><br><span class="line">    <span class="comment">// Date is ready to use!</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```	</span><br><span class="line">	</span><br><span class="line">React端：</span><br><span class="line">	</span><br><span class="line">导入：</span><br></pre></td></tr></table></figure>
+<p>var { NativeModules } = require(‘react-native’);<br>var RNNativeBridgeModule = NativeModules.RNNativeBridgeModule;<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用：</span><br></pre></td></tr></table></figure></p>
+<p>RNNativeBridgeModule.AddEvent({‘name’:’huangcheng’});<br><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="groovy">&gt; iOS-&gt;react</span><br><span class="line"></span><br><span class="line">在iOS初始化的时候，需要实例一个RCTRootView</span><br><span class="line"></span><br><span class="line">基本我们初始化都是：</span><br><span class="line"></span><br><span class="line">```RCTRootView *view = [[RCTRootView alloc]<span class="string">initWithBundleURL:</span>jsCodeLocation <span class="string">moduleName:</span>@<span class="string">"demo"</span> <span class="string">initialProperties:</span>nil <span class="string">launchOptions:</span>nil];</span></span><br></pre></td></tr></table></figure></p>
+<p>这里面需要仔细阅读源码（我还没怎么看）<br>这种方式会给view生成一个RCTBridge,同时会把这个bridge传给所有实现协议的模块，引用的只需要</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">synthesize</span> bridge = _bridge</span>;</span><br></pre></td></tr></table></figure>
+<p>这里给react发送消息，需要通过bridge的eventDispatcher，简单做法就是：</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[self.rtView.bridge.eventDispatcher sendAppEventWithName:@<span class="string">"EventReminder"</span> body:@<span class="collection">&#123;@<span class="string">"name"</span>:@<span class="string">"huangcheng"</span>&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>这时候需要在react端监听：</p>
+<p>导入:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; NativeAppEventEmitter &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br></pre></td></tr></table></figure>
+<p>添加监听：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NativeAppEventEmitter.addListener(</span><br><span class="line">         <span class="string">'EventReminder'</span>,</span><br><span class="line">          <span class="function"><span class="params">(reminder)</span> =&gt;</span> &#123;</span><br><span class="line">            let errorCode=reminder.errorCode;</span><br><span class="line">            <span class="regexp">//m</span><span class="attribute">sg</span>:reminder.name获取获取的消息</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">         );</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>react-&gt;native并且回调结果给react</p>
+</blockquote>
+<p>在之前的原生模块中加入如下模式的方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RCT_EXPORT_METHOD(RNInvokeOCCallBack:(<span class="built_in">NSDictionary</span> *)dictionary callback:(RCTResponseSenderBlock)callback)&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"接收到RN传过来的数据为:%@"</span>,dictionary);</span><br><span class="line">    <span class="built_in">NSArray</span> *events = [[<span class="built_in">NSArray</span> alloc] initWithObjects:<span class="string">@"黄成"</span>,<span class="string">@"huangcheng"</span>, <span class="literal">nil</span>];</span><br><span class="line">    callback(@[[<span class="built_in">NSNull</span> null], events]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>react端调用：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RNNativeBridgeModule.RNInvokeOCCallBack(&#123;<span class="string">'name'</span>:<span class="string">'huangcheng'</span>&#125;, <span class="function"><span class="params">(error,events)</span>=&gt;</span>&#123;</span><br><span class="line">				<span class="regexp">//</span><span class="attribute">events</span>:events获取到的数据</span><br><span class="line">          &#125;)</span><br></pre></td></tr></table></figure>
+<p>附带：</p>
+<ol>
+<li>下载atom<a href="https://atom.io" target="_blank" rel="external">下载地址</a></li>
+<li>安装nuclide：atom-&gt;setting-&gt;install-&gt;nuclide</li>
+<li>设置atom-&gt;setting-&gt;install recommended packages on startup</li>
+<li>安装nuclide server:</li>
+</ol>
+<p>iOS上使用：</p>
+<p>运行后会自动启动react的服务，地址为<a href="http://localhost:8081/index.ios.bundle" target="_blank" rel="external">http://localhost:8081/index.ios.bundle</a></p>
+<ol>
+<li><p>iOS IDE: Xcode </p>
+<pre><code>依赖管理: cocoapods
+</code></pre><p> 假如react项目地址:/Users/xxx/Desktop/reactnative/demo<br> 那么pod依赖为这样:<br> pod ‘React’, :path =&gt; ‘/Users/xxx/Desktop/reactnative/demo/    node_modules/react-native’, :subspecs =&gt; [<br> ‘Core’,<br> ‘RCTImage’,<br> ‘RCTNetwork’,<br> ‘RCTText’,<br> ‘RCTWebSocket’,<br> ]</p>
+</li>
+<li><p>加载：</p>
+<p> 服务启动后访问<a href="http://localhost:8081/index.ios.bundle可以看到实际加载的东西" target="_blank" rel="external">http://localhost:8081/index.ios.bundle可以看到实际加载的东西</a><br>然后假设一个view去加载：</p>
+</li>
+</ol>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[self.view addSubview:<span class="list">(<span class="collection">&#123;</span><br><span class="line">       NSURL *jsCodeLocation = <span class="collection">[NSURL URLWithString:@<span class="string">"http://localhost:8081/index.ios.bundle?platform=ios&amp;dev=true"</span>]</span><span class="comment">;</span></span><br><span class="line">       RCTRootView *view = <span class="collection">[<span class="collection">[RCTRootView alloc]</span>initWithBundleURL:jsCodeLocation moduleName:@<span class="string">"Project"</span> initialProperties:nil launchOptions:nil]</span><span class="comment">;</span></span><br><span class="line">       view.frame = self.view.bounds;</span><br><span class="line">       view;</span><br><span class="line">   &#125;</span>)</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/28/iOS开发中各种优化/" itemprop="url">
+                  iOS开发中各种优化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-28T11:13:48+08:00" content="2016-04-28">
+              2016-04-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="离屏渲染">离屏渲染</h4><p>触发离屏渲染：mask, shadow, group opacity, edge antialiasing</p>
+<p>对性能的影响等级：Shadow &gt; RoundedCorner &gt; Mask &gt; GroupOpacity(迷之效果)。</p>
+<p>1.round corner </p>
+<p>优化方案：<br>uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CGRect imageFrame = CGRectMake(<span class="number">0.</span>, <span class="number">0.</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span>);</span><br><span class="line">UIGraphicsBeginImageContextWithOptions(<span class="built_in">rect</span>.<span class="built_in">size</span>, NO, [UIScreen mainScreen].<span class="built_in">scale</span>);</span><br><span class="line">[[UIBezierPath bezierPathWithRoundedRect:imageFrame cornerRadius:<span class="number">10</span>] addClip];</span><br><span class="line">[self.<span class="built_in">image</span> drawInRect:imageFrame];</span><br><span class="line">self.<span class="built_in">image</span> = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">UIGraphicsEndImageContext();</span><br></pre></td></tr></table></figure>
+<p> 使用一个层级去覆盖： 用一个带圆角中间透明的imageview去盖在上面<br> 问题：如何获取这个带圆角的image</p>
+<p> uilabel使用layer设置颜色<br> uitextview，UITextField不影响</p>
+<p> 2.shadow</p>
+<p> 设置shadowpath，使用圆角优化的混合涂层方法，使用core graphics绘制引用</p>
+<p> shadowpath:</p>
+ <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> let imageViewLayer = avatorView<span class="class">.layer</span></span><br><span class="line">imageViewLayer<span class="class">.shadowColor</span> = UIColor.<span class="function"><span class="title">blackColor</span><span class="params">()</span></span><span class="class">.CGColor</span></span><br><span class="line">imageViewLayer<span class="class">.shadowOpacity</span> = <span class="number">1.0</span> <span class="comment">//此参数默认为0，即阴影不显示</span></span><br><span class="line">imageViewLayer<span class="class">.shadowRadius</span> = <span class="number">2.0</span> <span class="comment">//给阴影加上圆角，对性能无明显影响</span></span><br><span class="line">imageViewLayer<span class="class">.shadowOffset</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: <span class="number">5</span>, height: <span class="number">5</span>)</span></span></span><br><span class="line"><span class="comment">//设定路径：与视图的边界相同</span></span><br><span class="line">let path = <span class="function"><span class="title">UIBezierPath</span><span class="params">(rect: cell.imageView.bounds)</span></span></span><br><span class="line">imageViewLayer<span class="class">.shadowPath</span> = path.CGPath<span class="comment">//路径默认为 nil</span></span><br></pre></td></tr></table></figure>
+<p> 3.mask</p>
+<p> Mask 效果无法取消离屏渲染，使用混合图层的方法来模拟 mask 效果，性能各方面都是和无效果持平。</p>
+<p>使用 mask 来实现圆角时也可以不用图片，而使用 CAShapeLayer 来指定混合的路径。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let roundedRectPath = <span class="function"><span class="title">UIBezierPath</span><span class="params">(roundedRect: avatorView.bounds, byRoundingCorners: .AllCorners, cornerRadii: CGSize(width: <span class="number">10</span>, height: <span class="number">10</span>)</span></span>)</span><br><span class="line">let shapeLayer = <span class="function"><span class="title">CAShapeLayer</span><span class="params">()</span></span></span><br><span class="line">shapeLayer<span class="class">.path</span> = roundedRectPath<span class="class">.CGPath</span></span><br><span class="line">avatorView<span class="class">.layer</span><span class="class">.mask</span> = shapeLayer</span><br></pre></td></tr></table></figure>
+<p>4.group opacity</p>
+<p>只有设置 tableView 的alpha小于1时才会触发离屏渲染，对性能无明显影响；设置 cell 的alpha属性并不会对整体的透明度产生影响，只有设置 cell.contentView 才有效。</p>
+<p>5.edge antialiasing</p>
+<p>开启 edge antialiasing(旋转视图并且设置layer.allowsEdgeAntialiasing = true) 在 iOS 8 和 iOS 9 上并不会触发离屏渲染，对性能也没有什么影响，也许到现在这个功能已经被优化了。</p>
+<blockquote>
+<p>任何时候优先考虑避免触发离屏渲染，无法避免时优化方案有两种：</p>
+</blockquote>
+<ul>
+<li>Rasterization：适用于静态内容的视图，也就是内部结构和内容不发生变化的视图，对上面的所有效果而言，在实现成本以及性能上最均衡的。即使是动态变化的视图，开启 Rasterization 后能够有效降低 GPU 的负荷，不过在动态视图里是否启用还是看 Instruments 的数据。</li>
+<li>规避离屏渲染，用其他手法来模拟效果，混合图层是个性能最好、耗能最少的通用优化方案，尤其对于 rounded corer 和 mask。</li>
+</ul>
+<p>notification 尽量少用</p>
+<ol>
+<li>需要移除，不移除将不会释放self</li>
+<li>一对多，假如有两者用同一个组件，组件使用notification可能会导致微小但是致命麻烦的问题</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/27/iOS利用高斯模糊做涂抹和马赛克效果/" itemprop="url">
                   iOS利用高斯模糊做涂抹和马赛克效果
                 </a>
@@ -1209,223 +1467,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/02/26/gcd深入理解/" itemprop="url">
-                  gcd深入理解
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-26T15:22:47+08:00" content="2016-02-26">
-              2016-02-26
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="GCD基本概念">GCD基本概念</h3><ol>
-<li>gcd里面有三种队列(queue)</li>
-</ol>
-<blockquote>
-<p>主线程队列 ：main_queue </p>
-</blockquote>
-<p>由 dispatch_get_main_queue()获取；</p>
-<blockquote>
-<p>并行队列：global dispatch queue</p>
-</blockquote>
-<p>由dispatch_get_global_queue(int,int);</p>
-<p>由系统创建三个不同优先级的队列，并行队列的执行顺序和加入顺序一致，完成顺序不确定，</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DISPATCH_QUEUE_PRIORITY_HIGH <span class="number">2</span></span><br><span class="line">DISPATCH_QUEUE_PRIORITY_DEFAULT <span class="number">0</span></span><br><span class="line">DISPATCH_QUEUE_PRIORITY_LOW －<span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p>或者使用dispatch_queue_create(“”, DISPATCH_QUEUE_CONCURRENT);创建</p>
-<blockquote>
-<p>串行队列：serial queue</p>
-</blockquote>
-<p>dispatch_queue_create(“”, DISPATCH_QUEUE_SERIAL);//DISPATCH_QUEUE_SERIAL=NULL</p>
-<p>顺序同步访问，可以创建大量串行队列，各个队列之间是并发的，队列里面每次只能执行一个任务，这样可以保护数据，有锁的功能</p>
-<h4 id="简单用法">简单用法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="comment">//dispatch_async异步执行</span></span><br><span class="line"> dispatch_async(mainQueue, ^&#123;</span><br><span class="line">     [NSThread sleepForTimeInterval:<span class="number">5</span>];</span><br><span class="line"> &#125;);</span><br><span class="line">  <span class="comment">//dispatch_sync阻塞执行</span></span><br><span class="line">  dispatch_sync(mainQueue, ^&#123;</span><br><span class="line">  [NSThread sleepForTimeInterval:<span class="number">5</span>];</span><br><span class="line">  &#125;);<span class="comment">//这样会死锁主线程  dispatch_sync等待block执行完，block需要在主线程中运行，相互死锁</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">//2.gcd group用法</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">dispatch_group_t</span> group = dispatch_group_create();</span><br><span class="line"> dispatch_group_async(group, concurrentQueue, ^&#123;</span><br><span class="line">     <span class="comment">//</span></span><br><span class="line"> &#125;);</span><br><span class="line"> dispatch_group_async(group, concurrentQueue, ^&#123;</span><br><span class="line">     </span><br><span class="line"> &#125;);</span><br><span class="line"> dispatch_group_notify(group, mainQueue, ^&#123;</span><br><span class="line">     <span class="comment">//group执行完后</span></span><br><span class="line"> &#125;);</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//如果是新启一个线程去执行任务，可以使用enter和leave</span></span><br><span class="line"> dispatch_group_enter(group);</span><br><span class="line"> dispatch_group_leave(group);</span><br><span class="line"> </span><br><span class="line"> <span class="number">3.</span> dispatch_after</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//延迟执行</span></span><br><span class="line"> </span><br><span class="line"> dispatch_after(<span class="number">3.0</span>, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;&#125;);</span><br></pre></td></tr></table></figure>
-<h4 id="用途">用途</h4><p>信号量dispatch semaphore</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">dispatch_semaphore_create</span>(1);<span class="comment">//创建一个初始信号量为1的semaphore</span></span><br><span class="line"><span class="function">dispatch_semaphore_wait</span>(semaphore, DISPATCH_TIME_FOREVER);<span class="comment">//等待信号量大于0，时间：永远</span></span><br><span class="line"><span class="function">dispatch_semaphore_signal</span>(semaphore);<span class="comment">//释放一个资源，使信号量加1</span></span><br></pre></td></tr></table></figure>
-<p>分发栅栏dispatch barrier</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">dispatch_barrier_async</span>(queue, ^&#123;</span><br><span class="line">&#125;);<span class="comment">//作用等待queue里面的操作完成后进行block操作</span></span><br></pre></td></tr></table></figure>
-<p>分发源dispatch source//待补充</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">监听指定的各种事件</span><br><span class="line">变量增加dispatch_<span class="built_in">source</span>_<span class="built_in">type</span>_data_add</span><br><span class="line">变量OR  dispatch_<span class="built_in">source</span>_<span class="built_in">type</span>_data_or</span><br><span class="line">进程相关dispatch_<span class="built_in">source</span>_<span class="built_in">type</span>_proc</span><br><span class="line">文件读写</span><br><span class="line">.......</span><br></pre></td></tr></table></figure>
-<h4 id="GCD实现operation的功能">GCD实现operation的功能</h4><p>operation提供的功能有：</p>
-<blockquote>
-<p>取消<br>开始<br>依赖<br>获取各种状态：op.isCancelled，op.isExecuting，op.isFinished，op.isReady，op.isConcurrent</p>
-</blockquote>
-<p>感觉就是各种标志位的组合使用。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/02/25/c-学习-一-之基本概念/" itemprop="url">
-                  c++学习(一)之基本概念
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-25T13:42:22+08:00" content="2016-02-25">
-              2016-02-25
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>C++命名空间</p>
-</blockquote>
-<p>为了避免命名冲突，c++ 引入命名空间</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">A</span>&#123;</span><br><span class="line">	<span class="keyword">int</span> flag=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">B</span>&#123;</span><br><span class="line">	<span class="keyword">bool</span> flag=<span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>若把两个变量放入一个函数体里面使用，则需要指明是哪个命名空间里的,使用域解析操作符”::”操作符</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#36824;&#21487;&#20197;&#20351;&#29992;using&#65292;using&#22768;&#26126;&#21518;&#38754;&#30340;flag&#26159;&#23646;&#20110;&#21738;&#19968;&#20010;&#21629;&#21517;&#31354;&#38388;&#37324;&#38754;&#30340;&#12290; using A:flag;&#34920;&#31034;&#21518;&#38754;flag&#37117;&#26159;A&#37324;&#38754;&#30340;&#65292;&#32780;B&#37324;&#38754;&#30340;flag&#36824;&#26159;&#35201;&#29992;B:flag&#21435;&#35843;&#29992;&#10;&#10;&#21516;&#29702;using&#21487;&#20197;&#30452;&#25509;&#29992;namespace&#65292;using namespace A,&#34920;&#31034;A&#37324;&#38754;&#25152;&#26377;&#21464;&#37327;&#37117;&#30452;&#25509;&#33021;&#20351;&#29992;&#10;&#10;&#10;&#62; c&#25351;&#38024;&#10;&#10;&#20989;&#25968;&#25351;&#38024;&#65306;&#25351;&#21521;&#20989;&#25968;&#30340;&#25351;&#38024;</span><br></pre></td></tr></table></figure>
-<p>int max(a,b){<br>}</p>
-<p>main(){<br>int (*mMax)();<br>mMax = max;</p>
-<p>int i = (*mMax)(a,b);<br>}<br>```</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1471,7 +1512,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
