@@ -216,6 +216,1068 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/31/swift入门记录/" itemprop="url">
+                  swift入门记录
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-31T13:45:44+08:00" content="2016-08-31">
+              2016-08-31
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="swift直接上手的坑，其他坑还没踩到不做解释">swift直接上手的坑，其他坑还没踩到不做解释</h3><p>项目使用工具cocoapods提供给外部使用</p>
+<blockquote>
+<p>let和var</p>
+</blockquote>
+<p>let表示常量，var表示变量,let修饰的属性在初始化后不能改变其内存地址，但是可以改变当前属性里面的值；</p>
+<p>比如：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i : Int = <span class="number">0</span></span><br><span class="line">i = <span class="number">1</span></span><br><span class="line">这样编译器会提出错误提示</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">model</span>: <span class="title">AnyObject</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> i = <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> m : model = &#123;</span><br><span class="line">            <span class="keyword">let</span> m = model()</span><br><span class="line">            <span class="keyword">return</span> m</span><br><span class="line">        &#125;()</span><br><span class="line">m.i = <span class="number">1</span></span><br><span class="line">这样是可以的</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>!和？</p>
+</blockquote>
+<p>!表示这个值不能为nil，如果为nil则会崩溃退出。?表示可选。</p>
+<p>当我们在定义一个函数的时候，比如设置图片到一个button</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">setImageToButton</span><span class="params">(image:UIImage?)</span></span> -&gt; <span class="type">Void</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line">setImageToButton(<span class="literal">nil</span>)</span><br><span class="line">图片表示可以为<span class="literal">nil</span>,调用如上</span><br><span class="line"></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">setImageToButton</span><span class="params">(image:UIImage)</span></span> -&gt; <span class="type">Void</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">setImageToButton(image)</span><br><span class="line">编译器会提示出错，不能把<span class="literal">nil</span>设置给image</span><br></pre></td></tr></table></figure>
+<p>这个可以很好对我们程序的安全做出贡献，比如在调用某一个方法，某参数是必须的</p>
+<blockquote>
+<p>初始化</p>
+</blockquote>
+<p>正确的写法：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> lazy <span class="variable"><span class="keyword">var</span> pageControl</span> : UIPageControl = &#123;</span><br><span class="line">        <span class="variable"><span class="keyword">var</span> pageControl</span> = UIPageControl()</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">return</span> pageControl;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+<p>刚开始写会有误区，我之前写成如下这样，是有问题的</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="variable"><span class="keyword">var</span> page</span> : UIPageControl? &#123;</span><br><span class="line">        <span class="variable"><span class="keyword">var</span> page</span> = UIPageControl()</span><br><span class="line">        <span class="keyword">return</span> pageControl;</span><br><span class="line">&#125;</span><br><span class="line">因为默认实现的<span class="keyword">get</span>方法，如果我调用page，就会生成一个新的page</span><br></pre></td></tr></table></figure>
+<p>lazy是懒加载，只有在使用到的时候才回去加载</p>
+<blockquote>
+<p>协议</p>
+</blockquote>
+<p>swift中不支持可选实现和必须实现的协议，所有定义的协议都必须实现。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">XXXXProtocol</span> :<span class="title">NSObjectProtocol</span></span>&#123;</span><br><span class="line">	<span class="func"><span class="keyword">func</span> <span class="title">xxx</span><span class="params">()</span></span>-&gt;xxx</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是用遵循objctive-c的写法去做可选实现（既然swift原版不支持，那我还是全部实现吧）</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">@objc</span> <span class="class"><span class="keyword">protocol</span> <span class="title">XXXXProtocol</span> :<span class="title">NSObjectProtocol</span></span>&#123;</span><br><span class="line">	optional <span class="func"><span class="keyword">func</span> <span class="title">xxx</span><span class="params">()</span></span>-&gt;xxx</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>默认实现：</p>
+<p>swift中可以使用extension做默认实现，简化我们的代码，如下</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">XXXProtocol</span> :<span class="title">NSObjectProtocol</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">name</span><span class="params">()</span></span> -&gt; <span class="type">Void</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">XXXProtocol</span> </span>&#123;</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">name</span><span class="params">()</span></span> -&gt; <span class="type">Void</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"name"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">如果在用的时候，如果需要对这个协议函数进行特殊处理，在具体地方进行申明实现即可</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>闭包</p>
+</blockquote>
+<p>objective-c中block频繁使用，不说与delegate，notification等的优缺点，那么swift里面应该怎么使用。</p>
+<p>定义闭包</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">定义</span><br><span class="line">typealias returnBlock = (name:<span class="built_in">String</span>,pass:<span class="built_in">String</span>) <span class="subst">-&gt; </span><span class="built_in">String</span></span><br><span class="line">申明</span><br><span class="line"><span class="keyword">public</span> <span class="built_in">var</span> lllBlock : returnBlock?</span><br><span class="line">调用</span><br><span class="line"><span class="keyword">let</span> ac = lllBlock<span class="subst">!</span>(name: <span class="string">"12"</span>,pass: <span class="string">"34"</span>)</span><br><span class="line">使用</span><br><span class="line"><span class="built_in">self</span><span class="built_in">.</span>lllBlock = &#123;</span><br><span class="line">            (name:<span class="built_in">String</span>,pass:<span class="built_in">String</span>) <span class="subst">-&gt; </span><span class="built_in">String</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">return</span> <span class="string">"123"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述申明可以直接使用</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">可以直接申明</span><br><span class="line"><span class="keyword">public</span> <span class="built_in">var</span> llllBlock:((name:<span class="built_in">String</span>,pass:<span class="built_in">String</span>) <span class="subst">-&gt;</span><span class="built_in">String</span>)?</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>循环引用</p>
+</blockquote>
+<p>老生常谈的问题：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">weak</span>化：</span><br><span class="line"><span class="keyword">weak</span> <span class="keyword">var</span> weakSelf : CTSPhotoBrowser? = <span class="keyword">self</span></span><br><span class="line"><span class="keyword">strong</span>化：可以直接使用<span class="keyword">var</span>就好了，这里用guard可以处理为空的时候的情况</span><br><span class="line">guard <span class="keyword">var</span> <span class="keyword">strong</span> = weakSelf <span class="keyword">else</span> <span class="comment">&#123;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>swift语法糖模式</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">weak</span> <span class="keyword">self</span>]</span><br><span class="line">与objective-<span class="built_in">c</span>中@weakify相似</span><br><span class="line">[<span class="keyword">unowned</span> <span class="keyword">self</span>]确定不会被先释放可以使用这个</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>判断为空</p>
+</blockquote>
+<p>objective-c 思路</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.navigationController != <span class="literal">nil</span>) &#123;</span><br><span class="line">	<span class="regexp">//navigationcontroller</span>为空</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>swift版本</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> tmp = navigationController &#123;</span><br><span class="line">	<span class="comment">//navigationcontroller不为空</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">guard <span class="keyword">let</span> tmp = navigationController <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">//为空</span></span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>swift默认为当前self下的，所以self在写法上为多余的</p>
+<blockquote>
+<p>selector</p>
+</blockquote>
+<p>写法</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">label</span>.<span class="function"><span class="title">performSelector</span><span class="params">(<span class="string">"removeFromSuperview"</span>, withObject: nil, afterDelay: <span class="number">2.0</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">label</span>.<span class="function"><span class="title">performSelector</span><span class="params">(#selector(UILabel.removeFromSuperview)</span></span>, withObject: nil, afterDelay: <span class="number">2.0</span>)</span><br></pre></td></tr></table></figure>
+<p>如果方法在当前class里面可以省略类名</p>
+<p>如：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">UIImageWriteToSavedPhotosAlbum</span><span class="params">(image!, self, <span class="string">"image:didFinishSaveWithError:contextInfo:"</span>, nil)</span></span></span><br><span class="line">或者</span><br><span class="line"><span class="function"><span class="title">UIImageWriteToSavedPhotosAlbum</span><span class="params">(UIImage(named: <span class="string">"123"</span>)</span></span>!, self, #<span class="function"><span class="title">selector</span><span class="params">(imageSave(_:didFinishSaveWithError:contextInfo:)</span></span>), nil)</span><br></pre></td></tr></table></figure>
+<p>如果在闭包里面，必须写上类名</p>
+<blockquote>
+<p>外部调用</p>
+</blockquote>
+<p>如果自己写的pod库需要给别人调用，那么在需要调用的类需要加上public</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/08/启动时间：/" itemprop="url">
+                  构建framework
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-08T10:33:56+08:00" content="2016-07-08">
+              2016-07-08
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="使用instruments查看app性能和调试">使用instruments查看app性能和调试</h2><h6 id="启动时间：">启动时间：</h6><p>使用time profiler查看</p>
+<p>如图</p>
+<blockquote>
+<p>第一次加载</p>
+</blockquote>
+<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/5E5E1189-90F4-4F79-9B3A-5996C005AB94.png?imageView/1/w/700/h/250" alt="image"></p>
+<blockquote>
+<p>使用后台异步加载：</p>
+</blockquote>
+<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/243FFCBB-052E-4BBB-8382-FF4B00940492.png?imageView/1/w/680/h/200" alt="image"></p>
+<p>可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。</p>
+<h6 id="内存">内存</h6><p>使用Allocations和Leaks</p>
+<p>不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般leaks只知道有泄漏，但是无法定位。</p>
+<p>这里为了方便看应用的内存占用走势，我们可以用alloctions里面的mark genneration，进入返回viewcontroller，有一点增长是很正常的，如果太大就有问题了。</p>
+<h6 id="图形和动画">图形和动画</h6><p>使用Core Animation，这个貌似只能在真机上使用</p>
+<blockquote>
+<p>Color Blended Layers</p>
+</blockquote>
+<p>Instruments可以在物理机上显示出被混合的图层Blended Layer(用红色标注)，Blended Layer是因为这些Layer是透明的(Transparent)，系统在渲染这些view时需要将该view和下层view混合(Blend)后才能计算出该像素点的实际颜色，如果这种blended layer很多，那么在滚动列表时就甭想有流畅的效果。</p>
+<p>解决blended layer问题也很简单，检查红色区域view的opaque属性，记得设置成YES；检查backgroundColor属性是不是[UIColor clearColor]，要知道背景颜色为clear color那可是图形性能的大敌，基本意味着blended layer是跑不了的了，为什么？自己思考一下:)</p>
+<blockquote>
+<p>Color Hits Green and Misses Red</p>
+</blockquote>
+<p>很多视图Layer由于Shadow、Mask和Gradient等原因渲染很高，因此UIKit提供了API用于缓存这些Layer：[layer setShouldRasterize:YES]，系统会将这些Layer缓存成Bitmap位图供渲染使用，如果失效时便丢弃这些Bitmap重新生成。图层Rasterization栅格化好处是对刷新率影响较小，坏处是删格化处理后的Bitmap缓存需要占用内存，而且当图层需要缩放时，要对删格化后的Bitmap做额外计算。</p>
+<p>使用这个选项后时，如果Rasterized的Layer失效，便会标注为红色，如果有效标注为绿色。当测试的应用频繁闪现出红色标注图层时，表明对图层做的Rasterization作用不大。</p>
+<blockquote>
+<p>Color Misaligned Images</p>
+</blockquote>
+<p>Misaligned Image表示要绘制的点无法直接映射到频幕上的像素点，此时系统需要对相邻的像素点做anti-aliasing反锯齿计算，增加了图形负担，通常这种问题出在对某些View的Frame重新计算和设置时产生的。</p>
+<p>上图中被标注为黄色的图层，这是由于图层显示的是被缩放后的图片，如果这些图片是通过网络下载的，可以通过程序更新为确定的绘制大小来解决。还有些系统Navigation Bar和Tool Bar的背景图片使用的是拉伸(Streched)图片，也会被表示为黄色，这是属于正常情况，通常无需修改。这种问题一般对性能影响不大，而是可能会在边缘处虚化。</p>
+<blockquote>
+<p>Color Offscreen-Rendered Yellow</p>
+</blockquote>
+<p>Offscreen-Rendering离屏渲染意思是iOS要显示一个视图时，需要先在后台用CPU计算出视图的Bitmap，再交给GPU做Onscreen-Rendering显示在屏幕上，因为显示一个视图需要两次计算，所以这种Offscreen-Rendering会导致app的图形性能下降。</p>
+<p>大部分Offscreen-Rendering都是和视图Layer的Shadow和Mask相关，下列情况会导致视图的Offscreen-Rendering：</p>
+<p>使用Core Graphics (CG开头的类)。</p>
+<p>使用drawRect()方法，即使为空。</p>
+<p>将CALayer的属性shouldRasterize设置为YES。</p>
+<p>使用了CALayer的setMasksToBounds(masks)和setShadow*(shadow)方法。</p>
+<p>在屏幕上直接显示文字，包括Core Text。</p>
+<p>设置UIViewGroupOpacity。</p>
+<p>这篇博文Designing for iOS: Graphics &amp; Performance对offsreen以及图形性能有个很棒的介绍，</p>
+<blockquote>
+<p>Color Copied Images</p>
+</blockquote>
+<p>Copied Image选项可以标注应用绘制时被Core Animation复制的图片，标注成蓝绿色。虽然我在运行时遇到过，不过个人感觉对图形性能影响不大。</p>
+<blockquote>
+<p>Color Immediately，Flash Updated Regions， Color OpenGL Fast Path Blue</p>
+</blockquote>
+<p>Color Immediately选项表示Instruments在做color-flush操作时取消10毫秒的延时。<br>Flash Updated Regions选项用于用红色示标示出在屏幕上使用GPU计算绘制的图层。<br>Color OpenGL Fast Path Blue选项用于用蓝色标示出在屏幕上由OpenGL compositor绘制的内容。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/20/iOS第三方/" itemprop="url">
+                  各种iOS库
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-20T14:33:56+08:00" content="2016-06-20">
+              2016-06-20
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Getting_Started">Getting Started</h1><ul>
+<li><a href="https://developer.apple.com/library/ios/referencelibrary/GettingStarted/RoadMapiOS/" target="_blank" rel="external">Road Map iOS</a> - Start Developing iOS Apps Today, Apple Guide.</li>
+<li><a href="http://lifehacker.com/i-want-to-write-ios-apps-where-do-i-start-1644802175" target="_blank" rel="external">Lifehacker</a> - I Want to Write iOS Apps. Where Do I Start?</li>
+<li><a href="http://www.codeproject.com/Articles/88929/Getting-Started-with-iPhone-and-iOS-Development" target="_blank" rel="external">Codeproject</a> - Getting Started with iPhone and iOS Development.</li>
+<li><a href="http://www.raywenderlich.com/38557/learn-to-code-ios-apps-1-welcome-to-programming" target="_blank" rel="external">Ray Wenderlich</a> - Learn to code iOS Apps.</li>
+<li><a href="https://itunes.apple.com/us/itunes-u/developing-apps-for-ios-hd/id395605774?mt=10" target="_blank" rel="external">Stanford - Developing Apps to iOS</a> - Stanford’s iTunes U App Development Course (Audio and Video).</li>
+<li><a href="https://itunes.apple.com/us/course/developing-ios-8-apps-swift/id961180099" target="_blank" rel="external">Stanford - Developing iOS 8 Apps with Swift</a> - Stanford’s 2015 iTunes U App Development Course. :large_orange_diamond:</li>
+</ul>
+<h1 id="Libraries_And_Frameworks">Libraries And Frameworks</h1><h3 id="Audio">Audio</h3><ul>
+<li><a href="https://developer.audiob.us/" target="_blank" rel="external">AudioBus</a> - Add Next Generation Live App-to-App Audio Routing</li>
+<li><a href="https://github.com/audiokit/AudioKit" target="_blank" rel="external">AudioKit</a> - A powerful toolkit for synthesizing, processing, and analyzing sounds.</li>
+<li><a href="https://github.com/syedhali/EZAudio" target="_blank" rel="external">EZAudio</a> - An iOS/OSX audio visualization framework built upon Core Audio useful for anyone doing real-time, low-latency audio processing and visualizations.</li>
+<li><a href="https://github.com/alexbw/novocaine" target="_blank" rel="external">novocaine</a> - Painless high-performance audio on iOS and Mac OS X.</li>
+</ul>
+<h3 id="Animation">Animation</h3><ul>
+<li><a href="https://github.com/facebook/pop" target="_blank" rel="external">Pop</a> - An extensible iOS and OS X animation library, useful for physics-based interactions.</li>
+<li><a href="https://github.com/intuit/AnimationEngine" target="_blank" rel="external">AnimationEngine</a> - Easily build advanced custom animations on iOS.</li>
+<li><a href="https://github.com/jackyzh/awesome-ios-animation" target="_blank" rel="external">Awesome-iOS-Animation</a> - Collection of Animation projects</li>
+<li><a href="https://github.com/Raizlabs/RZTransitions" target="_blank" rel="external">RZTransitions</a> - A library of custom iOS View Controller Animations and Interactions.</li>
+<li><a href="https://github.com/daltoniam/DCAnimationKit" target="_blank" rel="external">DCAnimationKit</a> - A collection of animations for iOS. Simple, just add water animations.</li>
+</ul>
+<h3 id="Bridging">Bridging</h3><ul>
+<li><a href="https://github.com/bang590/JSPatch" target="_blank" rel="external">JSPatch</a> - JSPatch bridge Objective-C and Javascript using the Objective-C runtime. You can call any Objective-C class and method in JavaScript by just including a small engine. JSPatch is generally use for hotfix iOS App.</li>
+</ul>
+<h3 id="Cache">Cache</h3><ul>
+<li><a href="https://github.com/steipete/SDURLCache" target="_blank" rel="external">SDURLCache</a> - URLCache subclass with on-disk cache support on iPhone/iPad.</li>
+<li><a href="https://github.com/aschuch/AwesomeCache" target="_blank" rel="external">Awesome Cache</a> - Delightful on-disk cache :large_orange_diamond:</li>
+</ul>
+<h3 id="Charts">Charts</h3><ul>
+<li><a href="https://github.com/danielgindi/ios-charts" target="_blank" rel="external">ios-charts</a> - A powerful chart / graph framework, the iOS equivalent to <a href="https://github.com/PhilJay/MPAndroidChart" target="_blank" rel="external">MPAndroidChart</a>. :large_orange_diamond:</li>
+<li><a href="https://github.com/kubatru/JTChartView" target="_blank" rel="external">JTChartView</a></li>
+<li><a href="https://github.com/kevinzhow/PNChart" target="_blank" rel="external">PNChart</a> - A simple and beautiful chart lib used in Piner and CoinsMan for iOS</li>
+<li><a href="https://github.com/Boris-Em/BEMSimpleLineGraph" target="_blank" rel="external">BEMSimpleLineGraph</a> - Elegant Line Graphs for iOS (charting library).</li>
+<li><a href="https://github.com/Jawbone/JBChartView" target="_blank" rel="external">JBChartView</a> - iOS-based charting library for both line and bar graphs.</li>
+<li><a href="https://github.com/honcheng/iOSPlot" target="_blank" rel="external">iOSPlot</a> - Chart library for iOS.</li>
+<li><a href="https://github.com/xyfeng/XYPieChart" target="_blank" rel="external">XYPieChart</a> - A simple and animated Pie Chart for your iOS app.</li>
+<li><a href="https://github.com/xhacker/TEAChart" target="_blank" rel="external">TEAChart</a> - Simple and intuitive iOS chart library. Contribution graph, clock chart, and bar chart.</li>
+<li><a href="https://github.com/zhuhuihuihui/EChart" target="_blank" rel="external">EChart</a> - iOS/iPhone/iPad Chart, Graph. Event handling and animation supported.</li>
+<li><a href="https://github.com/ArthurGuibert/FSLineChart" target="_blank" rel="external">FSLineChart</a> - A line chart library for iOS.</li>
+<li><a href="https://github.com/zhiyu/chartee" target="_blank" rel="external">chartee</a> - a charting library for mobile platforms.</li>
+<li><a href="https://github.com/anaglik/ANDLineChartView" target="_blank" rel="external">ANDLineChartView</a> - ANDLineChartView is easy to use view-based class for displaying animated line chart.</li>
+<li><a href="https://github.com/chasseurmic/TWRCharts" target="_blank" rel="external">TWRCharts</a> - An iOS wrapper for ChartJS. Easily build animated charts by leveraging the power of native Obj-C code.</li>
+</ul>
+<h3 id="Core_Data">Core Data</h3><ul>
+<li><a href="https://github.com/jayway/CWCoreData" target="_blank" rel="external">CWCoreData</a> - Additions and utilities to make it concurrency easier with the Core Data framework.</li>
+<li><a href="https://github.com/mneorr/Objective-Record" target="_blank" rel="external">Objective-Record</a> - Objective Record is a lightweight ActiveRecord way of managing Core Data objects.</li>
+<li><a href="https://github.com/magicalpanda/MagicalRecord" target="_blank" rel="external">Magical Record</a> -  Super Awesome Easy Fetching for Core Data.</li>
+<li><a href="https://github.com/soffes/SSDataKit" target="_blank" rel="external">SSDataKit</a> - Eliminate your Core Data boilerplate code.</li>
+<li><a href="https://github.com/martydill/ios-queryable" target="_blank" rel="external">ios-queryable</a> - ios-queryable is an implementation of IQueryable/IEnumerable for Core Data.</li>
+<li><a href="https://github.com/apparentsoft/ReactiveCoreData" target="_blank" rel="external">ReactiveCoreData</a> - ReactiveCoreData (RCD) is an attempt to bring Core Data into the ReactiveCocoa (RAC) world.</li>
+<li><a href="https://github.com/drewmccormack/ensembles" target="_blank" rel="external">Ensembles</a> - A synchronization framework for Core Data.</li>
+<li><a href="https://github.com/OliverLetterer/SLRESTfulCoreData" target="_blank" rel="external">SLRESTfulCoreData</a> - Objc naming conventions, autogenerated accessors at runtime, URL substitutions and intelligent attribute mapping.</li>
+<li><a href="https://github.com/rentzsch/mogenerator" target="_blank" rel="external">Mogenerator</a> - Automatic Core Data code generation.</li>
+<li><a href="https://github.com/Krivoblotsky/HardCoreData" target="_blank" rel="external">HardCoreData</a> - CoreData stack and controller that will never block UI thread.</li>
+<li><a href="https://github.com/project-imas/encrypted-core-data" target="_blank" rel="external">encrypted-core-data</a> - Core Data encrypted SQLite store using SQLCipher.</li>
+<li><a href="https://github.com/magicalpanda/MagicalRecord" target="_blank" rel="external">MagicalRecord</a> - Super Awesome Easy Fetching for Core Data.</li>
+<li><a href="https://github.com/QueryKit/QueryKit" target="_blank" rel="external">QueryKit</a> - A simple type-safe Core Data query language. :large_orange_diamond:</li>
+<li><a href="https://github.com/JohnEstropia/CoreStore" target="_blank" rel="external">CoreStore</a> - Powerful Core Data framework for Incremental Migrations, Fetching, Observering, etc. :large_orange_diamond:</li>
+</ul>
+<h3 id="Database">Database</h3><ul>
+<li><a href="https://github.com/realm/realm-cocoa" target="_blank" rel="external">Realm</a> - The alternative to CoreData and SQLite: Simple, modern and fast.</li>
+<li><a href="https://github.com/yapstudios/YapDatabase" target="_blank" rel="external">YapDatabase</a> - YapDatabase is an extensible database for iOS &amp; Mac.</li>
+<li><a href="http://developer.couchbase.com/mobile/" target="_blank" rel="external">Couchbase Mobile</a> - Couchbase document store for mobile with cloud sync.</li>
+<li><a href="https://github.com/ccgus/fmdb" target="_blank" rel="external">FMDB</a> - A Cocoa / Objective-C wrapper around SQLite.</li>
+</ul>
+<h3 id="Encryption">Encryption</h3><ul>
+<li><a href="https://github.com/Gurpartap/AESCrypt-ObjC" target="_blank" rel="external">AESCrypt-ObjC</a> - A simple and opinionated AES encrypt / decrypt Objective-C class that just works.</li>
+</ul>
+<h3 id="Hardware">Hardware</h3><h5 id="Motion">Motion</h5><ul>
+<li><a href="https://github.com/MHaroonBaig/MotionKit" target="_blank" rel="external">MotionKit</a> - Get the data from Accelerometer, Gyroscope and Magnetometer in only Two or a few lines of code. CoreMotion now made insanely simple.</li>
+</ul>
+<h5 id="Bluetooth">Bluetooth</h5><ul>
+<li><a href="https://github.com/omergul123/Discovery" target="_blank" rel="external">Discovery</a> - A very simple library to discover and retrieve data from nearby devices (even if the peer app works at background).</li>
+<li><a href="https://github.com/l0gg3r/LGBluetooth" target="_blank" rel="external">LGBluetooth</a> - Simple, block-based, lightweight library over CoreBluetooth. Will clean up your Core Bluetooth related code.</li>
+<li><a href="https://github.com/jpsim/PeerKit" target="_blank" rel="external">PeerKit</a> An open-source Swift framework for building event-driven, zero-config Multipeer Connectivity apps. :large_orange_diamond:</li>
+<li><a href="https://github.com/lauraskelton/simple-share" target="_blank" rel="external">simple-share</a> - Easy Proximity-based Bluetooth LE Sharing for iOS.</li>
+<li><a href="https://github.com/rasmusth/BluetoothKit" target="_blank" rel="external">BluetoothKit</a> - Easily communicate between iOS/OSX devices using BLE. :large_orange_diamond:</li>
+</ul>
+<h5 id="Location">Location</h5><ul>
+<li><a href="https://github.com/IngeoSDK/ingeo-ios-sdk" target="_blank" rel="external">IngeoSDK</a> - Always-On Location monitoring framework for iOS.</li>
+<li><a href="https://github.com/Proxitee/iOS-SDK" target="_blank" rel="external">Proxitee</a> - Allows developers to create proximity aware applications utilizing iBeacons &amp; geo fences.</li>
+<li><a href="https://github.com/intuit/LocationManager" target="_blank" rel="external">LocationManager</a> - Provides a block-based asynchronous API to request the current location, either once or continuously.</li>
+<li><a href="https://locationkit.io" target="_blank" rel="external">LocationKit</a> - Advanced location SDK - highly accurate location data with very low battery drain and contextual location information</li>
+</ul>
+<h5 id="iBeacon">iBeacon</h5><ul>
+<li><a href="https://github.com/Proxitee/iOS-SDK" target="_blank" rel="external">Proxitee</a> - Allows developers to create proximity aware applications utilizing iBeacons &amp; geo fences.</li>
+<li><a href="https://github.com/ohwutup/OWUProximityManager" target="_blank" rel="external">OWUProximityManager</a> - A handy iBeacon + CoreBluetooth manager.</li>
+<li><a href="https://github.com/Instrument/Vicinity" target="_blank" rel="external">Vicinity</a> - Vicinity replicates iBeacons (by analyzing RSSI) and supports broadcasting and detecting low-energy bluetooth devices in the background.</li>
+<li><a href="https://github.com/lgaches/BeaconEmitter" target="_blank" rel="external">BeaconEmitter</a> - Turn your Mac as an iBeacon.</li>
+<li><a href="https://github.com/ohwutup/OWUProximityManager" target="_blank" rel="external">OWUProximityManager</a> - iBeacons + CoreBluetooth.</li>
+</ul>
+<h3 id="HUD">HUD</h3><ul>
+<li><a href="https://github.com/jdg/MBProgressHUD" target="_blank" rel="external">MBProgressHUD</a> - Drop-in class for displays a translucent HUD with an indicator and/or labels while work is being done in a background thread.</li>
+<li><a href="https://github.com/TransitApp/SVProgressHUD" target="_blank" rel="external">SVProgressHUD</a> - A clean and lightweight progress HUD for your iOS app.</li>
+<li><a href="https://github.com/relatedcode/ProgressHUD" target="_blank" rel="external">ProgressHUD</a> - ProgressHUD is a lightweight and easy-to-use HUD.</li>
+<li><a href="https://github.com/Marxon13/M13ProgressSuite" target="_blank" rel="external">M13ProgressSuite</a> - A suite containing many tools to display progress information on iOS.</li>
+<li><a href="https://github.com/harikrishnant1991/JHProgressHUD" target="_blank" rel="external">JHProgressHUD</a> - An easy and lightweight Swift library to show HUD in IOS applications. :large_orange_diamond:</li>
+<li><a href="https://github.com/pkluz/PKHUD" target="_blank" rel="external">PKHUD</a> - A Swift based reimplementation of the Apple HUD (Volume, Ringer, Rotation,…) for iOS 8 and above. :large_orange_diamond:</li>
+</ul>
+<h3 id="EventBus">EventBus</h3><ul>
+<li><a href="https://github.com/coshx/caravel" target="_blank" rel="external">Caravel</a> - A Swift event bus for UIWebView and JS :large_orange_diamond:</li>
+<li><a href="https://github.com/cesarferreira/SwiftEventBus" target="_blank" rel="external">SwiftEventBus</a> - A publish/subscribe event bus optimized for iOS8. :large_orange_diamond:</li>
+<li><a href="https://github.com/mxcl/PromiseKit" target="_blank" rel="external">PromiseKit</a> - Promises for iOS and OS X.</li>
+</ul>
+<h3 id="Files">Files</h3><ul>
+<li><a href="https://github.com/nvzqz/FileKit" target="_blank" rel="external">FileKit</a> - Simple and expressive file management in Swift. :large_orange_diamond:</li>
+</ul>
+<h3 id="JSON">JSON</h3><ul>
+<li><a href="https://github.com/johnezang/JSONKit" target="_blank" rel="external">JSONKit</a> - Objective-C JSON.</li>
+<li><a href="https://github.com/TouchCode/TouchJSON" target="_blank" rel="external">TouchJSON</a> - A humane JSON Objective-C un-framework.</li>
+<li><a href="https://github.com/stig/json-framework" target="_blank" rel="external">JSON-Framework</a> -  This framework implements a strict JSON parser and generator in Objective-C.</li>
+<li><a href="https://github.com/Mantle/Mantle" target="_blank" rel="external">Mantle</a> - Model framework for Cocoa and Cocoa Touch.</li>
+<li><a href="https://github.com/gonzalezreal/Groot" target="_blank" rel="external">Groot</a> - Convert JSON dictionaries and arrays to and from Core Data managed objects.</li>
+<li><a href="https://github.com/krzysztofzablocki/KZPropertyMapper" target="_blank" rel="external">KZPropertyMapper</a> - Data mapping and validation with minimal amount of code.</li>
+<li><a href="https://github.com/icanzilb/JSONModel" target="_blank" rel="external">JSONModel</a> - Magical Data Modelling Framework for JSON. Create rapidly powerful, atomic and smart data model classes.</li>
+<li><a href="https://github.com/SwiftyJSON/SwiftyJSON" target="_blank" rel="external">SwiftyJSON</a> - The better way to deal with JSON data in Swift. :large_orange_diamond:</li>
+<li><a href="https://github.com/Yalantis/FastEasyMapping" target="_blank" rel="external">FastEasyMapping</a> - Serialize &amp; deserialize JSON fast.</li>
+<li><a href="https://github.com/aryaxt/OCMapper" target="_blank" rel="external">OCMapper</a> - Objective-C &amp; Swift library to easily map NSDictionary to model objects. :large_orange_diamond:</li>
+<li><a href="https://github.com/Hearst-DD/ObjectMapper" target="_blank" rel="external">ObjectMapper</a> - A framework written in Swift that makes it easy for you to convert your Model objects (Classes and Structs) to and from JSON. :large_orange_diamond:</li>
+<li><a href="https://github.com/delba/JASON" target="_blank" rel="external">JASON</a> - JSON parsing with outstanding performances and convenient operators. :large_orange_diamond:</li>
+<li><a href="https://github.com/hkellaway/Gloss" target="_blank" rel="external">Gloss</a> - A shiny JSON parsing library in Swift. :large_orange_diamond:</li>
+</ul>
+<h3 id="Layout">Layout</h3><ul>
+<li><a href="https://github.com/alexdrone/ios-flexboxkit" target="_blank" rel="external">ios-flexboxkit</a> - A simple UIKit extension to wrap Flexbox layouts.</li>
+<li><a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">Masonry</a> - Harness the power of AutoLayout NSLayoutConstraints with a simplified, chainable and expressive syntax.</li>
+<li><a href="https://github.com/floriankugler/FLKAutoLayout" target="_blank" rel="external">FLKAutoLayout</a> - UIView category which makes it easy to create layout constraints in code.</li>
+<li><a href="https://github.com/mamaral/Facade" target="_blank" rel="external">Façade</a> - Programmatic view layout for the rest of us - an autolayout alternative.</li>
+<li><a href="https://github.com/smileyborg/PureLayout" target="_blank" rel="external">PureLayout</a> - extend UIView/NSView, NSArray, and NSLayoutConstraint with methods which makes it easy to create layout constraints in code.</li>
+<li><a href="https://github.com/SnapKit/SnapKit" target="_blank" rel="external">SnapKit</a> - A Swift Autolayout DSL for iOS &amp; OS X. :large_orange_diamond:</li>
+<li><a href="https://github.com/robb/Cartography" target="_blank" rel="external">Cartography</a> - A declarative Auto Layout DSL for Swift :large_orange_diamond:</li>
+</ul>
+<h3 id="Logging">Logging</h3><ul>
+<li><a href="https://github.com/emaloney/CleanroomLogger" target="_blank" rel="external">CleanroomLogger</a> - A configurable and extensible Swift-based logging API that is simple, lightweight and performant. :large_orange_diamond:</li>
+<li><a href="https://github.com/CocoaLumberjack/CocoaLumberjack" target="_blank" rel="external">CocoaLumberjack</a> - A fast &amp; simple, yet powerful &amp; flexible logging framework for Mac and iOS.</li>
+<li><a href="https://github.com/fpillet/NSLogger" target="_blank" rel="external">NSLogger</a> - a high perfomance logging utility which displays traces emitted by client applications running on Mac OS X, iOS and Android.</li>
+<li><a href="https://github.com/square/Aardvark/" target="_blank" rel="external">Aardvark</a> - A performant logging framework that makes it dead simple to create actionable bug reports on iOS.</li>
+<li><a href="https://github.com/conradev/BlockTypeDescription" target="_blank" rel="external">BlockTypeDescription</a> - Show type signatures when logging blocks.</li>
+<li><a href="https://github.com/goktugyil/QorumLogs" target="_blank" rel="external">QorumLogs</a> — Swift Logging Utility for Xcode &amp; Google Docs. :large_orange_diamond:</li>
+</ul>
+<h3 id="Maps">Maps</h3><ul>
+<li><a href="https://github.com/route-me/route-me" target="_blank" rel="external">Route-me</a> - Open source map library for iOS.</li>
+<li><a href="https://github.com/mapbox/mapbox-ios-sdk" target="_blank" rel="external">Mapbox</a> - Mapbox iOS SDK, an open source alternative to MapKit.</li>
+<li><a href="https://github.com/neilang/NAMapKit" target="_blank" rel="external">NAMapKit</a> - Allows you to use custom maps in iphone applications and attempts to mimics some of the behaviour of the MapKit framework.</li>
+<li><a href="https://github.com/mapbox/mapbox-gl-native" target="_blank" rel="external">Mapbox GL</a> - An OpenGL renderer for Mapbox Vector Tiles with SDK bindings for iOS.</li>
+<li><a href="https://github.com/citymapper/CMMapLauncher" target="_blank" rel="external">CMMapLauncher</a> - iOS library that makes it quick and easy to show directions in various mapping applications.</li>
+</ul>
+<h3 id="Media">Media</h3><h5 id="Image">Image</h5><ul>
+<li><a href="https://github.com/BradLarson/GPUImage" target="_blank" rel="external">GPU Image</a> - An open source iOS framework for GPU-based image and video processing.</li>
+<li><a href="https://github.com/gdawg/uiimage-dsp" target="_blank" rel="external">UIImage DSP</a> - IOS UIImage processing functions using the vDSP/Accelerate framework for speed.</li>
+<li><a href="http://www.appcoda.com/qr-code-ios-programming-tutorial/" target="_blank" rel="external">QR Code Scanner</a> - QR Code implementation.</li>
+<li><a href="https://github.com/nicklockwood/AsyncImageView" target="_blank" rel="external">AsyncImageView</a> - Simple extension of UIImageView for loading and displaying images asynchronously without lock up the UI.</li>
+<li><a href="https://github.com/rs/SDWebImage" target="_blank" rel="external">SDWebImage</a> - Asynchronous image downloader with cache support with an UIImageView category.</li>
+<li><a href="https://github.com/kean/DFImageManager" target="_blank" rel="external">DFImageManager</a> - Modern framework for fetching images from various sources. Zero config yet immense customization and extensibility. Uses NSURLSession.</li>
+<li><a href="https://github.com/zalando/MapleBacon" target="_blank" rel="external">MapleBacon</a> - An image download and caching library for iOS written in Swift. :large_orange_diamond:</li>
+<li><a href="https://github.com/NYTimes/NYTPhotoViewer" target="_blank" rel="external">NYTPhotoViewer</a> - Slideshow and image viewer.</li>
+<li><a href="https://github.com/ideaismobile/IDMPhotoBrowser" target="_blank" rel="external">IDMPhotoBrowser</a> - Photo Browser / Viewer.</li>
+<li><a href="https://github.com/jaredsinclair/JTSImageViewController" target="_blank" rel="external">JTSImageViewController</a> - Interactive iOS image viewer.</li>
+<li><a href="https://github.com/contentful-labs/Concorde/" target="_blank" rel="external">Concorde</a> - Download and decode progressive JPEGs.</li>
+<li><a href="https://github.com/rFlex/SCRecorder" target="_blank" rel="external">SCRecorder</a> - Camera engine with Vine-like tap to record, animatable filters, slow motion, segments editing.</li>
+<li><a href="https://github.com/Haneke/HanekeSwift" target="_blank" rel="external">HanekeSwift</a> - A lightweight generic cache for iOS written in Swift with extra love for images. :large_orange_diamond:</li>
+<li><a href="https://github.com/TimOliver/TOCropViewController" target="_blank" rel="external">TOCropViewController</a> - A view controller that allows users to crop UIImage objects.</li>
+<li><a href="https://github.com/hanton/YXTMotionView" target="_blank" rel="external">YXTMotionView</a> - A custom image view that implements device motion scrolling.</li>
+<li><a href="https://github.com/pinterest/PINRemoteImage" target="_blank" rel="external">PINRemoteImage</a> - A thread safe, performant, feature rich image fetcher.</li>
+<li><a href="https://github.com/szk-atmosphere/SABlurImageView" target="_blank" rel="external">SABlurImageView</a> - Easily Adding Animated Blur/Unblur Effects To An Image. :large_orange_diamond:</li>
+<li><a href="https://github.com/path/FastImageCache" target="_blank" rel="external">FastImageCache</a> - iOS library for quickly displaying images while scrolling.</li>
+<li><a href="https://github.com/bkoc/BKAsciiImage" target="_blank" rel="external">BKAsciiImage</a> - A library to render UIImage as ASCII art</li>
+<li><a href="https://github.com/liyong03/YLGIFImage" target="_blank" rel="external">YLGIFImage</a> - Async GIF image decoder and Image viewer supporting play GIF images. It just use very less memory.</li>
+<li><a href="https://github.com/Alamofire/AlamofireImage" target="_blank" rel="external">AlamofireImage</a> - An image component library for Alamofire. :large_orange_diamond:</li>
+<li><a href="https://github.com/kean/Nuke" target="_blank" rel="external">Nuke</a> - Advanced framework for managing images :large_orange_diamond:</li>
+</ul>
+<h5 id="Video">Video</h5><ul>
+<li><a href="https://github.com/vimeo/VIMVideoPlayer" target="_blank" rel="external">VIMVideoPlayer</a> - A simple wrapper around the AVPlayer and AVPlayerLayer classes.</li>
+<li><a href="https://github.com/mobileplayer/mobileplayer-ios" target="_blank" rel="external">MobilePlayer</a> - A powerful and completely customizable media player for iOS.</li>
+</ul>
+<h5 id="PDF">PDF</h5><ul>
+<li><a href="https://github.com/vfr/Reader" target="_blank" rel="external">Reader</a> - PDF Reader Core for iOS.</li>
+<li><a href="https://github.com/RobertAPhillips/UIView_2_PDF" target="_blank" rel="external">UIView 2 PDF</a> - <a href="https://github.com/RobertAPhillips/UIView_2_PDF" target="_blank" rel="external">https://github.com/RobertAPhillips/UIView_2_PDF</a></li>
+</ul>
+<h3 id="Messaging">Messaging</h3><ul>
+<li><a href="https://github.com/layerhq/releases-ios" target="_blank" rel="external">LayerKit</a> - iOS SDK for Layer, the easiest way to add in-app messaging (text, photos, videos, data) to any mobile or web application.</li>
+<li><a href="https://www.twilio.com/" target="_blank" rel="external">Twilio</a> - Power modern communications. Build the next generation of voice and SMS applications.</li>
+<li><a href="https://www.plivo.com/" target="_blank" rel="external">Plivo</a> - SMS API, Voice API, &amp; Global Carrier Provider.</li>
+<li><a href="https://github.com/robbiehanson/XMPPFramework" target="_blank" rel="external">XMPPFramework</a> - An XMPP Framework in Objective-C for Mac and iOS.</li>
+</ul>
+<h3 id="Networking">Networking</h3><ul>
+<li><a href="https://github.com/AFNetworking/AFNetworking" target="_blank" rel="external">AFNetworking</a> - A delightful iOS and OS X networking framework.</li>
+<li><a href="http://restkit.org/" target="_blank" rel="external">RestKit</a> - RestKit is an Objective-C framework for iOS that aims to make interacting with RESTful web services simple, fast and fun.</li>
+<li><a href="https://github.com/foursquare/FSNetworking" target="_blank" rel="external">FSNetworking</a> - Foursquare iOS networking library.</li>
+<li><a href="https://github.com/pokeb/asi-http-request" target="_blank" rel="external">ASIHTTPRequest</a> - Easy to use CFNetwork wrapper for HTTP requests, Objective-C, Mac OS X and iPhone.</li>
+<li><a href="https://github.com/gonzalezreal/Overcoat" target="_blank" rel="external">Overcoat</a> - Overcoat is a small but powerful library that makes creating REST clients simple and fun.</li>
+<li><a href="https://github.com/epam/road-ios-framework" target="_blank" rel="external">ROADFramework</a> - Attributed-oriented approach for interacting with web services. The framework has built-in json and xml serialization for requests and responses and can be easily extensible.</li>
+<li><a href="https://github.com/emaloney/MBToolbox/blob/master/Code/Network/MBNetworkMonitor.h" target="_blank" rel="external">MBNetworkMonitor</a> - A modern replacement for Apple’s <code>Reachability</code> class that uses CoreTelephony to report more <a href="https://rawgit.com/emaloney/MBToolbox/master/Documentation/html/Classes/MBNetworkMonitor.html" target="_blank" rel="external">information about the user’s network connection</a>.</li>
+<li><a href="https://github.com/emaloney/MBToolbox/blob/master/Code/Network/MBNetworkIndicator.h" target="_blank" rel="external">MBNetworkIndicator</a> - Provides a simple way to <a href="https://rawgit.com/emaloney/MBToolbox/master/Documentation/html/Classes/MBNetworkIndicator.html" target="_blank" rel="external">coordinate the device’s network activity indicator across multiple. requests</a>.</li>
+<li><a href="https://github.com/Alamofire/Alamofire" target="_blank" rel="external">Alamofire</a> - Alamofire is an HTTP networking library written in Swift, from the creator of AFNetworking. :large_orange_diamond:</li>
+<li><a href="https://github.com/nghialv/Transporter" target="_blank" rel="external">Transporter</a> - A tiny library makes uploading and downloading easier. :large_orange_diamond:</li>
+<li><a href="https://github.com/cdzombak/CDZPinger" target="_blank" rel="external">CDZPinger</a> - Easy-to-use ICMP Ping.</li>
+<li><a href="https://github.com/dingbat/nsrails" target="_blank" rel="external">NSRails</a> - Map client-side objects/classes to remote rest api objects/orm</li>
+<li><a href="https://github.com/nathankot/NKMultipeer" target="_blank" rel="external">NKMultipeer</a> - A testable abstraction over multipeer connectivity. :large_orange_diamond:</li>
+<li><a href="https://github.com/robbiehanson/CocoaAsyncSocket" target="_blank" rel="external">CocoaAsyncSocket</a> - Asynchronous socket networking library for Mac and iOS.</li>
+<li><a href="https://github.com/pokeb/asi-http-request" target="_blank" rel="external">asi-http-request</a> - Easy to use CFNetwork wrapper for HTTP requests, Objective-C, Mac OS X and iPhone.</li>
+<li><a href="https://bustoutsolutions.github.io/siesta/" target="_blank" rel="external">Siesta</a> - Elegant abstraction for RESTful resources that untangles stateful messes. An alternative to callback- and delegate-based networking. :large_orange_diamond:</li>
+</ul>
+<h3 id="Push_Notifications">Push Notifications</h3><ul>
+<li><a href="https://github.com/mattt/Orbiter" target="_blank" rel="external">Orbiter</a> - Push Notification Registration for iOS.</li>
+<li><a href="https://github.com/KrauseFx/PEM" target="_blank" rel="external">PEM</a> - Automatically generate push notification profiles for your server.</li>
+<li><a href="https://parse.com/products/push" target="_blank" rel="external">Parse Push</a> - Complete free Push Notifications Backend with the possibility of creating segments, scheduling and even A/B Testing.</li>
+<li><a href="http://urbanairship.com/products/mobile-app-engagement#push-messages" target="_blank" rel="external">Urban Airship</a> - Paid Push Notifications backend.</li>
+<li><a href="https://growthpush.com" target="_blank" rel="external">Growth Push</a> - Paid Push Notifications. It is one of the most popular tool in Japan.</li>
+<li><a href="https://github.com/KnuffApp/APNS-Pusher" target="_blank" rel="external">APNS-Pusher</a> - The debug application for Apple Push Notification Service (APNS).</li>
+</ul>
+<h3 id="Passbook">Passbook</h3><ul>
+<li><a href="https://github.com/frozon/passbook" target="_blank" rel="external">passbook</a> - Passbook gem let’s you create pkpass for passbook iOS 6+.</li>
+<li><a href="https://github.com/nomad/dubai" target="_blank" rel="external">Dubai</a> - Generate and Preview Passbook Passes.</li>
+<li><a href="https://passkit.com" target="_blank" rel="external">Passkit</a> - Design, Create and validate Passbook Passes.</li>
+</ul>
+<h3 id="Permissions">Permissions</h3><ul>
+<li><a href="https://github.com/nickoneill/PermissionScope" target="_blank" rel="external">PermissionScope</a> - Intelligent iOS permissions UI and unified API (Supports Location, Notifications, Camera, Contacts, Calendar, Photos, Microphone, BT, Activity Monitoring, HealthKit and CloudKit). :large_orange_diamond:</li>
+<li><a href="https://github.com/nixzhu/Proposer" target="_blank" rel="external">Proposer</a> - Make permission request easier (Supports Camera, Photos, Microphone, Contacts, Location). :large_orange_diamond:</li>
+<li><a href="https://github.com/wircho/ICanHas" target="_blank" rel="external">ICanHas</a> - Simplifies iOS user permission requests (Supports location, push notifications, camera, contacts, calendar, photos). :large_orange_diamond:</li>
+<li><a href="https://github.com/zakkhoyt/VWWPermissionKit" target="_blank" rel="external">VWWPermissionKit</a> - A visual permission manager for iOS.</li>
+<li><a href="https://github.com/iosphere/ISHPermissionKit" target="_blank" rel="external">ISHPermissionKit</a> - A unified way for iOS apps to request user permissions.</li>
+<li><a href="https://github.com/jlaws/JLPermissions" target="_blank" rel="external">JLPermissions</a> - An iOS pre-permissions utility that lets developers ask users on their own dialog for calendar, contacts, location, photos, reminders, twitter, push notifications and more, before making the system-based permission request.</li>
+</ul>
+<h3 id="Text">Text</h3><ul>
+<li><a href="https://github.com/twitter/twitter-text" target="_blank" rel="external">Twitter Text Obj</a> - An Objective-C implementation of Twitter’s text processing library.</li>
+<li><a href="http://nimbuskit.info/" target="_blank" rel="external">Nimbus</a> - Nimbus is a toolkit for experienced iOS software designers.</li>
+<li><a href="https://github.com/diy/nsstringemojize" target="_blank" rel="external">NSStringEmojize</a> - A category on NSString to convert Emoji Cheat Sheet codes to their equivalent Unicode characters.</li>
+<li><a href="https://github.com/mdiep/MMMarkdown" target="_blank" rel="external">MMMarkdown</a> - An Objective-C static library for converting Markdown to HTML.</li>
+<li><a href="https://github.com/Cocoanetics/DTCoreText" target="_blank" rel="external">DTCoreText</a> - Methods to allow using HTML code with CoreText.</li>
+<li><a href="https://github.com/Cocoanetics/DTRichTextEditor" target="_blank" rel="external">DTRichTextEditor</a> - A rich-text editor for iOS.</li>
+<li><a href="https://github.com/neerajbaid/NBEmojiSearchView" target="_blank" rel="external">NBEmojiSearchView</a> - A searchable emoji dropdown view that can be integrated with a text control</li>
+<li><a href="https://github.com/alexdrone/ios-fontawesome" target="_blank" rel="external">ios-fontawesome</a> - NSString+FontAwesome.</li>
+<li><a href="https://github.com/joshualat/Pluralize.swift" target="_blank" rel="external">Pluralize.swift</a> - Great Swift String Pluralize Extension :large_orange_diamond:</li>
+<li><a href="https://github.com/cjwirth/RichEditorView" target="_blank" rel="external">RichEditorView</a> - RichEditorView is a simple, modular, drop-in UIView subclass for Rich Text Editing. :large_orange_diamond:</li>
+</ul>
+<h3 id="Walkthrough_/_Intro_/_Tutorial">Walkthrough / Intro / Tutorial</h3><ul>
+<li><a href="https://github.com/mamaral/Onboard" target="_blank" rel="external">Onboard</a> - Easily create a beautiful and engaging onboarding experience with only a few lines of code.</li>
+<li><a href="https://github.com/ealeksandrov/EAIntroView" target="_blank" rel="external">EAIntroView</a> - Highly customizable drop-in solution for introduction views.</li>
+<li><a href="https://github.com/MatthewYork/MYBlurIntroductionView" target="_blank" rel="external">MYBlurIntroductionView</a> - A super-charged version of MYIntroductionView for building custom app introductions and tutorials.</li>
+<li><a href="https://github.com/ariok/BWWalkthrough" target="_blank" rel="external">BWWalkthrough</a> - A class to build custom walkthroughs for your iOS App.</li>
+<li><a href="https://github.com/GnosisHub/GHWalkThrough" target="_blank" rel="external">GHWalkThrough</a> - A UICollectionView backed drop-in component for introduction views.</li>
+<li><a href="https://github.com/icepat/ICETutorial" target="_blank" rel="external">ICETutorial</a> - A nice tutorial like the one introduced in the Path 3.X App.</li>
+<li><a href="https://github.com/IFTTT/JazzHands" target="_blank" rel="external">JazzHands</a> - Jazz Hands is a simple keyframe-based animation framework for UIKit. Animations can be controlled via gestures, scroll views, KVO, or ReactiveCocoa.</li>
+<li><a href="https://github.com/IFTTT/RazzleDazzle" target="_blank" rel="external">RazzleDazzle</a> - A simple keyframe-based animation framework for iOS, written in Swift. Perfect for scrolling app intros. :large_orange_diamond:</li>
+<li><a href="https://github.com/ephread/Instructions" target="_blank" rel="external">Instructions</a> - Easily add customizable coach marks into you iOS project. :large_orange_diamond:</li>
+</ul>
+<h3 id="URL_Scheme">URL Scheme</h3><ul>
+<li><a href="https://github.com/Wasappli/WAAppRouting" target="_blank" rel="external">WAAppRouting</a> - iOS routing done right. Handles both URL recognition and controller displaying with parsed parameters. All in one line, controller stack preserved automatically!</li>
+<li><a href="https://github.com/usebutton/DeepLinkKit" target="_blank" rel="external">DeepLinkKit</a> - A splendid route-matching, block-based way to handle your deep links.</li>
+<li><a href="https://github.com/intentkit/IntentKit" target="_blank" rel="external">IntentKit</a> - An easier way to handle third-party URL schemes in iOS apps.</li>
+<li><a href="https://github.com/joeldev/JLRoutes" target="_blank" rel="external">JLRoutes</a> - URL routing library for iOS with a simple block-based API.</li>
+</ul>
+<h3 id="UI">UI</h3><ul>
+<li><a href="https://github.com/ViccAlexander/Chameleon" target="_blank" rel="external">Chameleon</a> - A lightweight, yet powerful, flat color framework for iOS (ObjC &amp; Swift). :large_orange_diamond:</li>
+<li><a href="https://github.com/skywinder/ActionSheetPicker-3.0/" target="_blank" rel="external">ActionSheetPicker-3.0</a> - Quickly reproduce the dropdown UIPickerView / ActionSheet functionality on iOS.</li>
+<li><a href="https://github.com/Grouper/FlatUIKit" target="_blank" rel="external">FlatUIKit</a> - A collection of awesome flat UI components for iOS.</li>
+<li><a href="https://github.com/jverdi/JVFloatLabeledTextField" target="_blank" rel="external">JVFloatLabeledTextField</a> - UITextField subclass with floating labels.</li>
+<li><a href="https://github.com/StyleShare/SSBouncyButton" target="_blank" rel="external">SSBouncyButton</a> - iOS7-style bouncy button UI component.</li>
+<li><a href="https://github.com/ice3-software/between-kit" target="_blank" rel="external">BetweenKit</a> - A robust drag-and-drop framework for iOS.</li>
+<li><a href="https://github.com/jessesquires/JSQMessagesViewController" target="_blank" rel="external">JSQMessagesViewController</a> - An elegant messages UI library for iOS.</li>
+<li><a href="https://github.com/mtonio91/AMSmoothAlert" target="_blank" rel="external">AMSmoothAlert</a> - A cool AlertView.</li>
+<li><a href="https://github.com/toursprung/TSMessages" target="_blank" rel="external">TSMessages</a> - Show notification views on top of screen such as success, error, warning or messages for iOS.</li>
+<li><a href="https://github.com/NZN/NZAlertView" target="_blank" rel="external">NZAlertView</a> - Simple and intuitive alert view. Similar to push notification effect.</li>
+<li><a href="https://github.com/MortimerGoro/MGSwipeTableCell" target="_blank" rel="external">MGSwipeTableCell</a> - UITableViewCell subclass that allows to display swippable buttons with a variety of transitions.</li>
+<li><a href="https://github.com/alexruperez/ARAutocompleteTextView" target="_blank" rel="external">ARAutocompleteTextView</a> - subclass of UITextView that automatically displays text suggestions in real-time. Perfect for email Textviews.</li>
+<li><a href="https://github.com/tdginternet/TGCameraViewController" target="_blank" rel="external">TGCameraViewController</a> - Custom camera with AVFoundation. Beautiful, light and easy to integrate with iOS projects.</li>
+<li><a href="https://github.com/evnaz/ENSwiftSideMenu" target="_blank" rel="external">ENSwiftSideMenu</a> - A simple side menu for iOS 7/8 written in Swift. :large_orange_diamond:</li>
+<li><a href="https://github.com/modocache/MDCSwipeToChoose" target="_blank" rel="external">MDCSwipeToChoose</a> - Swipe to “like” or “dislike” any view, just like Tinder.app. Build a flashcard app, a photo viewer, and more, in minutes, not hours!</li>
+<li><a href="https://github.com/Vinodh-G/ParallaxTableViewHeader" target="_blank" rel="external">ParallaxTableViewHeader</a> - Parallax scrolling effect on UITableView header view when a tableView is scrolled.</li>
+<li><a href="https://github.com/devxoul/JLToast" target="_blank" rel="external">JLToast</a> - Toast for iOS with very simple interface. :large_orange_diamond:</li>
+<li><a href="https://github.com/codestergit/SweetAlert-iOS" target="_blank" rel="external">SweetAlert</a> - Live animated Alert View for iOS written in Swift. :large_orange_diamond:</li>
+<li><a href="https://github.com/hyperoslo/Form" target="_blank" rel="external">Form</a> - JSON driven form</li>
+<li><a href="https://github.com/bryankeller/BLKFlexibleHeightBar" target="_blank" rel="external">BLKFlexibleHeightBar</a> - Create condensing header bars like those seen in the Facebook, Square Cash, and Safari iOS apps.</li>
+<li><a href="https://github.com/psy2k/NMPopUpView" target="_blank" rel="external">NMPopUpView</a> - Simple iOS class for showing nice popup windows. Swift and Objective-C versions available. :large_orange_diamond:</li>
+<li><a href="https://github.com/0x73/SDevIconFonts" target="_blank" rel="external">SDevIconFonts</a> - Fontawesome, Iconic, Ionicons, Octicon porting for swift. :large_orange_diamond:</li>
+<li><a href="https://github.com/0x73/SDevBootstrapButton" target="_blank" rel="external">SDevBootstrapButton</a> - Twitter Bootstrap buttons for Swift :large_orange_diamond:</li>
+<li><a href="https://github.com/0x73/SDevCircleButton" target="_blank" rel="external">SDevCircleButton</a> - Circle Button for Swift :large_orange_diamond:</li>
+<li><a href="https://github.com/0x73/SDevFlatColors" target="_blank" rel="external">SDevFlatColors</a> - Flat Colors on Swift :large_orange_diamond:</li>
+<li><a href="https://github.com/vinhnx/ColorArt" target="_blank" rel="external">ColorArt</a> - extract dominant colors from image like iTunes 11.</li>
+<li><a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="external">IQKeyboardManager</a> - Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView.</li>
+<li><a href="https://github.com/wczekalski/WCFastCell" target="_blank" rel="external">WCFastCell</a> - Fast cells for Tables/Collections scrolling (without animations).</li>
+<li><a href="https://github.com/erichoracek/Motif" target="_blank" rel="external">Motif</a> - A lightweight and customizable JSON stylesheet framework for iOS.</li>
+<li><a href="https://github.com/victorBaro/VBFPopFlatButton" target="_blank" rel="external">VBFPopFlatButton</a> - Flat button with 9 different states animated using Facebook POP.</li>
+<li><a href="https://github.com/herinkc/HTPressableButton" target="_blank" rel="external">HTPressableButton</a> - Flat design pressable button.</li>
+<li><a href="https://github.com/GabrielAlva/Cool-iOS-Camera" target="_blank" rel="external">Cool-iOS-Camera</a> - A fully customisable and modern camera implementation for iOS made with AVFoundation.</li>
+<li><a href="https://github.com/facebook/AsyncDisplayKit/" target="_blank" rel="external">AsyncDisplayKit</a> - AsyncDisplayKit is an iOS framework that keeps even the most complex user interfaces smooth and responsive.</li>
+<li><a href="https://github.com/andreamazz/AMTagListView" target="_blank" rel="external">AMTagListView</a> - UIScrollView subclass that allows to add a list of highly customizable tags.</li>
+<li><a href="https://github.com/fastred/MotionBlur" target="_blank" rel="external">MotionBlur</a> - MotionBlur allows you to add motion blur effect to iOS animations.</li>
+<li><a href="https://github.com/piemonte/PBJVision" target="_blank" rel="external">PBJVision</a> - iOS camera engine, features touch-to-record video, slow motion video, and photo capture.</li>
+<li><a href="https://github.com/yannickl/DynamicColor" target="_blank" rel="external">DynamicColor</a> - Yet another extension to manipulate colors easily in Swift. :large_orange_diamond:</li>
+<li><a href="https://github.com/skywinder/GaugeKit" target="_blank" rel="external">GaugeKit</a> - Customizable gauges. Easy reproduce Apple’s style gauges. :large_orange_diamond:</li>
+<li><a href="https://github.com/TransitApp/SVWebViewController" target="_blank" rel="external">SVWebViewController</a> - A drop-in inline browser for your iOS app.</li>
+<li><a href="https://github.com/meismyles/SwiftWebVC" target="_blank" rel="external">SwiftWebVC</a> - A Swift implementation of SVWebViewController - a drop-in inline browser for your iOS app. :large_orange_diamond:</li>
+<li><a href="https://github.com/mrugrajsinh/MVAutocompletePlaceSearchTextField" target="_blank" rel="external">MVAutocompletePlaceSearchTextField</a> - A drop-in Autocompletion control for Place Search like Google Places, Uber, etc.</li>
+<li><a href="https://github.com/mrugrajsinh/MVMaterialView" target="_blank" rel="external">MVMaterialView</a> - Subclass of UIControls and UIButton to mimic Ripple effect of Material Design concept.</li>
+<li><a href="https://github.com/layerhq/Atlas-iOS" target="_blank" rel="external">Atlas</a> - A library of native iOS messaging user interface components for Layer.</li>
+<li><a href="https://github.com/GabrielAlva/Swift-Prompts" target="_blank" rel="external">Swift-Prompts</a> - A Swift library to design custom prompts with a great scope of options to choose from. :large_orange_diamond:</li>
+<li><a href="https://github.com/hackiftekhar/IQDropDownTextField" target="_blank" rel="external">IQDropDownTextField</a> - TextField with DropDown support using UIPickerView</li>
+<li><a href="https://github.com/PrajeetShrestha/PJAlertView" target="_blank" rel="external">PJAlertView</a> - Apple has deprecated beloved alert view but this library will add revamped alert view with far more customization possibility.</li>
+<li><a href="https://github.com/chenzeyu/CZPicker" target="_blank" rel="external">CZPicker</a> - A picker view shown as a popup for iOS.</li>
+<li><a href="https://github.com/tispr/tispr-card-stack" target="_blank" rel="external">TisprCardStack</a> - Library that allows to have cards UI. :large_orange_diamond:</li>
+<li><a href="https://github.com/hanton/YXTPageView" target="_blank" rel="external">YXTPageView</a> - A PageView, which supporting scrolling to transition between a UIView and a UITableView.</li>
+<li><a href="https://github.com/squimer/DatePickerDialog-iOS-Swift" target="_blank" rel="external">DatePickerDialog</a> - A Swift library that displays an UIDatePicker within an UIAlertView :large_orange_diamond:</li>
+<li><a href="https://github.com/kaishin/gifu" target="_blank" rel="external">gifu</a> - Highly performant animated GIF support for iOS in Swift :large_orange_diamond:</li>
+<li><a href="https://github.com/szk-atmosphere/SAHistoryNavigationViewController" target="_blank" rel="external">SAHistoryNavigationViewController</a> - Enhancing the back button with view history navigation. :large_orange_diamond:</li>
+<li><a href="https://github.com/okmr-d/DOFavoriteButton" target="_blank" rel="external">DOFavoriteButton</a> - Cute Animated Button written in Swift. :large_orange_diamond:</li>
+<li><a href="https://github.com/LISNR/LNRSimpleNotifications" target="_blank" rel="external">LNRSimpleNotifications</a> - Simple Swift in-app notifications. LNRSimpleNotifications is a simplified Swift port of <a href="https://github.com/toursprung/TSMessages" target="_blank" rel="external">TSMessages</a>. :large_orange_diamond:</li>
+<li><a href="https://github.com/meiwin/NgKeyboardTracker" target="_blank" rel="external">NgKeyboardTracker</a> - Objective-C library for tracking keyboard in iOS apps.</li>
+<li><a href="https://github.com/szk-atmosphere/SAInboxViewController" target="_blank" rel="external">SAInboxViewController</a> - UIViewController subclass inspired by “Inbox by google” animated transitioning. :large_orange_diamond:</li>
+<li><a href="https://github.com/telly/TLYShyNavBar" target="_blank" rel="external">TLYShyNavBar</a> - Unlike all those arrogant UINavigationBar, this one is shy and humble! Easily create auto-scrolling navigation bars!</li>
+<li><a href="https://github.com/bryx-inc/BRYXBanner" target="_blank" rel="external">BRYXBanner</a> - A lightweight dropdown notification for iOS 7+, in Swift. :large_orange_diamond:</li>
+<li><a href="https://github.com/nealyoung/NYAlertViewController" target="_blank" rel="external">NYAlertViewController</a> - Highly configurable iOS Alert Views with custom content views.</li>
+<li><a href="https://github.com/nhdang103/HDNotificationView" target="_blank" rel="external">HDNotificationView</a> - Emulates the native Notification Banner UI for any alert.</li>
+<li><a href="https://github.com/m1entus/MZFormSheetPresentationController" target="_blank" rel="external">MZFormSheetPresentationController</a> - MZFormSheetPresentationController provides an alternative to the native iOS UIModalPresentationFormSheet, adding support for iPhone and additional opportunities to setup controller size and feel form sheet.</li>
+<li><a href="https://github.com/shu223/AnimatedTransitionGallery" target="_blank" rel="external">AnimatedTransitionGallery</a> - Collection of iOS 7 custom animated transitions using UIViewControllerAnimatedTransitioning protocol.</li>
+<li><a href="https://github.com/nicklockwood/iCarousel" target="_blank" rel="external">iCarousel</a> - A simple, highly customisable, data-driven 3D carousel for iOS and Mac OS.</li>
+<li><a href="https://github.com/romaonthego/RESideMenu" target="_blank" rel="external">RESideMenu</a> - iOS 7/8 style side menu with parallax effect inspired by Dribbble shots.</li>
+<li><a href="https://github.com/PrideChung/FontAwesomeKit" target="_blank" rel="external">FontAwesomeKit</a> - Icon font library for iOS. Currently supports Font-Awesome, Foundation icons, Zocial, and ionicons.</li>
+<li><a href="http://www.cocoacontrols.com" target="_blank" rel="external">Cocoa Controls</a> - Open source UI components for iOS and OS X.</li>
+<li><a href="https://github.com/optonaut/ActiveLabel.swift" target="_blank" rel="external">ActiveLabel.swift</a> - UILabel drop-in replacement supporting Hashtags (#), Mentions (@) and URLs (http://) :large_orange_diamond:</li>
+<li><a href="https://github.com/xmartlabs/XLForm" target="_blank" rel="external">XLForm</a> - XLForm is the most flexible and powerful iOS library to create dynamic table-view forms. Fully compatible with Swift &amp; Obj-C.</li>
+<li><a href="https://github.com/ra1028/RAReorderableLayout" target="_blank" rel="external">RAReorderableLayout</a> - A UICollectionView layout whitch can move item with drag and drop.</li>
+<li><a href="https://github.com/ezescaruli/ESTabBarController" target="_blank" rel="external">ESTabBarController</a> - A tab bar controller for iOS that allows highlighting buttons and setting custom actions to them.</li>
+<li><a href="https://github.com/kevin0571/STPopup" target="_blank" rel="external">STPopup</a> - STPopup provides a UINavigationController in popup style, for both iPhone and iPad.</li>
+<li><a href="https://github.com/suzuki-0000/HoneycombView" target="_blank" rel="external">HoneycombView</a> - HoneycombView is the iOS UIView for displaying like Honyecomb layout written by swift. :large_orange_diamond:</li>
+<li><a href="https://github.com/devinross/tapkulibrary" target="_blank" rel="external">tapkulibrary</a> - tap + haiku = tapku, a well crafted open source iOS framework.</li>
+<li><a href="https://github.com/ninjaprox/NVActivityIndicatorView" target="_blank" rel="external">NVActivityIndicatorView</a> - Collection of nice loading animations. :large_orange_diamond:</li>
+<li><a href="https://github.com/kciter/KCJogDial" target="_blank" rel="external">KCJogDial</a> - Controllable UIView like jog dial. :large_orange_diamond:</li>
+<li><a href="https://github.com/kitasuke/PagingMenuController" target="_blank" rel="external">PagingMenuController</a> - Paging view controller with customizable menu in Swift. :large_orange_diamond:</li>
+<li><a href="https://github.com/bradjasper/radialmenu" target="_blank" rel="external">RadialMenu</a> - RadialMenu is a custom control for providing a touch context menu (like iMessage recording in iOS 8) built with Swift &amp; POP :large_orange_diamond:</li>
+<li><a href="https://github.com/vangelov/VLDContextSheet" target="_blank" rel="external">VLDContextSheet</a> - Context menu similar to the one in the Pinterest iOS app</li>
+<li><a href="https://github.com/arn00s/cariocamenu" target="_blank" rel="external">cariocamenu</a> - The fastest zero-tap iOS menu. :large_orange_diamond:</li>
+<li><a href="https://github.com/ifitdoesntwork/DAExpandAnimation" target="_blank" rel="external">DAExpandAnimation</a> - A custom modal transition that presents a controller with an expanding effect while sliding out the presenter remnants. :large_orange_diamond:</li>
+<li><a href="https://github.com/aryaxt/ScrollPager" target="_blank" rel="external">ScrollPager</a> - A scroll pager similar to the one in Flipboard :large_orange_diamond:</li>
+<li><a href="http://componentkit.org/" target="_blank" rel="external">ComponentKit</a> - A React-Inspired View Framework for iOS, by Facebook.</li>
+<li><a href="https://github.com/xmartlabs/Eureka" target="_blank" rel="external">Eureka</a> - Elegant iOS form builder in pure Swift. :large_orange_diamond:</li>
+<li><a href="https://github.com/poetmountain/PMTween" target="_blank" rel="external">PMTween</a> - An elegant and flexible tweening library for iOS.</li>
+<li><a href="https://github.com/mineschan/MZTimerLabel" target="_blank" rel="external">MZTimerLabel</a> - A handy class for iOS to use UILabel as a countdown timer or stopwatch just like in Apple Clock App.</li>
+<li><a href="https://github.com/inFullMobile/WobbleView" target="_blank" rel="external">WobbleView</a> - WobbleView is an implementation of a recently popular wobble effect for any view in your app. It can be used to easily add dynamics to user interactions and transitions. :large_orange_diamond:</li>
+<li><a href="https://github.com/callumboddy/CBZSplashView" target="_blank" rel="external">CBZSplashView</a> - Twitter style Splash Screen View. Grows to reveal the Initial view behind.</li>
+<li><a href="https://github.com/cwRichardKim/RKNotificationHub" target="_blank" rel="external">RKNotificationHub</a> - Make any UIView a full fledged notification center.</li>
+<li><a href="https://github.com/Yalantis/EatFit" target="_blank" rel="external">EatFit</a> - Eat fit is a component for attractive data representation inspired by Google Fit</li>
+</ul>
+<h3 id="WebSocket">WebSocket</h3><ul>
+<li><a href="https://github.com/square/SocketRocket" target="_blank" rel="external">Socket Rocket</a> - A conforming Objective-C WebSocket client library.</li>
+</ul>
+<h3 id="Code_Quality">Code Quality</h3><ul>
+<li><a href="https://github.com/krzysztofzablocki/KZBootstrap" target="_blank" rel="external">KZBootstrap</a> - Set of scripts and annotations that generate extra compile time errors and warnings on bad code quality.</li>
+<li><a href="https://github.com/krzysztofzablocki/KZAsserts" target="_blank" rel="external">KZAsserts</a> - Set of custom assertions that automatically generate NSError’s, allow for both Assertions in Debug and Error handling in Release builds, with beautiful DSL.</li>
+<li><a href="https://gist.github.com/steipete/5664345" target="_blank" rel="external">PSPDFUIKitMainThreadGuard</a> - Simple snippet generating assertions when UIKit is used on background threads.</li>
+<li><a href="https://github.com/Flipboard/FLEX" target="_blank" rel="external">Flex</a> - An in-app debugging and exploration tool for iOS.</li>
+<li><a href="https://github.com/facebook/chisel" target="_blank" rel="external">chisel</a> - Collection of LLDB commands to assist debugging iOS apps.</li>
+<li><a href="http://oclint.org/" target="_blank" rel="external">OCLint</a> - Static code analysis tool for improving quality and reducing defects.</li>
+<li><a href="https://github.com/Cue/ocstyle" target="_blank" rel="external">ocstyle</a> - Objective-C style checker.</li>
+<li><a href="https://github.com/realm/SwiftLint" target="_blank" rel="external">SwiftLint</a> - An experimental tool to enforce Swift style and conventions. :large_orange_diamond:</li>
+<li><a href="https://github.com/square/spacecommander" target="_blank" rel="external">spacecommander</a> - Commit fully-formatted Objective-C code as a team without even trying.</li>
+<li><a href="https://github.com/diwu/DWURecyclingAlert" target="_blank" rel="external">DWURecyclingAlert</a> - Optimizing UITableViewCell For Fast Scrolling.</li>
+<li><a href="https://github.com/domesticcatsoftware/DCIntrospect" target="_blank" rel="external">DCIntrospect</a> - Small library of visual debugging tools for iOS.</li>
+</ul>
+<h3 id="Analytics">Analytics</h3><ul>
+<li><a href="http://www.flurry.com" target="_blank" rel="external">Flurry Analytics</a> - Free app Analytics API.</li>
+<li><a href="https://parse.com/products/analytics" target="_blank" rel="external">Parse Analytics</a> - Measure App Usage, track bugs and much more.</li>
+<li><a href="https://mixpanel.com/" target="_blank" rel="external">Mixpanel</a> - Advanced analytics platform.</li>
+<li><a href="http://www.localytics.com/" target="_blank" rel="external">Localytics</a> - Brings app marketing and analytics together.</li>
+<li><a href="https://get.fabric.io/answers" target="_blank" rel="external">Answers by Fabric</a> - Answers gives you real-time insight into people’s experience in your app.</li>
+<li><a href="https://onliquid.com" target="_blank" rel="external">Liquid Analytics</a> - Identify behaviours through Analytics and react with real-time Personalization.</li>
+<li><a href="https://github.com/gemr/GTrack" target="_blank" rel="external">GTrack</a> - Lightweight Objective-C wrapper around the Google Analytics for iOS SDK with some extra goodies.</li>
+<li><a href="https://github.com/orta/ARAnalytics" target="_blank" rel="external">ARAnalytics</a> - Analytics abstraction library offering a sane API for tracking events and user data.</li>
+<li><a href="https://github.com/segmentio/analytics-ios" target="_blank" rel="external">Segment</a> - The hassle-free way to integrate analytics into any iOS application.</li>
+</ul>
+<h3 id="Payments">Payments</h3><ul>
+<li><a href="https://stripe.com" target="_blank" rel="external">Stripe</a> - Payment integration on your app with PAY. Suitable for people with low knowlege on Backend.</li>
+<li><a href="https://www.braintreepayments.com" target="_blank" rel="external">Braintree</a> - Free payment processing on your first $50k. Requires Backend.</li>
+<li><a href="https://github.com/venmo/venmo-ios-sdk" target="_blank" rel="external">Venmo</a> Make and accept payments in your iOS app via Venmo.</li>
+</ul>
+<h3 id="Products">Products</h3><ul>
+<li><a href="https://import.io" target="_blank" rel="external">Import.io</a> - Instantly Turn Web Pages into Data.</li>
+<li><a href="https://www.tapglue.com" target="_blank" rel="external">Tapglue</a> - Build social products and a activity feed with a few lines of code.</li>
+</ul>
+<h3 id="Utility">Utility</h3><ul>
+<li><a href="https://github.com/robb/Underscore.m" target="_blank" rel="external">Underscore.m</a> - A DSL for Data Manipulation.</li>
+<li><a href="https://github.com/paulsamuels/SBConstants" target="_blank" rel="external">SBConstants</a> - Generate a constants file by grabbing identifiers from storyboards in a project.</li>
+<li><a href="https://github.com/tumblr/XExtensionItem" target="_blank" rel="external">XExtensionItem</a> - Easier sharing of structured data between iOS applications and share extensions.</li>
+<li><a href="https://github.com/fastred/ReflectableEnum" target="_blank" rel="external">ReflectableEnum</a> - Reflection for enumerations in Objective-C.</li>
+<li><a href="https://github.com/zakkhoyt/VWWPermissionKit" target="_blank" rel="external">VWWPermissionKit</a> - A visual permission manager for iOS.</li>
+<li><a href="https://github.com/clusterinc/ClusterPrePermissions" target="_blank" rel="external">ClusterPrePermissions</a> - Reusable pre-permissions utility that lets developers ask users for access in their own dialog, before making the system-based request.</li>
+<li><a href="https://github.com/MatthewYork/DateTools" target="_blank" rel="external">DateTools</a> - Dates and times made easy in Objective-C</li>
+<li><a href="https://github.com/EvgenyKarkan/EKAlgorithms" target="_blank" rel="external">EKAlgorithms</a> - Some well known CS algorithms &amp; data structures in Objective-C.</li>
+<li><a href="https://github.com/delba/Tactile" target="_blank" rel="external">Tactile</a> - A safer and more idiomatic way to respond to gestures and control events. :large_orange_diamond:</li>
+<li><a href="https://github.com/bennyguitar/Colours" target="_blank" rel="external">Colours</a> - A beautiful set of predefined colors and a set of color methods to make your iOS/OSX development life easier.</li>
+<li><a href="https://github.com/supermarin/ObjectiveSugar" target="_blank" rel="external">ObjectiveSugar</a> - ObjectiveC additions for humans. Ruby style.</li>
+<li><a href="https://github.com/mattt/GroundControl" target="_blank" rel="external">GroundControl</a> - Remote configuration for iOS.</li>
+<li><a href="https://github.com/leoschweizer/OpinionatedC" target="_blank" rel="external">OpinionatedC</a> - Because Objective-C should have inherited more from Smalltalk.</li>
+<li><a href="https://github.com/JohnEstropia/GCDKit" target="_blank" rel="external">GCDKit</a> - Grand Central Dispatch simplified with Swift. :large_orange_diamond:</li>
+</ul>
+<h3 id="Security">Security</h3><ul>
+<li><a href="https://github.com/kishikawakatsumi/UICKeyChainStore" target="_blank" rel="external">UICKeyChainStore</a> - UICKeyChainStore is a simple wrapper for Keychain on iOS.</li>
+<li><a href="https://github.com/orta/cocoapods-keys" target="_blank" rel="external">cocoapods-keys</a> - A key value store for storing environment and application keys.</li>
+<li><a href="https://github.com/square/Valet" target="_blank" rel="external">Valet</a> - Securely store data in the iOS or OS X Keychain without knowing a thing about how the Keychain works.</li>
+<li><a href="https://github.com/jspahrsummers/libextobjc" target="_blank" rel="external">libextobjc</a> - A Cocoa library to extend the Objective-C programming language.</li>
+<li><a href="https://github.com/matthewpalmer/Locksmith" target="_blank" rel="external">Locksmith</a> - A powerful, protocol-oriented library for working with the keychain in Swift. :large_orange_diamond:</li>
+</ul>
+<h1 id="Project_setup">Project setup</h1><ul>
+<li><a href="https://github.com/krzysztofzablocki/crafter" target="_blank" rel="external">crafter</a> - CLI that allows you to configure iOS project’s template using custom DSL syntax, simple to use and quite powerful.</li>
+<li><a href="https://github.com/thoughtbot/liftoff" target="_blank" rel="external">liftoff</a> - Another CLI for creating iOS projects.</li>
+<li><a href="https://github.com/krzysztofzablocki/KZBootstrap" target="_blank" rel="external">KZBootstrap</a> - iOS project bootstrap aimed at high quality coding.</li>
+<li><a href="https://github.com/crushlovely/Amaro" target="_blank" rel="external">amaro</a> - iOS Boilerplate full of delights.</li>
+<li><a href="https://github.com/orta/chairs" target="_blank" rel="external">chairs</a> - Swap around your iOS Simulator Documents</li>
+</ul>
+<h1 id="Dependency_/_Package_Manager">Dependency / Package Manager</h1><ul>
+<li><a href="http://cocoapods.org/" target="_blank" rel="external">Cocoa Pods</a> - CocoaPods is the dependency manager for Objective-C projects. It has thousands of libraries and can help you scale your projects elegantly.</li>
+<li><a href="http://sap-production.github.io/xcode-maven-plugin/site/" target="_blank" rel="external">Xcode Maven</a> - The Xcode Maven Plugin can be used in order to run Xcode builds embedded in a Maven lifecycle.</li>
+<li><a href="http://openbakery.org/gradle.php" target="_blank" rel="external">Gradle</a> - The gradle xcode plugin can be used to build iOS or Mac OS X Projects using gradle.</li>
+<li><a href="https://github.com/Carthage/Carthage" target="_blank" rel="external">Carthage</a> - A simple, decentralized dependency manager for Cocoa. :large_orange_diamond:</li>
+<li><a href="https://github.com/jankuca/swm" target="_blank" rel="external">SWM (Swift Modules)</a> - A package/dependency manager for Swift projects similar to npm (node.js package manager) or bower (browser package manager from Twitter). Does not require the use of XCode. :large_orange_diamond:</li>
+<li><a href="http://alcatraz.io/" target="_blank" rel="external">Alcatraz</a> - The package manager for Xcode.</li>
+</ul>
+<h1 id="Testing">Testing</h1><h3 id="TDD_/_BDD">TDD / BDD</h3><ul>
+<li><a href="https://github.com/kiwi-bdd/Kiwi" target="_blank" rel="external">Kiwi</a> - A behavior-driven development library for iOS development.</li>
+<li><a href="https://github.com/specta/specta" target="_blank" rel="external">Specta</a> - A light-weight TDD / BDD framework for Objective-C &amp; Cocoa.</li>
+<li><a href="https://github.com/Quick/Quick" target="_blank" rel="external">Quick</a> - A behavior-driven development framework for Swift and Objective-C.</li>
+<li><a href="https://github.com/jonreid/XcodeCoverage" target="_blank" rel="external">XcodeCoverage</a> - Code coverage for Xcode projects.</li>
+<li><a href="https://github.com/AliSoftware/OHHTTPStubs" target="_blank" rel="external">OHHTTPStubs</a> - Stub your network requests easily! Test your apps with fake network data and custom response time, response code and headers!</li>
+<li><a href="https://github.com/Skyscanner/Dixie" target="_blank" rel="external">Dixie</a> - Dixie is an open source Objective-C testing framework for altering object behaviours.</li>
+<li><a href="https://github.com/gh-unit/gh-unit" target="_blank" rel="external">gh-unit</a> - Test Framework for Objective-C.</li>
+</ul>
+<h3 id="UI_Testing">UI Testing</h3><ul>
+<li><a href="https://github.com/mokemokechicken/CrashMonkey" target="_blank" rel="external">CrashMonkey</a> - Monkey Test Tool For iOS.</li>
+<li><a href="http://appium.io/" target="_blank" rel="external">appium</a> - Appium is an open source test automation framework for use with native and hybrid mobile apps.</li>
+<li><a href="https://github.com/jollychang/robotframework-appiumlibrary" target="_blank" rel="external">robotframework-appiumlibrary</a> - AppiumLibrary is an appium testing library for RobotFramework.</li>
+<li><a href="http://cukes.info/" target="_blank" rel="external">Cucumber</a> - Behavior driver development for iOS.</li>
+<li><a href="https://github.com/kif-framework/KIF" target="_blank" rel="external">Kif</a> - An iOS Functional Testing Framework.</li>
+<li><a href="https://github.com/inkling/Subliminal" target="_blank" rel="external">Subliminal</a> - An understated approach to iOS integration testing.</li>
+<li><a href="https://developer.apple.com/library/ios/documentation/DeveloperTools/Reference/UIAutomationRef/Introduction/Introduction.html" target="_blank" rel="external">UIAutomation</a> - JavaScript library to write test scripts that exercise your app’s user interface elements while the app runs on a connected device.</li>
+<li><a href="http://ios-driver.github.io/ios-driver/index.html" target="_blank" rel="external">ios-driver</a> - Test any IOS native, hybrid, or mobile web application using Selenium / WebDriver.</li>
+<li><a href="http://www.zucchiniframework.org/" target="_blank" rel="external">Zucchini</a> - A visual iOS testing framework that loves your apps.</li>
+<li><a href="https://github.com/johnno1962/Remote" target="_blank" rel="external">Remote</a> - Control your iPhone from inside Xcode for end-to-end testing.</li>
+</ul>
+<h3 id="Other_Testing">Other Testing</h3><ul>
+<li><a href="https://github.com/Palleas/NaughtyKeyboard" target="_blank" rel="external">NaughtyKeyboard</a> - The Big List of Naughty Strings is a list of strings which have a high probability of causing issues when used as user-input data. This is a keyboard to help you test your app from your iOS device.</li>
+<li><a href="https://github.com/square/PonyDebugger" target="_blank" rel="external">PonyDebugger</a> - Remote network and data debugging for your native iOS app using Chrome Developer Tools</li>
+<li><a href="https://github.com/facebook/ios-snapshot-test-case" target="_blank" rel="external">ios-snapshot-test-case</a> - Snapshot view unit tests for iOS.</li>
+</ul>
+<h3 id="Beta_Distribution">Beta Distribution</h3><ul>
+<li><a href="https://www.crashlytics.com/" target="_blank" rel="external">Crashlytics</a> - A crash reporting and beta testing service.</li>
+<li><a href="https://developer.apple.com/testflight/" target="_blank" rel="external">TestFlight Beta Testing</a> - The beta testing service hosted on iTunes Connect (requires iOS 8 or later).</li>
+<li><a href="http://hockeyapp.net/" target="_blank" rel="external">HockeyApp</a> - With HockeyApp, you can distribute beta versions of your app, collect live crash reports, get feedback from users, and analyze test coverage.</li>
+<li><a href="https://github.com/fastlane/boarding" target="_blank" rel="external">boarding</a> - Instantly create a simple signup page for TestFlight beta testers.</li>
+</ul>
+<h1 id="Toolchains">Toolchains</h1><ul>
+<li><a href="http://www.rubymotion.com/" target="_blank" rel="external">RubyMotion</a> - RubyMotion is a revolutionary toolchain that lets you quickly develop and test native iOS and OS X applications for iPhone, iPad and Mac, all using the Ruby language.</li>
+</ul>
+<h1 id="Tools">Tools</h1><ul>
+<li><a href="https://github.com/kaandedeoglu/Shark" target="_blank" rel="external">Shark</a> - Swift Script that transforms the .xcassets folder into a type safe enum. :large_orange_diamond:</li>
+<li><a href="https://github.com/mac-cain13/R.swift" target="_blank" rel="external">R.swift</a> - Tool to get strong typed, autocompleted resources like images, cells and segues in your Swift project. :large_orange_diamond:</li>
+<li><a href="https://github.com/AliSoftware/SwiftGen" target="_blank" rel="external">SwiftGen</a> - A collection of Swift tools to generate Swift code (enums for your assets, storyboards, Localizable.strings and UIColors). :large_orange_diamond:</li>
+<li><a href="https://github.com/marmelroy/Localize-Swift" target="_blank" rel="external">Localize-Swift</a> - Swift 2.0 friendly localization and i18n with in-app language switching :large_orange_diamond:</li>
+</ul>
+<h1 id="Rapid_Development">Rapid Development</h1><ul>
+<li><a href="https://github.com/krzysztofzablocki/KZPlayground" target="_blank" rel="external">KZPlayground</a> - Playgrounds for Objective-C for extremely fast prototyping / learning.</li>
+<li><a href="https://github.com/DyCI/dyci-main" target="_blank" rel="external">dyci</a> - Code injection tool.</li>
+<li><a href="https://github.com/johnno1962/injectionforxcode" target="_blank" rel="external">injectionforxcode</a> - Code injection including Swift.</li>
+<li><a href="https://github.com/mutualmobile/MMBarricade" target="_blank" rel="external">MMBarricade</a> - Runtime configurable local server for iOS apps.</li>
+<li><a href="https://github.com/colemancda/NetworkObjects" target="_blank" rel="external">NetworkObjects</a> - Generate RESTful server from your Core Data Model.</li>
+<li><a href="http://www.sensiblecocoa.com" target="_blank" rel="external">STV Framework</a> - Native visual iOS development.</li>
+</ul>
+<h1 id="Deployment">Deployment</h1><ul>
+<li><a href="https://github.com/KrauseFx/fastlane" target="_blank" rel="external">fastlane</a> Connect all iOS deployment tools into one streamlined workflow.</li>
+<li><a href="https://github.com/krausefx/deliver" target="_blank" rel="external">deliver</a> Deploy screenshots, app metadata and app updates to the App Store using just one command.</li>
+<li><a href="https://github.com/krausefx/snapshot" target="_blank" rel="external">snapshot</a> Automatically create screenshots in all languages on all devices.</li>
+</ul>
+<h1 id="App_Store">App Store</h1><ul>
+<li><a href="http://appreviewtimes.com" target="_blank" rel="external">Average App Store Review Times</a> This site tracks the average App Store review times for both the iOS and the Mac App Store using data crowdsourced from iOS and Mac developers.</li>
+<li><a href="https://developer.apple.com/app-store/review/rejections/" target="_blank" rel="external">Apple’s Common App Rejections Styleguide</a>  Highlighted some of the most common issues that cause apps to get rejected.</li>
+<li><a href="https://www.mobileaction.co" target="_blank" rel="external">Free App Store Optimization Tool</a> Lets you track your App Store visibility in terms of keywords and competitors.</li>
+</ul>
+<h1 id="SDK">SDK</h1><h2 id="Official">Official</h2><ul>
+<li><a href="https://github.com/spotify/ios-sdk" target="_blank" rel="external">Spotify</a> Spotify iOS SDK.</li>
+<li><a href="https://github.com/facebook/facebook-ios-sdk" target="_blank" rel="external">Facebook</a> Facebook iOS SDK.</li>
+<li><a href="https://developers.google.com/analytics/devguides/collection/ios/v3/" target="_blank" rel="external">Google Analytics</a> Google Analytics SDK for iOS</li>
+<li><a href="https://github.com/paypal/PayPal-iOS-SDK" target="_blank" rel="external">Paypal iOS SDK</a> The PayPal Mobile SDKs enable native apps to easily accept PayPal and credit card payments.</li>
+<li><a href="https://github.com/Pocket/Pocket-ObjC-SDK" target="_blank" rel="external">Pocket</a> SDK for saving stuff to Pocket.</li>
+<li><a href="https://github.com/tumblr/TMTumblrSDK" target="_blank" rel="external">Tumblr</a> Library for easily integrating Tumblr data into your iOS or OS X application.</li>
+<li><a href="https://github.com/evernote/evernote-sdk-ios" target="_blank" rel="external">Evernote</a> Evernote SDK for iOS.</li>
+<li><a href="https://github.com/box/box-ios-sdk-v2" target="_blank" rel="external">Box</a> iOS + OS X SDK for the Box API.</li>
+<li><a href="https://github.com/OneDrive/onedrive-sdk-ios" target="_blank" rel="external">OneDrive</a> Live SDK for iOS.</li>
+<li><a href="https://github.com/stripe/stripe-ios" target="_blank" rel="external">Stripe</a> Stripe bindings for iOS and OS X.</li>
+<li><a href="https://github.com/venmo/venmo-ios-sdk" target="_blank" rel="external">Venmo</a> Make and accept payments in your iOS app via Venmo.</li>
+<li><a href="https://github.com/aws/aws-sdk-ios" target="_blank" rel="external">AWS</a> Amazon Web Services Mobile SDK for iOS.</li>
+<li><a href="https://github.com/zendesk/zendesk_sdk_ios" target="_blank" rel="external">Zendesk</a> Zendesk Mobile SDK for iOS.</li>
+<li><a href="https://creativesdk.adobe.com/" target="_blank" rel="external">Adobe Creative SDK</a> Adobe creative tools and Creative Cloud SDK.</li>
+<li><a href="https://www.dropbox.com/developers" target="_blank" rel="external">Dropbox</a> SDKs for Drop-ins and Dropbox Core API.</li>
+<li><a href="https://dev.twitter.com/fabric/ios" target="_blank" rel="external">Fabric by Twitter</a> Fabric Twitter Kit for iOS.</li>
+<li><a href="https://github.com/lqd-io/liquid-sdk-ios" target="_blank" rel="external">Liquid Analytics</a> Identify behaviours through Analytics and react with real-time Personalization.</li>
+<li><a href="https://github.com/ResearchKit/ResearchKit" target="_blank" rel="external">ResearchKit</a> ResearchKit is an open source software framework that makes it easy to create apps for medical research or for other research projects.</li>
+<li><a href="https://packetzoom.com" target="_blank" rel="external">PacketZoom</a> PacketZoom SDK for iOS.</li>
+</ul>
+<h2 id="Unofficial">Unofficial</h2><ul>
+<li><a href="https://github.com/nst/STTwitter" target="_blank" rel="external">STTwitter</a> A stable, mature and comprehensive Objective-C library for Twitter REST API 1.1</li>
+<li><a href="https://github.com/fhsjaagshs/FHSTwitterEngine" target="_blank" rel="external">FHSTwitterEngine</a> Twitter API for Cocoa developers.</li>
+<li><a href="https://github.com/heyalexchoi/Giphy-iOS" target="_blank" rel="external">Giphy</a> Giphy API client for iOS in Objective-C.</li>
+<li><a href="https://github.com/sachinkesiraju/UberKit" target="_blank" rel="external">UberKit</a> - A simple, easy-to-use Objective-C wrapper for the Uber API.</li>
+<li><a href="https://github.com/shyambhat/InstagramKit" target="_blank" rel="external">InstagramKit</a> - Instagram iOS SDK.</li>
+<li><a href="https://github.com/agilie/dribbble-ios-sdk" target="_blank" rel="external">DribbbleSDK</a> - Dribbble iOS SDK.</li>
+<li><a href="https://github.com/lukhnos/objectiveflickr" target="_blank" rel="external">objectiveflickr</a> - ObjectiveFlickr, a Flickr API framework for Objective-C.</li>
+</ul>
+<h1 id="Xcode">Xcode</h1><h3 id="Plugins">Plugins</h3><ul>
+<li><a href="https://github.com/FuzzyAutocomplete/FuzzyAutocompletePlugin" target="_blank" rel="external">FuzzyAutocompletePlugin</a> - A Xcode 5+ plugin that adds more flexible autocompletion rather than just prefix-matching.</li>
+<li><a href="https://github.com/stefanceriu/SCXcodeMiniMap" target="_blank" rel="external">SCXcodeMiniMap</a> - SCXcodeMiniMap is a plugin that adds a source editor MiniMap to Xcode.</li>
+<li><a href="https://github.com/larsxschneider/ShowInGitHub" target="_blank" rel="external">Show in Github</a> - Xcode plugin to open the GitHub page of the commit of the currently selected line in the editor window.</li>
+<li><a href="https://github.com/neonichu/BBUFullIssueNavigator" target="_blank" rel="external">BBUFullIssueNavigator</a> - Xcode plugin for showing all issue content in the issue navigator.</li>
+<li><a href="https://github.com/neonichu/BBUDebuggerTuckAway" target="_blank" rel="external">BBUDebuggerTuckAway</a> - Xcode plugin for auto-hiding the debugger once you start typing in the source code editor.</li>
+<li><a href="https://github.com/stefanceriu/SCXcodeSwitchExpander" target="_blank" rel="external">SCXcodeSwitchExpander</a> - SCXcodeSwitchExpander is a small Xcode plugin that expands switch statements by inserting missing cases.</li>
+<li><a href="https://github.com/onevcat/VVDocumenter-Xcode" target="_blank" rel="external">VVDocumenter-Xcode</a> - Xcode plug-in which helps you write Javadoc style documents easier.</li>
+<li><a href="https://github.com/qfish/XAlign" target="_blank" rel="external">XAlign</a> - An amazing Xcode plugin to align regular code. It can align anything by using custom alignment patterns.</li>
+<li><a href="https://github.com/kattrali/cocoapods-xcode-plugin" target="_blank" rel="external">Cocoapods Xcode Plugin</a> - Dependency management helper for your CocoaPods, right in Xcode.</li>
+<li><a href="https://github.com/ksuther/KSImageNamed-Xcode" target="_blank" rel="external">KSImageNamed-Xcode</a> - Xcode plug-in that provides autocomplete for imageNamed: calls.</li>
+<li><a href="https://github.com/omz/ColorSense-for-Xcode" target="_blank" rel="external">ColorSense-for-Xcode</a> - Plugin for Xcode to make working with colors more visual.</li>
+<li><a href="https://github.com/limejelly/Backlight-for-XCode" target="_blank" rel="external">Backlight-for-XCode</a> - Highlights the current editing line in Xcode</li>
+<li><a href="https://github.com/yeahdongcn/UIColor-Hex-Swift" target="_blank" rel="external">UIColor-Hex-Swift</a> - Convenience method for creating autoreleased color using RGBA hex string. :large_orange_diamond:</li>
+<li><a href="https://github.com/kitschpatrol/KPRunEverywhereXcodePlugin" target="_blank" rel="external">KPRunEverywhereXcodePlugin</a> - An Xcode plugin to build and run an app across multiple iOS devices with one click.</li>
+<li><a href="https://github.com/shjborage/Reveal-Plugin-for-Xcode" target="_blank" rel="external">RevealPlugin</a> - Plugin for Xcode to integrate the Reveal App to your project automatic.</li>
+<li><a href="http://realm.io/docs/cocoa/0.81.0/" target="_blank" rel="external">RealmPlugin</a>- Xcode plugin to generate new Realm models.</li>
+<li><a href="https://github.com/zats/AdjustFontSize-Xcode-Plugin" target="_blank" rel="external">AdjustFontSize</a> - Instant font size adjustment with <code>⌘ +</code> / <code>⌘ -</code>.</li>
+<li><a href="https://github.com/questbeat/Lin" target="_blank" rel="external">Lin</a> - Xcode plugin that provides auto-completion for NSLocalizedString.</li>
+<li><a href="https://www.rephrase.io" target="_blank" rel="external">Rephrase</a> - Localise from Xcode.</li>
+<li><a href="https://github.com/pdcgomes/XCActionBar" target="_blank" rel="external">XCActionBar</a> - “Alfred for Xcode” plugin.</li>
+<li><a href="https://github.com/wiruzx/QuickJump" target="_blank" rel="external">QuickJump</a> - Quick code navigation for Xcode.</li>
+<li><a href="https://github.com/keefo/CATweaker" target="_blank" rel="external">CATweaker</a> - Plugin for creating beautiful CAMediaTimingFunction curve.</li>
+<li><a href="https://github.com/onmyway133/XcodeWay" target="_blank" rel="external">XcodeWay</a> - An Xcode plugin that makes navigating to many places easier (available via Alcatraz).</li>
+<li><a href="https://github.com/johnno1962/GitDiff" target="_blank" rel="external">GitDiff</a> - Highlights deltas against git repo in Xcode.</li>
+<li><a href="https://github.com/yuhua-chen/MCLog" target="_blank" rel="external">MCLog</a> - Xcode plugin for filtering the console area.</li>
+<li><a href="https://github.com/trawor/XToDo" target="_blank" rel="external">XToDo</a> - Dialog with list of all TODO, FIXME, ??? and !!! in the project.</li>
+<li><a href="https://github.com/hanton/CopyIssue-Xcode-Plugin" target="_blank" rel="external">CopyIssue</a> - Makes Copy Xcode Issue Description Easy.</li>
+<li><a href="https://github.com/rickytan/RTImageAssets" target="_blank" rel="external">RTImageAssets</a> - A Xcode plugin to automatically generate all the App icons needed.</li>
+<li><a href="https://github.com/benoitsan/BBUncrustifyPlugin-Xcode" target="_blank" rel="external">BBUncrustifyPlugin-Xcode</a> - Xcode plugin to format source code using ClangFormat or Uncrustify.</li>
+<li><a href="https://github.com/marksands/Aviator" target="_blank" rel="external">Aviator</a> - Xcode plugin that brings ⇧⌘T (source/test toggle) from AppCode over to Xcode.</li>
+<li><a href="https://github.com/merrickp/JumpMarks" target="_blank" rel="external">JumpMarks</a> - Navigate your code files with numbered bookmarks.</li>
+<li><a href="https://github.com/dzenbot/XCSnippetr" target="_blank" rel="external">XCSnippetr</a> - An Xcode Plugin to upload code snippets directly into Slack and Gist.</li>
+<li><a href="https://github.com/markohlebar/Peckham" target="_blank" rel="external">Peckham</a> - Add #import-s from anywhere in the code.</li>
+<li><a href="https://github.com/molon/MLAutoReplace" target="_blank" rel="external">MLAutoReplace</a> - Xcode plugin, Re-Intent, make you write code more quickly.</li>
+</ul>
+<h3 id="Themes">Themes</h3><ul>
+<li><a href="https://github.com/zenorocha/dracula-theme" target="_blank" rel="external">Dracula Theme</a> - A dark theme for Xcode.</li>
+<li><a href="https://github.com/hdoria/xcode-themes" target="_blank" rel="external">Xcode themes list</a> - Color themes for Xcode.</li>
+<li><a href="https://github.com/ArtSabintsev/Solarized-Dark-for-Xcode/" target="_blank" rel="external">Solarized-Dark-for-Xcode</a> - Solarized Dark Theme for Xcode 5.</li>
+</ul>
+<h3 id="Other_Xcode">Other Xcode</h3><ul>
+<li><a href="https://github.com/venmo/synx" target="_blank" rel="external">Synx</a> - A command-line tool that reorganizes your Xcode project folder to match your Xcode groups.</li>
+<li><a href="https://github.com/Tintenklecks/IBDelegateCodesippets" target="_blank" rel="external">dsnip</a> - Tool to generate (native) Xcode code snippets from all protocols/delegate methods of UIKit (UITableView, …)</li>
+</ul>
+<h1 id="Style_Guides">Style Guides</h1><ul>
+<li><a href="https://github.com/NYTimes/objective-c-style-guide" target="_blank" rel="external">NY Times - Objective C Style Guide</a> - The Objective-C Style Guide used by The New York Times.</li>
+<li><a href="https://github.com/raywenderlich/objective-c-style-guide" target="_blank" rel="external">raywenderlich Style Guide</a> - A style guide that outlines the coding conventions for raywenderlich.com.</li>
+<li><a href="https://github.com/github/objective-c-style-guide" target="_blank" rel="external">Github Objective-C Style Guide</a> - Style guide &amp; coding conventions for Objective-C projects.</li>
+<li><a href="https://gist.github.com/soffes/812796" target="_blank" rel="external">Objective-C Coding Convention and Best Practices</a> - Gist with coding conventions.</li>
+<li><a href="https://github.com/raywenderlich/swift-style-guide" target="_blank" rel="external">Swift Style Guide by @raywenderlich</a> - The official Swift style guide for raywenderlich.com. :large_orange_diamond:</li>
+<li><a href="https://github.com/spotify/ios-style" target="_blank" rel="external">Spotify Objective-C Coding Style</a> - Guidelines for iOS development in use at Spotify.</li>
+<li><a href="https://dl.dropboxusercontent.com/s/5utnlwhr18ax05c/style-guide.html?dl=0" target="_blank" rel="external">Dropbox Objective-C Style Guide</a> -</li>
+<li><a href="https://github.com/github/swift-style-guide" target="_blank" rel="external">Github - Style guide &amp; coding conventions for Swift projects</a> - A guide to our Swift style and conventions by @github. :large_orange_diamond:</li>
+<li><a href="https://github.com/futurice/ios-good-practices" target="_blank" rel="external">Futurice iOS Good Practices</a> - iOS starting guide and good practices suggestions by <a href="https://github.com/futurice" target="_blank" rel="external">@futurice</a>.</li>
+</ul>
+<h1 id="Good_Websites">Good Websites</h1><h3 id="News,_Blogs_and_Feeds">News, Blogs and Feeds</h3><ul>
+<li><a href="http://bgr.com/ios-7/" target="_blank" rel="external">BGR</a></li>
+<li><a href="http://www.imore.com/" target="_blank" rel="external">iMore</a></li>
+<li><a href="http://lifehacker.com/tag/ios" target="_blank" rel="external">Lifehacker</a></li>
+<li><a href="http://www.icodeblog.com/" target="_blank" rel="external">iCode Blog</a></li>
+<li><a href="http://nshipster.com" target="_blank" rel="external">NSHipster</a></li>
+<li><a href="http://www.objc.io" target="_blank" rel="external">Objc.io</a></li>
+<li><a href="http://asciiwwdc.com" target="_blank" rel="external">ASCIIwwdc</a></li>
+<li><a href="http://natashatherobot.com" target="_blank" rel="external">Natasha The Robot</a></li>
+<li><a href="https://developer.apple.com/swift/blog/" target="_blank" rel="external">Apple’s Swift Blog</a> :large_orange_diamond:</li>
+<li><a href="http://www.reddit.com/r/iosprogramming" target="_blank" rel="external">iOS Programming Subreddit</a></li>
+<li><a href="https://iosdevweekly.com/" target="_blank" rel="external">iOS Dev Weekly</a></li>
+<li><a href="https://github.com/shinobicontrols/iOS8-day-by-day" target="_blank" rel="external">iOS8-day-by-day</a> :large_orange_diamond:</li>
+<li><a href="http://www.ioscreator.com/" target="_blank" rel="external">iOScreator</a> :large_orange_diamond:</li>
+<li><a href="http://mathewsanders.com/" target="_blank" rel="external">Mathew Sanders</a> :large_orange_diamond:</li>
+<li><a href="http://littlebitesofcocoa.com" target="_blank" rel="external">Little Bites of Cocoa</a> :large_orange_diamond:</li>
+<li><a href="http://hboon.com/iosdevnuggets/" target="_blank" rel="external">iOS Dev Nuggets</a> :large_orange_diamond:</li>
+<li><a href="http://swiftnews.curated.co" target="_blank" rel="external">This Week in Swift</a> :large_orange_diamond:</li>
+<li><a href="http://ios-goodies.com" target="_blank" rel="external">iOS Goodies</a></li>
+</ul>
+<h3 id="UIKit_references">UIKit references</h3><ul>
+<li><a href="http://iosfonts.com/" target="_blank" rel="external">iOS Fonts</a></li>
+<li><a href="https://gist.github.com/mattt/5135521" target="_blank" rel="external">UIAppearance list</a></li>
+</ul>
+<h3 id="Forums_and_discuss_lists">Forums and discuss lists</h3><ul>
+<li><a href="http://iphonedevsdk.com/" target="_blank" rel="external">iPhone Dev SDK Forum</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/ios" target="_blank" rel="external">“iOS” on Stackoverflow</a></li>
+</ul>
+<h3 id="Tutorials_and_Keynotes">Tutorials and Keynotes</h3><ul>
+<li><a href="http://www.appcoda.com" target="_blank" rel="external">AppCoda</a></li>
+<li><a href="http://www.tutorialspoint.com/ios/" target="_blank" rel="external">Tutorials Point</a></li>
+<li><a href="http://codewithchris.com/" target="_blank" rel="external">Code with Cris</a></li>
+<li><a href="http://www.cocoawithlove.com/" target="_blank" rel="external">Cocoa with Love</a></li>
+<li><a href="http://www.cimgf.com/" target="_blank" rel="external">Cocoa is my Girlfriend</a></li>
+<li><a href="http://tryobjectivec.codeschool.com/" target="_blank" rel="external">Code School - Try Objective-C</a></li>
+<li><a href="https://www.youtube.com/channel/UCysEngjfeIYapEER9K8aikw/videos" target="_blank" rel="external">Brian Advent youtube channel</a> - Swift tutorials Youtube Channel. :large_orange_diamond:</li>
+<li><a href="http://www.raywenderlich.com/tutorials" target="_blank" rel="external">RAYWENDERLICH</a> - Tutorials for developers and gamers</li>
+<li><a href="http://rypress.com/tutorials/objective-c/" target="_blank" rel="external">Ry’s Objective-C Tutorial</a></li>
+<li><a href="https://www.mikeash.com/pyblog/" target="_blank" rel="external">Mike Ash</a></li>
+<li><a href="https://www.bignerdranch.com/blog/categories/ios/" target="_blank" rel="external">Big Nerd Ranch</a> :large_orange_diamond:</li>
+<li><a href="http://code.tutsplus.com/categories/ios-sdk" target="_blank" rel="external">Tuts+</a> :large_orange_diamond:</li>
+<li><a href="http://ios-blog.co.uk/" target="_blank" rel="external">iOS-Blog</a> :large_orange_diamond:</li>
+<li><a href="https://thinkster.io/a-better-way-to-learn-swift/" target="_blank" rel="external">Thinkster</a> :large_orange_diamond:</li>
+<li><a href="https://github.com/swifteducation" target="_blank" rel="external">Swift Education</a> - A community of educators sharing materials for teaching Swift and app development. :large_orange_diamond:</li>
+<li><a href="http://cocoadevcentral.com" target="_blank" rel="external">Cocoa Dev Central</a></li>
+<li><a href="http://useyourloaf.com" target="_blank" rel="external">Use Your Loaf</a></li>
+<li><a href="http://jamesonquave.com/blog/tutorials/" target="_blank" rel="external">Swift Tutorials by Jameson Quave</a> :large_orange_diamond:</li>
+</ul>
+<h3 id="iOS_UI_Template">iOS UI Template</h3><ul>
+<li><a href="http://appicontemplate.com/ios8" target="_blank" rel="external">App Icon Template</a></li>
+<li><a href="http://www.teehanlax.com/tools/iphone" target="_blank" rel="external">iOS 8 GUI PSD Template</a></li>
+<li><a href="http://www.invisionapp.com/tethr" target="_blank" rel="external">iOS UI Design Kit</a></li>
+<li><a href="http://iosdesign.ivomynttinen.com/" target="_blank" rel="external">iOS Design Guidelines</a></li>
+</ul>
+<h3 id="Prototyping">Prototyping</h3><ul>
+<li><a href="https://www.fluidui.com" target="_blank" rel="external">FluidUI</a></li>
+<li><a href="http://proto.io" target="_blank" rel="external">Proto.io</a></li>
+<li><a href="http://framerjs.com/" target="_blank" rel="external">Framer</a></li>
+<li><a href="http://www.pixate.com/" target="_blank" rel="external">Pixate</a></li>
+<li><a href="http://principleformac.com" target="_blank" rel="external">Principle</a></li>
+</ul>
+<h1 id="Twitter">Twitter</h1><ul>
+<li><a href="https://twitter.com/objcio" target="_blank" rel="external">@objcio</a></li>
+<li><a href="https://twitter.com/NSHipster" target="_blank" rel="external">@nshipster</a></li>
+<li><a href="https://twitter.com/CocoaPods" target="_blank" rel="external">@CocoaPods</a></li>
+<li><a href="https://twitter.com/CocoaPodsFeed" target="_blank" rel="external">@CocoaPodsFeed</a></li>
+<li><a href="https://twitter.com/RubyMotion" target="_blank" rel="external">@RubyMotion</a></li>
+</ul>
+<h1 id="Facebook_Groups">Facebook Groups</h1><ul>
+<li><a href="https://www.facebook.com/groups/hhios/" target="_blank" rel="external">HH iOS</a></li>
+<li><a href="https://www.facebook.com/groups/sketchformac/" target="_blank" rel="external">Sketch - Official group</a></li>
+<li><a href="https://www.facebook.com/groups/designcode/" target="_blank" rel="external">Design-Code</a></li>
+<li><a href="https://www.facebook.com/groups/sketchdesignio" target="_blank" rel="external">Sketch-Design.io</a></li>
+<li><a href="https://www.facebook.com/groups/origami.community/" target="_blank" rel="external">Origami Community</a></li>
+<li><a href="https://www.facebook.com/groups/framerjs/" target="_blank" rel="external">Framer JS</a></li>
+</ul>
+<h1 id="Podcasts">Podcasts</h1><ul>
+<li><a href="http://www.raywenderlich.com/rwpodcast" target="_blank" rel="external">The Ray Wenderlich Podcast</a></li>
+<li><a href="http://www.imore.com/debug" target="_blank" rel="external">Debug</a></li>
+<li><a href="http://ideveloper.co/" target="_blank" rel="external">iDeveloper</a></li>
+<li><a href="http://www.appstorypodcast.com" target="_blank" rel="external">App Story</a></li>
+<li><a href="http://mobilecouch.co/" target="_blank" rel="external">Mobile Couch</a></li>
+<li><a href="https://iosbytes.codeschool.com/" target="_blank" rel="external">iOS Bytes</a></li>
+</ul>
+<h1 id="Books">Books</h1><ul>
+<li><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/ProgrammingWithObjectiveC.pdf" target="_blank" rel="external">Programming with Objective-C by Apple</a></li>
+<li><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/OOP_ObjC/OOP_ObjC.pdf" target="_blank" rel="external">Object-Oriented Programming with Objective-C by Apple</a></li>
+<li><a href="https://itunes.apple.com/us/book/swift-programming-language/id881256329?mt=11" target="_blank" rel="external">The Swift Programming Language by Apple</a> :large_orange_diamond:</li>
+<li><a href="https://itunes.apple.com/us/book/using-swift-cocoa-objective/id888894773?mt=11" target="_blank" rel="external">Using Swift with Cocoa and Objective C by Apple</a> :large_orange_diamond:</li>
+<li><a href="http://www.bignerdranch.com/we-write/ios-programming.html" target="_blank" rel="external">iOS Programming: The Big Nerd Ranch Guide by Christian Keur, Aaron Hillegass, Joe Conway</a></li>
+<li><a href="http://www.amazon.com/Programming-Objective-C-6th-Developers-Library/dp/0321967607" target="_blank" rel="external">Programming in Objective-C by Stephen G. Kochan</a></li>
+<li><a href="https://leanpub.com/your-first-ios-app" target="_blank" rel="external">Your First iOS App by Ash Furrow</a></li>
+<li><a href="https://www.mikeash.com/book.html" target="_blank" rel="external">The Complete Friday Q &amp; A: Volume 1</a></li>
+<li><a href="http://ronnqvi.st/book/" target="_blank" rel="external">3D Graphics with Scenekit</a></li>
+<li><a href="http://www.amazon.com/Core-Data-iOS-Data-Driven-Applications/dp/0321670426/" target="_blank" rel="external">Core Data for iOS: Developing Data-Driven Applications for the iPad, iPhone, and iPod touch</a></li>
+<li><a href="http://www.amazon.com/Cocoa-Design-Patterns-Erik-Buck/dp/0321535022" target="_blank" rel="external">Cocoa Design Patterns</a></li>
+</ul>
+<h1 id="Other_Awesome_Lists">Other Awesome Lists</h1><p>Other amazingly awesome lists can be found in the</p>
+<ul>
+<li><a href="https://github.com/bayandin/awesome-awesomeness" target="_blank" rel="external">awesome-awesomeness</a> list.</li>
+<li><a href="https://github.com/dkhamsing/open-source-ios-apps" target="_blank" rel="external">Open Source apps</a> list of open source ios apps</li>
+<li>Awesome-swift<ul>
+<li><a href="https://github.com/matteocrippa/awesome-swift" target="_blank" rel="external">@matteocrippa</a> - A collaborative list of awesome swift resources.</li>
+<li><a href="https://github.com/Wolg/awesome-swift" target="_blank" rel="external">@Wolg</a> - A curated list of awesome Swift frameworks, libraries and software.</li>
+</ul>
+</li>
+<li><a href="https://github.com/sanketfirodiya/sample-watchkit-apps" target="_blank" rel="external">awesome watchkit apps</a> curated list of sample watchkit apps and tutorials. :watch:</li>
+<li><a href="https://github.com/sanketfirodiya/iOS-learning-resources" target="_blank" rel="external">iOS Learning Resources</a> Comprenehensive collection of high quality, frequently updated and well maintained iOS tutorial sites.</li>
+<li><a href="https://github.com/sxyx2008/awesome-ios-animation" target="_blank" rel="external">awesome-ios-animation</a> - A curated list of awesome iOS animation, including Objective-C and Swift libraries.</li>
+<li><a href="https://github.com/sxyx2008/awesome-ios-chart" target="_blank" rel="external">awesome-ios-chart</a> - A curated list of awesome iOS chart libraries, including Objective-C and Swift.</li>
+<li><a href="https://github.com/vsouza/awesome-gists#ios" target="_blank" rel="external">awesome-gists</a> - A list of amazing gists (iOS section).</li>
+<li><a href="https://github.com/cjwirth/awesome-ios-ui" target="_blank" rel="external">awesome-ios-ui</a> - A curated list of awesome iOS UI/UX libraries.</li>
+<li><a href="https://medium.com/ios-os-x-development" target="_blank" rel="external">iOS App Development on Medium</a> - Stories and technical tips about building apps for iOS, Apple Watch, and iPad/iPhone</li>
+</ul>
+<h1 id="Contributing">Contributing</h1><p><a href="https://github.com/vsouza/awesome-ios/blob/master/CONTRIBUTING.md" target="_blank" rel="external">See the guide</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/16/react-native-入门－相互通信/" itemprop="url">
                   react-native 入门－相互通信
                 </a>
@@ -1074,399 +2136,6 @@ RNNativeBridgeModule.h
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/11/iOS9通用链接Universal-Links/" itemprop="url">
-                  iOS9通用链接Universal Links
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-11T14:15:35+08:00" content="2016-03-11">
-              2016-03-11
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="iOS9通用链接Universal_Links">iOS9通用链接Universal Links</h4><p>目前我们使用打开自己应用的方法是在safari里面使用“xxxappname://”的模式。</p>
-<blockquote>
-<p>缺点</p>
-</blockquote>
-<ol>
-<li>无法在一些内置浏览器里面打开应用，比如微信，QQ.</li>
-<li>在safari里面打开的时候，会提升是否打开应用</li>
-<li>在进行跳转的时候，会有其他网页跟随（这个可能是我们前端没有进行优化）</li>
-</ol>
-<p>iOS9后，苹果推出了通用链接（universal links），实现了上述功能，无缝链接到我们自己的应用上</p>
-<blockquote>
-<p>优点</p>
-</blockquote>
-<ol>
-<li>通过唯一的网址, 就可以链接一个特定的视图到你的 APP 里面, 不需要特别的 schema</li>
-<li>可以在任何访问这个链接的地方链接到我们的应用</li>
-<li>不会影响到我们iOS9以前的打开方式</li>
-</ol>
-<h4 id="使用">使用</h4><blockquote>
-<p>前提</p>
-</blockquote>
-<ol>
-<li>有ssl域名，也就是正轨的https访问</li>
-<li>必须域名，不能是ip</li>
-<li>必须上传一个文件到域名根目录下面</li>
-<li>iOS9</li>
-</ol>
-<blockquote>
-<p>添加域名到我们的项目里面</p>
-</blockquote>
-<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/66B41F17-9C42-43C5-9C7A-7A7D85C73081.png" alt="image"></p>
-<p>这里的域名和我们将要上传文件的域名一致，可以包括一些子域名和扩展域名。app启动的时候，将会在这个域名下载我们上传的文件</p>
-<blockquote>
-<p>上传文件到我们的域名根目录下面</p>
-</blockquote>
-<p>使用编辑工具创建一个文本：文件名必须为apple-app-site-association</p>
-<p>注：文本不能有后缀，我使用vim</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">applinks</span>": <span class="value">&#123;</span><br><span class="line">        "<span class="attribute">apps</span>": <span class="value">[]</span>,</span><br><span class="line">        "<span class="attribute">details</span>": <span class="value">[</span><br><span class="line">            &#123;</span><br><span class="line">                "<span class="attribute">appID</span>": <span class="value"><span class="string">"ME8P9RGZ87.com.cc.CTChat"</span></span>,</span><br><span class="line">                "<span class="attribute">paths</span>": <span class="value">[ <span class="string">"*"</span>,<span class="string">"/*"</span>,<span class="string">"/home"</span>, <span class="string">"/cooperation"</span>,<span class="string">"/cooperationList"</span>,<span class="string">"/coopDetail"</span>,<span class="string">"/darenmine"</span>,<span class="string">"/merchantmine"</span>,<span class="string">"/darenhome"</span>,<span class="string">"/merchanthome"</span>,<span class="string">"/subject"</span>]</span><br><span class="line">            </span>&#125;</span><br><span class="line">        ]</span><br><span class="line">    </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<p>这里的appid为teamid+bundleid，teamid在苹果开发者账号下可以查到，bundleid在项目中</p>
-<p>path为你想在链接的path为xxx的时候打开我们的应用</p>
-<p>上传到我们的域名根目录下面。可以在<a href="https://search.developer.apple.com/appsearch-validation-tool/" target="_blank" rel="external">苹果开发工具</a>里面检测是否有效</p>
-<blockquote>
-<p>实现打开链接的协议</p>
-</blockquote>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application continueUserActivity:(<span class="built_in">NSUserActivity</span> *)userActivity restorationHandler:(<span class="keyword">void</span> (^)(<span class="built_in">NSArray</span> * _Nullable))restorationHandler&#123;</span><br><span class="line">    <span class="keyword">if</span> (userActivity<span class="variable">.activityType</span> == <span class="built_in">NSUserActivityTypeBrowsingWeb</span>) &#123;</span><br><span class="line">        <span class="built_in">NSURL</span> *url = userActivity<span class="variable">.webpageURL</span>;</span><br><span class="line">        <span class="keyword">if</span> (![<span class="keyword">self</span> handleUniversalLink:url]) &#123;</span><br><span class="line">            [[<span class="built_in">UIApplication</span> sharedApplication] openURL:url];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)handleUniversalLink:(<span class="built_in">NSURL</span>*)url&#123;<span class="comment">//这个为处理链接的方法</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上就是所有步骤</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/11/iOS捕捉错误日志/" itemprop="url">
-                  iOS捕捉错误日志
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-11T10:18:25+08:00" content="2016-03-11">
-              2016-03-11
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="iOS捕捉错误日志">iOS捕捉错误日志</h2><blockquote>
-<p>为什么需要自己实现错误crash捕捉</p>
-</blockquote>
-<p>目前我用过的错误获取第三方有：umeng，bughd</p>
-<p>他们支持的收集有：设备信息，app版本号，时间，机型，错误信息等，但是有时候这些信息不足以让我们开发者定位到错误的地方，所以我希望拥有更详细的错误日志。例如用户的行为轨迹，错误发生的页面。那么我就需要把错误收集重写过。</p>
-<p>1.重写错误收集需要捕捉系统发出的</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSSetUncaughtExceptionHandler<span class="list">(<span class="keyword">&amp;uncatchExceptionHandler</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<p>2.然后新建一个类实现</p>
-<p>获取信息，获取奔溃时屏幕快照等</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> uncatchExceptionHandler(<span class="built_in">NSException</span>*exception)&#123;</span><br><span class="line">    <span class="built_in">NSArray</span> *stackArray = [exception callStackSymbols];</span><br><span class="line">    <span class="built_in">NSString</span> *reason = [exception reason];</span><br><span class="line">    <span class="built_in">NSString</span> *name = [exception name];</span><br><span class="line">    <span class="built_in">NSString</span> *exceptionInfo = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Exception reason：%@\nException name：%@\nException stack：%@"</span>,name, reason, stackArray];</span><br><span class="line">    [[SDImageCache sharedImageCache]storeImage:[CTCatCrash screenView] forKey:<span class="string">@"crashImage"</span>];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">UIImage</span>*)screenView&#123;</span><br><span class="line">    <span class="built_in">CGRect</span> rect = [<span class="built_in">UIScreen</span> mainScreen]<span class="variable">.bounds</span>;</span><br><span class="line">    <span class="built_in">UIGraphicsBeginImageContext</span>(rect<span class="variable">.size</span>);</span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">    [[<span class="built_in">UIApplication</span> sharedApplication]<span class="variable">.keyWindow</span><span class="variable">.layer</span> renderInContext:context];</span><br><span class="line">    <span class="built_in">UIImage</span> *img = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line">    <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">    <span class="keyword">return</span> img;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.存储在本地，下次打开就进行上传到服务器，然后在清空这块数据</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/08/java-OSGI简单使用/" itemprop="url">
-                  java OSGI简单使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-08T09:56:13+08:00" content="2016-03-08">
-              2016-03-08
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>OGSI的项目流程</p>
-</blockquote>
-<h6 id="新建项目">新建项目</h6><ul>
-<li>启动Eclipse，依次点 File –&gt; New –&gt; Project。</li>
-<li>选择Plug-in Project，next。</li>
-<li>输入Project Name项目名称，比如com.howard.sample.HelloWorld,Target Platform(目标* 平台)里的an OSGI framework，选择standard。</li>
-<li>剩下的保持默认，next。</li>
-<li>下个对话框也默认，next。</li>
-<li>然后选择Hello OSGI Bundle作为模版。Finish。</li>
-</ul>
-<p>生成的项目中只包含两个文件：activator和mainfest</p>
-<p>注：</p>
-<ul>
-<li>你的Activator类需要一个公有的无参数构造函数。OSGI框架会通过类反射的方式来实例化一个Activator类。</li>
-<li>容器启动bundle过程中负责调用你的Activator类的start方法。bundle可以在此初始化资源比如说初始化数据库连接。start方法需要一个参数，BundleContext对象。这个对象允许bundles以取得OSGI容器相关信息的方式和框架交互。如果某一个bundle有异常抛出，容器将对该bundle标记为stopped并不将其纳入service列表。</li>
-<li>容器关闭的时候会调用你的Activator类方法stop(),你可以利用这个机会做一些清理的操作。</li>
-</ul>
-<p>mainfest里面的值：</p>
-<ul>
-<li>Bundle-ManifestVersion<br>   数值为2意味着本bundle支持OSGI规范第四版；如果是1那就是支持OSGI规范第三版。</li>
-<li>Bundle-Name<br>   给bundle定义一个短名，方便人员阅读</li>
-<li>Bundle-SymbolicName<br>   给bundle定义一个唯一的非局部名。方便分辨。</li>
-<li>Bundle-Activator<br>   声明在start和stop事件发生时会被通知的监听类的名字。</li>
-<li>Import-Package<br>   定义bundle的导入包。</li>
-</ul>
-<h6 id="运行项目">运行项目</h6><ul>
-<li>点击Run –&gt; Run Configuration</li>
-<li>在左边的OSGI Framework选项里右键 new ，创建一个新的OSGI Run Configuration<br>名字随便取好了，我们取个OSGi hello world。</li>
-<li>你会注意到中间的窗口里Workspace项目里有一子项 我们刚新建的项目,将其勾选上，其他的不用管。这时的状态应该如下图。<br>点击Run按钮。在控制台你应该可以看见点东西了。那是叫做OSGI控制台的东东。与子相伴，还有一个我们start里面输出的东西。</li>
-</ul>
-<h6 id="依赖管理">依赖管理</h6><ol>
-<li>创建一个被依赖的项目：com.xxxservice</li>
-<li>在mainfest里面runtime的exported package选项里面导入我们的项目com.xxxservice</li>
-<li>创建一个依赖上面项目的项目：com.xxx</li>
-<li>在mainfest里面的dependencies里面import packages导入com.xxxservice</li>
-<li>然后在com.xxx的activator里面使用com.xxxservice里面的接口等</li>
-</ol>
-<h6 id="可见区域">可见区域</h6><p>osgi的容器自定义了java class loader来有选择的加载类ogsi为每个bundle都创建的不同的class loader，所以bundle能访问的classes包括：</p>
-<ul>
-<li>Boot classpath：所有的java基础类。</li>
-<li>Framework classpath：OSGI框架级别的classloader加载的类</li>
-<li>Bundle classpath：Bundle本身引用的关系紧密的JAR的路径</li>
-<li>Imported packages：就是在MANIFEST.MF里声明的导入包，一旦声明，在bundle内就可见了。</li>
-</ul>
-<h6 id="导出services">导出services</h6><p>假设我们com.xxxservice里面新建了一个serviceActivator implements BundleActivator代码如下</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class <span class="type">HelloServiceActivator</span> implements <span class="type">BundleActivator</span> &#123;</span><br><span class="line">	<span class="type">ServiceRegistration</span> helloServiceRegistration;</span><br><span class="line">	@<span class="type">Override</span></span><br><span class="line">	public <span class="type">void</span> start(<span class="type">BundleContext</span> arg0) throws <span class="type">Exception</span> &#123;</span><br><span class="line">		// <span class="type">TODO</span> <span class="type">Auto</span>-generated <span class="keyword">method</span> stub</span><br><span class="line">		<span class="type">HelloService</span> hello = new <span class="type">HelloServiceImp</span>();</span><br><span class="line">		helloServiceRegistration = arg0.registerService(<span class="type">HelloService</span>.class.getName(), hello, null);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@<span class="type">Override</span></span><br><span class="line">	public <span class="type">void</span> stop(<span class="type">BundleContext</span> arg0) throws <span class="type">Exception</span> &#123;</span><br><span class="line">		// <span class="type">TODO</span> <span class="type">Auto</span>-generated <span class="keyword">method</span> stub</span><br><span class="line">		helloServiceRegistration.unregister();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>改变mainfest里面的bundle-activator为这个</p>
-<p>导入：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Activator <span class="keyword">implements</span> BundleActivator &#123;</span><br><span class="line"></span><br><span class="line">	ServiceReference helloServiceReference;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> start(BundleContext context) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		System.out.<span class="keyword">println</span>(<span class="string">"start World!!"</span>);</span><br><span class="line">		 helloServiceReference = context.getServiceReference(HelloService.<span class="keyword">class</span>.getName());</span><br><span class="line">		 HelloService hello = (HelloService)context.getService(helloServiceReference);</span><br><span class="line">		 System.out.<span class="keyword">println</span>(hello.sayHello());</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> stop(BundleContext context) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		System.out.<span class="keyword">println</span>(<span class="string">"Goodbye World!!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="创建服务工厂">创建服务工厂</h6><p>上面我们是在bundle启动的时候去创建和注册service，有时候service十分耗资源，希望用的时候创建，其他时候销毁。</p>
-<p>解决问题：使用ServiceFactory接口实现来代替原来的实现方式</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class <span class="type">HelloServiceFactory</span> implements <span class="type">ServiceFactory</span> &#123;</span><br><span class="line">	private <span class="type">int</span> usageCounter = <span class="number">0</span>;</span><br><span class="line">	@<span class="type">Override</span></span><br><span class="line">	public <span class="type">Object</span> getService(<span class="type">Bundle</span> arg0, <span class="type">ServiceRegistration</span> arg1) &#123;</span><br><span class="line">		// <span class="type">TODO</span> <span class="type">Auto</span>-generated <span class="keyword">method</span> stub</span><br><span class="line">		<span class="type">System</span>.<span class="keyword">out</span>.println(<span class="string">"create object of hellservice for"</span> + arg0.getSymbolicName());</span><br><span class="line">		usageCounter ++;</span><br><span class="line">		<span class="type">System</span>.<span class="keyword">out</span>.println(<span class="string">"number of bundle using service"</span> + usageCounter);</span><br><span class="line">		<span class="type">HelloService</span> helloService = new <span class="type">HelloServiceImp</span>();</span><br><span class="line">		<span class="keyword">return</span> helloService;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@<span class="type">Override</span></span><br><span class="line">	public <span class="type">void</span> ungetService(<span class="type">Bundle</span> arg0, <span class="type">ServiceRegistration</span> arg1, <span class="type">Object</span> arg2) &#123;</span><br><span class="line">		// <span class="type">TODO</span> <span class="type">Auto</span>-generated <span class="keyword">method</span> stub</span><br><span class="line"></span><br><span class="line">        <span class="type">System</span>.<span class="keyword">out</span>.println(<span class="string">"Release object of HelloService for "</span> + arg0.getSymbolicName());  </span><br><span class="line">        usageCounter--;  </span><br><span class="line">        <span class="type">System</span>.<span class="keyword">out</span>.println(<span class="string">"Number of bundles using service "</span> + usageCounter); </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>修改HelloService的start方法</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HelloServiceFactory <span class="literal">factory</span> = <span class="keyword">new</span> HelloServiceFactory();</span><br><span class="line">helloServiceRegistration = arg0.registerService(HelloService.<span class="keyword">class</span>.getName(), <span class="literal">factory</span>, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
-<h6 id="services跟踪">services跟踪</h6><p>1.在HelloWorld bundle里的MANIFEST.MF导入org.util.tracker包。</p>
-<p>2.创建HelloServiceTracker类，代码如下：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">HelloServiceTracker</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">ServiceTracker</span> &#123;</span>  </span><br><span class="line">    public <span class="type">HelloServiceTracker</span>(<span class="type">BundleContext</span> context) &#123;  </span><br><span class="line">        <span class="keyword">super</span>(context, <span class="type">HelloService</span>.<span class="keyword">class</span>.getName(),<span class="literal">null</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">    public <span class="type">Object</span> addingService(<span class="type">ServiceReference</span> reference) &#123;  </span><br><span class="line">        <span class="type">System</span>.out.println(<span class="string">"Inside HelloServiceTracker.addingService "</span> + reference.getBundle());  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.addingService(reference);  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void removedService(<span class="type">ServiceReference</span> reference, <span class="type">Object</span> service) &#123;  </span><br><span class="line">        <span class="type">System</span>.out.println(<span class="string">"Inside HelloServiceTracker.removedService "</span> + reference.getBundle());  </span><br><span class="line">        <span class="keyword">super</span>.removedService(reference, service);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.修改调用方： </p>
-<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">helloServiceTracker = new HelloServiceTracker(context)<span class="comment">;</span></span><br><span class="line">helloServiceTracker.open()<span class="comment">;</span></span><br><span class="line">HelloService hello = (HelloService)helloServiceTracker.getService()<span class="comment">;</span></span><br><span class="line">System.out.println(hello.sayHello())<span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>OGSI命令</p>
-</blockquote>
-<p>下面列出一些常用的OSGI命令，你可以试着和OSGI容器交互。</p>
-<ol>
-<li>ss 显示已安装的bundles的状态信息，信息包括bundle ID，短名，状态等等。</li>
-<li>start 启动一个bundle</li>
-<li>stop  关闭一个bundle</li>
-<li>update  载入一个新的JAR文件更新一个bundle</li>
-<li>install  安装一个新的bundle到容器中</li>
-<li>uninstall  卸载一个已在容器中的bundle</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1512,7 +2181,7 @@ RNNativeBridgeModule.h
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1522,7 +2191,7 @@ RNNativeBridgeModule.h
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -216,6 +216,386 @@
             
               
                 
+                <a class="post-title-link" href="/2016/01/15/Base64编码/" itemprop="url">
+                  Base64编码
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-15T10:20:35+08:00" content="2016-01-15">
+              2016-01-15
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Base64编码">Base64编码</h3><p>base64是一种很常见的编码，常用于URL、Cookie、网页中传输少量二进制数据</p>
+<ol>
+<li><p>编码方式：</p>
+<p> 准备一个包含64个字符的数组：</p>
+<p> [‘A’,’B’,’C’,…,’a’,’b’,’c’,…,’0’,’1’,’2’,…,’+’,’/‘]</p>
+<p> 把需要转码的字符串进行二进制处理，每三个字符一组，一共3*8=24位，划分为4组，每组6个，然后根据每组的数字作为索引，查找准备好的64个字符的数组中对应的字符。</p>
+<p> 如果多出一个或者两个字符，那么就在字符后面加\x00,在完成的字符后面加一个或者两个＝号表示补了几个字节。</p>
+</li>
+<li><p>示例：</p>
+<p> 字符 bin ：二进制为 62696e =&gt; 01100010 01101001 01101110</p>
+<p> 分为四组： 011000  100110 100101 101110 =&gt; 第24个字符，第38个字符，第37个字符，第46个字符</p>
+<p> 结果为：Ymlu</p>
+</li>
+</ol>
+<ol>
+<li><p>当作为url使用的时候，不能出现’+’,’/‘.所以通常把这两个字符换成’-‘,’_’</p>
+</li>
+<li><p>结果里面也不能出现’=’，都是3个字符结果4个字符，那么在结果里面解码时重新加上即可。</p>
+</li>
+</ol>
+<h3 id="MD5_DES_Feistel加密">MD5 DES Feistel加密</h3>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/01/08/使用AssetsLibrary做自定义相册选择器/" itemprop="url">
+                  使用AssetsLibrary做自定义相册选择器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-08T15:58:26+08:00" content="2016-01-08">
+              2016-01-08
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="使用AssetsLibrary做自定义相册选择器">使用AssetsLibrary做自定义相册选择器</h2><h6 id="场景：">场景：</h6><p>在许多时候，系统自带的图片选择器不能满足我们的需求，例如一次选择多张图片，在选择图片的时候有图片选择的提示，以及图片的数量限制，甚至选择图片后续的图片编辑。</p>
+<p>目前有两种自定义的相册图片选择的方式：AssetsLibrary和photokit。</p>
+<p>photokit只能用于iOS8以上的版本，在photokit里面可以使用iOS9出来的live picture。在性能和过滤上优于AssetsLibrary。<br>AssetsLibrary比较常规，能满足遇到的大部分需求。</p>
+<p>这里为第一篇，主要讲AssetsLibrary自定义选择。下篇为photokit以及混合使用，做iOS版本控制上区分。</p>
+<p>这里我放出我做的一个选择器：<br><a href="https://github.com/Mikora/CTImagePicker" target="_blank" rel="external">github</a></p>
+<h6 id="流程">流程</h6><ol>
+<li>创建一个navigationcontroller,把相册列表(2)和全部照片列表(3里面url为第一个相册的url)两个viewcontroller塞进去。</li>
+<li>创建相册列表，获取所有数量不为零的ALAssetsGroup，取出第一张缩略图和名字放进去</li>
+<li>创建照片列表，把ALAssetsGroup的url初始化进去，根据url获取ALAssetsGroup，然后根据ALAssetsGroup获取所有group下的ALAsset，展示出来</li>
+</ol>
+<h6 id="实现">实现</h6><p>在navigationcontroller里面先把第一个相册找出来：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsLibrary *library = [[ALAssetsLibrary alloc]init];</span><br><span class="line">[library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    <span class="keyword">if</span> (group == <span class="literal">nil</span> &amp;&amp; *stop == <span class="literal">NO</span>) &#123;</span><br><span class="line">        [<span class="keyword">self</span> showAlbumList];<span class="comment">//一个都没有直接跳到列表</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (*stop == <span class="literal">YES</span>) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        *stop = <span class="literal">YES</span>;</span><br><span class="line">        <span class="built_in">NSURL</span> *assetsUrl = [group valueForProperty:ALAssetsGroupPropertyURL];<span class="comment">//获取第一个相册url,默认第一个为所有照片</span></span><br><span class="line">        CTImageAlbumViewController *albumVC = [[CTImageAlbumViewController alloc]init];<span class="comment">//相册列表</span></span><br><span class="line">        <span class="keyword">if</span> (assetsUrl) &#123;</span><br><span class="line">            CTImageCollectionViewController *collectionVC = [[CTImageCollectionViewController alloc]initWithAssetsGroupUrl:assetsUrl];<span class="comment">//所有照片列表</span></span><br><span class="line">            [<span class="keyword">self</span> setViewControllers:@[albumVC,collectionVC]];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            [<span class="keyword">self</span> setViewControllers:@[albumVC]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; failureBlock:^(<span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">    </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>上面初始化CTImageAlbumViewController,在里面先找出所有数量不为零的相册，添加到cell里面</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.assetsLibrary</span> = [[ALAssetsLibrary alloc]init];</span><br><span class="line">type = @(ALAssetsGroupAll);<span class="comment">//视频和照片都一起</span></span><br><span class="line">[<span class="keyword">self</span><span class="variable">.assetsLibrary</span> enumerateGroupsWithTypes:[type unsignedIntegerValue] usingBlock:^(ALAssetsGroup *group, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">            __<span class="keyword">strong</span> <span class="keyword">typeof</span>(weakSelf) weakSelf = weakSelf;</span><br><span class="line">            <span class="keyword">if</span> (group) &#123;</span><br><span class="line">                <span class="keyword">if</span> (group<span class="variable">.numberOfAssets</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    [assetsGroups addObject:group];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                numberOfFinishedType++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (numberOfFinishedType == array<span class="variable">.count</span>) &#123;<span class="comment">//当numberOfFinishedType为1的时候便结束并且拍戏</span></span><br><span class="line">                <span class="built_in">NSArray</span> *sortAssetsGroup = [assetsGroups sortedArrayUsingComparator:^<span class="built_in">NSComparisonResult</span>(<span class="keyword">id</span>  _Nonnull obj1, <span class="keyword">id</span>  _Nonnull obj2) &#123;</span><br><span class="line">                    ALAssetsGroup *a = obj1;</span><br><span class="line">                    ALAssetsGroup *b = obj2;</span><br><span class="line">                    <span class="built_in">NSNumber</span> *apropertyType = [a valueForProperty:ALAssetsGroupPropertyType];</span><br><span class="line">                    <span class="built_in">NSNumber</span> *bpropertyType = [b valueForProperty:ALAssetsGroupPropertyType];</span><br><span class="line">                    <span class="keyword">if</span> ([apropertyType compare:bpropertyType] == <span class="built_in">NSOrderedAscending</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="built_in">NSOrderedDescending</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span> <span class="built_in">NSOrderedSame</span>;</span><br><span class="line">                &#125;];</span><br><span class="line">                <span class="keyword">self</span><span class="variable">.groupArray</span> = [<span class="built_in">NSMutableArray</span> arrayWithArray: sortAssetsGroup];</span><br><span class="line">                [<span class="keyword">self</span><span class="variable">.tableview</span> reloadData];</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125; failureBlock:^(<span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"获取相册失败"</span>);</span><br><span class="line">        &#125;];</span><br></pre></td></tr></table></figure>
+<p>这里的数据都放入了assetsGroups，在tableview里面使用就好</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsGroup *algroup = [<span class="keyword">self</span><span class="variable">.groupArray</span> objectAtIndex:indexPath<span class="variable">.row</span>];</span><br><span class="line"><span class="built_in">NSString</span> *name = [algroup valueForProperty:ALAssetsGroupPropertyName];</span><br><span class="line"><span class="built_in">NSInteger</span> count = [algroup numberOfAssets];</span><br><span class="line"><span class="built_in">UIImage</span> *photo = [<span class="built_in">UIImage</span> imageWith<span class="built_in">CGImage</span>:[algroup posterImage]];</span><br></pre></td></tr></table></figure>
+<p>点击item跳转：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALAssetsGroup *algroup = [self.groupArray objectAtIndex:indexPath.row];</span><br><span class="line">CTImageCollectionViewController *collectionVC = <span class="string">[[CTImageCollectionViewController alloc]initWithAssetsGroupUrl:[algroup valueForProperty:ALAssetsGroupPropertyURL]]</span>;</span><br></pre></td></tr></table></figure>
+<p>在CTImageCollectionViewController拿出照片展示：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">dispatch_async(dispatch_get_global_queue(<span class="type">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;//使用后台线程</span><br><span class="line">        [self.alAssetsGroup enumerateAssetsWithOptions:<span class="type">NSEnumerationReverse</span> usingBlock:^(<span class="type">ALAsset</span> *<span class="literal">result</span>, <span class="type">NSUInteger</span> index, <span class="type">BOOL</span> *stop) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="literal">result</span>) &#123;</span><br><span class="line">                [self.resultArray insertObject:<span class="literal">result</span> atIndex:<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (index == <span class="number">0</span>) &#123;</span><br><span class="line">                *stop = <span class="type">YES</span>;</span><br><span class="line">                <span class="keyword">return</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">        dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            [self.collectionView reloadData];</span><br><span class="line">            [self scrollToBottom:<span class="type">NO</span>];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/01/06/Java中使用Hibernate作为数据库框架/" itemprop="url">
+                  Java中使用Hibernate作为数据库框架
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-06T14:50:26+08:00" content="2016-01-06">
+              2016-01-06
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Java_Web中使用hibernate作为对象关系映射框架">Java Web中使用hibernate作为对象关系映射框架</h4><p>我这里使用mysql作为数据库</p>
+<p>#####准备工作：</p>
+<p>1.下载hibernate jar文件 <a href="http://7xpas5.com1.z0.glb.clouddn.com/hibernate.zip" target="_blank" rel="external">http://7xpas5.com1.z0.glb.clouddn.com/hibernate.zip</a></p>
+<p>2.下载mysql连接 jar文件 <a href="http://7xpas5.com1.z0.glb.clouddn.com/mysql.zip" target="_blank" rel="external">http://7xpas5.com1.z0.glb.clouddn.com/mysql.zip</a></p>
+<p>3.配置好mysql的权限</p>
+<p>你的帐号不允许从远程登陆，只能在localhost。这个时候只要在localhost的那台电脑，登入mysql后，更改 “mysql” 数据库里的 “user” 表里的 “host” 项，从”localhost”改称”%” </p>
+<p>$mysql -u root -p<strong>*</strong></p>
+<p>mysql&gt;update user set host = ‘%’ where user = ‘root’; </p>
+<p>mysql&gt;select host, user from user; </p>
+<p>4.配置好mysql的字符集//不需要全部设置</p>
+<p>进入mysql</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_client = utf8 <span class="comment">;  </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_connection = utf8 <span class="comment">;   </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_database = utf8 <span class="comment">;   </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_results = utf8 <span class="comment">;    </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> character_set_server = utf8 <span class="comment">;   </span></span><br><span class="line"> </span><br><span class="line">mysql&gt; <span class="keyword">SET</span> collation_connection = utf8 <span class="comment">;  </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> collation_database = utf8 <span class="comment">;   </span></span><br><span class="line">mysql&gt; <span class="keyword">SET</span> collation_server = utf8 <span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>5.新建工程导入jar</p>
+<h5 id="编写配置文件">编写配置文件</h5><p>1.servlet配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">servlet</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">servlet-name</span>&gt;</span>login<span class="tag">&lt;/<span class="title">servlet-name</span>&gt;</span> <span class="comment">&lt;!-- 名字 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">servlet-class</span>&gt;</span>com.cc.service.servlet.Login<span class="tag">&lt;/<span class="title">servlet-class</span>&gt;</span> <span class="comment">&lt;!-- 路径 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">servlet-mapping</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">servlet-name</span>&gt;</span>login<span class="tag">&lt;/<span class="title">servlet-name</span>&gt;</span> <span class="comment">&lt;!-- 与名字对应 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">url-pattern</span>&gt;</span>/api/v1/login<span class="tag">&lt;/<span class="title">url-pattern</span>&gt;</span> <span class="comment">&lt;!-- 访问的url --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.hibernate配置文件</p>
+<p>新建hibernate.cfg.xml，加入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">hibernate-configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">session-factory</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.dialect"</span>&gt;</span></span><br><span class="line">			org.hibernate.dialect.MySQLDialect</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.driver_class"</span>&gt;</span></span><br><span class="line">			com.mysql.jdbc.Driver</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- 这里是数据库位置和名字 --&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 这里之前是jdbc:mysql://121.43.227.35:3306/test，但是为了设置字符集于是如下 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.url"</span>&gt;</span></span><br><span class="line">			<span class="cdata">&lt;![CDATA[jdbc:mysql://121.43.227.35:3306/test?useUnicode=true&amp;characterEncoding=utf8]]&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.username"</span>&gt;</span><span class="comment">&lt;!-- 数据库登录名字 --&gt;</span></span><br><span class="line">			root</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"hibernate.connection.password"</span>&gt;</span><span class="comment">&lt;!-- 数据库登录密码 --&gt;</span></span><br><span class="line">			Hc020436</span><br><span class="line">		<span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 这里配置所有.hbm.xml --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">mapping</span> <span class="attribute">resource</span>=<span class="value">"xxx.hbm.xml"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;/<span class="title">session-factory</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">hibernate-configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.表和model映射配置文件</p>
+<p>新建xxx.hbm.xml，这里是最普通的表映射model。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">hibernate-mapping</span> <span class="attribute">package</span>=<span class="value">"com.cc.service.dao"</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="title">class</span> <span class="attribute">name</span>=<span class="value">"User"</span> <span class="attribute">table</span>=<span class="value">"user"</span>&gt;</span><span class="comment">&lt;!-- model - 表 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">meta</span> <span class="attribute">attribute</span>=<span class="value">"class-description"</span>&gt;</span></span><br><span class="line">			This class contains the User detail.</span><br><span class="line">		<span class="tag">&lt;/<span class="title">meta</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">id</span> <span class="attribute">name</span>=<span class="value">"userid"</span> <span class="attribute">type</span>=<span class="value">"int"</span> <span class="attribute">column</span>=<span class="value">"id"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">generator</span> <span class="attribute">class</span>=<span class="value">"native"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">id</span>&gt;</span><span class="comment">&lt;!-- 字段 - 列 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"phone"</span> <span class="attribute">column</span>=<span class="value">"phone"</span> <span class="attribute">type</span>=<span class="value">"string"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"email"</span> <span class="attribute">column</span>=<span class="value">"email"</span> <span class="attribute">type</span>=<span class="value">"string"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">column</span>=<span class="value">"password"</span> <span class="attribute">type</span>=<span class="value">"string"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">hibernate-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>hibernate关联映射：</p>
+<p>1.一对一关联单向映射</p>
+<p>如user用户表和userinfo用户详细信息表</p>
+<p>在.hbm.xml里面的user里面添加：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">User:用户表对应的model</span><br><span class="line"></span><br><span class="line">	private UserInfo userinfo;</span><br><span class="line">	</span><br><span class="line">UserInfo:用户详细信息的model</span><br><span class="line"></span><br><span class="line">.hbm.xml里面添加映射</span><br><span class="line"></span><br><span class="line">&lt;<span class="type">class</span> <span class="property">name</span>=<span class="string">"User"</span> table=<span class="string">"user"</span>&gt;</span><br><span class="line">		&lt;<span class="property">id</span> <span class="property">name</span>=<span class="string">"userid"</span> type=<span class="string">"int"</span> column=<span class="string">"id"</span>&gt;</span><br><span class="line">			&lt;generator <span class="type">class</span>=<span class="string">"native"</span> /&gt;</span><br><span class="line">		&lt;/<span class="property">id</span>&gt;</span><br><span class="line">		&lt;one-<span class="keyword">to</span>-one <span class="property">name</span>=<span class="string">"userinfo"</span>/&gt;</span><br><span class="line">&lt;/<span class="type">class</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>注：一对一的关系为主键映射，所以不会有其他字段来维护他们的关系。所以一般都用多对一的关系来代替，并设置unique为true，限制多的一段的多重性为一</p>
+<p>2.多对一关联单向映射</p>
+<p>many-to-one：再多的一段加入一个外键，指向一的主键</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UserInfo :用户详细信息的model</span><br><span class="line">Trend:用户动态的model</span><br><span class="line">在trend里面添加一个到UserInfo的映射</span><br><span class="line">&lt;many-<span class="built_in">to</span>-<span class="constant">one</span> name=<span class="string">"user"</span> column=<span class="string">"userid"</span> insert=<span class="string">"false"</span> update=<span class="string">"false"</span> <span class="operator">not</span>-<span class="constant">null</span>=<span class="string">"true"</span>/&gt;</span><br></pre></td></tr></table></figure>
+<p>3.一对多关联单向映射</p>
+<p>set：在多的一段加入一个外键，指向一的主键</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Trend:用户动态的model</span><br><span class="line">TrendComment:动态评论的model</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"trendComment"</span> cascade=<span class="string">"all"</span>&gt;</span><br><span class="line">         	&lt;key column=<span class="string">"trendid"</span>/&gt;</span><br><span class="line">         	&lt;one-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"Comment"</span>/&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>4.单向多对多映射</p>
+<p>set：需要一张中间表</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">获取朋友</span><br><span class="line">Friend:朋友关系表</span><br><span class="line">UserInfo:用户信息表</span><br><span class="line"><span class="tag">&lt;<span class="title">set</span> <span class="attribute">name</span>=<span class="value">"friend"</span> <span class="attribute">table</span>=<span class="value">"Friend"</span>&gt;</span>   <span class="comment">&lt;!-- 中间表 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="title">key</span> <span class="attribute">column</span>=<span class="value">"userid"</span>/&gt;</span>   <span class="comment">&lt;!-- 中间表对应表的字段 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="title">many-to-many</span> <span class="attribute">class</span>=<span class="value">"UserInfo"</span> <span class="attribute">column</span>=<span class="value">"touserid"</span>/&gt;</span>  <span class="comment">&lt;!-- 中间表对应关联表的字段 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">set</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>5.双向一对一关联</p>
+<p>one-to-one </p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在用户表和用户详细信息表里面一对一双向关联</span><br><span class="line">用户表</span><br><span class="line">&lt;one-to-one name=<span class="string">"userInfo"</span>&gt;</span><br><span class="line">用户详细信息表</span><br><span class="line">&lt;one-to-one name=<span class="string">"user"</span> property-<span class="keyword">ref</span>=<span class="string">"userInfo"</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>6.双向一对多关联</p>
+<p>one-to-many</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">场景：一个人拥有多本书，一本书只属于一个人</span><br><span class="line">人：</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"book"</span> inverse=<span class="string">"true"</span>&gt;</span><br><span class="line">	&lt;key column=<span class="string">"bookid"</span>&gt;</span><br><span class="line">	&lt;one-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"Book"</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br><span class="line">书：</span><br><span class="line">&lt;many-<span class="keyword">to</span>-one <span class="property">name</span>=<span class="string">"user"</span> column=<span class="string">"userid"</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>7.双向多对多关联</p>
+<p>many-to-many</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">场景一个人有多种角色，角色又多个人</span><br><span class="line">角色端</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"user"</span> table=<span class="string">"userrole"</span>&gt;</span><br><span class="line"> 	&lt;key column=<span class="string">"roleid"</span>&gt;</span><br><span class="line"> 	&lt;many-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"User"</span> column=<span class="string">"userid"</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br><span class="line">用户端</span><br><span class="line">&lt;<span class="keyword">set</span> <span class="property">name</span>=<span class="string">"role"</span> table=<span class="string">"userrole"</span>&gt;</span><br><span class="line"> 	&lt;key column=<span class="string">"userid"</span>&gt;</span><br><span class="line"> 	&lt;many-<span class="keyword">to</span>-many <span class="type">class</span>=<span class="string">"Role"</span> column=<span class="string">"roleid"</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">set</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>注：有时候需要禁止循环引用检测</p>
+<p>String str = JSON.toJSONString(result,SerializerFeature.DisableCircularReferenceDetect);</p>
+<table>
+<thead>
+<tr>
+<th>引用</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“$ref”:”..”</td>
+<td>上一级</td>
+</tr>
+<tr>
+<td>“$ref”:”@”</td>
+<td>当前对象，也就是自引用</td>
+</tr>
+<tr>
+<td>“$ref”:”$”</td>
+<td>根对象</td>
+</tr>
+<tr>
+<td>“$ref”:”$.children.0”</td>
+<td>基于路径的引用，相当于 root.getChildren().get(0)</td>
+</tr>
+</tbody>
+</table>
+<h5 id="写在最后">写在最后</h5><p>用hibernate的时候，有一些场景，我碰到了没解决。后续解决了补上</p>
+<p>1.用户和用户信息表的model合并：比如用户名字存在用户信息表，我在查找用户的时候，希望映射出来的model带着用户名字</p>
+<p>2.多表联合查询：动态表，动态评论表，朋友表。查询动态列表的时候，一对多的查询评论表，评论列表需要是朋友id筛选。</p>
+<p>写这个纯粹是为了总结和记录。如果有误导，望纠正。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/12/30/iOS自定义视频播放器/" itemprop="url">
                   iOS自定义视频播放器
                 </a>
@@ -1067,7 +1447,7 @@ completionBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NS
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1077,7 +1457,7 @@ completionBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NS
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
