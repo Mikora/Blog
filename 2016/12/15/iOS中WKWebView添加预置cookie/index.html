@@ -57,19 +57,31 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="iOS中WKWebView添加预置cookie前言：
+在iOS中，大量的h5页面，免不了与原生的交互，大多数数据交换能通过我们与h5的定的协议，但是有时为了性能和需求，需要快速获取某些数据，比如用户的token，这样h5能在请求页面的同时获取到页面应该拿到的服务器数据，最基本的就是通过document.cookie获取。
+
+iOS基础的cookie管理
+
+cookie管理可以谷歌，大量的文章，不做">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://blog.huangcheng.com/2015/09/29/hello-world/index.html">
+<meta property="og:title" content="iOS中WKWebView添加预置cookie">
+<meta property="og:url" content="http://blog.huangcheng.com/2016/12/15/iOS中WKWebView添加预置cookie/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2015-09-29T02:16:55.000Z">
+<meta property="og:description" content="iOS中WKWebView添加预置cookie前言：
+在iOS中，大量的h5页面，免不了与原生的交互，大多数数据交换能通过我们与h5的定的协议，但是有时为了性能和需求，需要快速获取某些数据，比如用户的token，这样h5能在请求页面的同时获取到页面应该拿到的服务器数据，最基本的就是通过document.cookie获取。
+
+iOS基础的cookie管理
+
+cookie管理可以谷歌，大量的文章，不做">
+<meta property="og:updated_time" content="2016-12-15T13:18:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="iOS中WKWebView添加预置cookie">
+<meta name="twitter:description" content="iOS中WKWebView添加预置cookie前言：
+在iOS中，大量的h5页面，免不了与原生的交互，大多数数据交换能通过我们与h5的定的协议，但是有时为了性能和需求，需要快速获取某些数据，比如用户的token，这样h5能在请求页面的同时获取到页面应该拿到的服务器数据，最基本的就是通过document.cookie获取。
+
+iOS基础的cookie管理
+
+cookie管理可以谷歌，大量的文章，不做">
 
 
 
@@ -87,7 +99,7 @@ Quick">
   };
 </script>
 
-  <title> Hello World | 随笔 </title>
+  <title> iOS中WKWebView添加预置cookie | 随笔 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -217,7 +229,7 @@ Quick">
             
             
               
-                Hello World
+                iOS中WKWebView添加预置cookie
               
             
           </h1>
@@ -229,8 +241,8 @@ Quick">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-29T10:16:55+08:00" content="2015-09-29">
-              2015-09-29
+            <time itemprop="dateCreated" datetime="2016-12-15T20:51:44+08:00" content="2016-12-15">
+              2016-12-15
             </time>
           </span>
 
@@ -256,15 +268,36 @@ Quick">
       
 
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h3 id="iOS中WKWebView添加预置cookie">iOS中WKWebView添加预置cookie</h3><p>前言：</p>
+<p>在iOS中，大量的h5页面，免不了与原生的交互，大多数数据交换能通过我们与h5的定的协议，但是有时为了性能和需求，需要快速获取某些数据，比如用户的token，这样h5能在请求页面的同时获取到页面应该拿到的服务器数据，最基本的就是通过document.cookie获取。</p>
+<blockquote>
+<p>iOS基础的cookie管理</p>
+</blockquote>
+<p>cookie管理可以谷歌，大量的文章，不做阐述</p>
+<blockquote>
+<p>如何在WKWebView里加入cookie管理</p>
+</blockquote>
+<ul>
+<li><p>问题：iOS8支持的WKWebView的请求不会走到NSUrlProtocol，所以原来的方式不会截取到它的请求，原来的cookie管理对其也不起作用</p>
+</li>
+<li><p>解决方法：</p>
+<ul>
+<li><p>手动加入到页面的document里面</p>
+<ul>
+<li>document里面cookie的结构 ： document.cookie = ‘userName=xxx’;document.cookie=’userid=xxx’;<br>所以我们需要先生成这段字符串</li>
+<li><p>加到WKWebView: WKWebView初始化的时候有一种初始化方式</p>
+  <figure class="highlight"><figcaption><span>init(frame: CGRect, configuration: WKWebViewConfiguration)```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#21152;&#20837;cookie&#21040;configuration&#37324;&#38754;:</span><br></pre></td></tr></table></figure>
+<p>  let userContentController = WKUserContentController();<br>let cookieScript = WKUserScript.init(source: “你的字符串xxx”, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)<br>userContentController.addUserScript(cookieScript)<br>  let webViewConfig = WKWebViewConfiguration();<br>webViewConfig.userContentController = userContentController;</p>
+  <figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">			</span><br><span class="line">			这里有个属性需要关注：WKUserScriptInjectionTime</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">*</span> .atDocumentStart在document加载开始的时候</span><br><span class="line">			<span class="keyword">*</span> .atDocumentEnd在document加载完成的时候</span><br><span class="line">						</span><br><span class="line"><span class="keyword">*</span> 还有我们的这个页面请求的时候，是否需要加上cookie,如果需要：</span><br><span class="line">	</span><br><span class="line">	直接加在requets的header里面，示例</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>tmpRequest.addValue(“xxxx=xxx;xxx=xxxx”, forHTTPHeaderField: “Cookie”)<br>```    </p>
+</li>
+</ul>
+</li>
+</ul>
+<p>以上便是wk加入cookie的简单实用方法。</p>
+<p>具体关于cookie的加入管理，可以自己设置红名单，特定的url才加入，以免破坏外部链接的页面</p>
 
       
     </div>
@@ -282,12 +315,16 @@ Quick">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/12/06/常用正则表达式/" rel="next" title="常用正则表达式">
+                <i class="fa fa-chevron-left"></i> 常用正则表达式
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/29/iOS中关键字/" rel="prev" title="iOS中关键字">
-                iOS中关键字 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/02/如何做一个RN容器-iOS/" rel="prev" title="如何做一个RN容器-iOS">
+                如何做一个RN容器-iOS <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -356,7 +393,7 @@ Quick">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -399,7 +436,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick_Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create_a_new_post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run_server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate_static_files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy_to_remote_sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS中WKWebView添加预置cookie"><span class="nav-number">1.</span> <span class="nav-text">iOS中WKWebView添加预置cookie</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -421,7 +458,7 @@ Quick">
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
