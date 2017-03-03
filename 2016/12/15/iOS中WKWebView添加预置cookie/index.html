@@ -73,7 +73,7 @@ cookie管理可以谷歌，大量的文章，不做">
 iOS基础的cookie管理
 
 cookie管理可以谷歌，大量的文章，不做">
-<meta property="og:updated_time" content="2016-12-15T13:18:20.000Z">
+<meta property="og:updated_time" content="2017-03-03T02:57:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS中WKWebView添加预置cookie">
 <meta name="twitter:description" content="iOS中WKWebView添加预置cookie前言：
@@ -284,17 +284,32 @@ cookie管理可以谷歌，大量的文章，不做">
 <ul>
 <li><p>手动加入到页面的document里面</p>
 <ul>
-<li>document里面cookie的结构 ： document.cookie = ‘userName=xxx’;document.cookie=’userid=xxx’;<br>所以我们需要先生成这段字符串</li>
+<li><p>document里面cookie的结构 ： </p>
+<p>  document.cookie = ‘userName=xxx’;document.cookie=’userid=xxx’;</p>
+<p>  所以我们需要先生成这段字符串</p>
+</li>
 <li><p>加到WKWebView: WKWebView初始化的时候有一种初始化方式</p>
-  <figure class="highlight"><figcaption><span>init(frame: CGRect, configuration: WKWebViewConfiguration)```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#21152;&#20837;cookie&#21040;configuration&#37324;&#38754;:</span><br></pre></td></tr></table></figure>
-<p>  let userContentController = WKUserContentController();<br>let cookieScript = WKUserScript.init(source: “你的字符串xxx”, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)<br>userContentController.addUserScript(cookieScript)<br>  let webViewConfig = WKWebViewConfiguration();<br>webViewConfig.userContentController = userContentController;</p>
-  <figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">			</span><br><span class="line">			这里有个属性需要关注：WKUserScriptInjectionTime</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">*</span> .atDocumentStart在document加载开始的时候</span><br><span class="line">			<span class="keyword">*</span> .atDocumentEnd在document加载完成的时候</span><br><span class="line">						</span><br><span class="line"><span class="keyword">*</span> 还有我们的这个页面请求的时候，是否需要加上cookie,如果需要：</span><br><span class="line">	</span><br><span class="line">	直接加在requets的header里面，示例</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>tmpRequest.addValue(“xxxx=xxx;xxx=xxxx”, forHTTPHeaderField: “Cookie”)<br>```    </p>
+<p>  public init(frame: CGRect, configuration: WKWebViewConfiguration)</p>
 </li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+<pre><code>* 加入cookie到configuration里面:
+
+    <span class="comment"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> userContentController = WKUserContentController();</span><br><span class="line"><span class="built_in">let</span> cookieScript = WKUserScript.init(<span class="built_in">source</span>: <span class="string">"你的字符串xxx"</span>, injectionTime: WKUserScriptInjectionTime.atDocumentStart, <span class="keyword">for</span>MainFrameOnly: <span class="literal">false</span>)</span><br><span class="line">userContentController.addUserScript(cookieScript)</span><br><span class="line"><span class="built_in">let</span> webViewConfig = WKWebViewConfiguration();</span><br><span class="line">webViewConfig.userContentController = userContentController;</span><br></pre></td></tr></table></figure></span>
+
+
+* 这里有个属性需要关注：WKUserScriptInjectionTime
+
+    * .atDocumentStart在document加载开始的时候
+    * .atDocumentEnd在document加载完成的时候
+</code></pre><ul>
+<li><p>还有我们的这个页面请求的时候，是否需要加上cookie,如果需要：</p>
+<p>  直接加在requets的header里面，示例</p>
+<pre><code>tmpRequest.<span class="function"><span class="title">addValue</span><span class="params">(<span class="string">"xxxx=xxx;xxx=xxxx"</span>, forHTTPHeaderField: <span class="string">"Cookie"</span>)</span></span>
+</code></pre></li>
 </ul>
 <p>以上便是wk加入cookie的简单实用方法。</p>
 <p>具体关于cookie的加入管理，可以自己设置红名单，特定的url才加入，以免破坏外部链接的页面</p>
@@ -403,7 +418,7 @@ cookie管理可以谷歌，大量的文章，不做">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
