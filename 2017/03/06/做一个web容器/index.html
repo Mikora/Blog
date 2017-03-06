@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS," />
+  <meta name="keywords" content="iOS webview," />
 
 
 
@@ -57,28 +57,133 @@
 
 
 
-<meta name="description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing
-对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。
-1.round corner 
-优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如
-123456">
+<meta name="description" content="1.浏览器带的功能，定制功能wk和ui的不同容器，cookie管理，预置信息等
+1.wk和ui对比内存对比：
+
+
+
+地址
+uiwebview
+wkwebview
+
+
+
+
+www.baidu.com
+100mb
+10mb
+
+
+www.taobao.com
+100mb
+5mb
+
+
+www.qq.com
+130mb
+5mb
+
+
+
+加载时间:
+
+
+
+地址
+uiwebview
+wkwebview
+
+
+
+
+w">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS开发中各种优化">
-<meta property="og:url" content="http://blog.huangcheng.com/2016/04/28/iOS开发中各种优化/index.html">
+<meta property="og:title" content="做一个web容器">
+<meta property="og:url" content="http://blog.huangcheng.com/2017/03/06/做一个web容器/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing
-对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。
-1.round corner 
-优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如
-123456">
-<meta property="og:updated_time" content="2016-05-24T06:58:44.000Z">
+<meta property="og:description" content="1.浏览器带的功能，定制功能wk和ui的不同容器，cookie管理，预置信息等
+1.wk和ui对比内存对比：
+
+
+
+地址
+uiwebview
+wkwebview
+
+
+
+
+www.baidu.com
+100mb
+10mb
+
+
+www.taobao.com
+100mb
+5mb
+
+
+www.qq.com
+130mb
+5mb
+
+
+
+加载时间:
+
+
+
+地址
+uiwebview
+wkwebview
+
+
+
+
+w">
+<meta property="og:updated_time" content="2017-03-06T07:47:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS开发中各种优化">
-<meta name="twitter:description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing
-对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。
-1.round corner 
-优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如
-123456">
+<meta name="twitter:title" content="做一个web容器">
+<meta name="twitter:description" content="1.浏览器带的功能，定制功能wk和ui的不同容器，cookie管理，预置信息等
+1.wk和ui对比内存对比：
+
+
+
+地址
+uiwebview
+wkwebview
+
+
+
+
+www.baidu.com
+100mb
+10mb
+
+
+www.taobao.com
+100mb
+5mb
+
+
+www.qq.com
+130mb
+5mb
+
+
+
+加载时间:
+
+
+
+地址
+uiwebview
+wkwebview
+
+
+
+
+w">
 
 
 
@@ -96,7 +201,7 @@
   };
 </script>
 
-  <title> iOS开发中各种优化 | 随笔 </title>
+  <title> 做一个web容器 | 随笔 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -226,7 +331,7 @@
             
             
               
-                iOS开发中各种优化
+                做一个web容器
               
             
           </h1>
@@ -238,8 +343,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-28T11:13:48+08:00" content="2016-04-28">
-              2016-04-28
+            <time itemprop="dateCreated" datetime="2017-03-06T15:46:11+08:00" content="2017-03-06">
+              2017-03-06
             </time>
           </span>
 
@@ -265,38 +370,112 @@
       
 
       
-        <h4 id="离屏渲染">离屏渲染</h4><p>触发离屏渲染：mask, shadow, group opacity, edge antialiasing</p>
-<p>对性能的影响等级：Shadow &gt; RoundedCorner &gt; Mask &gt; GroupOpacity(迷之效果)。</p>
-<p>1.round corner </p>
-<p>优化方案：<br>uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CGRect imageFrame = CGRectMake(<span class="number">0.</span>, <span class="number">0.</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span>);</span><br><span class="line">UIGraphicsBeginImageContextWithOptions(<span class="built_in">rect</span>.<span class="built_in">size</span>, NO, [UIScreen mainScreen].<span class="built_in">scale</span>);</span><br><span class="line">[[UIBezierPath bezierPathWithRoundedRect:imageFrame cornerRadius:<span class="number">10</span>] addClip];</span><br><span class="line">[self.<span class="built_in">image</span> drawInRect:imageFrame];</span><br><span class="line">self.<span class="built_in">image</span> = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">UIGraphicsEndImageContext();</span><br></pre></td></tr></table></figure>
-<p> 使用一个层级去覆盖： 用一个带圆角中间透明的imageview去盖在上面<br> 问题：如何获取这个带圆角的image</p>
-<p> uilabel使用layer设置颜色<br> uitextview，UITextField不影响</p>
-<p> 2.shadow</p>
-<p> 设置shadowpath，使用圆角优化的混合涂层方法，使用core graphics绘制引用</p>
-<p> shadowpath:</p>
- <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> let imageViewLayer = avatorView<span class="class">.layer</span></span><br><span class="line">imageViewLayer<span class="class">.shadowColor</span> = UIColor.<span class="function"><span class="title">blackColor</span><span class="params">()</span></span><span class="class">.CGColor</span></span><br><span class="line">imageViewLayer<span class="class">.shadowOpacity</span> = <span class="number">1.0</span> <span class="comment">//此参数默认为0，即阴影不显示</span></span><br><span class="line">imageViewLayer<span class="class">.shadowRadius</span> = <span class="number">2.0</span> <span class="comment">//给阴影加上圆角，对性能无明显影响</span></span><br><span class="line">imageViewLayer<span class="class">.shadowOffset</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: <span class="number">5</span>, height: <span class="number">5</span>)</span></span></span><br><span class="line"><span class="comment">//设定路径：与视图的边界相同</span></span><br><span class="line">let path = <span class="function"><span class="title">UIBezierPath</span><span class="params">(rect: cell.imageView.bounds)</span></span></span><br><span class="line">imageViewLayer<span class="class">.shadowPath</span> = path.CGPath<span class="comment">//路径默认为 nil</span></span><br></pre></td></tr></table></figure>
-<p> 3.mask</p>
-<p> Mask 效果无法取消离屏渲染，使用混合图层的方法来模拟 mask 效果，性能各方面都是和无效果持平。</p>
-<p>使用 mask 来实现圆角时也可以不用图片，而使用 CAShapeLayer 来指定混合的路径。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let roundedRectPath = <span class="function"><span class="title">UIBezierPath</span><span class="params">(roundedRect: avatorView.bounds, byRoundingCorners: .AllCorners, cornerRadii: CGSize(width: <span class="number">10</span>, height: <span class="number">10</span>)</span></span>)</span><br><span class="line">let shapeLayer = <span class="function"><span class="title">CAShapeLayer</span><span class="params">()</span></span></span><br><span class="line">shapeLayer<span class="class">.path</span> = roundedRectPath<span class="class">.CGPath</span></span><br><span class="line">avatorView<span class="class">.layer</span><span class="class">.mask</span> = shapeLayer</span><br></pre></td></tr></table></figure>
-<p>4.group opacity</p>
-<p>只有设置 tableView 的alpha小于1时才会触发离屏渲染，对性能无明显影响；设置 cell 的alpha属性并不会对整体的透明度产生影响，只有设置 cell.contentView 才有效。</p>
-<p>5.edge antialiasing</p>
-<p>开启 edge antialiasing(旋转视图并且设置layer.allowsEdgeAntialiasing = true) 在 iOS 8 和 iOS 9 上并不会触发离屏渲染，对性能也没有什么影响，也许到现在这个功能已经被优化了。</p>
+        <h2 id="1-浏览器带的功能，定制功能">1.浏览器带的功能，定制功能</h2><p>wk和ui的不同容器，cookie管理，预置信息等</p>
+<h6 id="1-wk和ui对比">1.wk和ui对比</h6><p>内存对比：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>uiwebview</th>
+<th>wkwebview</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>www.baidu.com</td>
+<td>100mb</td>
+<td>10mb</td>
+</tr>
+<tr>
+<td>www.taobao.com</td>
+<td>100mb</td>
+<td>5mb</td>
+</tr>
+<tr>
+<td>www.qq.com</td>
+<td>130mb</td>
+<td>5mb</td>
+</tr>
+</tbody>
+</table>
+<p>加载时间:</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>uiwebview</th>
+<th>wkwebview</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>www.baidu.com</td>
+<td>2300ms</td>
+<td>1700ms</td>
+</tr>
+<tr>
+<td>www.taobao.com</td>
+<td>1400ms</td>
+<td>1000ms</td>
+</tr>
+<tr>
+<td>www.qq.com</td>
+<td>2500ms</td>
+<td>1300ms</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
-<p>任何时候优先考虑避免触发离屏渲染，无法避免时优化方案有两种：</p>
+<p>显而意见，wk在各个方面都优于ui，所以我们需要在iOS8及以上的设备支持wk<br>如果需要支付7或者以下的设备，可以自己定义一个view包含wk和ui，由设备版本去决定加载谁</p>
 </blockquote>
-<ul>
-<li>Rasterization：适用于静态内容的视图，也就是内部结构和内容不发生变化的视图，对上面的所有效果而言，在实现成本以及性能上最均衡的。即使是动态变化的视图，开启 Rasterization 后能够有效降低 GPU 的负荷，不过在动态视图里是否启用还是看 Instruments 的数据。</li>
-<li>规避离屏渲染，用其他手法来模拟效果，混合图层是个性能最好、耗能最少的通用优化方案，尤其对于 rounded corer 和 mask。</li>
-</ul>
-<p>notification 尽量少用</p>
+<h6 id="2-_cookie管理">2. cookie管理</h6><p>ui的cookie管理不做细说，网上文档及示例很多</p>
+<p>wk的cookie管理：<a href="http://huangcheng1.github.io/2016/12/15/iOS中WKWebView添加预置cookie/" target="_blank" rel="external">之前我整理的</a></p>
+<h6 id="3-预置信息">3.预置信息</h6><p>容器头： 基本结构 appname/xxx container/true(贴一段代码)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tmpWebView : UIWebView? = UIWebView()</span><br><span class="line">guard <span class="keyword">let</span> tmp = tmpWebView <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> oldAgent = tmp.stringByEvaluatingJavaScript(from: <span class="string">"navigator.userAgent"</span>)</span><br><span class="line"><span class="keyword">let</span> other = <span class="string">"true"</span></span><br><span class="line"><span class="keyword">let</span> appendUA = <span class="string">"appname/xxx"</span></span><br><span class="line"><span class="keyword">let</span> sccAgent = <span class="built_in">String</span>.init(format: <span class="string">" %@ container/%@"</span>, appendUA, other)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> tmpAgent = oldAgent &#123;</span><br><span class="line">	<span class="keyword">let</span> newAgent  = tmpAgent + sccAgent</span><br><span class="line">	<span class="keyword">var</span> dictionary : Dictionary&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt;</span><br><span class="line">	dictionary = [<span class="string">"UserAgent"</span>:newAgent]</span><br><span class="line">	UserDefaults.standard.register(defaults: dictionary)</span><br><span class="line">&#125;</span><br><span class="line">tmpWebView = nil</span><br></pre></td></tr></table></figure>
+<p>预置cookie登录信息等，可参照cookie管理</p>
+<p>######4.返回，后退，关闭等</p>
+<p>作为一个通用的web容器，需要提供和大多数浏览器的常用功能，返回，后退，前进，直接关闭。</p>
+<p>可能需要定制webview的弹性功能，可能需要手势右滑后退</p>
+<p>######5.分享，右边按钮等</p>
+<p>分享及其他功能，可以提供完整的api给h5，让前端去控制应该如何显示，如何操作。同时提供给不同项目定制功能</p>
+<p>如果并不需要后面这两条，可以直接自己使用提供的view去做上述4.5功能，</p>
+<h2 id="2-h5和native交互">2.h5和native交互</h2><blockquote>
+<p>1.截取请求 appScheme://host/path?query</p>
+</blockquote>
+<p>好处: 简单，直接在delegate里面拦截请求就好了</p>
+<p>常用：<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">webviewjavascriptbridge</a></p>
+<blockquote>
+<p>2.使用JavaScriptCore，（iOS7之后）</p>
+</blockquote>
+<p>好处：结构清晰，可以脱离webview直接运行js，不用注入js代码</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSContext <span class="keyword">*</span>context = [webView valueForKeyPath:<span class="comment">@"documentView.webView.mainFrame.javaScriptContext"];</span></span><br></pre></td></tr></table></figure>
+<p>获取 JSContext</p>
+<h2 id="3-原生的功能组件">3.原生的功能组件</h2><p>基本的容器都应该有一些基本的功能</p>
 <ol>
-<li>需要移除，不移除将不会释放self</li>
-<li>一对多，假如有两者用同一个组件，组件使用notification可能会导致微小但是致命麻烦的问题</li>
+<li>设备信息</li>
+<li>图片相关</li>
+<li>gps地图相关</li>
+<li>上传下载</li>
+<li>app相关，推送，生命周期</li>
+<li>加速计相关</li>
+<li>其他定制</li>
 </ol>
-
+<p>这里我们要考虑的不仅是如何实现这些组件，更重要的是如何让容器更加友善的集成这些组件，以便于扩展或者根据业务需求变更组件功能</p>
+<h2 id="4-提升加载速度">4.提升加载速度</h2><p>1.缓存</p>
+<p>缓存可以使用请求的状态304做，但是需要自己去截取请求，缓存下来，下次请求的时候，304直接从缓存中取</p>
+<p>还可以直接做成缓存文件，由本地组件统一控制，启动或请求时查看并修改所有不符合当前版本的缓存</p>
+<p>2.离线包＋预加载</p>
+<p>当一个业务页面太大，我们希望第一次的时候就直接从本地获取，或者第一次加载完从本地获取，就可以用到离线包，内置在工程里面，请求的时候直接定向到本地路径。</p>
+<p>当一个页面大量被用到，并且要求加载时候足够短，我们可以预加载到内存池里面，当需要的时候直接从内存中读取。</p>
+<p>3.WebView启动和发送请求改成并行</p>
+<p>webview是可以直接loadDatade，所以初始化和请求可以同时进行，从而不使用以前的线初始化，再loadrequest的方式。</p>
+<h2 id="5-安全问题">5.安全问题</h2><p>1.防止运营商截取</p>
+<p>有时候页面会出现奇怪的广告，或者直接定向到其他地方了，解决方法https</p>
+<p>2.防止离线包被篡改</p>
+<p>有人会把下载离线包的链接定向到自己的链接上，这样他就可以窜改我们包里面的内容，为了防止，我们可以在请求更新规则上加上一个md5或者其他生成规则的安全码，验证下离线包的安全性</p>
+<p>3.防止js注入调用工程里面的其他敏感信息</p>
+<p>严格控制容器js所能提供的能力，比如调用一个类的方法，确定是原生可以web不可以调起，在调用时有权限管理</p>
+<h6 id="考虑不周，视情况而定，望大家指出不足">考虑不周，视情况而定，望大家指出不足</h6>
       
     </div>
 
@@ -310,7 +489,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
+            <a href="/tags/iOS-webview/" rel="tag">#iOS webview</a>
           
         </div>
       
@@ -319,17 +498,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/27/iOS利用高斯模糊做涂抹和马赛克效果/" rel="next" title="iOS利用高斯模糊做涂抹和马赛克效果">
-                <i class="fa fa-chevron-left"></i> iOS利用高斯模糊做涂抹和马赛克效果
+              <a href="/2017/03/02/如何做一个RN容器-iOS/" rel="next" title="如何做一个RN容器-iOS">
+                <i class="fa fa-chevron-left"></i> 如何做一个RN容器-iOS
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/16/react-native-入门－相互通信/" rel="prev" title="react-native 入门－相互通信">
-                react-native 入门－相互通信 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -440,7 +615,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#离屏渲染"><span class="nav-number">1.</span> <span class="nav-text">离屏渲染</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-浏览器带的功能，定制功能"><span class="nav-number">1.</span> <span class="nav-text">1.浏览器带的功能，定制功能</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-wk和ui对比"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">1.wk和ui对比</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-_cookie管理"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">2. cookie管理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-预置信息"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">3.预置信息</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-h5和native交互"><span class="nav-number">2.</span> <span class="nav-text">2.h5和native交互</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-原生的功能组件"><span class="nav-number">3.</span> <span class="nav-text">3.原生的功能组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-提升加载速度"><span class="nav-number">4.</span> <span class="nav-text">4.提升加载速度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-安全问题"><span class="nav-number">5.</span> <span class="nav-text">5.安全问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#考虑不周，视情况而定，望大家指出不足"><span class="nav-number">5.0.0.0.1.</span> <span class="nav-text">考虑不周，视情况而定，望大家指出不足</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

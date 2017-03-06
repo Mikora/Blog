@@ -216,6 +216,199 @@
             
               
                 
+                <a class="post-title-link" href="/2017/03/06/做一个web容器/" itemprop="url">
+                  做一个web容器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-06T15:46:11+08:00" content="2017-03-06">
+              2017-03-06
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-浏览器带的功能，定制功能">1.浏览器带的功能，定制功能</h2><p>wk和ui的不同容器，cookie管理，预置信息等</p>
+<h6 id="1-wk和ui对比">1.wk和ui对比</h6><p>内存对比：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>uiwebview</th>
+<th>wkwebview</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>www.baidu.com</td>
+<td>100mb</td>
+<td>10mb</td>
+</tr>
+<tr>
+<td>www.taobao.com</td>
+<td>100mb</td>
+<td>5mb</td>
+</tr>
+<tr>
+<td>www.qq.com</td>
+<td>130mb</td>
+<td>5mb</td>
+</tr>
+</tbody>
+</table>
+<p>加载时间:</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>uiwebview</th>
+<th>wkwebview</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>www.baidu.com</td>
+<td>2300ms</td>
+<td>1700ms</td>
+</tr>
+<tr>
+<td>www.taobao.com</td>
+<td>1400ms</td>
+<td>1000ms</td>
+</tr>
+<tr>
+<td>www.qq.com</td>
+<td>2500ms</td>
+<td>1300ms</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>显而意见，wk在各个方面都优于ui，所以我们需要在iOS8及以上的设备支持wk<br>如果需要支付7或者以下的设备，可以自己定义一个view包含wk和ui，由设备版本去决定加载谁</p>
+</blockquote>
+<h6 id="2-_cookie管理">2. cookie管理</h6><p>ui的cookie管理不做细说，网上文档及示例很多</p>
+<p>wk的cookie管理：<a href="http://huangcheng1.github.io/2016/12/15/iOS中WKWebView添加预置cookie/" target="_blank" rel="external">之前我整理的</a></p>
+<h6 id="3-预置信息">3.预置信息</h6><p>容器头： 基本结构 appname/xxx container/true(贴一段代码)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tmpWebView : UIWebView? = UIWebView()</span><br><span class="line">guard <span class="keyword">let</span> tmp = tmpWebView <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> oldAgent = tmp.stringByEvaluatingJavaScript(from: <span class="string">"navigator.userAgent"</span>)</span><br><span class="line"><span class="keyword">let</span> other = <span class="string">"true"</span></span><br><span class="line"><span class="keyword">let</span> appendUA = <span class="string">"appname/xxx"</span></span><br><span class="line"><span class="keyword">let</span> sccAgent = <span class="built_in">String</span>.init(format: <span class="string">" %@ container/%@"</span>, appendUA, other)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> tmpAgent = oldAgent &#123;</span><br><span class="line">	<span class="keyword">let</span> newAgent  = tmpAgent + sccAgent</span><br><span class="line">	<span class="keyword">var</span> dictionary : Dictionary&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt;</span><br><span class="line">	dictionary = [<span class="string">"UserAgent"</span>:newAgent]</span><br><span class="line">	UserDefaults.standard.register(defaults: dictionary)</span><br><span class="line">&#125;</span><br><span class="line">tmpWebView = nil</span><br></pre></td></tr></table></figure>
+<p>预置cookie登录信息等，可参照cookie管理</p>
+<p>######4.返回，后退，关闭等</p>
+<p>作为一个通用的web容器，需要提供和大多数浏览器的常用功能，返回，后退，前进，直接关闭。</p>
+<p>可能需要定制webview的弹性功能，可能需要手势右滑后退</p>
+<p>######5.分享，右边按钮等</p>
+<p>分享及其他功能，可以提供完整的api给h5，让前端去控制应该如何显示，如何操作。同时提供给不同项目定制功能</p>
+<p>如果并不需要后面这两条，可以直接自己使用提供的view去做上述4.5功能，</p>
+<h2 id="2-h5和native交互">2.h5和native交互</h2><blockquote>
+<p>1.截取请求 appScheme://host/path?query</p>
+</blockquote>
+<p>好处: 简单，直接在delegate里面拦截请求就好了</p>
+<p>常用：<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">webviewjavascriptbridge</a></p>
+<blockquote>
+<p>2.使用JavaScriptCore，（iOS7之后）</p>
+</blockquote>
+<p>好处：结构清晰，可以脱离webview直接运行js，不用注入js代码</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSContext <span class="keyword">*</span>context = [webView valueForKeyPath:<span class="comment">@"documentView.webView.mainFrame.javaScriptContext"];</span></span><br></pre></td></tr></table></figure>
+<p>获取 JSContext</p>
+<h2 id="3-原生的功能组件">3.原生的功能组件</h2><p>基本的容器都应该有一些基本的功能</p>
+<ol>
+<li>设备信息</li>
+<li>图片相关</li>
+<li>gps地图相关</li>
+<li>上传下载</li>
+<li>app相关，推送，生命周期</li>
+<li>加速计相关</li>
+<li>其他定制</li>
+</ol>
+<p>这里我们要考虑的不仅是如何实现这些组件，更重要的是如何让容器更加友善的集成这些组件，以便于扩展或者根据业务需求变更组件功能</p>
+<h2 id="4-提升加载速度">4.提升加载速度</h2><p>1.缓存</p>
+<p>缓存可以使用请求的状态304做，但是需要自己去截取请求，缓存下来，下次请求的时候，304直接从缓存中取</p>
+<p>还可以直接做成缓存文件，由本地组件统一控制，启动或请求时查看并修改所有不符合当前版本的缓存</p>
+<p>2.离线包＋预加载</p>
+<p>当一个业务页面太大，我们希望第一次的时候就直接从本地获取，或者第一次加载完从本地获取，就可以用到离线包，内置在工程里面，请求的时候直接定向到本地路径。</p>
+<p>当一个页面大量被用到，并且要求加载时候足够短，我们可以预加载到内存池里面，当需要的时候直接从内存中读取。</p>
+<p>3.WebView启动和发送请求改成并行</p>
+<p>webview是可以直接loadDatade，所以初始化和请求可以同时进行，从而不使用以前的线初始化，再loadrequest的方式。</p>
+<h2 id="5-安全问题">5.安全问题</h2><p>1.防止运营商截取</p>
+<p>有时候页面会出现奇怪的广告，或者直接定向到其他地方了，解决方法https</p>
+<p>2.防止离线包被篡改</p>
+<p>有人会把下载离线包的链接定向到自己的链接上，这样他就可以窜改我们包里面的内容，为了防止，我们可以在请求更新规则上加上一个md5或者其他生成规则的安全码，验证下离线包的安全性</p>
+<p>3.防止js注入调用工程里面的其他敏感信息</p>
+<p>严格控制容器js所能提供的能力，比如调用一个类的方法，确定是原生可以web不可以调起，在调用时有权限管理</p>
+<h6 id="考虑不周，视情况而定，望大家指出不足">考虑不周，视情况而定，望大家指出不足</h6>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/03/02/如何做一个RN容器-iOS/" itemprop="url">
                   如何做一个RN容器-iOS
                 </a>
@@ -2079,114 +2272,6 @@ RNNativeBridgeModule.h
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/27/iOS利用高斯模糊做涂抹和马赛克效果/" itemprop="url">
-                  iOS利用高斯模糊做涂抹和马赛克效果
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-27T11:01:11+08:00" content="2016-04-27">
-              2016-04-27
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>先不多说，上效果图</p>
-</blockquote>
-<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/mosaic_sketch?imageView/1/w/375/h/667" alt="image"></p>
-<p>demo:<a href="https://github.com/Mikora/ImageEdit" target="_blank" rel="external">github</a></p>
-<p>这个和很多图片处理应用的效果一样，比如玩图的马赛克。之前已经实现过了in的涂抹效果<a href="https://github.com/Mikora/CTCamera" target="_blank" rel="external">涂抹</a></p>
-<p>因为涂抹的效果和我预期的不是很理想，所以一直困扰我，当时也没什么好的想法思路，做成现在这个效果。偶然想到了这个思路，所以实现了一下模糊涂抹，下面介绍思路</p>
-<blockquote>
-<p>思路</p>
-</blockquote>
-<p>两张图片，一张原图，一张高斯模糊的图。原图作为背景绘制到view上，比如直接矩形，设置填充颜色为这个原图。画笔作为绘制的东西，路径填充色为高斯图。最后合成到一起。路径使用NSArray记录，这样可以支持前进后退。如果需要橡皮擦，则取原图为橡皮擦路径的填充色即可。</p>
-<p>不用流程图示意了。</p>
-<h4 id="过程">过程</h4><p>1.根据原图获得一张高斯模糊图或者马赛克图</p>
-<p>推荐： 使用GPUimage，简单性能极好</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+ (UIImage*)filterForGaussianBlur:(UIImage*)<span class="built_in">image</span>&#123;</span><br><span class="line">    GPUImageGaussianBlurFilter *<span class="built_in">filter</span> = [[GPUImageGaussianBlurFilter alloc]init];</span><br><span class="line">    [<span class="built_in">filter</span> forceProcessingAtSize:<span class="built_in">image</span>.<span class="built_in">size</span>];</span><br><span class="line">    <span class="built_in">filter</span>.blurRadiusInPixels = <span class="number">10.0</span>;<span class="comment">//这个越大，越模糊，模糊半径</span></span><br><span class="line">    </span><br><span class="line">    GPUImagePicture *pic = [[GPUImagePicture alloc]initWithImage:<span class="built_in">image</span>];</span><br><span class="line">    [pic addTarget:<span class="built_in">filter</span>];</span><br><span class="line">    [pic processImage];</span><br><span class="line">    [<span class="built_in">filter</span> useNextFrameForImageCapture];</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">filter</span> imageFromCurrentFramebuffer];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其他马赛克等不做介绍</p>
-<p>2.获取路径</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *lineArray;<span class="comment">//总路径</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *nowPointArray;<span class="comment">//当前手指绘制路径</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesBegan:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    <span class="comment">//每次重新绘制的时候相当于一条新路径</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.nowPointArray</span> = [[<span class="built_in">NSMutableArray</span> alloc]init];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.lineArray</span> addObject:<span class="keyword">self</span><span class="variable">.nowPointArray</span>];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesCancelled:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesCancelled:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesEnded:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesEnded:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesMoved:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesMoved:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addPoint:(<span class="built_in">CGPoint</span>)p&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSValue</span> *point = [<span class="built_in">NSValue</span> valueWith<span class="built_in">CGPoint</span>:p];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.nowPointArray</span> addObject:point];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> setNeedsDisplay];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.绘制背景以及路径</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect&#123;</span><br><span class="line">    [<span class="keyword">super</span> drawRect:rect];</span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSetLineCap</span>(context, k<span class="built_in">CGLineCapRound</span>);</span><br><span class="line">    <span class="built_in">CGContextSetLineWidth</span>(context, rect<span class="variable">.size</span><span class="variable">.width</span>);</span><br><span class="line">    <span class="built_in">CGContextSetStrokeColorWithColor</span>(context, [<span class="built_in">UIColor</span> clearColor]<span class="variable">.CGColor</span>);</span><br><span class="line">    <span class="built_in">CGContextSetFillColorWithColor</span>(context, [<span class="built_in">UIColor</span> colorWithPatternImage:<span class="keyword">self</span><span class="variable">.image</span>]<span class="variable">.CGColor</span>);</span><br><span class="line">    <span class="built_in">CGContextFillRect</span>(context, rect);<span class="comment">//绘制背景</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSetStrokeColorWithColor</span>(context, [<span class="built_in">UIColor</span> colorWithPatternImage:<span class="keyword">self</span><span class="variable">.filterGaussan</span>]<span class="variable">.CGColor</span>);<span class="comment">//设置路径的色值</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSetLineWidth</span>(context, <span class="number">20</span>);</span><br><span class="line">    <span class="comment">//根据cgpoint设置路径</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="keyword">self</span><span class="variable">.lineArray</span><span class="variable">.count</span> ; i ++ ) &#123;</span><br><span class="line">        <span class="built_in">NSMutableArray</span> *array = [<span class="keyword">self</span><span class="variable">.lineArray</span> objectAtIndex:i];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; array<span class="variable">.count</span> ; i ++ ) &#123;</span><br><span class="line">            <span class="built_in">NSValue</span> *value = [array objectAtIndex:i];</span><br><span class="line">            <span class="built_in">CGPoint</span> p = [value <span class="built_in">CGPointValue</span>];</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">CGContextMoveToPoint</span>(context, p<span class="variable">.x</span>, p<span class="variable">.y</span>);</span><br><span class="line">                <span class="built_in">CGContextAddLineToPoint</span>(context, p<span class="variable">.x</span>, p<span class="variable">.y</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">CGContextAddLineToPoint</span>(context, p<span class="variable">.x</span>, p<span class="variable">.y</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">CGContextDrawPath</span>(context, k<span class="built_in">CGPathStroke</span>);<span class="comment">//绘制路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2232,7 +2317,7 @@ RNNativeBridgeModule.h
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2242,7 +2327,7 @@ RNNativeBridgeModule.h
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
