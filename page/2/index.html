@@ -216,6 +216,125 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/28/iOS开发中各种优化/" itemprop="url">
+                  iOS开发中各种优化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-28T11:13:48+08:00" content="2016-04-28">
+              2016-04-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="离屏渲染">离屏渲染</h4><p>触发离屏渲染：mask, shadow, group opacity, edge antialiasing</p>
+<p>对性能的影响等级：Shadow &gt; RoundedCorner &gt; Mask &gt; GroupOpacity(迷之效果)。</p>
+<p>1.round corner </p>
+<p>优化方案：<br>uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CGRect imageFrame = CGRectMake(<span class="number">0.</span>, <span class="number">0.</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span>);</span><br><span class="line">UIGraphicsBeginImageContextWithOptions(<span class="built_in">rect</span>.<span class="built_in">size</span>, NO, [UIScreen mainScreen].<span class="built_in">scale</span>);</span><br><span class="line">[[UIBezierPath bezierPathWithRoundedRect:imageFrame cornerRadius:<span class="number">10</span>] addClip];</span><br><span class="line">[self.<span class="built_in">image</span> drawInRect:imageFrame];</span><br><span class="line">self.<span class="built_in">image</span> = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">UIGraphicsEndImageContext();</span><br></pre></td></tr></table></figure>
+<p> 使用一个层级去覆盖： 用一个带圆角中间透明的imageview去盖在上面<br> 问题：如何获取这个带圆角的image</p>
+<p> uilabel使用layer设置颜色<br> uitextview，UITextField不影响</p>
+<p> 2.shadow</p>
+<p> 设置shadowpath，使用圆角优化的混合涂层方法，使用core graphics绘制引用</p>
+<p> shadowpath:</p>
+ <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> let imageViewLayer = avatorView<span class="class">.layer</span></span><br><span class="line">imageViewLayer<span class="class">.shadowColor</span> = UIColor.<span class="function"><span class="title">blackColor</span><span class="params">()</span></span><span class="class">.CGColor</span></span><br><span class="line">imageViewLayer<span class="class">.shadowOpacity</span> = <span class="number">1.0</span> <span class="comment">//此参数默认为0，即阴影不显示</span></span><br><span class="line">imageViewLayer<span class="class">.shadowRadius</span> = <span class="number">2.0</span> <span class="comment">//给阴影加上圆角，对性能无明显影响</span></span><br><span class="line">imageViewLayer<span class="class">.shadowOffset</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: <span class="number">5</span>, height: <span class="number">5</span>)</span></span></span><br><span class="line"><span class="comment">//设定路径：与视图的边界相同</span></span><br><span class="line">let path = <span class="function"><span class="title">UIBezierPath</span><span class="params">(rect: cell.imageView.bounds)</span></span></span><br><span class="line">imageViewLayer<span class="class">.shadowPath</span> = path.CGPath<span class="comment">//路径默认为 nil</span></span><br></pre></td></tr></table></figure>
+<p> 3.mask</p>
+<p> Mask 效果无法取消离屏渲染，使用混合图层的方法来模拟 mask 效果，性能各方面都是和无效果持平。</p>
+<p>使用 mask 来实现圆角时也可以不用图片，而使用 CAShapeLayer 来指定混合的路径。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let roundedRectPath = <span class="function"><span class="title">UIBezierPath</span><span class="params">(roundedRect: avatorView.bounds, byRoundingCorners: .AllCorners, cornerRadii: CGSize(width: <span class="number">10</span>, height: <span class="number">10</span>)</span></span>)</span><br><span class="line">let shapeLayer = <span class="function"><span class="title">CAShapeLayer</span><span class="params">()</span></span></span><br><span class="line">shapeLayer<span class="class">.path</span> = roundedRectPath<span class="class">.CGPath</span></span><br><span class="line">avatorView<span class="class">.layer</span><span class="class">.mask</span> = shapeLayer</span><br></pre></td></tr></table></figure>
+<p>4.group opacity</p>
+<p>只有设置 tableView 的alpha小于1时才会触发离屏渲染，对性能无明显影响；设置 cell 的alpha属性并不会对整体的透明度产生影响，只有设置 cell.contentView 才有效。</p>
+<p>5.edge antialiasing</p>
+<p>开启 edge antialiasing(旋转视图并且设置layer.allowsEdgeAntialiasing = true) 在 iOS 8 和 iOS 9 上并不会触发离屏渲染，对性能也没有什么影响，也许到现在这个功能已经被优化了。</p>
+<blockquote>
+<p>任何时候优先考虑避免触发离屏渲染，无法避免时优化方案有两种：</p>
+</blockquote>
+<ul>
+<li>Rasterization：适用于静态内容的视图，也就是内部结构和内容不发生变化的视图，对上面的所有效果而言，在实现成本以及性能上最均衡的。即使是动态变化的视图，开启 Rasterization 后能够有效降低 GPU 的负荷，不过在动态视图里是否启用还是看 Instruments 的数据。</li>
+<li>规避离屏渲染，用其他手法来模拟效果，混合图层是个性能最好、耗能最少的通用优化方案，尤其对于 rounded corer 和 mask。</li>
+</ul>
+<p>notification 尽量少用</p>
+<ol>
+<li>需要移除，不移除将不会释放self</li>
+<li>一对多，假如有两者用同一个组件，组件使用notification可能会导致微小但是致命麻烦的问题</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/27/iOS利用高斯模糊做涂抹和马赛克效果/" itemprop="url">
                   iOS利用高斯模糊做涂抹和马赛克效果
                 </a>
@@ -1329,102 +1448,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/02/17/iOS学习收藏的文章/" itemprop="url">
-                  iOS学习收藏的文章
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-17T10:15:55+08:00" content="2016-02-17">
-              2016-02-17
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="http://www.cocoachina.com/ios/20150610/12093.html" target="_blank" rel="external">Objective-C Autorelease Pool 的实现原理</a></p>
-<p><a href="http://www.cocoachina.com/ios/20150601/11970.html" target="_blank" rel="external">深入理解RunLoop</a></p>
-<p><a href="http://www.cocoachina.com/ios/20150803/12872.html" target="_blank" rel="external">《招聘一个靠谱的iOS》面试题参考答案（上）</a></p>
-<p><a href="http://www.cocoachina.com/ios/20150825/13195.html" target="_blank" rel="external">《招聘一个靠谱的iOS》面试题参考答案（下）</a></p>
-<p><a href="http://www.olinone.com/?p=198" target="_blank" rel="external">使用签名导出渠道包iOS</a></p>
-<p><a href="https://github.com/lzyy/iOS-Developer-Interview-Questions" target="_blank" rel="external">iOS实际开发问题－面试集锦</a></p>
-<p><a href="http://www.cocoachina.com/ios/20150519/11809.html" target="_blank" rel="external">NSHashTable的特性和使用</a></p>
-<p><a href="http://www.hrchen.com/2013/05/performance-with-instruments/?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">iOS中应用的优化：启动时间，内存和GUI</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1470,7 +1493,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">34</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

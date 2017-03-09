@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="数据结构," />
+  <meta name="keywords" content="iOS webview," />
 
 
 
@@ -57,31 +57,22 @@
 
 
 
-<meta name="description" content="Base64编码base64是一种很常见的编码，常用于URL、Cookie、网页中传输少量二进制数据
-
-编码方式：
- 准备一个包含64个字符的数组：
- [‘A’,’B’,’C’,…,’a’,’b’,’c’,…,’0’,’1’,’2’,…,’+’,’/‘]
- 把需要转码的字符串进行二进制处理，每三个字符一组，一共3*8=24位，划分为4组，每组6个，然后根据每组的数字作为索引，查找准备好的64个字符">
+<meta name="description" content="NSURLProtocol在许多场景下使用频繁，在webview中也常用到，比如缓存网络请求和一些页面及js，比如截取图片走原生的图片缓存
+但是在WKWebView中，NSURLProtocol是默认不走的，原因可以查看WKWebView的源码，使我们在替换这个性能更强大的web容器的时候，许多以前的缓存组件不能用了，下面我就介绍一种能让WKWebView使用NSURLProtocol的方法
+1[">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Base64编码">
-<meta property="og:url" content="http://blog.huangcheng.com/2016/01/15/Base64编码/index.html">
+<meta property="og:title" content="WKWebView中如何使用nsurlprotocol功能">
+<meta property="og:url" content="http://blog.huangcheng.com/2017/03/09/wkwebview中如何使用nsurlprotocol功能/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="Base64编码base64是一种很常见的编码，常用于URL、Cookie、网页中传输少量二进制数据
-
-编码方式：
- 准备一个包含64个字符的数组：
- [‘A’,’B’,’C’,…,’a’,’b’,’c’,…,’0’,’1’,’2’,…,’+’,’/‘]
- 把需要转码的字符串进行二进制处理，每三个字符一组，一共3*8=24位，划分为4组，每组6个，然后根据每组的数字作为索引，查找准备好的64个字符">
-<meta property="og:updated_time" content="2016-01-15T02:56:36.000Z">
+<meta property="og:description" content="NSURLProtocol在许多场景下使用频繁，在webview中也常用到，比如缓存网络请求和一些页面及js，比如截取图片走原生的图片缓存
+但是在WKWebView中，NSURLProtocol是默认不走的，原因可以查看WKWebView的源码，使我们在替换这个性能更强大的web容器的时候，许多以前的缓存组件不能用了，下面我就介绍一种能让WKWebView使用NSURLProtocol的方法
+1[">
+<meta property="og:updated_time" content="2017-03-09T07:52:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Base64编码">
-<meta name="twitter:description" content="Base64编码base64是一种很常见的编码，常用于URL、Cookie、网页中传输少量二进制数据
-
-编码方式：
- 准备一个包含64个字符的数组：
- [‘A’,’B’,’C’,…,’a’,’b’,’c’,…,’0’,’1’,’2’,…,’+’,’/‘]
- 把需要转码的字符串进行二进制处理，每三个字符一组，一共3*8=24位，划分为4组，每组6个，然后根据每组的数字作为索引，查找准备好的64个字符">
+<meta name="twitter:title" content="WKWebView中如何使用nsurlprotocol功能">
+<meta name="twitter:description" content="NSURLProtocol在许多场景下使用频繁，在webview中也常用到，比如缓存网络请求和一些页面及js，比如截取图片走原生的图片缓存
+但是在WKWebView中，NSURLProtocol是默认不走的，原因可以查看WKWebView的源码，使我们在替换这个性能更强大的web容器的时候，许多以前的缓存组件不能用了，下面我就介绍一种能让WKWebView使用NSURLProtocol的方法
+1[">
 
 
 
@@ -99,7 +90,7 @@
   };
 </script>
 
-  <title> Base64编码 | 随笔 </title>
+  <title> WKWebView中如何使用nsurlprotocol功能 | 随笔 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -229,7 +220,7 @@
             
             
               
-                Base64编码
+                WKWebView中如何使用nsurlprotocol功能
               
             
           </h1>
@@ -241,8 +232,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-15T10:20:35+08:00" content="2016-01-15">
-              2016-01-15
+            <time itemprop="dateCreated" datetime="2017-03-09T15:39:15+08:00" content="2017-03-09">
+              2017-03-09
             </time>
           </span>
 
@@ -268,27 +259,15 @@
       
 
       
-        <h3 id="Base64编码">Base64编码</h3><p>base64是一种很常见的编码，常用于URL、Cookie、网页中传输少量二进制数据</p>
-<ol>
-<li><p>编码方式：</p>
-<p> 准备一个包含64个字符的数组：</p>
-<p> [‘A’,’B’,’C’,…,’a’,’b’,’c’,…,’0’,’1’,’2’,…,’+’,’/‘]</p>
-<p> 把需要转码的字符串进行二进制处理，每三个字符一组，一共3*8=24位，划分为4组，每组6个，然后根据每组的数字作为索引，查找准备好的64个字符的数组中对应的字符。</p>
-<p> 如果多出一个或者两个字符，那么就在字符后面加\x00,在完成的字符后面加一个或者两个＝号表示补了几个字节。</p>
-</li>
-<li><p>示例：</p>
-<p> 字符 bin ：二进制为 62696e =&gt; 01100010 01101001 01101110</p>
-<p> 分为四组： 011000  100110 100101 101110 =&gt; 第24个字符，第38个字符，第37个字符，第46个字符</p>
-<p> 结果为：Ymlu</p>
-</li>
-</ol>
-<ol>
-<li><p>当作为url使用的时候，不能出现’+’,’/‘.所以通常把这两个字符换成’-‘,’_’</p>
-</li>
-<li><p>结果里面也不能出现’=’，都是3个字符结果4个字符，那么在结果里面解码时重新加上即可。</p>
-</li>
-</ol>
-<h3 id="MD5_DES_Feistel加密">MD5 DES Feistel加密</h3>
+        <p>NSURLProtocol在许多场景下使用频繁，在webview中也常用到，比如缓存网络请求和一些页面及js，比如截取图片走原生的图片缓存</p>
+<p>但是在WKWebView中，NSURLProtocol是默认不走的，原因可以查看WKWebView的源码，使我们在替换这个性能更强大的web容器的时候，许多以前的缓存组件不能用了，下面我就介绍一种能让WKWebView使用NSURLProtocol的方法</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[<span class="collection">[<span class="collection">[<span class="collection">[WKWebView new]</span> valueForKey:@<span class="string">"browsingContextController"</span>]</span> class]</span> performSelector:NSSelectorFromString<span class="list">(@<span class="string">"registerSchemeForCustomProtocol:"</span>)</span> withObject:@<span class="string">"https"</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>registerSchemeForCustomProtocol: 它的作用可能是注册一个自定义的 scheme，这样对于 WebKit进程的所有网络请求，都会先检查是否有匹配的scheme，有的话再走主进程的 NSURLProtocol这一套流程</p>
+<p>接下来就可以做原来自己通过NSURLProtocol做的一些事情。</p>
+<p>考虑： </p>
+<p>是否能通过上架检查</p>
+<p>如果不行，那么你就自己实现一段运行时动态的把string-&gt;selector</p>
+
       
     </div>
 
@@ -302,7 +281,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag">#数据结构</a>
+            <a href="/tags/iOS-webview/" rel="tag">#iOS webview</a>
           
         </div>
       
@@ -311,17 +290,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/08/使用AssetsLibrary做自定义相册选择器/" rel="next" title="使用AssetsLibrary做自定义相册选择器">
-                <i class="fa fa-chevron-left"></i> 使用AssetsLibrary做自定义相册选择器
+              <a href="/2017/03/06/做一个web容器/" rel="next" title="做一个web容器">
+                <i class="fa fa-chevron-left"></i> 做一个web容器
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/15/NSUrl和NSUrlCompents/" rel="prev" title="NSUrl和NSUrlCompents">
-                NSUrl和NSUrlCompents <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -432,7 +407,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Base64编码"><span class="nav-number">1.</span> <span class="nav-text">Base64编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MD5_DES_Feistel加密"><span class="nav-number">2.</span> <span class="nav-text">MD5 DES Feistel加密</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
