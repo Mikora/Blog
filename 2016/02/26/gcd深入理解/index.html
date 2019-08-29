@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,73 +36,39 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="GCD基本概念
-gcd里面有三种队列(queue)
-
-
-主线程队列 ：main_queue 
-
-由 dispatch_get_main_queue()获取；
-
-并行队列：global dispatch queue
-
-由dispatch_get_global_queue(int,int);
-由系统创建三个不同优先级的队列，并行队列的执行顺序和加入顺序一致，完成顺序不确定，
-123DISPATCH_Q">
+<meta name="description" content="GCD基本概念 gcd里面有三种队列(queue)   主线程队列 ：main_queue   由 dispatch_get_main_queue()获取；  并行队列：global dispatch queue  由dispatch_get_global_queue(int,int); 由系统创建三个不同优先级的队列，并行队列的执行顺序和加入顺序一致，完成顺序不确定， 123DISPATCH_Q">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gcd深入理解">
 <meta property="og:url" content="http://blog.huangcheng.com/2016/02/26/gcd深入理解/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="GCD基本概念
-gcd里面有三种队列(queue)
-
-
-主线程队列 ：main_queue 
-
-由 dispatch_get_main_queue()获取；
-
-并行队列：global dispatch queue
-
-由dispatch_get_global_queue(int,int);
-由系统创建三个不同优先级的队列，并行队列的执行顺序和加入顺序一致，完成顺序不确定，
-123DISPATCH_Q">
-<meta property="og:updated_time" content="2017-04-14T02:48:07.000Z">
+<meta property="og:description" content="GCD基本概念 gcd里面有三种队列(queue)   主线程队列 ：main_queue   由 dispatch_get_main_queue()获取；  并行队列：global dispatch queue  由dispatch_get_global_queue(int,int); 由系统创建三个不同优先级的队列，并行队列的执行顺序和加入顺序一致，完成顺序不确定， 123DISPATCH_Q">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-29T07:10:52.115Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gcd深入理解">
-<meta name="twitter:description" content="GCD基本概念
-gcd里面有三种队列(queue)
-
-
-主线程队列 ：main_queue 
-
-由 dispatch_get_main_queue()获取；
-
-并行队列：global dispatch queue
-
-由dispatch_get_global_queue(int,int);
-由系统创建三个不同优先级的队列，并行队列的执行顺序和加入顺序一致，完成顺序不确定，
-123DISPATCH_Q">
+<meta name="twitter:description" content="GCD基本概念 gcd里面有三种队列(queue)   主线程队列 ：main_queue   由 dispatch_get_main_queue()获取；  并行队列：global dispatch queue  由dispatch_get_global_queue(int,int); 由系统创建三个不同优先级的队列，并行队列的执行顺序和加入顺序一致，完成顺序不确定， 123DISPATCH_Q">
 
 
 
@@ -149,7 +115,7 @@ gcd里面有三种队列(queue)
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -176,7 +142,7 @@ gcd里面有三种队列(queue)
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -186,7 +152,7 @@ gcd里面有三种队列(queue)
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -196,7 +162,7 @@ gcd里面有三种队列(queue)
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -206,7 +172,7 @@ gcd里面有三种队列(queue)
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -289,7 +255,7 @@ gcd里面有三种队列(queue)
       
 
       
-        <h3 id="GCD基本概念">GCD基本概念</h3><ol>
+        <h3 id="GCD基本概念"><a href="#GCD基本概念" class="headerlink" title="GCD基本概念"></a>GCD基本概念</h3><ol>
 <li>gcd里面有三种队列(queue)</li>
 </ol>
 <blockquote>
@@ -301,21 +267,21 @@ gcd里面有三种队列(queue)
 </blockquote>
 <p>由dispatch_get_global_queue(int,int);</p>
 <p>由系统创建三个不同优先级的队列，并行队列的执行顺序和加入顺序一致，完成顺序不确定，</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DISPATCH_QUEUE_PRIORITY_HIGH <span class="number">2</span></span><br><span class="line">DISPATCH_QUEUE_PRIORITY_DEFAULT <span class="number">0</span></span><br><span class="line">DISPATCH_QUEUE_PRIORITY_LOW －<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DISPATCH_QUEUE_PRIORITY_HIGH <span class="number">2</span></span><br><span class="line">DISPATCH_QUEUE_PRIORITY_DEFAULT <span class="number">0</span></span><br><span class="line">DISPATCH_QUEUE_PRIORITY_LOW －<span class="number">2</span></span><br></pre></td></tr></table></figure>
 <p>或者使用dispatch_queue_create(“”, DISPATCH_QUEUE_CONCURRENT);创建</p>
 <blockquote>
 <p>串行队列：serial queue</p>
 </blockquote>
 <p>dispatch_queue_create(“”, DISPATCH_QUEUE_SERIAL);//DISPATCH_QUEUE_SERIAL=NULL</p>
 <p>顺序同步访问，可以创建大量串行队列，各个队列之间是并发的，队列里面每次只能执行一个任务，这样可以保护数据，有锁的功能</p>
-<h4 id="简单用法">简单用法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="comment">//dispatch_async异步执行</span></span><br><span class="line"> dispatch_async(mainQueue, ^&#123;</span><br><span class="line">     [NSThread sleepForTimeInterval:<span class="number">5</span>];</span><br><span class="line"> &#125;);</span><br><span class="line">  <span class="comment">//dispatch_sync阻塞执行</span></span><br><span class="line">  dispatch_sync(mainQueue, ^&#123;</span><br><span class="line">  [NSThread sleepForTimeInterval:<span class="number">5</span>];</span><br><span class="line">  &#125;);<span class="comment">//这样会死锁主线程  dispatch_sync等待block执行完，block需要在主线程中运行，相互死锁</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">//2.gcd group用法</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">dispatch_group_t</span> group = dispatch_group_create();</span><br><span class="line"> dispatch_group_async(group, concurrentQueue, ^&#123;</span><br><span class="line">     <span class="comment">//</span></span><br><span class="line"> &#125;);</span><br><span class="line"> dispatch_group_async(group, concurrentQueue, ^&#123;</span><br><span class="line">     </span><br><span class="line"> &#125;);</span><br><span class="line"> dispatch_group_notify(group, mainQueue, ^&#123;</span><br><span class="line">     <span class="comment">//group执行完后</span></span><br><span class="line"> &#125;);</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//如果是新启一个线程去执行任务，可以使用enter和leave</span></span><br><span class="line"> dispatch_group_enter(group);</span><br><span class="line"> dispatch_group_leave(group);</span><br><span class="line"> </span><br><span class="line"> <span class="number">3.</span> dispatch_after</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//延迟执行</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">dispatch_time_t</span> time=dispatch_time(DISPATCH_TIME_NOW, <span class="number">10</span>*NSEC_PER_SEC);</span><br><span class="line"> dispatch_after(time, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;&#125;);</span><br></pre></td></tr></table></figure>
-<h4 id="用途">用途</h4><p>信号量dispatch semaphore</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">dispatch_semaphore_create</span>(1);<span class="comment">//创建一个初始信号量为1的semaphore</span></span><br><span class="line"><span class="function">dispatch_semaphore_wait</span>(semaphore, DISPATCH_TIME_FOREVER);<span class="comment">//等待信号量大于0，时间：永远</span></span><br><span class="line"><span class="function">dispatch_semaphore_signal</span>(semaphore);<span class="comment">//释放一个资源，使信号量加1</span></span><br></pre></td></tr></table></figure>
+<h4 id="简单用法"><a href="#简单用法" class="headerlink" title="简单用法"></a>简单用法</h4><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="comment">//dispatch_async异步执行</span></span><br><span class="line"> dispatch_async(mainQueue, ^&#123;</span><br><span class="line">     [<span class="meta">NSThread sleepForTimeInterval:5</span>];</span><br><span class="line"> &#125;);</span><br><span class="line">  <span class="comment">//dispatch_sync阻塞执行</span></span><br><span class="line">  dispatch_sync(mainQueue, ^&#123;</span><br><span class="line">  [<span class="meta">NSThread sleepForTimeInterval:5</span>];</span><br><span class="line">  &#125;);<span class="comment">//这样会死锁主线程  dispatch_sync等待block执行完，block需要在主线程中运行，相互死锁</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">//2.gcd group用法</span></span><br><span class="line"> </span><br><span class="line"> dispatch_group_t <span class="keyword">group</span> = dispatch_group_create();</span><br><span class="line"> dispatch_group_async(<span class="keyword">group</span>, concurrentQueue, ^&#123;</span><br><span class="line">     <span class="comment">//</span></span><br><span class="line"> &#125;);</span><br><span class="line"> dispatch_group_async(<span class="keyword">group</span>, concurrentQueue, ^&#123;</span><br><span class="line">     </span><br><span class="line"> &#125;);</span><br><span class="line"> dispatch_group_notify(<span class="keyword">group</span>, mainQueue, ^&#123;</span><br><span class="line">     <span class="comment">//group执行完后</span></span><br><span class="line"> &#125;);</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//如果是新启一个线程去执行任务，可以使用enter和leave</span></span><br><span class="line"> dispatch_group_enter(<span class="keyword">group</span>);</span><br><span class="line"> dispatch_group_leave(<span class="keyword">group</span>);</span><br><span class="line"> </span><br><span class="line"> <span class="number">3.</span> dispatch_after</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//延迟执行</span></span><br><span class="line"> </span><br><span class="line"> dispatch_time_t time=dispatch_time(DISPATCH_TIME_NOW, <span class="number">10</span>*NSEC_PER_SEC);</span><br><span class="line"> dispatch_after(time, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h4><p>信号量dispatch semaphore</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">dispatch_semaphore_create</span>(<span class="number">1</span>);<span class="comment">//创建一个初始信号量为1的semaphore</span></span><br><span class="line"><span class="selector-tag">dispatch_semaphore_wait</span>(semaphore, DISPATCH_TIME_FOREVER);<span class="comment">//等待信号量大于0，时间：永远</span></span><br><span class="line"><span class="selector-tag">dispatch_semaphore_signal</span>(semaphore);<span class="comment">//释放一个资源，使信号量加1</span></span><br></pre></td></tr></table></figure>
 <p>分发栅栏dispatch barrier</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">dispatch_barrier_async</span>(queue, ^&#123;</span><br><span class="line">&#125;);<span class="comment">//作用等待queue里面的操作完成后进行block操作</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">dispatch_barrier_async</span>(queue, ^&#123;</span><br><span class="line">&#125;);<span class="comment">//作用等待queue里面的操作完成后进行block操作</span></span><br></pre></td></tr></table></figure>
 <p>分发源dispatch source//待补充</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">监听指定的各种事件</span><br><span class="line">变量增加dispatch_<span class="built_in">source</span>_<span class="built_in">type</span>_data_add</span><br><span class="line">变量OR  dispatch_<span class="built_in">source</span>_<span class="built_in">type</span>_data_or</span><br><span class="line">进程相关dispatch_<span class="built_in">source</span>_<span class="built_in">type</span>_proc</span><br><span class="line">文件读写</span><br><span class="line">.......</span><br></pre></td></tr></table></figure>
-<h4 id="GCD实现operation的功能">GCD实现operation的功能</h4><p>operation提供的功能有：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">监听指定的各种事件</span><br><span class="line">变量增加<span class="keyword">dispatch_source_type_data_add</span></span><br><span class="line"><span class="keyword">变量OR </span> <span class="keyword">dispatch_source_type_data_or</span></span><br><span class="line"><span class="keyword">进程相关dispatch_source_type_proc</span></span><br><span class="line"><span class="keyword">文件读写</span></span><br><span class="line"><span class="keyword">.......</span></span><br></pre></td></tr></table></figure>
+<h4 id="GCD实现operation的功能"><a href="#GCD实现operation的功能" class="headerlink" title="GCD实现operation的功能"></a>GCD实现operation的功能</h4><p>operation提供的功能有：</p>
 <blockquote>
 <p>取消<br>开始<br>依赖<br>获取各种状态：op.isCancelled，op.isExecuting，op.isFinished，op.isReady，op.isConcurrent</p>
 </blockquote>
@@ -401,7 +367,7 @@ gcd里面有三种队列(queue)
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -412,9 +378,7 @@ gcd里面有三种队列(queue)
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -483,10 +447,10 @@ gcd里面有三种队列(queue)
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

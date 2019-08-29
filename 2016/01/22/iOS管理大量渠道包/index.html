@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,41 +36,41 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="何为渠道包同一个项目源码，但是名字，启动图，bundleid等不一样。同样请求里面也是根据不同bundleid不同的，但是这个在服务器作处理。总体说来，渠道包仅仅是资源不一样，样式相同，源码一致的app。
-如何管理第一种，创建target，给每一个渠道包一个target一致用到二十来个target的时候，发现这种工作量太大，并不真正合适大量渠道包。如果在target比较少的时候，用这个十分棒。教程">
+<meta name="description" content="何为渠道包同一个项目源码，但是名字，启动图，bundleid等不一样。同样请求里面也是根据不同bundleid不同的，但是这个在服务器作处理。总体说来，渠道包仅仅是资源不一样，样式相同，源码一致的app。 如何管理第一种，创建target，给每一个渠道包一个target一致用到二十来个target的时候，发现这种工作量太大，并不真正合适大量渠道包。如果在target比较少的时候，用这个十分棒。教程">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS管理大量渠道包">
 <meta property="og:url" content="http://blog.huangcheng.com/2016/01/22/iOS管理大量渠道包/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="何为渠道包同一个项目源码，但是名字，启动图，bundleid等不一样。同样请求里面也是根据不同bundleid不同的，但是这个在服务器作处理。总体说来，渠道包仅仅是资源不一样，样式相同，源码一致的app。
-如何管理第一种，创建target，给每一个渠道包一个target一致用到二十来个target的时候，发现这种工作量太大，并不真正合适大量渠道包。如果在target比较少的时候，用这个十分棒。教程">
-<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/0FAC5B07-D8B3-4F49-B3C7-5315A9EF9DD9.png?imageView/1/w/500/h/190">
-<meta property="og:updated_time" content="2016-01-22T07:54:54.000Z">
+<meta property="og:description" content="何为渠道包同一个项目源码，但是名字，启动图，bundleid等不一样。同样请求里面也是根据不同bundleid不同的，但是这个在服务器作处理。总体说来，渠道包仅仅是资源不一样，样式相同，源码一致的app。 如何管理第一种，创建target，给每一个渠道包一个target一致用到二十来个target的时候，发现这种工作量太大，并不真正合适大量渠道包。如果在target比较少的时候，用这个十分棒。教程">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.monunu.com/0FAC5B07-D8B3-4F49-B3C7-5315A9EF9DD9.png?imageView/1/w/500/h/190">
+<meta property="og:updated_time" content="2019-08-29T03:40:09.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS管理大量渠道包">
-<meta name="twitter:description" content="何为渠道包同一个项目源码，但是名字，启动图，bundleid等不一样。同样请求里面也是根据不同bundleid不同的，但是这个在服务器作处理。总体说来，渠道包仅仅是资源不一样，样式相同，源码一致的app。
-如何管理第一种，创建target，给每一个渠道包一个target一致用到二十来个target的时候，发现这种工作量太大，并不真正合适大量渠道包。如果在target比较少的时候，用这个十分棒。教程">
+<meta name="twitter:description" content="何为渠道包同一个项目源码，但是名字，启动图，bundleid等不一样。同样请求里面也是根据不同bundleid不同的，但是这个在服务器作处理。总体说来，渠道包仅仅是资源不一样，样式相同，源码一致的app。 如何管理第一种，创建target，给每一个渠道包一个target一致用到二十来个target的时候，发现这种工作量太大，并不真正合适大量渠道包。如果在target比较少的时候，用这个十分棒。教程">
+<meta name="twitter:image" content="http://img.monunu.com/0FAC5B07-D8B3-4F49-B3C7-5315A9EF9DD9.png?imageView/1/w/500/h/190">
 
 
 
@@ -117,7 +117,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -144,7 +144,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -154,7 +154,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -164,7 +164,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -174,7 +174,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -257,8 +257,8 @@
       
 
       
-        <h3 id="何为渠道包">何为渠道包</h3><p>同一个项目源码，但是名字，启动图，bundleid等不一样。同样请求里面也是根据不同bundleid不同的，但是这个在服务器作处理。总体说来，渠道包仅仅是资源不一样，样式相同，源码一致的app。</p>
-<h3 id="如何管理">如何管理</h3><h5 id="第一种，创建target，给每一个渠道包一个target">第一种，创建target，给每一个渠道包一个target</h5><p>一致用到二十来个target的时候，发现这种工作量太大，并不真正合适大量渠道包。如果在target比较少的时候，用这个十分棒。教程附上：<a href="http://blog.startry.com/2015/09/06/Optional-solutions-for-iOS-multi-target/" target="_blank" rel="external">玄书</a></p>
+        <h3 id="何为渠道包"><a href="#何为渠道包" class="headerlink" title="何为渠道包"></a>何为渠道包</h3><p>同一个项目源码，但是名字，启动图，bundleid等不一样。同样请求里面也是根据不同bundleid不同的，但是这个在服务器作处理。总体说来，渠道包仅仅是资源不一样，样式相同，源码一致的app。</p>
+<h3 id="如何管理"><a href="#如何管理" class="headerlink" title="如何管理"></a>如何管理</h3><h5 id="第一种，创建target，给每一个渠道包一个target"><a href="#第一种，创建target，给每一个渠道包一个target" class="headerlink" title="第一种，创建target，给每一个渠道包一个target"></a>第一种，创建target，给每一个渠道包一个target</h5><p>一致用到二十来个target的时候，发现这种工作量太大，并不真正合适大量渠道包。如果在target比较少的时候，用这个十分棒。教程附上：<a href="http://blog.startry.com/2015/09/06/Optional-solutions-for-iOS-multi-target/" target="_blank" rel="noopener">玄书</a></p>
 <p>正如他博客中写道的：</p>
 <hr>
 <p>优点：</p>
@@ -271,11 +271,11 @@
 <p>配置相当麻烦，如果希望减少包体积，许多资源文件要重复选择target。新建一些源文件可能随手没勾选options，后面又要找到源码勾选target。</p>
 <p>多人协作开发的时候，project.pbxproj会有极大的冲突需要修改。</p>
 <hr>
-<h4 id="第二种，使用config来管理每个渠道包">第二种，使用config来管理每个渠道包</h4><p>经过了第一种方法的洗礼，在重构的时候我调研了config配置的形式，解决几乎所有我的所有问题，现在已经用入重构和新项目中。</p>
+<h4 id="第二种，使用config来管理每个渠道包"><a href="#第二种，使用config来管理每个渠道包" class="headerlink" title="第二种，使用config来管理每个渠道包"></a>第二种，使用config来管理每个渠道包</h4><p>经过了第一种方法的洗礼，在重构的时候我调研了config配置的形式，解决几乎所有我的所有问题，现在已经用入重构和新项目中。</p>
 <p>config文件的简单使用教程：（pod依赖管理环境下的使用）</p>
 <hr>
 <p> 1.新建一个config文件，假设我在config文件中加入如下代码</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"../../Pods/Target Support Files/Pods-shop/Pods-shop.debug.xcconfig"</span></span></span><br><span class="line"></span><br><span class="line">DISPLAY_NAME = hello</span><br><span class="line">IDENTIFIER = .hello</span><br><span class="line">APP_ID = hello</span><br><span class="line"></span><br><span class="line">LaunchImage = hello_LaunchImage</span><br><span class="line">AppIcon = hello_AppIcon</span><br><span class="line"></span><br><span class="line"><span class="comment">//:configuration = Debug</span></span><br><span class="line"><span class="comment">//PROVISIONING_PROFILE = 22f0006a-d829-41a2-934f-b789b3b0e7bc</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//:configuration = Release</span></span><br><span class="line">PROVISIONING_PROFILE = <span class="number">9598</span>b567-<span class="number">999</span>c-<span class="number">465</span>e-b377-<span class="number">757</span>bb5e63db4</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include "../../Pods/Target Support Files/Pods-shop/Pods-shop.debug.xcconfig"</span></span><br><span class="line"></span><br><span class="line">DISPLAY_NAME = hello</span><br><span class="line">IDENTIFIER = .hello</span><br><span class="line">APP_ID = hello</span><br><span class="line"></span><br><span class="line">LaunchImage = hello_LaunchImage</span><br><span class="line">AppIcon = hello_AppIcon</span><br><span class="line"></span><br><span class="line"><span class="section">//:configuration = Debug</span></span><br><span class="line">//PROVISIONING_PROFILE = 22f0006a-d829-41a2-934f-b789b3b0e7bc</span><br><span class="line"></span><br><span class="line"><span class="section">//:configuration = Release</span></span><br><span class="line">PROVISIONING_PROFILE = 9598b567-999c-465e-b377-757bb5e63db4</span><br></pre></td></tr></table></figure>
 <p>从上面的字面意思可以理解：</p>
 <ol>
 <li>先引入了pod的config，因为pod的config在依赖中会被用到</li>
@@ -287,7 +287,7 @@
 </ol>
 <hr>
 <p>2.引入到项目</p>
-<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/0FAC5B07-D8B3-4F49-B3C7-5315A9EF9DD9.png?imageView/1/w/500/h/190" alt="image"></p>
+<p><img src="http://img.monunu.com/0FAC5B07-D8B3-4F49-B3C7-5315A9EF9DD9.png?imageView/1/w/500/h/190" alt="image"></p>
 <hr>
 <p>3.使用</p>
 <p>首先我们build setting里面可以看到 User-Defined的里面出现了我们定义的这些东西。</p>
@@ -298,8 +298,8 @@
 <hr>
 <p>4.最后脚本打包</p>
 <p>脚本打包可以忽视项目配置的config，直接给出需要打包的config即可</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -workspace cheniu_shop<span class="class">.xcworkspace</span> -sdk iphoneos -scheme scheme_your_name -xcconfig <span class="string">"相对目录下的某个.config"</span> -configuration <span class="string">"Release Adhoc"</span> SYMROOT=<span class="string">'$(PWD)/build'</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">xcrun</span> -sdk iphoneos PackageApplication -v <span class="string">"build/Release-iphoneos/scheme_your_name.app"</span> -o <span class="string">"<span class="variable">$PWD</span>/build/release-iphoneos/your_name.ipa"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -workspace cheniu_shop<span class="selector-class">.xcworkspace</span> -sdk iphoneos -scheme scheme_your_name -xcconfig <span class="string">"相对目录下的某个.config"</span> -configuration <span class="string">"Release Adhoc"</span> SYMROOT=<span class="string">'$(PWD)/build'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">xcrun</span> -sdk iphoneos PackageApplication -v <span class="string">"build/Release-iphoneos/scheme_your_name.app"</span> -o <span class="string">"<span class="variable">$PWD</span>/build/release-iphoneos/your_name.ipa"</span></span><br></pre></td></tr></table></figure>
 <p>第一个build一个.app出来，第二个打包成.ipa</p>
 <hr>
 <p>5.如果需要修改里面style，比如文字颜色，背景图片，可以根据appid或者自己定义的渠道号去加载一个style源文件，读取里面自己定义的参数。</p>
@@ -388,7 +388,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -399,9 +399,7 @@
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -451,7 +449,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#何为渠道包"><span class="nav-number">1.</span> <span class="nav-text">何为渠道包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何管理"><span class="nav-number">2.</span> <span class="nav-text">如何管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一种，创建target，给每一个渠道包一个target"><span class="nav-number">2.0.1.</span> <span class="nav-text">第一种，创建target，给每一个渠道包一个target</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种，使用config来管理每个渠道包"><span class="nav-number">2.1.</span> <span class="nav-text">第二种，使用config来管理每个渠道包</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#何为渠道包"><span class="nav-number">1.</span> <span class="nav-text">何为渠道包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何管理"><span class="nav-number">2.</span> <span class="nav-text">如何管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一种，创建target，给每一个渠道包一个target"><span class="nav-number">2.0.1.</span> <span class="nav-text">第一种，创建target，给每一个渠道包一个target</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种，使用config来管理每个渠道包"><span class="nav-number">2.1.</span> <span class="nav-text">第二种，使用config来管理每个渠道包</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -470,10 +468,10 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,46 +36,39 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="正则表达式语法可以去https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解
-iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机号码是否有效验证，email是否为正常的email格式。
-现在我在做一个拥有富文本的小应用，用YYText,在富文本中需要把url电话email特殊处理，找出所有range。
-正则表达式查找ran">
+<meta name="description" content="正则表达式语法可以去https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解 iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机号码是否有效验证，email是否为正常的email格式。 现在我在做一个拥有富文本的小应用，用YYText,在富文本中需要把url电话email特殊处理，找出所有range。 正则表达式查找ran">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS中正则匹配电话url和email">
 <meta property="og:url" content="http://blog.huangcheng.com/2016/01/20/iOS中正则匹配电话url和email/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="正则表达式语法可以去https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解
-iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机号码是否有效验证，email是否为正常的email格式。
-现在我在做一个拥有富文本的小应用，用YYText,在富文本中需要把url电话email特殊处理，找出所有range。
-正则表达式查找ran">
+<meta property="og:description" content="正则表达式语法可以去https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解 iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机号码是否有效验证，email是否为正常的email格式。 现在我在做一个拥有富文本的小应用，用YYText,在富文本中需要把url电话email特殊处理，找出所有range。 正则表达式查找ran">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-01-20T10:20:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS中正则匹配电话url和email">
-<meta name="twitter:description" content="正则表达式语法可以去https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解
-iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机号码是否有效验证，email是否为正常的email格式。
-现在我在做一个拥有富文本的小应用，用YYText,在富文本中需要把url电话email特殊处理，找出所有range。
-正则表达式查找ran">
+<meta name="twitter:description" content="正则表达式语法可以去https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解 iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机号码是否有效验证，email是否为正常的email格式。 现在我在做一个拥有富文本的小应用，用YYText,在富文本中需要把url电话email特殊处理，找出所有range。 正则表达式查找ran">
 
 
 
@@ -122,7 +115,7 @@ iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机�
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -149,7 +142,7 @@ iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机�
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -159,7 +152,7 @@ iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机�
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -169,7 +162,7 @@ iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机�
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -179,7 +172,7 @@ iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机�
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -262,14 +255,14 @@ iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机�
       
 
       
-        <p>正则表达式语法可以去<a href="https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解" target="_blank" rel="external">https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解</a></p>
+        <p>正则表达式语法可以去<a href="https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ae5bf541(VS.80).aspx了解</a></p>
 <p>iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机号码是否有效验证，email是否为正常的email格式。</p>
 <p>现在我在做一个拥有富文本的小应用，用YYText,在富文本中需要把url电话email特殊处理，找出所有range。</p>
 <p>正则表达式查找range在oc里面比较方便：</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString *<span class="built_in">string</span> = @<span class="string">"123"</span>;//被查找的<span class="built_in">string</span></span><br><span class="line">   NSString *str = @<span class="string">"xxx正则表达式"</span>;</span><br><span class="line">   <span class="keyword">return</span> [<span class="built_in">string</span> rangeOfStrin<span class="variable">g:str</span> option<span class="variable">s:NSRegularExpressionSearch</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *string = <span class="string">@"123"</span>;<span class="comment">//被查找的string</span></span><br><span class="line">   <span class="built_in">NSString</span> *str = <span class="string">@"xxx正则表达式"</span>;</span><br><span class="line">   <span class="keyword">return</span> [string rangeOfString:str options:<span class="built_in">NSRegularExpressionSearch</span>];</span><br></pre></td></tr></table></figure>
 <p>查看字符串是否满足正则表达式</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *phoneRegex = <span class="string">@"^1\\d&#123;10&#125;$"</span>;<span class="comment">//正则表达式</span></span><br><span class="line"><span class="built_in">NSPredicate</span> *phone = [<span class="built_in">NSPredicate</span> predicateWithFormat:<span class="string">@"SELF MATCHES %@"</span>,phoneRegex];</span><br><span class="line"><span class="keyword">return</span> [phone evaluateWithObject:str];</span><br></pre></td></tr></table></figure>
-<h4 id="电话号码的正则表达式：(常用的号码格式)">电话号码的正则表达式：(常用的号码格式)</h4><p>这里正则放到列表里有问题，转义也不行，如果需要自行在下面拆分。</p>
+<h4 id="电话号码的正则表达式：-常用的号码格式"><a href="#电话号码的正则表达式：-常用的号码格式" class="headerlink" title="电话号码的正则表达式：(常用的号码格式)"></a>电话号码的正则表达式：(常用的号码格式)</h4><p>这里正则放到列表里有问题，转义也不行，如果需要自行在下面拆分。</p>
 <table>
 <thead>
 <tr>
@@ -346,9 +339,9 @@ iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机�
 </tr>
 </tbody>
 </table>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NSString *str = @"((<span class="command">\\</span>d<span class="special">&#123;</span>11<span class="special">&#125;</span>)|((<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>)-(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)-(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>2<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>1<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>)<span class="command">\\</span>s(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)<span class="command">\\</span>s(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>2<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>1<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>)-(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>)<span class="command">\\</span>s(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)-(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>2<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>1<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)<span class="command">\\</span>s(<span class="command">\\</span>d<span class="special">&#123;</span>4<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>3<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>2<span class="special">&#125;</span>|<span class="command">\\</span>d<span class="special">&#123;</span>1<span class="special">&#125;</span>)|(<span class="command">\\</span>d<span class="special">&#123;</span>7,8<span class="special">&#125;</span>)))";</span><br></pre></td></tr></table></figure>
-<h3 id="url匹配表达式">url匹配表达式</h3><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *str = @<span class="string">"((http|ftp|https)://)?((<span class="subst">[a-zA-Z0-9\\._-]</span>+\\.<span class="subst">[a-zA-Z]</span>&#123;2,6&#125;)|(<span class="subst">[0-9]</span>&#123;1,3&#125;\\.<span class="subst">[0-9]</span>&#123;1,3&#125;\\.<span class="subst">[0-9]</span>&#123;1,3&#125;\\.<span class="subst">[0-9]</span>&#123;1,3&#125;))(:<span class="subst">[0-9]</span>&#123;1,4&#125;)*(/<span class="subst">[a-zA-Z0-9\\&amp;%_\\./-~-]</span>*)?"</span></span><br></pre></td></tr></table></figure>
-<h3 id="email匹配表达式">email匹配表达式</h3><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *emailRegex = @"[<span class="keyword">A</span>-Z0-9a-z._%+-]+@[<span class="keyword">A</span>-Za-z0-9.-]+\\.[<span class="keyword">A</span>-Za-z]&#123;2,4&#125;"<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NSString *str = @<span class="string">"((<span class="subst">\\</span>d&#123;11&#125;)|((<span class="subst">\\</span>d&#123;4&#125;|<span class="subst">\\</span>d&#123;3&#125;)-(<span class="subst">\\</span>d&#123;7,8&#125;)-(<span class="subst">\\</span>d&#123;4&#125;|<span class="subst">\\</span>d&#123;3&#125;|<span class="subst">\\</span>d&#123;2&#125;|<span class="subst">\\</span>d&#123;1&#125;)|(<span class="subst">\\</span>d&#123;4&#125;|<span class="subst">\\</span>d&#123;3&#125;)<span class="subst">\\</span>s(<span class="subst">\\</span>d&#123;7,8&#125;)<span class="subst">\\</span>s(<span class="subst">\\</span>d&#123;4&#125;|<span class="subst">\\</span>d&#123;3&#125;|<span class="subst">\\</span>d&#123;2&#125;|<span class="subst">\\</span>d&#123;1&#125;)|(<span class="subst">\\</span>d&#123;4&#125;|<span class="subst">\\</span>d&#123;3&#125;)-(<span class="subst">\\</span>d&#123;7,8&#125;)|(<span class="subst">\\</span>d&#123;4&#125;|<span class="subst">\\</span>d&#123;3&#125;)<span class="subst">\\</span>s(<span class="subst">\\</span>d&#123;7,8&#125;)|(<span class="subst">\\</span>d&#123;7,8&#125;)-(<span class="subst">\\</span>d&#123;4&#125;|<span class="subst">\\</span>d&#123;3&#125;|<span class="subst">\\</span>d&#123;2&#125;|<span class="subst">\\</span>d&#123;1&#125;)|(<span class="subst">\\</span>d&#123;7,8&#125;)<span class="subst">\\</span>s(<span class="subst">\\</span>d&#123;4&#125;|<span class="subst">\\</span>d&#123;3&#125;|<span class="subst">\\</span>d&#123;2&#125;|<span class="subst">\\</span>d&#123;1&#125;)|(<span class="subst">\\</span>d&#123;7,8&#125;)))"</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="url匹配表达式"><a href="#url匹配表达式" class="headerlink" title="url匹配表达式"></a>url匹配表达式</h3><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *str = @<span class="string">"((http|ftp|https)://)?((<span class="subst">[a-zA-Z0-9\\._-]</span>+\\.<span class="subst">[a-zA-Z]</span>&#123;2,6&#125;)|(<span class="subst">[0-9]</span>&#123;1,3&#125;\\.<span class="subst">[0-9]</span>&#123;1,3&#125;\\.<span class="subst">[0-9]</span>&#123;1,3&#125;\\.<span class="subst">[0-9]</span>&#123;1,3&#125;))(:<span class="subst">[0-9]</span>&#123;1,4&#125;)*(/<span class="subst">[a-zA-Z0-9\\&amp;%_\\./-~-]</span>*)?"</span></span><br></pre></td></tr></table></figure>
+<h3 id="email匹配表达式"><a href="#email匹配表达式" class="headerlink" title="email匹配表达式"></a>email匹配表达式</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">NSString</span> *emailRegex = <span class="comment">@"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]&#123;2,4&#125;";</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -429,7 +422,7 @@ iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机�
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -440,9 +433,7 @@ iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机�
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -492,7 +483,7 @@ iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#电话号码的正则表达式：(常用的号码格式)"><span class="nav-number">1.</span> <span class="nav-text">电话号码的正则表达式：(常用的号码格式)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#url匹配表达式"><span class="nav-number"></span> <span class="nav-text">url匹配表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#email匹配表达式"><span class="nav-number"></span> <span class="nav-text">email匹配表达式</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#电话号码的正则表达式：-常用的号码格式"><span class="nav-number">1.</span> <span class="nav-text">电话号码的正则表达式：(常用的号码格式)</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#url匹配表达式"><span class="nav-number"></span> <span class="nav-text">url匹配表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#email匹配表达式"><span class="nav-number"></span> <span class="nav-text">email匹配表达式</span></a></li></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -511,10 +502,10 @@ iOS开发过程中经常会遇到正则表达式，比如登陆的时候手机�
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,68 +36,44 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="OC runtime个人理解在类的层级结构里面，我们可以看到
-
-NSObject 包含一个指向class的isa指针
-
-Class是指向objc_class的指针
-
-objc_class里面包含这些东西
-objc_class里面的isa指针，指向metaclass
-super_class 指向父class，如果为root，则为null
-oc对象的isa指针会指向一个普通的class，这个class">
+<meta name="description" content="OC runtime个人理解在类的层级结构里面，我们可以看到  NSObject 包含一个指向class的isa指针  Class是指向objc_class的指针  objc_class里面包含这些东西 objc_class里面的isa指针，指向metaclass super_class 指向父class，如果为root，则为null oc对象的isa指针会指向一个普通的class，这个class">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OC-runtime理解">
 <meta property="og:url" content="http://blog.huangcheng.com/2016/04/22/OC-runtime理解/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="OC runtime个人理解在类的层级结构里面，我们可以看到
-
-NSObject 包含一个指向class的isa指针
-
-Class是指向objc_class的指针
-
-objc_class里面包含这些东西
-objc_class里面的isa指针，指向metaclass
-super_class 指向父class，如果为root，则为null
-oc对象的isa指针会指向一个普通的class，这个class">
-<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/523CAC82-7C67-4D1D-9E41-08F5BAD5BD40.png?imageView/1/w/400/h/100">
-<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/952B1246-2130-4E52-80F8-0EB6F9B68EA4.png?imageView/1/w/450/h/145">
-<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/9EB2AF02-A57E-46A3-B897-D22DE927C464.png?imageView/1/w/600/h/230">
-<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/1413628797629491.png?imageView/1/w/275/h/280">
-<meta property="og:updated_time" content="2016-04-22T06:02:42.000Z">
+<meta property="og:description" content="OC runtime个人理解在类的层级结构里面，我们可以看到  NSObject 包含一个指向class的isa指针  Class是指向objc_class的指针  objc_class里面包含这些东西 objc_class里面的isa指针，指向metaclass super_class 指向父class，如果为root，则为null oc对象的isa指针会指向一个普通的class，这个class">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.monunu.com/523CAC82-7C67-4D1D-9E41-08F5BAD5BD40.png?imageView/1/w/400/h/100">
+<meta property="og:image" content="http://img.monunu.com/952B1246-2130-4E52-80F8-0EB6F9B68EA4.png?imageView/1/w/450/h/145">
+<meta property="og:image" content="http://img.monunu.com/9EB2AF02-A57E-46A3-B897-D22DE927C464.png?imageView/1/w/600/h/230">
+<meta property="og:image" content="http://img.monunu.com/1413628797629491.png?imageView/1/w/275/h/280">
+<meta property="og:updated_time" content="2019-08-29T03:40:09.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OC-runtime理解">
-<meta name="twitter:description" content="OC runtime个人理解在类的层级结构里面，我们可以看到
-
-NSObject 包含一个指向class的isa指针
-
-Class是指向objc_class的指针
-
-objc_class里面包含这些东西
-objc_class里面的isa指针，指向metaclass
-super_class 指向父class，如果为root，则为null
-oc对象的isa指针会指向一个普通的class，这个class">
+<meta name="twitter:description" content="OC runtime个人理解在类的层级结构里面，我们可以看到  NSObject 包含一个指向class的isa指针  Class是指向objc_class的指针  objc_class里面包含这些东西 objc_class里面的isa指针，指向metaclass super_class 指向父class，如果为root，则为null oc对象的isa指针会指向一个普通的class，这个class">
+<meta name="twitter:image" content="http://img.monunu.com/523CAC82-7C67-4D1D-9E41-08F5BAD5BD40.png?imageView/1/w/400/h/100">
 
 
 
@@ -144,7 +120,7 @@ oc对象的isa指针会指向一个普通的class，这个class">
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -171,7 +147,7 @@ oc对象的isa指针会指向一个普通的class，这个class">
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -181,7 +157,7 @@ oc对象的isa指针会指向一个普通的class，这个class">
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -191,7 +167,7 @@ oc对象的isa指针会指向一个普通的class，这个class">
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -201,7 +177,7 @@ oc对象的isa指针会指向一个普通的class，这个class">
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -284,18 +260,18 @@ oc对象的isa指针会指向一个普通的class，这个class">
       
 
       
-        <h4 id="OC_runtime个人理解">OC runtime个人理解</h4><p>在类的层级结构里面，我们可以看到</p>
-<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/523CAC82-7C67-4D1D-9E41-08F5BAD5BD40.png?imageView/1/w/400/h/100" alt="image"></p>
+        <h4 id="OC-runtime个人理解"><a href="#OC-runtime个人理解" class="headerlink" title="OC runtime个人理解"></a>OC runtime个人理解</h4><p>在类的层级结构里面，我们可以看到</p>
+<p><img src="http://img.monunu.com/523CAC82-7C67-4D1D-9E41-08F5BAD5BD40.png?imageView/1/w/400/h/100" alt="image"></p>
 <p>NSObject 包含一个指向class的isa指针</p>
-<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/952B1246-2130-4E52-80F8-0EB6F9B68EA4.png?imageView/1/w/450/h/145" alt="image"></p>
+<p><img src="http://img.monunu.com/952B1246-2130-4E52-80F8-0EB6F9B68EA4.png?imageView/1/w/450/h/145" alt="image"></p>
 <p>Class是指向objc_class的指针</p>
-<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/9EB2AF02-A57E-46A3-B897-D22DE927C464.png?imageView/1/w/600/h/230" alt="image"></p>
+<p><img src="http://img.monunu.com/9EB2AF02-A57E-46A3-B897-D22DE927C464.png?imageView/1/w/600/h/230" alt="image"></p>
 <p>objc_class里面包含这些东西</p>
 <p>objc_class里面的isa指针，指向metaclass</p>
 <p>super_class 指向父class，如果为root，则为null</p>
 <p>oc对象的isa指针会指向一个普通的class，这个class中存储所有普通成员变量和实例方法，普通的class里面的isa指针会指向静态的class，静态class中存储所有的static变量和类方法</p>
 <p> 用一张图说面：</p>
-<p> <img src="http://7xpas5.com1.z0.glb.clouddn.com/1413628797629491.png?imageView/1/w/275/h/280" alt="image"></p>
+<p> <img src="http://img.monunu.com/1413628797629491.png?imageView/1/w/275/h/280" alt="image"></p>
 <p> 所有metaclass中isa指针都指向跟metaclass。而跟metaclass则指向自身。Root metaclass是通过继承Root class产生的</p>
 <blockquote>
 <p>在运行过程中的流程是什么？</p>
@@ -305,17 +281,17 @@ oc对象的isa指针会指向一个普通的class，这个class">
 <p> 如果没有找到指定方法，那么就会调用以下流程：</p>
 <ul>
 <li><p>提供一个方法实现并且告诉 runtime 你已经解析了这个方法，如果它开始查找，这回就会找到这个方法</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">+ </span>(BOOL)resolveInstanceMethod:(SEL)sel</span><br><span class="line"><span class="bullet">+ </span>(BOOL)resolveClassMethod:(SEL)sel</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="selector-tag">BOOL</span>)<span class="selector-tag">resolveInstanceMethod</span><span class="selector-pseudo">:(SEL)sel</span></span><br><span class="line">+ (<span class="selector-tag">BOOL</span>)<span class="selector-tag">resolveClassMethod</span><span class="selector-pseudo">:(SEL)sel</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ul>
 <li><p>引导 Objective-C runtime 到另一个可以响应这个消息的对象上</p>
-<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="pp">- <span class="params">(id)</span>forwardingTargetForSelector:<span class="params">(<span class="variable">SEL</span>)</span>aSelector</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="params">(id)</span>forwardingTargetForSelector:<span class="params">(SEL)</span>aSelector</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ul>
 <li><p>一个 NSInvocation 你可以改变这个消息的一切，包括目标对象，selector 和参数。 覆盖这个方法去做一些事情</p>
-<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="pp">- <span class="params">(void)</span>forwardInvocation:<span class="params">(<span class="variable">NSInvocation</span> *)</span>anInvocation</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="params">(void)</span>forwardInvocation:<span class="params">(NSInvocation *)</span>anInvocation</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p> runtime里面有很多东西：比如获取ivar，获取method，增加ivar，method等等，具体可以查询官方文档或者在runtime的类库里面查看使用方法</p>
@@ -400,7 +376,7 @@ oc对象的isa指针会指向一个普通的class，这个class">
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -411,9 +387,7 @@ oc对象的isa指针会指向一个普通的class，这个class">
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -463,7 +437,7 @@ oc对象的isa指针会指向一个普通的class，这个class">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#OC_runtime个人理解"><span class="nav-number">1.</span> <span class="nav-text">OC runtime个人理解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#OC-runtime个人理解"><span class="nav-number">1.</span> <span class="nav-text">OC runtime个人理解</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -482,10 +456,10 @@ oc对象的isa指针会指向一个普通的class，这个class">
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,49 +36,39 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing
-对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。
-1.round corner 
-优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如
-123456">
+<meta name="description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing 对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。 1.round corner  优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如 123456">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS开发中各种优化">
 <meta property="og:url" content="http://blog.huangcheng.com/2016/04/28/iOS开发中各种优化/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing
-对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。
-1.round corner 
-优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如
-123456">
+<meta property="og:description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing 对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。 1.round corner  优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如 123456">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-05-24T06:58:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发中各种优化">
-<meta name="twitter:description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing
-对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。
-1.round corner 
-优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如
-123456">
+<meta name="twitter:description" content="离屏渲染触发离屏渲染：mask, shadow, group opacity, edge antialiasing 对性能的影响等级：Shadow &amp;gt; RoundedCorner &amp;gt; Mask &amp;gt; GroupOpacity(迷之效果)。 1.round corner  优化方案：uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如 123456">
 
 
 
@@ -125,7 +115,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -152,7 +142,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -162,7 +152,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -172,7 +162,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -182,7 +172,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -265,21 +255,21 @@
       
 
       
-        <h4 id="离屏渲染">离屏渲染</h4><p>触发离屏渲染：mask, shadow, group opacity, edge antialiasing</p>
+        <h4 id="离屏渲染"><a href="#离屏渲染" class="headerlink" title="离屏渲染"></a>离屏渲染</h4><p>触发离屏渲染：mask, shadow, group opacity, edge antialiasing</p>
 <p>对性能的影响等级：Shadow &gt; RoundedCorner &gt; Mask &gt; GroupOpacity(迷之效果)。</p>
 <p>1.round corner </p>
 <p>优化方案：<br>uiimage：重新绘制一张带圆角的uiimage，使用core graphics。比如</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CGRect imageFrame = CGRectMake(<span class="number">0.</span>, <span class="number">0.</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">width</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="variable">height</span>);</span><br><span class="line">UIGraphicsBeginImageContextWithOptions(<span class="built_in">rect</span>.<span class="built_in">size</span>, NO, [UIScreen mainScreen].<span class="built_in">scale</span>);</span><br><span class="line">[[UIBezierPath bezierPathWithRoundedRect:imageFrame cornerRadius:<span class="number">10</span>] addClip];</span><br><span class="line">[self.<span class="built_in">image</span> drawInRect:imageFrame];</span><br><span class="line">self.<span class="built_in">image</span> = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">UIGraphicsEndImageContext();</span><br></pre></td></tr></table></figure>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CGRect imageFrame = CGRectMake(<span class="number">0.</span>, <span class="number">0.</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="built_in">width</span>, <span class="built_in">rect</span>.<span class="built_in">size</span>.<span class="built_in">height</span>);</span><br><span class="line">UIGraphicsBeginImageContextWithOptions(<span class="built_in">rect</span>.<span class="built_in">size</span>, NO, [UIScreen mainScreen].<span class="built_in">scale</span>);</span><br><span class="line">[[UIBezierPath bezierPathWithRoundedRect:imageFrame cornerRadius:<span class="number">10</span>] addClip];</span><br><span class="line">[self.<span class="built_in">image</span> drawInRect:imageFrame];</span><br><span class="line">self.<span class="built_in">image</span> = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">UIGraphicsEndImageContext();</span><br></pre></td></tr></table></figure>
 <p> 使用一个层级去覆盖： 用一个带圆角中间透明的imageview去盖在上面<br> 问题：如何获取这个带圆角的image</p>
 <p> uilabel使用layer设置颜色<br> uitextview，UITextField不影响</p>
 <p> 2.shadow</p>
 <p> 设置shadowpath，使用圆角优化的混合涂层方法，使用core graphics绘制引用</p>
 <p> shadowpath:</p>
- <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> let imageViewLayer = avatorView<span class="class">.layer</span></span><br><span class="line">imageViewLayer<span class="class">.shadowColor</span> = UIColor.<span class="function"><span class="title">blackColor</span><span class="params">()</span></span><span class="class">.CGColor</span></span><br><span class="line">imageViewLayer<span class="class">.shadowOpacity</span> = <span class="number">1.0</span> <span class="comment">//此参数默认为0，即阴影不显示</span></span><br><span class="line">imageViewLayer<span class="class">.shadowRadius</span> = <span class="number">2.0</span> <span class="comment">//给阴影加上圆角，对性能无明显影响</span></span><br><span class="line">imageViewLayer<span class="class">.shadowOffset</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: <span class="number">5</span>, height: <span class="number">5</span>)</span></span></span><br><span class="line"><span class="comment">//设定路径：与视图的边界相同</span></span><br><span class="line">let path = <span class="function"><span class="title">UIBezierPath</span><span class="params">(rect: cell.imageView.bounds)</span></span></span><br><span class="line">imageViewLayer<span class="class">.shadowPath</span> = path.CGPath<span class="comment">//路径默认为 nil</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> let imageViewLayer = avatorView.layer</span><br><span class="line">imageViewLayer<span class="selector-class">.shadowColor</span> = UIColor.blackColor().CGColor</span><br><span class="line">imageViewLayer<span class="selector-class">.shadowOpacity</span> = <span class="number">1.0</span> <span class="comment">//此参数默认为0，即阴影不显示</span></span><br><span class="line">imageViewLayer<span class="selector-class">.shadowRadius</span> = <span class="number">2.0</span> <span class="comment">//给阴影加上圆角，对性能无明显影响</span></span><br><span class="line">imageViewLayer<span class="selector-class">.shadowOffset</span> = CGSize(<span class="attribute">width</span>: <span class="number">5</span>, height: <span class="number">5</span>)</span><br><span class="line"><span class="comment">//设定路径：与视图的边界相同</span></span><br><span class="line">let path = UIBezierPath(rect: cell<span class="selector-class">.imageView</span><span class="selector-class">.bounds</span>)</span><br><span class="line">imageViewLayer<span class="selector-class">.shadowPath</span> = path.CGPath<span class="comment">//路径默认为 nil</span></span><br></pre></td></tr></table></figure>
 <p> 3.mask</p>
 <p> Mask 效果无法取消离屏渲染，使用混合图层的方法来模拟 mask 效果，性能各方面都是和无效果持平。</p>
 <p>使用 mask 来实现圆角时也可以不用图片，而使用 CAShapeLayer 来指定混合的路径。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let roundedRectPath = <span class="function"><span class="title">UIBezierPath</span><span class="params">(roundedRect: avatorView.bounds, byRoundingCorners: .AllCorners, cornerRadii: CGSize(width: <span class="number">10</span>, height: <span class="number">10</span>)</span></span>)</span><br><span class="line">let shapeLayer = <span class="function"><span class="title">CAShapeLayer</span><span class="params">()</span></span></span><br><span class="line">shapeLayer<span class="class">.path</span> = roundedRectPath<span class="class">.CGPath</span></span><br><span class="line">avatorView<span class="class">.layer</span><span class="class">.mask</span> = shapeLayer</span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let roundedRectPath = UIBezierPath(roundedRect: avatorView<span class="selector-class">.bounds</span>, byRoundingCorners: <span class="selector-class">.AllCorners</span>, cornerRadii: CGSize(<span class="attribute">width</span>: <span class="number">10</span>, height: <span class="number">10</span>))</span><br><span class="line">let shapeLayer = CAShapeLayer()</span><br><span class="line">shapeLayer<span class="selector-class">.path</span> = roundedRectPath.CGPath</span><br><span class="line">avatorView<span class="selector-class">.layer</span><span class="selector-class">.mask</span> = shapeLayer</span><br></pre></td></tr></table></figure>
 <p>4.group opacity</p>
 <p>只有设置 tableView 的alpha小于1时才会触发离屏渲染，对性能无明显影响；设置 cell 的alpha属性并不会对整体的透明度产生影响，只有设置 cell.contentView 才有效。</p>
 <p>5.edge antialiasing</p>
@@ -377,7 +367,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -388,9 +378,7 @@
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -459,10 +447,10 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

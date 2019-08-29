@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,47 +36,41 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS 源码解读," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS 源码解读,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="SDWebImageSDWebImage 是很多iOS应用的网络图片管理第三方库，github地址：https://github.com/rs/SDWebImage 本文主要从框架到细节对SD进行剖析。
-网络图片的基本流程流程 
-SD的流程：(以UIImageView加载方式讲述)
-在UIImageView+WebCache类别中，判断是否正在进行，并使用关联添加参数,然后调用SDWebImage">
+<meta name="description" content="SDWebImageSDWebImage 是很多iOS应用的网络图片管理第三方库，github地址：https://github.com/rs/SDWebImage 本文主要从框架到细节对SD进行剖析。 网络图片的基本流程流程  SD的流程：(以UIImageView加载方式讲述) 在UIImageView+WebCache类别中，判断是否正在进行，并使用关联添加参数,然后调用SDWebImage">
+<meta name="keywords" content="iOS 源码解读">
 <meta property="og:type" content="article">
 <meta property="og:title" content="看看SDWebImage源码">
 <meta property="og:url" content="http://blog.huangcheng.com/2015/09/29/看看SDWebImage源码/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="SDWebImageSDWebImage 是很多iOS应用的网络图片管理第三方库，github地址：https://github.com/rs/SDWebImage 本文主要从框架到细节对SD进行剖析。
-网络图片的基本流程流程 
-SD的流程：(以UIImageView加载方式讲述)
-在UIImageView+WebCache类别中，判断是否正在进行，并使用关联添加参数,然后调用SDWebImage">
+<meta property="og:description" content="SDWebImageSDWebImage 是很多iOS应用的网络图片管理第三方库，github地址：https://github.com/rs/SDWebImage 本文主要从框架到细节对SD进行剖析。 网络图片的基本流程流程  SD的流程：(以UIImageView加载方式讲述) 在UIImageView+WebCache类别中，判断是否正在进行，并使用关联添加参数,然后调用SDWebImage">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7xn4sb.com2.z0.glb.qiniucdn.com/网络图片加载流程.jpg">
-<meta property="og:updated_time" content="2016-01-06T06:53:12.000Z">
+<meta property="og:updated_time" content="2019-08-29T03:40:18.213Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看看SDWebImage源码">
-<meta name="twitter:description" content="SDWebImageSDWebImage 是很多iOS应用的网络图片管理第三方库，github地址：https://github.com/rs/SDWebImage 本文主要从框架到细节对SD进行剖析。
-网络图片的基本流程流程 
-SD的流程：(以UIImageView加载方式讲述)
-在UIImageView+WebCache类别中，判断是否正在进行，并使用关联添加参数,然后调用SDWebImage">
+<meta name="twitter:description" content="SDWebImageSDWebImage 是很多iOS应用的网络图片管理第三方库，github地址：https://github.com/rs/SDWebImage 本文主要从框架到细节对SD进行剖析。 网络图片的基本流程流程  SD的流程：(以UIImageView加载方式讲述) 在UIImageView+WebCache类别中，判断是否正在进行，并使用关联添加参数,然后调用SDWebImage">
+<meta name="twitter:image" content="http://7xn4sb.com2.z0.glb.qiniucdn.com/网络图片加载流程.jpg">
 
 
 
@@ -123,7 +117,7 @@ SD的流程：(以UIImageView加载方式讲述)
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -150,7 +144,7 @@ SD的流程：(以UIImageView加载方式讲述)
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -160,7 +154,7 @@ SD的流程：(以UIImageView加载方式讲述)
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -170,7 +164,7 @@ SD的流程：(以UIImageView加载方式讲述)
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -180,7 +174,7 @@ SD的流程：(以UIImageView加载方式讲述)
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -263,44 +257,43 @@ SD的流程：(以UIImageView加载方式讲述)
       
 
       
-        <h3 id="SDWebImage">SDWebImage</h3><p>SDWebImage 是很多iOS应用的网络图片管理第三方库，github地址：<a href="https://github.com/rs/SDWebImage" target="_blank" rel="external">https://github.com/rs/SDWebImage</a> 本文主要从框架到细节对SD进行剖析。</p>
-<h6 id="网络图片的基本流程">网络图片的基本流程</h6><h4 id="流程">流程</h4><p><img src="http://7xn4sb.com2.z0.glb.qiniucdn.com/网络图片加载流程.jpg" alt="流程"> </p>
+        <h3 id="SDWebImage"><a href="#SDWebImage" class="headerlink" title="SDWebImage"></a>SDWebImage</h3><p>SDWebImage 是很多iOS应用的网络图片管理第三方库，github地址：<a href="https://github.com/rs/SDWebImage" target="_blank" rel="noopener">https://github.com/rs/SDWebImage</a> 本文主要从框架到细节对SD进行剖析。</p>
+<h6 id="网络图片的基本流程"><a href="#网络图片的基本流程" class="headerlink" title="网络图片的基本流程"></a>网络图片的基本流程</h6><h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><p><img src="http://7xn4sb.com2.z0.glb.qiniucdn.com/网络图片加载流程.jpg" alt="流程"> </p>
 <p>SD的流程：(以UIImageView加载方式讲述)</p>
 <p>在UIImageView+WebCache类别中，判断是否正在进行，并使用关联添加参数,然后调用SDWebImageManager download</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> sd_cancelCurrentImageLoad];</span><br><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;imageURLKey, url, OBJC_ASSO<span class="built_in">CIATION_RETAIN_NONATOMIC</span>);</span><br><span class="line"><span class="keyword">id</span> &lt;SDWebImageOperation&gt; operation = [SDWebImageManager<span class="variable">.sharedManager</span> downloadImageWithURL:url options:options progress:progressBlock completed:^(<span class="built_in">UIImage</span> *image, <span class="built_in">NSError</span> *error, SDImageCacheType cacheType, <span class="built_in">BOOL</span> finished, <span class="built_in">NSURL</span> *imageURL)</span><br></pre></td></tr></table></figure>
-<p>在SDWebImageManager中，添加到runningOperations,查询在cache是否存在，不存在则进行SDWebImageDownloader下载，下载完成后使用<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">dispatch_main_sync_safe</span>(^&#123;&#125;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> sd_cancelCurrentImageLoad];</span><br><span class="line">objc_setAssociatedObject(<span class="keyword">self</span>, &amp;imageURLKey, url, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line"><span class="keyword">id</span> &lt;SDWebImageOperation&gt; operation = [SDWebImageManager.sharedManager downloadImageWithURL:url options:options progress:progressBlock completed:^(<span class="built_in">UIImage</span> *image, <span class="built_in">NSError</span> *error, SDImageCacheType cacheType, <span class="built_in">BOOL</span> finished, <span class="built_in">NSURL</span> *imageURL)</span><br></pre></td></tr></table></figure>
+<p>在SDWebImageManager中，添加到runningOperations,查询在cache是否存在，不存在则进行SDWebImageDownloader下载，下载完成后使用<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">dispatch_main_sync_safe</span>(^&#123;&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>返回</p>
 <p>在SDWebImageDownloader<br>初始化一个operation</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[<span class="collection">[wself.operationClass alloc]</span> initWithRequest:request                                           options:options                                                      progress:^<span class="list">(<span class="keyword">NSInteger</span> receivedSize, NSInteger expectedSize)</span> <span class="collection">&#123;&#125;</span></span><br><span class="line">completed:^<span class="list">(<span class="keyword">UIImage</span> *image, NSData *data, NSError *error, BOOL finished)</span> <span class="collection">&#123;&#125;</span></span><br><span class="line">cancelled:<span class="comment">^&#123;&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[wself.operationClass alloc] initWithRequest:request                                           options:options                                                      progress:^(<span class="name">NSInteger</span> receivedSize, NSInteger expectedSize) &#123;&#125;</span><br><span class="line">completed:^(<span class="name">UIImage</span> *image, NSData *data, NSError *error, BOOL finished) &#123;&#125;</span><br><span class="line">cancelled:<span class="comment">^&#123;&#125;</span>]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>再添加到downloadQueue，设置优先级，如果设置了串行，则进行</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[wself.lastAddedOperation addDependency:operation]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<p>依赖。</p>
-<p>在SDWebImageDownloaderOperation中进行下载</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.connection</span> = [[<span class="built_in">NSURLConnection</span> alloc] initWithRequest:<span class="keyword">self</span><span class="variable">.request</span> delegate:<span class="keyword">self</span> startImmediately:<span class="literal">NO</span>];</span><br><span class="line"><span class="keyword">self</span><span class="variable">.thread</span> = [<span class="built_in">NSThread</span> currentThread];</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[wself.lastAddedOperation addDependency:operation]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>依赖。<br>在SDWebImageDownloaderOperation中进行下载</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">self.connection</span> = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:<span class="literal">NO</span>]<span class="comment">;</span></span><br><span class="line"><span class="attr">self.thread</span> = [NSThread currentThread]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>最后在delegate中进行回调block。</p>
-<h4 id="sd文件结构">sd文件结构</h4><h6 id="NSData+ImageContentType_:">NSData+ImageContentType :</h6><p>根据data判断图片的格式</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[data getBytes:&amp;c length:<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">C:</span><br><span class="line"><span class="number">1.</span> <span class="number">0xFF</span> : jpeg</span><br><span class="line"><span class="number">2.</span> <span class="number">0x89</span> : png</span><br><span class="line"><span class="number">3.</span> <span class="number">0x47</span> : gif</span><br><span class="line"><span class="number">4.</span> <span class="number">0x49</span> : 无</span><br><span class="line"><span class="number">5.</span> <span class="number">0x4D</span> : tiff</span><br></pre></td></tr></table></figure>
-<h6 id="SDImageCache:">SDImageCache:</h6><p>管理缓存的类(增删，是否有缓存)</p>
+<h4 id="sd文件结构"><a href="#sd文件结构" class="headerlink" title="sd文件结构"></a>sd文件结构</h4><h6 id="NSData-ImageContentType"><a href="#NSData-ImageContentType" class="headerlink" title="NSData+ImageContentType :"></a>NSData+ImageContentType :</h6><p>根据data判断图片的格式</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[data getBytes:&amp;c length:1]</span>;</span><br><span class="line"></span><br><span class="line"><span class="attribute">C</span>:</span><br><span class="line"><span class="number">1</span>. <span class="number">0</span><span class="attribute">xFF </span>: jpeg</span><br><span class="line"><span class="number">2</span>. <span class="number">0</span><span class="attribute">x89 </span>: png</span><br><span class="line"><span class="number">3</span>. <span class="number">0</span><span class="attribute">x47 </span>: gif</span><br><span class="line"><span class="number">4</span>. <span class="number">0</span><span class="attribute">x49 </span>: 无</span><br><span class="line"><span class="number">5</span>. <span class="number">0</span><span class="attribute">x4D </span>: tiff</span><br></pre></td></tr></table></figure>
+<h6 id="SDImageCache"><a href="#SDImageCache" class="headerlink" title="SDImageCache:"></a>SDImageCache:</h6><p>管理缓存的类(增删，是否有缓存)</p>
 <p>有一个fileManager来管理io操作，用一个异步串行队列添加操作。</p>
-<h6 id="SDWebImageCompat">SDWebImageCompat</h6><p>对image进行倍和方向操作</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr_selector">[[UIImage alloc]</span> <span class="tag">initWithCGImage</span><span class="pseudo">:image</span><span class="class">.CGImage</span> <span class="tag">scale</span><span class="pseudo">:scale</span> <span class="tag">orientation</span><span class="pseudo">:image</span><span class="class">.imageOrientation</span>];</span><br></pre></td></tr></table></figure>
-<h6 id="SDWebImageDecoder">SDWebImageDecoder</h6><p>图片解码</p>
-<h6 id="SDWebImageDownloader">SDWebImageDownloader</h6><p>图片下载类</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">downloadQueue</span> 异步并行队列</span><br><span class="line"><span class="built_in">last</span>AddedOperation 最后的操作，用于做串行下载</span><br><span class="line">operationClass 操作的类，继承NSOperation</span><br><span class="line">barrierQueue 异步串行操作，用于各种返回数据</span><br></pre></td></tr></table></figure>
-<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="pp">- <span class="params">(id &lt;<span class="variable">SDWebImageOperation</span>&gt;)</span>downloadImageWithURL:<span class="params">(<span class="variable">NSURL</span> *)</span>url options:<span class="params">(<span class="variable">SDWebImageDownloaderOptions</span>)</span>options progress:<span class="params">(<span class="variable">SDWebImageDownloaderProgressBlock</span>)</span>progressBlock completed:<span class="params">(<span class="variable">SDWebImageDownloaderCompletedBlock</span>)</span>completedBlock</span><br><span class="line">下载的主函数</span></span><br></pre></td></tr></table></figure>
-<h6 id="SDWebImageDownloaderOperation">SDWebImageDownloaderOperation</h6><p>图片下载的操作</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">thread</span> 获取下载的时候的线程，如此能在线程里取消</span><br><span class="line"><span class="label">connection</span> 网络连接，delegate里面获取返回值</span><br><span class="line"><span class="keyword">backgroundTaskId </span>这个用语应用退出到后台的时候，需要调用系统一段时间运行取消下载操作</span><br></pre></td></tr></table></figure>
-<h6 id="SDWebImageManager">SDWebImageManager</h6><p>管理一系列类的各种操作中心，想当于中转台</p>
+<h6 id="SDWebImageCompat"><a href="#SDWebImageCompat" class="headerlink" title="SDWebImageCompat"></a>SDWebImageCompat</h6><p>对image进行倍和方向操作</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[UIImage alloc] initWithCGImage:<span class="built_in">image</span>.CGImage <span class="built_in">scale</span>:<span class="built_in">scale</span> <span class="built_in">orientation</span>:<span class="built_in">image</span>.imageOrientation];</span><br></pre></td></tr></table></figure>
+<h6 id="SDWebImageDecoder"><a href="#SDWebImageDecoder" class="headerlink" title="SDWebImageDecoder"></a>SDWebImageDecoder</h6><p>图片解码</p>
+<h6 id="SDWebImageDownloader"><a href="#SDWebImageDownloader" class="headerlink" title="SDWebImageDownloader"></a>SDWebImageDownloader</h6><p>图片下载类</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">downloadQueue</span> 异步并行队列</span><br><span class="line"><span class="literal">last</span>AddedOperation 最后的操作，用于做串行下载</span><br><span class="line">operationClass 操作的类，继承NSOperation</span><br><span class="line">barrierQueue 异步串行操作，用于各种返回数据</span><br></pre></td></tr></table></figure>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- <span class="params">(id &lt;SDWebImageOperation&gt;)</span>downloadImageWithURL:<span class="params">(NSURL *)</span>url options:<span class="params">(SDWebImageDownloaderOptions)</span>options progress:<span class="params">(SDWebImageDownloaderProgressBlock)</span>progressBlock completed:<span class="params">(SDWebImageDownloaderCompletedBlock)</span>completedBlock</span><br><span class="line">下载的主函数</span><br></pre></td></tr></table></figure>
+<h6 id="SDWebImageDownloaderOperation"><a href="#SDWebImageDownloaderOperation" class="headerlink" title="SDWebImageDownloaderOperation"></a>SDWebImageDownloaderOperation</h6><p>图片下载的操作</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">thread 获取下载的时候的线程，如此能在线程里取消</span><br><span class="line">connection 网络连接，delegate里面获取返回值</span><br><span class="line">backgroundTaskId 这个用语应用退出到后台的时候，需要调用系统一段时间运行取消下载操作</span><br></pre></td></tr></table></figure>
+<h6 id="SDWebImageManager"><a href="#SDWebImageManager" class="headerlink" title="SDWebImageManager"></a>SDWebImageManager</h6><p>管理一系列类的各种操作中心，想当于中转台</p>
 <p>SDWebImageManagerDelegate</p>
 <ol>
 <li>是否需要下载image</li>
 <li>下载完成后立即变换图像</li>
 </ol>
-<h6 id="SDWebImagePrefetcher">SDWebImagePrefetcher</h6><p>缓存图片预取(把图片从缓存文件里面取出来到内存)</p>
-<h6 id="UIImage+GIF">UIImage+GIF</h6><p>对图片进行gif判断，如果是gif图则进行处理，返回带animationImage的图片</p>
+<h6 id="SDWebImagePrefetcher"><a href="#SDWebImagePrefetcher" class="headerlink" title="SDWebImagePrefetcher"></a>SDWebImagePrefetcher</h6><p>缓存图片预取(把图片从缓存文件里面取出来到内存)</p>
+<h6 id="UIImage-GIF"><a href="#UIImage-GIF" class="headerlink" title="UIImage+GIF"></a>UIImage+GIF</h6><p>对图片进行gif判断，如果是gif图则进行处理，返回带animationImage的图片</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[UIImage <span class="string">animatedImageWithImages:</span>images <span class="string">duration:</span>duration];</span><br></pre></td></tr></table></figure>
-<h6 id="UIImage+MultiFormat">UIImage+MultiFormat</h6><p>图片的处理：方向</p>
-<h2 id="注意">注意</h2><p>最后提及 SDWebImage里面的队列有一个maxConcurrentOperationCount，默认设置为6个，那么也就最大会有同时六个线程进行下载操作，如果为1，则相当于是先入先出的概念。<br>这个和异步并行操作和异步串行操作有关。</p>
+<h6 id="UIImage-MultiFormat"><a href="#UIImage-MultiFormat" class="headerlink" title="UIImage+MultiFormat"></a>UIImage+MultiFormat</h6><p>图片的处理：方向</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>最后提及 SDWebImage里面的队列有一个maxConcurrentOperationCount，默认设置为6个，那么也就最大会有同时六个线程进行下载操作，如果为1，则相当于是先入先出的概念。<br>这个和异步并行操作和异步串行操作有关。</p>
 
       
     </div>
@@ -382,7 +375,7 @@ SD的流程：(以UIImageView加载方式讲述)
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -393,9 +386,7 @@ SD的流程：(以UIImageView加载方式讲述)
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -445,7 +436,7 @@ SD的流程：(以UIImageView加载方式讲述)
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SDWebImage"><span class="nav-number">1.</span> <span class="nav-text">SDWebImage</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#网络图片的基本流程"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">网络图片的基本流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程"><span class="nav-number">1.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sd文件结构"><span class="nav-number">1.2.</span> <span class="nav-text">sd文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#NSData+ImageContentType_:"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">NSData+ImageContentType :</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDImageCache:"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">SDImageCache:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImageCompat"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">SDWebImageCompat</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImageDecoder"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">SDWebImageDecoder</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImageDownloader"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">SDWebImageDownloader</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImageDownloaderOperation"><span class="nav-number">1.2.0.6.</span> <span class="nav-text">SDWebImageDownloaderOperation</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImageManager"><span class="nav-number">1.2.0.7.</span> <span class="nav-text">SDWebImageManager</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImagePrefetcher"><span class="nav-number">1.2.0.8.</span> <span class="nav-text">SDWebImagePrefetcher</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#UIImage+GIF"><span class="nav-number">1.2.0.9.</span> <span class="nav-text">UIImage+GIF</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#UIImage+MultiFormat"><span class="nav-number">1.2.0.10.</span> <span class="nav-text">UIImage+MultiFormat</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number"></span> <span class="nav-text">注意</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SDWebImage"><span class="nav-number">1.</span> <span class="nav-text">SDWebImage</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#网络图片的基本流程"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">网络图片的基本流程</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#流程"><span class="nav-number">1.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sd文件结构"><span class="nav-number">1.2.</span> <span class="nav-text">sd文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#NSData-ImageContentType"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">NSData+ImageContentType :</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDImageCache"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">SDImageCache:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImageCompat"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">SDWebImageCompat</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImageDecoder"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">SDWebImageDecoder</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImageDownloader"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">SDWebImageDownloader</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImageDownloaderOperation"><span class="nav-number">1.2.0.6.</span> <span class="nav-text">SDWebImageDownloaderOperation</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImageManager"><span class="nav-number">1.2.0.7.</span> <span class="nav-text">SDWebImageManager</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImagePrefetcher"><span class="nav-number">1.2.0.8.</span> <span class="nav-text">SDWebImagePrefetcher</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#UIImage-GIF"><span class="nav-number">1.2.0.9.</span> <span class="nav-text">UIImage+GIF</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#UIImage-MultiFormat"><span class="nav-number">1.2.0.10.</span> <span class="nav-text">UIImage+MultiFormat</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number"></span> <span class="nav-text">注意</span></a></li></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -464,10 +455,10 @@ SD的流程：(以UIImageView加载方式讲述)
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

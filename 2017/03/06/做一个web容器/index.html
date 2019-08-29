@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,154 +36,39 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS webview," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS webview,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="1.浏览器带的功能，定制功能wk和ui的不同容器，cookie管理，预置信息等
-1.wk和ui对比内存对比：
-
-
-
-地址
-uiwebview
-wkwebview
-
-
-
-
-www.baidu.com
-100mb
-10mb
-
-
-www.taobao.com
-100mb
-5mb
-
-
-www.qq.com
-130mb
-5mb
-
-
-
-加载时间:
-
-
-
-地址
-uiwebview
-wkwebview
-
-
-
-
-w">
+<meta name="description" content="1.浏览器带的功能，定制功能wk和ui的不同容器，cookie管理，预置信息等 1.wk和ui对比内存对比：    地址 uiwebview wkwebview     www.baidu.com 100mb 10mb   www.taobao.com 100mb 5mb   www.qq.com 130mb 5mb    加载时间:    地址 uiwebview wkwebview     w">
+<meta name="keywords" content="iOS webview">
 <meta property="og:type" content="article">
 <meta property="og:title" content="做一个web容器">
 <meta property="og:url" content="http://blog.huangcheng.com/2017/03/06/做一个web容器/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="1.浏览器带的功能，定制功能wk和ui的不同容器，cookie管理，预置信息等
-1.wk和ui对比内存对比：
-
-
-
-地址
-uiwebview
-wkwebview
-
-
-
-
-www.baidu.com
-100mb
-10mb
-
-
-www.taobao.com
-100mb
-5mb
-
-
-www.qq.com
-130mb
-5mb
-
-
-
-加载时间:
-
-
-
-地址
-uiwebview
-wkwebview
-
-
-
-
-w">
+<meta property="og:description" content="1.浏览器带的功能，定制功能wk和ui的不同容器，cookie管理，预置信息等 1.wk和ui对比内存对比：    地址 uiwebview wkwebview     www.baidu.com 100mb 10mb   www.taobao.com 100mb 5mb   www.qq.com 130mb 5mb    加载时间:    地址 uiwebview wkwebview     w">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-03-06T07:47:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="做一个web容器">
-<meta name="twitter:description" content="1.浏览器带的功能，定制功能wk和ui的不同容器，cookie管理，预置信息等
-1.wk和ui对比内存对比：
-
-
-
-地址
-uiwebview
-wkwebview
-
-
-
-
-www.baidu.com
-100mb
-10mb
-
-
-www.taobao.com
-100mb
-5mb
-
-
-www.qq.com
-130mb
-5mb
-
-
-
-加载时间:
-
-
-
-地址
-uiwebview
-wkwebview
-
-
-
-
-w">
+<meta name="twitter:description" content="1.浏览器带的功能，定制功能wk和ui的不同容器，cookie管理，预置信息等 1.wk和ui对比内存对比：    地址 uiwebview wkwebview     www.baidu.com 100mb 10mb   www.taobao.com 100mb 5mb   www.qq.com 130mb 5mb    加载时间:    地址 uiwebview wkwebview     w">
 
 
 
@@ -230,7 +115,7 @@ w">
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -257,7 +142,7 @@ w">
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -267,7 +152,7 @@ w">
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -277,7 +162,7 @@ w">
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -287,7 +172,7 @@ w">
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -370,8 +255,8 @@ w">
       
 
       
-        <h2 id="1-浏览器带的功能，定制功能">1.浏览器带的功能，定制功能</h2><p>wk和ui的不同容器，cookie管理，预置信息等</p>
-<h6 id="1-wk和ui对比">1.wk和ui对比</h6><p>内存对比：</p>
+        <h2 id="1-浏览器带的功能，定制功能"><a href="#1-浏览器带的功能，定制功能" class="headerlink" title="1.浏览器带的功能，定制功能"></a>1.浏览器带的功能，定制功能</h2><p>wk和ui的不同容器，cookie管理，预置信息等</p>
+<h6 id="1-wk和ui对比"><a href="#1-wk和ui对比" class="headerlink" title="1.wk和ui对比"></a>1.wk和ui对比</h6><p>内存对比：</p>
 <table>
 <thead>
 <tr>
@@ -382,17 +267,17 @@ w">
 </thead>
 <tbody>
 <tr>
-<td>www.baidu.com</td>
+<td><a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></td>
 <td>100mb</td>
 <td>10mb</td>
 </tr>
 <tr>
-<td>www.taobao.com</td>
+<td><a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a></td>
 <td>100mb</td>
 <td>5mb</td>
 </tr>
 <tr>
-<td>www.qq.com</td>
+<td><a href="http://www.qq.com" target="_blank" rel="noopener">www.qq.com</a></td>
 <td>130mb</td>
 <td>5mb</td>
 </tr>
@@ -409,17 +294,17 @@ w">
 </thead>
 <tbody>
 <tr>
-<td>www.baidu.com</td>
+<td><a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></td>
 <td>2300ms</td>
 <td>1700ms</td>
 </tr>
 <tr>
-<td>www.taobao.com</td>
+<td><a href="http://www.taobao.com" target="_blank" rel="noopener">www.taobao.com</a></td>
 <td>1400ms</td>
 <td>1000ms</td>
 </tr>
 <tr>
-<td>www.qq.com</td>
+<td><a href="http://www.qq.com" target="_blank" rel="noopener">www.qq.com</a></td>
 <td>2500ms</td>
 <td>1300ms</td>
 </tr>
@@ -428,10 +313,10 @@ w">
 <blockquote>
 <p>显而意见，wk在各个方面都优于ui，所以我们需要在iOS8及以上的设备支持wk<br>如果需要支付7或者以下的设备，可以自己定义一个view包含wk和ui，由设备版本去决定加载谁</p>
 </blockquote>
-<h6 id="2-_cookie管理">2. cookie管理</h6><p>ui的cookie管理不做细说，网上文档及示例很多</p>
-<p>wk的cookie管理：<a href="http://huangcheng1.github.io/2016/12/15/iOS中WKWebView添加预置cookie/" target="_blank" rel="external">之前我整理的</a></p>
-<h6 id="3-预置信息">3.预置信息</h6><p>容器头： 基本结构 appname/xxx container/true(贴一段代码)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tmpWebView : UIWebView? = UIWebView()</span><br><span class="line">guard <span class="keyword">let</span> tmp = tmpWebView <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> oldAgent = tmp.stringByEvaluatingJavaScript(from: <span class="string">"navigator.userAgent"</span>)</span><br><span class="line"><span class="keyword">let</span> other = <span class="string">"true"</span></span><br><span class="line"><span class="keyword">let</span> appendUA = <span class="string">"appname/xxx"</span></span><br><span class="line"><span class="keyword">let</span> sccAgent = <span class="built_in">String</span>.init(format: <span class="string">" %@ container/%@"</span>, appendUA, other)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> tmpAgent = oldAgent &#123;</span><br><span class="line">	<span class="keyword">let</span> newAgent  = tmpAgent + sccAgent</span><br><span class="line">	<span class="keyword">var</span> dictionary : Dictionary&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt;</span><br><span class="line">	dictionary = [<span class="string">"UserAgent"</span>:newAgent]</span><br><span class="line">	UserDefaults.standard.register(defaults: dictionary)</span><br><span class="line">&#125;</span><br><span class="line">tmpWebView = nil</span><br></pre></td></tr></table></figure>
+<h6 id="2-cookie管理"><a href="#2-cookie管理" class="headerlink" title="2. cookie管理"></a>2. cookie管理</h6><p>ui的cookie管理不做细说，网上文档及示例很多</p>
+<p>wk的cookie管理：<a href="http://huangcheng1.github.io/2016/12/15/iOS中WKWebView添加预置cookie/" target="_blank" rel="noopener">之前我整理的</a></p>
+<h6 id="3-预置信息"><a href="#3-预置信息" class="headerlink" title="3.预置信息"></a>3.预置信息</h6><p>容器头： 基本结构 appname/xxx container/true(贴一段代码)</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var tmpWebView : UIWebView? = UIWebView()</span><br><span class="line">guard <span class="keyword">let</span> <span class="attr">tmp</span> = tmpWebView <span class="keyword">else</span> &#123;</span><br><span class="line">	return</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">oldAgent</span> = tmp.stringByEvaluatingJavaScript(from: <span class="string">"navigator.userAgent"</span>)</span><br><span class="line"><span class="keyword">let</span> <span class="attr">other</span> = <span class="string">"true"</span></span><br><span class="line"><span class="keyword">let</span> <span class="attr">appendUA</span> = <span class="string">"appname/xxx"</span></span><br><span class="line"><span class="keyword">let</span> <span class="attr">sccAgent</span> = String.init(format: <span class="string">" %@ container/%@"</span>, appendUA, other)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> <span class="attr">tmpAgent</span> = oldAgent &#123;</span><br><span class="line">	<span class="keyword">let</span> <span class="attr">newAgent</span>  = tmpAgent + sccAgent</span><br><span class="line">	var dictionary : Dictionary&lt;String, String&gt;</span><br><span class="line">	<span class="attr">dictionary</span> = [<span class="string">"UserAgent"</span>:newAgent]</span><br><span class="line">	UserDefaults.standard.register(defaults: dictionary)</span><br><span class="line">&#125;</span><br><span class="line"><span class="attr">tmpWebView</span> = nil</span><br></pre></td></tr></table></figure>
 <p>预置cookie登录信息等，可参照cookie管理</p>
 <p>######4.返回，后退，关闭等</p>
 <p>作为一个通用的web容器，需要提供和大多数浏览器的常用功能，返回，后退，前进，直接关闭。</p>
@@ -439,18 +324,18 @@ w">
 <p>######5.分享，右边按钮等</p>
 <p>分享及其他功能，可以提供完整的api给h5，让前端去控制应该如何显示，如何操作。同时提供给不同项目定制功能</p>
 <p>如果并不需要后面这两条，可以直接自己使用提供的view去做上述4.5功能，</p>
-<h2 id="2-h5和native交互">2.h5和native交互</h2><blockquote>
+<h2 id="2-h5和native交互"><a href="#2-h5和native交互" class="headerlink" title="2.h5和native交互"></a>2.h5和native交互</h2><blockquote>
 <p>1.截取请求 appScheme://host/path?query</p>
 </blockquote>
 <p>好处: 简单，直接在delegate里面拦截请求就好了</p>
-<p>常用：<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">webviewjavascriptbridge</a></p>
+<p>常用：<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="noopener">webviewjavascriptbridge</a></p>
 <blockquote>
 <p>2.使用JavaScriptCore，（iOS7之后）</p>
 </blockquote>
 <p>好处：结构清晰，可以脱离webview直接运行js，不用注入js代码</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSContext <span class="keyword">*</span>context = [webView valueForKeyPath:<span class="comment">@"documentView.webView.mainFrame.javaScriptContext"];</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">JSContext </span>*<span class="built_in">context</span> = [webView valueForKeyPath:@<span class="string">"documentView.webView.mainFrame.javaScriptContext"</span>]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>获取 JSContext</p>
-<h2 id="3-原生的功能组件">3.原生的功能组件</h2><p>基本的容器都应该有一些基本的功能</p>
+<h2 id="3-原生的功能组件"><a href="#3-原生的功能组件" class="headerlink" title="3.原生的功能组件"></a>3.原生的功能组件</h2><p>基本的容器都应该有一些基本的功能</p>
 <ol>
 <li>设备信息</li>
 <li>图片相关</li>
@@ -461,7 +346,7 @@ w">
 <li>其他定制</li>
 </ol>
 <p>这里我们要考虑的不仅是如何实现这些组件，更重要的是如何让容器更加友善的集成这些组件，以便于扩展或者根据业务需求变更组件功能</p>
-<h2 id="4-提升加载速度">4.提升加载速度</h2><p>1.缓存</p>
+<h2 id="4-提升加载速度"><a href="#4-提升加载速度" class="headerlink" title="4.提升加载速度"></a>4.提升加载速度</h2><p>1.缓存</p>
 <p>缓存可以使用请求的状态304做，但是需要自己去截取请求，缓存下来，下次请求的时候，304直接从缓存中取</p>
 <p>还可以直接做成缓存文件，由本地组件统一控制，启动或请求时查看并修改所有不符合当前版本的缓存</p>
 <p>2.离线包＋预加载</p>
@@ -469,13 +354,13 @@ w">
 <p>当一个页面大量被用到，并且要求加载时候足够短，我们可以预加载到内存池里面，当需要的时候直接从内存中读取。</p>
 <p>3.WebView启动和发送请求改成并行</p>
 <p>webview是可以直接loadDatade，所以初始化和请求可以同时进行，从而不使用以前的线初始化，再loadrequest的方式。</p>
-<h2 id="5-安全问题">5.安全问题</h2><p>1.防止运营商截取</p>
+<h2 id="5-安全问题"><a href="#5-安全问题" class="headerlink" title="5.安全问题"></a>5.安全问题</h2><p>1.防止运营商截取</p>
 <p>有时候页面会出现奇怪的广告，或者直接定向到其他地方了，解决方法https</p>
 <p>2.防止离线包被篡改</p>
 <p>有人会把下载离线包的链接定向到自己的链接上，这样他就可以窜改我们包里面的内容，为了防止，我们可以在请求更新规则上加上一个md5或者其他生成规则的安全码，验证下离线包的安全性</p>
 <p>3.防止js注入调用工程里面的其他敏感信息</p>
 <p>严格控制容器js所能提供的能力，比如调用一个类的方法，确定是原生可以web不可以调起，在调用时有权限管理</p>
-<h6 id="考虑不周，视情况而定，望大家指出不足">考虑不周，视情况而定，望大家指出不足</h6>
+<h6 id="考虑不周，视情况而定，望大家指出不足"><a href="#考虑不周，视情况而定，望大家指出不足" class="headerlink" title="考虑不周，视情况而定，望大家指出不足"></a>考虑不周，视情况而定，望大家指出不足</h6>
       
     </div>
 
@@ -556,7 +441,7 @@ w">
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -567,9 +452,7 @@ w">
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -619,7 +502,7 @@ w">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-浏览器带的功能，定制功能"><span class="nav-number">1.</span> <span class="nav-text">1.浏览器带的功能，定制功能</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-wk和ui对比"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">1.wk和ui对比</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-_cookie管理"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">2. cookie管理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-预置信息"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">3.预置信息</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-h5和native交互"><span class="nav-number">2.</span> <span class="nav-text">2.h5和native交互</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-原生的功能组件"><span class="nav-number">3.</span> <span class="nav-text">3.原生的功能组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-提升加载速度"><span class="nav-number">4.</span> <span class="nav-text">4.提升加载速度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-安全问题"><span class="nav-number">5.</span> <span class="nav-text">5.安全问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#考虑不周，视情况而定，望大家指出不足"><span class="nav-number">5.0.0.0.1.</span> <span class="nav-text">考虑不周，视情况而定，望大家指出不足</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-浏览器带的功能，定制功能"><span class="nav-number">1.</span> <span class="nav-text">1.浏览器带的功能，定制功能</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-wk和ui对比"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">1.wk和ui对比</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-cookie管理"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">2. cookie管理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-预置信息"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">3.预置信息</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#2-h5和native交互"><span class="nav-number">2.</span> <span class="nav-text">2.h5和native交互</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-原生的功能组件"><span class="nav-number">3.</span> <span class="nav-text">3.原生的功能组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-提升加载速度"><span class="nav-number">4.</span> <span class="nav-text">4.提升加载速度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-安全问题"><span class="nav-number">5.</span> <span class="nav-text">5.安全问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#考虑不周，视情况而定，望大家指出不足"><span class="nav-number">5.0.0.0.1.</span> <span class="nav-text">考虑不周，视情况而定，望大家指出不足</span></a></li></ol></li></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -638,10 +521,10 @@ w">
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

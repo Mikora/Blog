@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,55 +36,39 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS github," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS github,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="iOS自定义相机我们选择拍照的时候，系统提供了一个UIImagePickerController，但是功能太弱，很多时候我们不得不自己实现拍照等。
-在iOS里面系统提供一个AVFoundation的库，供用户使用相机，图片，音频，视频等一系列多媒体api。
-做自定义相机大致如下几个步骤：
-
-在view上添加一个AVCaptureVideoPreviewLayer，将输出图像预览在layer上
-
-初">
+<meta name="description" content="iOS自定义相机我们选择拍照的时候，系统提供了一个UIImagePickerController，但是功能太弱，很多时候我们不得不自己实现拍照等。 在iOS里面系统提供一个AVFoundation的库，供用户使用相机，图片，音频，视频等一系列多媒体api。 做自定义相机大致如下几个步骤：  在view上添加一个AVCaptureVideoPreviewLayer，将输出图像预览在layer上  初">
+<meta name="keywords" content="iOS github">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS自定义相机和简单马赛克">
 <meta property="og:url" content="http://blog.huangcheng.com/2015/12/23/iOS自定义相机和简单马赛克/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="iOS自定义相机我们选择拍照的时候，系统提供了一个UIImagePickerController，但是功能太弱，很多时候我们不得不自己实现拍照等。
-在iOS里面系统提供一个AVFoundation的库，供用户使用相机，图片，音频，视频等一系列多媒体api。
-做自定义相机大致如下几个步骤：
-
-在view上添加一个AVCaptureVideoPreviewLayer，将输出图像预览在layer上
-
-初">
+<meta property="og:description" content="iOS自定义相机我们选择拍照的时候，系统提供了一个UIImagePickerController，但是功能太弱，很多时候我们不得不自己实现拍照等。 在iOS里面系统提供一个AVFoundation的库，供用户使用相机，图片，音频，视频等一系列多媒体api。 做自定义相机大致如下几个步骤：  在view上添加一个AVCaptureVideoPreviewLayer，将输出图像预览在layer上  初">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-01-06T06:52:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS自定义相机和简单马赛克">
-<meta name="twitter:description" content="iOS自定义相机我们选择拍照的时候，系统提供了一个UIImagePickerController，但是功能太弱，很多时候我们不得不自己实现拍照等。
-在iOS里面系统提供一个AVFoundation的库，供用户使用相机，图片，音频，视频等一系列多媒体api。
-做自定义相机大致如下几个步骤：
-
-在view上添加一个AVCaptureVideoPreviewLayer，将输出图像预览在layer上
-
-初">
+<meta name="twitter:description" content="iOS自定义相机我们选择拍照的时候，系统提供了一个UIImagePickerController，但是功能太弱，很多时候我们不得不自己实现拍照等。 在iOS里面系统提供一个AVFoundation的库，供用户使用相机，图片，音频，视频等一系列多媒体api。 做自定义相机大致如下几个步骤：  在view上添加一个AVCaptureVideoPreviewLayer，将输出图像预览在layer上  初">
 
 
 
@@ -131,7 +115,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -158,7 +142,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -168,7 +152,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -178,7 +162,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -188,7 +172,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -271,7 +255,7 @@
       
 
       
-        <h2 id="iOS自定义相机">iOS自定义相机</h2><p>我们选择拍照的时候，系统提供了一个UIImagePickerController，但是功能太弱，很多时候我们不得不自己实现拍照等。</p>
+        <h2 id="iOS自定义相机"><a href="#iOS自定义相机" class="headerlink" title="iOS自定义相机"></a>iOS自定义相机</h2><p>我们选择拍照的时候，系统提供了一个UIImagePickerController，但是功能太弱，很多时候我们不得不自己实现拍照等。</p>
 <p>在iOS里面系统提供一个AVFoundation的库，供用户使用相机，图片，音频，视频等一系列多媒体api。</p>
 <p>做自定义相机大致如下几个步骤：</p>
 <ul>
@@ -282,20 +266,20 @@
 <li><p>点击拍照时候，使用如下获取捕捉到的图片</p>
 </li>
 </ul>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[_stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^<span class="list">(<span class="keyword">CMSampleBufferRef</span> imageDataSampleBuffer, NSError *error)</span> <span class="collection">&#123;&#125;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(<span class="name">CMSampleBufferRef</span> imageDataSampleBuffer, NSError *error) &#123;&#125;</span><br></pre></td></tr></table></figure>
 <p>这里给出一个最简单的demo示例：(略)</p>
 <p>上述只是实现了拍照的功能，其中我们很可能还需要许多其他功能，比如：闪光灯，摄像头切换等等。</p>
 <p>摄像头切换：</p>
 <p>1.判断是否支持多相机模式：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr_selector">[[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]</span> <span class="tag">count</span>] &gt; 1 ? <span class="rule"><span class="attribute">YES </span>:<span class="value"> NO</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">AVCaptureDevice</span> devicesWithMediaType:<span class="built_in">AVMediaTypeVideo</span>] count] &gt; <span class="number">1</span> ? <span class="literal">YES</span> : <span class="literal">NO</span>;</span><br></pre></td></tr></table></figure>
 <p>2.判断当前摄像头是前后：</p>
-<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AVCaptureDevicePosition <span class="keyword">position</span> = _videoInput.device.<span class="keyword">position</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">position</span> == AVCaptureDevicePositionBack) </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">position</span> == AVCaptureDevicePositionFront)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AVCaptureDevicePosition <span class="built_in">position</span> = <span class="variable">_videoInput</span>.device.<span class="built_in">position</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">position</span> == AVCaptureDevicePositionBack) </span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">position</span> == AVCaptureDevicePositionFront)</span><br></pre></td></tr></table></figure>
 <p>3.将新的摄像头输入设备放入,并且生效配置：</p>
-<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">newVideoInput = <span class="comment">[<span class="comment">[AVCaptureDeviceInput alloc]</span>initWithDevice:<span class="comment">[self frontCamera]</span> error:&amp;error]</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">[_captureSession beginConfiguration]</span>;</span><br><span class="line"><span class="comment">[_captureSession removeInput:_videoInput]</span>;</span><br><span class="line">if (<span class="comment">[_captureSession canAddInput:newVideoInput]</span>) &#123;</span><br><span class="line">    <span class="comment">[_captureSession addInput:newVideoInput]</span>;</span><br><span class="line">    _videoInput = newVideoInput;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    <span class="comment">[_captureSession addInput:_videoInput]</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">[_captureSession commitConfiguration]</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">newVideoInput = [[AVCaptureDeviceInput alloc]initWithDevice:[self frontCamera] error:&amp;error];</span><br><span class="line"></span><br><span class="line">[<span class="variable">_captureSession</span> beginConfiguration];</span><br><span class="line">[<span class="variable">_captureSession</span> removeInput:<span class="variable">_videoInput</span>];</span><br><span class="line"><span class="keyword">if</span> ([<span class="variable">_captureSession</span> canAddInput:newVideoInput]) &#123;</span><br><span class="line">    [<span class="variable">_captureSession</span> addInput:newVideoInput];</span><br><span class="line">    <span class="variable">_videoInput</span> = newVideoInput;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    [<span class="variable">_captureSession</span> addInput:<span class="variable">_videoInput</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="variable">_captureSession</span> commitConfiguration];</span><br></pre></td></tr></table></figure>
 <p>同理：闪关灯，白平衡等有类似api设置</p>
-<h3 id="在相机输出图片后，我们可能需要对图片进行处理。">在相机输出图片后，我们可能需要对图片进行处理。</h3><p>我这里需要用户对图片进行区域马赛克，我参考了in的做法(不一定相同).用一张png图片和点击坐标的颜色值进行组合，最后在layer上加入sublayer。<br>注：滤镜可在coreimage库里面做，这里我不涉及。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> pixel[<span class="number">4</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="built_in">CGColorSpaceRef</span> colorSpace = <span class="built_in">CGColorSpaceCreateDeviceRGB</span>();</span><br><span class="line"><span class="built_in">CGContextRef</span> context = <span class="built_in">CGBitmapContextCreate</span>(pixel, <span class="number">1</span>, <span class="number">1</span>, <span class="number">8</span>, <span class="number">4</span>, colorSpace, k<span class="built_in">CGImageAlphaPremultipliedLast</span>);</span><br><span class="line"><span class="built_in">CGContextTranslateCTM</span>(context, -point<span class="variable">.x</span>, -point<span class="variable">.y</span>);</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.layer</span> renderInContext:context];</span><br><span class="line"><span class="built_in">CGContextRelease</span>(context);</span><br><span class="line"><span class="built_in">CGColorSpaceRelease</span>(colorSpace);</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIColor</span> *color = [<span class="built_in">UIColor</span> colorWithRed:pixel[<span class="number">0</span>]/<span class="number">255.0</span> green:pixel[<span class="number">1</span>]/<span class="number">255.0</span> blue:pixel[<span class="number">2</span>]/<span class="number">255.0</span> alpha:pixel[<span class="number">3</span>]/<span class="number">255.0</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span><span class="variable">.viewImage</span><span class="variable">.backgroundColor</span> = color;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">CALayer</span> *layer = [[<span class="built_in">CALayer</span> alloc]init];</span><br><span class="line">layer<span class="variable">.frame</span> = rect;</span><br><span class="line">layer<span class="variable">.contents</span> = (<span class="keyword">id</span>)[[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"camera_masico_icon"</span>] tintImageWithColor:color]<span class="variable">.CGImage</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.layer</span> addSublayer:layer];</span><br></pre></td></tr></table></figure>
-<p>该demo我放在Github上面：<a href="https://github.com/Mikora/CustomCamera.git" target="_blank" rel="external">点击这里</a></p>
+<h3 id="在相机输出图片后，我们可能需要对图片进行处理。"><a href="#在相机输出图片后，我们可能需要对图片进行处理。" class="headerlink" title="在相机输出图片后，我们可能需要对图片进行处理。"></a>在相机输出图片后，我们可能需要对图片进行处理。</h3><p>我这里需要用户对图片进行区域马赛克，我参考了in的做法(不一定相同).用一张png图片和点击坐标的颜色值进行组合，最后在layer上加入sublayer。<br>注：滤镜可在coreimage库里面做，这里我不涉及。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> pixel[<span class="number">4</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="built_in">CGColorSpaceRef</span> colorSpace = <span class="built_in">CGColorSpaceCreateDeviceRGB</span>();</span><br><span class="line"><span class="built_in">CGContextRef</span> context = <span class="built_in">CGBitmapContextCreate</span>(pixel, <span class="number">1</span>, <span class="number">1</span>, <span class="number">8</span>, <span class="number">4</span>, colorSpace, kCGImageAlphaPremultipliedLast);</span><br><span class="line"><span class="built_in">CGContextTranslateCTM</span>(context, -point.x, -point.y);</span><br><span class="line">[<span class="keyword">self</span>.layer renderInContext:context];</span><br><span class="line"><span class="built_in">CGContextRelease</span>(context);</span><br><span class="line"><span class="built_in">CGColorSpaceRelease</span>(colorSpace);</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIColor</span> *color = [<span class="built_in">UIColor</span> colorWithRed:pixel[<span class="number">0</span>]/<span class="number">255.0</span> green:pixel[<span class="number">1</span>]/<span class="number">255.0</span> blue:pixel[<span class="number">2</span>]/<span class="number">255.0</span> alpha:pixel[<span class="number">3</span>]/<span class="number">255.0</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.viewImage.backgroundColor = color;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">CALayer</span> *layer = [[<span class="built_in">CALayer</span> alloc]init];</span><br><span class="line">layer.frame = rect;</span><br><span class="line">layer.contents = (<span class="keyword">id</span>)[[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"camera_masico_icon"</span>] tintImageWithColor:color].CGImage;</span><br><span class="line">[<span class="keyword">self</span>.layer addSublayer:layer];</span><br></pre></td></tr></table></figure>
+<p>该demo我放在Github上面：<a href="https://github.com/Mikora/CustomCamera.git" target="_blank" rel="noopener">点击这里</a></p>
 <p>pod里面导入： CTCamera</p>
 
       
@@ -378,7 +362,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -389,9 +373,7 @@
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -460,10 +442,10 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

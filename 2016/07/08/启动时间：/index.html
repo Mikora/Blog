@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,75 +36,42 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="使用instruments查看app性能和调试启动时间：使用time profiler查看
-如图
-
-第一次加载
-
-
-
-使用后台异步加载：
-
-
-可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。
-内存使用Allocations和Leaks
-不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般le">
+<meta name="description" content="使用instruments查看app性能和调试启动时间：使用time profiler查看 如图  第一次加载    使用后台异步加载：   可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。 内存使用Allocations和Leaks 不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般le">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="构建framework">
 <meta property="og:url" content="http://blog.huangcheng.com/2016/07/08/启动时间：/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="使用instruments查看app性能和调试启动时间：使用time profiler查看
-如图
-
-第一次加载
-
-
-
-使用后台异步加载：
-
-
-可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。
-内存使用Allocations和Leaks
-不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般le">
-<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/5E5E1189-90F4-4F79-9B3A-5996C005AB94.png?imageView/1/w/700/h/250">
-<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/243FFCBB-052E-4BBB-8382-FF4B00940492.png?imageView/1/w/680/h/200">
-<meta property="og:updated_time" content="2016-07-08T01:42:36.000Z">
+<meta property="og:description" content="使用instruments查看app性能和调试启动时间：使用time profiler查看 如图  第一次加载    使用后台异步加载：   可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。 内存使用Allocations和Leaks 不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般le">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.monunu.com/5E5E1189-90F4-4F79-9B3A-5996C005AB94.png?imageView/1/w/700/h/250">
+<meta property="og:image" content="http://img.monunu.com/243FFCBB-052E-4BBB-8382-FF4B00940492.png?imageView/1/w/680/h/200">
+<meta property="og:updated_time" content="2019-08-29T03:40:09.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="构建framework">
-<meta name="twitter:description" content="使用instruments查看app性能和调试启动时间：使用time profiler查看
-如图
-
-第一次加载
-
-
-
-使用后台异步加载：
-
-
-可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。
-内存使用Allocations和Leaks
-不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般le">
+<meta name="twitter:description" content="使用instruments查看app性能和调试启动时间：使用time profiler查看 如图  第一次加载    使用后台异步加载：   可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。 内存使用Allocations和Leaks 不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般le">
+<meta name="twitter:image" content="http://img.monunu.com/5E5E1189-90F4-4F79-9B3A-5996C005AB94.png?imageView/1/w/700/h/250">
 
 
 
@@ -151,7 +118,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -178,7 +145,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -188,7 +155,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -198,7 +165,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -208,7 +175,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -291,21 +258,21 @@
       
 
       
-        <h2 id="使用instruments查看app性能和调试">使用instruments查看app性能和调试</h2><h6 id="启动时间：">启动时间：</h6><p>使用time profiler查看</p>
+        <h2 id="使用instruments查看app性能和调试"><a href="#使用instruments查看app性能和调试" class="headerlink" title="使用instruments查看app性能和调试"></a>使用instruments查看app性能和调试</h2><h6 id="启动时间："><a href="#启动时间：" class="headerlink" title="启动时间："></a>启动时间：</h6><p>使用time profiler查看</p>
 <p>如图</p>
 <blockquote>
 <p>第一次加载</p>
 </blockquote>
-<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/5E5E1189-90F4-4F79-9B3A-5996C005AB94.png?imageView/1/w/700/h/250" alt="image"></p>
+<p><img src="http://img.monunu.com/5E5E1189-90F4-4F79-9B3A-5996C005AB94.png?imageView/1/w/700/h/250" alt="image"></p>
 <blockquote>
 <p>使用后台异步加载：</p>
 </blockquote>
-<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/243FFCBB-052E-4BBB-8382-FF4B00940492.png?imageView/1/w/680/h/200" alt="image"></p>
+<p><img src="http://img.monunu.com/243FFCBB-052E-4BBB-8382-FF4B00940492.png?imageView/1/w/680/h/200" alt="image"></p>
 <p>可以看到，太多的任务被加到主线程中，导致启动时间很慢，在主线程异步去操作这些任务，大量耗时的任务不在影响启动时间。</p>
-<h6 id="内存">内存</h6><p>使用Allocations和Leaks</p>
+<h6 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h6><p>使用Allocations和Leaks</p>
 <p>不多作介绍，内存泄漏查起来有时候方便，有时候还是得靠自己定位，比如在block中循环引用，一般leaks只知道有泄漏，但是无法定位。</p>
 <p>这里为了方便看应用的内存占用走势，我们可以用alloctions里面的mark genneration，进入返回viewcontroller，有一点增长是很正常的，如果太大就有问题了。</p>
-<h6 id="图形和动画">图形和动画</h6><p>使用Core Animation，这个貌似只能在真机上使用</p>
+<h6 id="图形和动画"><a href="#图形和动画" class="headerlink" title="图形和动画"></a>图形和动画</h6><p>使用Core Animation，这个貌似只能在真机上使用</p>
 <blockquote>
 <p>Color Blended Layers</p>
 </blockquote>
@@ -422,7 +389,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -433,9 +400,7 @@
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -485,7 +450,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用instruments查看app性能和调试"><span class="nav-number">1.</span> <span class="nav-text">使用instruments查看app性能和调试</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#启动时间："><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">启动时间：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#内存"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#图形和动画"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">图形和动画</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用instruments查看app性能和调试"><span class="nav-number">1.</span> <span class="nav-text">使用instruments查看app性能和调试</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#启动时间："><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">启动时间：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#内存"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#图形和动画"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">图形和动画</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -504,10 +469,10 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

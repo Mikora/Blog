@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,55 +36,39 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="iOS捕捉错误日志
-为什么需要自己实现错误crash捕捉
-
-目前我用过的错误获取第三方有：umeng，bughd
-他们支持的收集有：设备信息，app版本号，时间，机型，错误信息等，但是有时候这些信息不足以让我们开发者定位到错误的地方，所以我希望拥有更详细的错误日志。例如用户的行为轨迹，错误发生的页面。那么我就需要把错误收集重写过。
-1.重写错误收集需要捕捉系统发出的
-1NSSetUncaughtE">
+<meta name="description" content="iOS捕捉错误日志 为什么需要自己实现错误crash捕捉  目前我用过的错误获取第三方有：umeng，bughd 他们支持的收集有：设备信息，app版本号，时间，机型，错误信息等，但是有时候这些信息不足以让我们开发者定位到错误的地方，所以我希望拥有更详细的错误日志。例如用户的行为轨迹，错误发生的页面。那么我就需要把错误收集重写过。 1.重写错误收集需要捕捉系统发出的 1NSSetUncaughtE">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS捕捉错误日志">
 <meta property="og:url" content="http://blog.huangcheng.com/2016/03/11/iOS捕捉错误日志/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="iOS捕捉错误日志
-为什么需要自己实现错误crash捕捉
-
-目前我用过的错误获取第三方有：umeng，bughd
-他们支持的收集有：设备信息，app版本号，时间，机型，错误信息等，但是有时候这些信息不足以让我们开发者定位到错误的地方，所以我希望拥有更详细的错误日志。例如用户的行为轨迹，错误发生的页面。那么我就需要把错误收集重写过。
-1.重写错误收集需要捕捉系统发出的
-1NSSetUncaughtE">
+<meta property="og:description" content="iOS捕捉错误日志 为什么需要自己实现错误crash捕捉  目前我用过的错误获取第三方有：umeng，bughd 他们支持的收集有：设备信息，app版本号，时间，机型，错误信息等，但是有时候这些信息不足以让我们开发者定位到错误的地方，所以我希望拥有更详细的错误日志。例如用户的行为轨迹，错误发生的页面。那么我就需要把错误收集重写过。 1.重写错误收集需要捕捉系统发出的 1NSSetUncaughtE">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-03-11T02:35:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS捕捉错误日志">
-<meta name="twitter:description" content="iOS捕捉错误日志
-为什么需要自己实现错误crash捕捉
-
-目前我用过的错误获取第三方有：umeng，bughd
-他们支持的收集有：设备信息，app版本号，时间，机型，错误信息等，但是有时候这些信息不足以让我们开发者定位到错误的地方，所以我希望拥有更详细的错误日志。例如用户的行为轨迹，错误发生的页面。那么我就需要把错误收集重写过。
-1.重写错误收集需要捕捉系统发出的
-1NSSetUncaughtE">
+<meta name="twitter:description" content="iOS捕捉错误日志 为什么需要自己实现错误crash捕捉  目前我用过的错误获取第三方有：umeng，bughd 他们支持的收集有：设备信息，app版本号，时间，机型，错误信息等，但是有时候这些信息不足以让我们开发者定位到错误的地方，所以我希望拥有更详细的错误日志。例如用户的行为轨迹，错误发生的页面。那么我就需要把错误收集重写过。 1.重写错误收集需要捕捉系统发出的 1NSSetUncaughtE">
 
 
 
@@ -131,7 +115,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -158,7 +142,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -168,7 +152,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -178,7 +162,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -188,7 +172,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -271,16 +255,16 @@
       
 
       
-        <h2 id="iOS捕捉错误日志">iOS捕捉错误日志</h2><blockquote>
+        <h2 id="iOS捕捉错误日志"><a href="#iOS捕捉错误日志" class="headerlink" title="iOS捕捉错误日志"></a>iOS捕捉错误日志</h2><blockquote>
 <p>为什么需要自己实现错误crash捕捉</p>
 </blockquote>
 <p>目前我用过的错误获取第三方有：umeng，bughd</p>
 <p>他们支持的收集有：设备信息，app版本号，时间，机型，错误信息等，但是有时候这些信息不足以让我们开发者定位到错误的地方，所以我希望拥有更详细的错误日志。例如用户的行为轨迹，错误发生的页面。那么我就需要把错误收集重写过。</p>
 <p>1.重写错误收集需要捕捉系统发出的</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSSetUncaughtExceptionHandler<span class="list">(<span class="keyword">&amp;uncatchExceptionHandler</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSSetUncaughtExceptionHandler(<span class="name">&amp;uncatchExceptionHandler</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>2.然后新建一个类实现</p>
 <p>获取信息，获取奔溃时屏幕快照等</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> uncatchExceptionHandler(<span class="built_in">NSException</span>*exception)&#123;</span><br><span class="line">    <span class="built_in">NSArray</span> *stackArray = [exception callStackSymbols];</span><br><span class="line">    <span class="built_in">NSString</span> *reason = [exception reason];</span><br><span class="line">    <span class="built_in">NSString</span> *name = [exception name];</span><br><span class="line">    <span class="built_in">NSString</span> *exceptionInfo = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Exception reason：%@\nException name：%@\nException stack：%@"</span>,name, reason, stackArray];</span><br><span class="line">    [[SDImageCache sharedImageCache]storeImage:[CTCatCrash screenView] forKey:<span class="string">@"crashImage"</span>];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">UIImage</span>*)screenView&#123;</span><br><span class="line">    <span class="built_in">CGRect</span> rect = [<span class="built_in">UIScreen</span> mainScreen]<span class="variable">.bounds</span>;</span><br><span class="line">    <span class="built_in">UIGraphicsBeginImageContext</span>(rect<span class="variable">.size</span>);</span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">    [[<span class="built_in">UIApplication</span> sharedApplication]<span class="variable">.keyWindow</span><span class="variable">.layer</span> renderInContext:context];</span><br><span class="line">    <span class="built_in">UIImage</span> *img = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line">    <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">    <span class="keyword">return</span> img;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> uncatchExceptionHandler(<span class="built_in">NSException</span>*exception)&#123;</span><br><span class="line">    <span class="built_in">NSArray</span> *stackArray = [exception callStackSymbols];</span><br><span class="line">    <span class="built_in">NSString</span> *reason = [exception reason];</span><br><span class="line">    <span class="built_in">NSString</span> *name = [exception name];</span><br><span class="line">    <span class="built_in">NSString</span> *exceptionInfo = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Exception reason：%@\nException name：%@\nException stack：%@"</span>,name, reason, stackArray];</span><br><span class="line">    [[SDImageCache sharedImageCache]storeImage:[<span class="built_in">CTCatCrash</span> screenView] forKey:<span class="string">@"crashImage"</span>];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">UIImage</span>*)screenView&#123;</span><br><span class="line">    <span class="built_in">CGRect</span> rect = [<span class="built_in">UIScreen</span> mainScreen].bounds;</span><br><span class="line">    <span class="built_in">UIGraphicsBeginImageContext</span>(rect.size);</span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">    [[<span class="built_in">UIApplication</span> sharedApplication].keyWindow.layer renderInContext:context];</span><br><span class="line">    <span class="built_in">UIImage</span> *img = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line">    <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">    <span class="keyword">return</span> img;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>3.存储在本地，下次打开就进行上传到服务器，然后在清空这块数据</p>
 
       
@@ -363,7 +347,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -374,9 +358,7 @@
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -445,10 +427,10 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

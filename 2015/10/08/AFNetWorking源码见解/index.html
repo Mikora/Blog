@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,70 +36,39 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS 源码解读," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS 源码解读,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="###AFNetWorking源码见解
-文件结构：
-
-AFHTTPRequestOperationManager用于生成和管理AFHTTPRequestOperation,
-
-AFHTTPRequestOperation继承于AFURLConnectionOperation,
-
-AFURLConnectionOperation继承于NSOperation
-
-
-普通的网络请求：
-1[[AFHTTPR">
+<meta name="description" content="###AFNetWorking源码见解 文件结构：  AFHTTPRequestOperationManager用于生成和管理AFHTTPRequestOperation,  AFHTTPRequestOperation继承于AFURLConnectionOperation,  AFURLConnectionOperation继承于NSOperation   普通的网络请求： 1[[AFHTTPR">
+<meta name="keywords" content="iOS 源码解读">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AFNetWorking源码见解">
 <meta property="og:url" content="http://blog.huangcheng.com/2015/10/08/AFNetWorking源码见解/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="###AFNetWorking源码见解
-文件结构：
-
-AFHTTPRequestOperationManager用于生成和管理AFHTTPRequestOperation,
-
-AFHTTPRequestOperation继承于AFURLConnectionOperation,
-
-AFURLConnectionOperation继承于NSOperation
-
-
-普通的网络请求：
-1[[AFHTTPR">
+<meta property="og:description" content="###AFNetWorking源码见解 文件结构：  AFHTTPRequestOperationManager用于生成和管理AFHTTPRequestOperation,  AFHTTPRequestOperation继承于AFURLConnectionOperation,  AFURLConnectionOperation继承于NSOperation   普通的网络请求： 1[[AFHTTPR">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-01-06T06:52:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AFNetWorking源码见解">
-<meta name="twitter:description" content="###AFNetWorking源码见解
-文件结构：
-
-AFHTTPRequestOperationManager用于生成和管理AFHTTPRequestOperation,
-
-AFHTTPRequestOperation继承于AFURLConnectionOperation,
-
-AFURLConnectionOperation继承于NSOperation
-
-
-普通的网络请求：
-1[[AFHTTPR">
+<meta name="twitter:description" content="###AFNetWorking源码见解 文件结构：  AFHTTPRequestOperationManager用于生成和管理AFHTTPRequestOperation,  AFHTTPRequestOperation继承于AFURLConnectionOperation,  AFURLConnectionOperation继承于NSOperation   普通的网络请求： 1[[AFHTTPR">
 
 
 
@@ -146,7 +115,7 @@ AFURLConnectionOperation继承于NSOperation
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -173,7 +142,7 @@ AFURLConnectionOperation继承于NSOperation
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -183,7 +152,7 @@ AFURLConnectionOperation继承于NSOperation
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -193,7 +162,7 @@ AFURLConnectionOperation继承于NSOperation
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -203,7 +172,7 @@ AFURLConnectionOperation继承于NSOperation
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -297,7 +266,7 @@ AFURLConnectionOperation继承于NSOperation
 </li>
 </ol>
 <p>普通的网络请求：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr_selector">[[AFHTTPRequestOperationManager manager]</span> <span class="tag">GET</span><span class="pseudo">:urlString</span> <span class="tag">parameters</span><span class="pseudo">:parameters</span> <span class="tag">success</span><span class="pseudo">:successBlock</span> <span class="tag">failure</span><span class="pseudo">:failureBlock</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[[AFHTTPRequestOperationManager manager]</span> <span class="selector-tag">GET</span><span class="selector-pseudo">:urlString</span> <span class="selector-tag">parameters</span><span class="selector-pseudo">:parameters</span> <span class="selector-tag">success</span><span class="selector-pseudo">:successBlock</span> <span class="selector-tag">failure</span><span class="selector-pseudo">:failureBlock</span>];</span><br></pre></td></tr></table></figure>
 <p>1.单例初始化manager，同时初始化</p>
 <p>a.AFHTTPRequestSerializer(请求头里面有关客户端的信息)，</p>
 <p>b.AFJSONResponseSerializer(返回数据接收和处理格式)，</p>
@@ -308,39 +277,39 @@ AFURLConnectionOperation继承于NSOperation
 <p>3.由request创建操作，加入队列</p>
 <p>4.开始操作，利用一个NSURLConnection进行网络请求，delegate回调</p>
 <p>5.完成后，操作调用completionBlock回调，在回调中由response和error判断成功失败</p>
-<h5 id="start方法">start方法</h5><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[self performSelector:@selector<span class="list">(<span class="keyword">operationDidStart</span>)</span> onThread:<span class="collection">[<span class="collection">[self class]</span> networkRequestThread]</span> withObject:nil waitUntilDone:NO modes:<span class="collection">[self.runLoopModes allObjects]</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h5 id="start方法"><a href="#start方法" class="headerlink" title="start方法"></a>start方法</h5><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="name">self</span> performSelector:@selector(<span class="name">operationDidStart</span>) onThread:[[<span class="name">self</span> class] networkRequestThread] withObject:nil waitUntilDone:NO modes:[<span class="name">self.runLoopModes</span> allObjects]]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>单例生成的Thread,runloop里面只有一个NSRunLoopCommonModes</p>
-<h6 id="生成常驻线程">生成常驻线程</h6><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)networkRequestThreadEntryPoint:(<span class="keyword">id</span>)__unused object &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        [[<span class="built_in">NSThread</span> currentThread] setName:<span class="string">@"AFNetworking"</span>];</span><br><span class="line"></span><br><span class="line">        <span class="built_in">NSRunLoop</span> *runLoop = [<span class="built_in">NSRunLoop</span> currentRunLoop];</span><br><span class="line">        [runLoop addPort:[<span class="built_in">NSMachPort</span> port] forMode:<span class="built_in">NSDefaultRunLoopMode</span>];</span><br><span class="line">        [runLoop run];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">NSThread</span> *)networkRequestThread &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">NSThread</span> *_networkRequestThread = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> oncePredicate;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;oncePredicate, ^&#123;</span><br><span class="line">        _networkRequestThread = [[<span class="built_in">NSThread</span> alloc] initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(networkRequestThreadEntryPoint:) object:<span class="literal">nil</span>];</span><br><span class="line">        [_networkRequestThread start];</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _networkRequestThread;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="生成常驻线程"><a href="#生成常驻线程" class="headerlink" title="生成常驻线程"></a>生成常驻线程</h6><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)networkRequestThreadEntryPoint:(<span class="keyword">id</span>)__unused object &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        [[<span class="built_in">NSThread</span> currentThread] setName:<span class="string">@"AFNetworking"</span>];</span><br><span class="line"></span><br><span class="line">        <span class="built_in">NSRunLoop</span> *runLoop = [<span class="built_in">NSRunLoop</span> currentRunLoop];</span><br><span class="line">        [runLoop addPort:[<span class="built_in">NSMachPort</span> port] forMode:<span class="built_in">NSDefaultRunLoopMode</span>];</span><br><span class="line">        [runLoop run];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">NSThread</span> *)networkRequestThread &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">NSThread</span> *_networkRequestThread = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> oncePredicate;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;oncePredicate, ^&#123;</span><br><span class="line">        _networkRequestThread = [[<span class="built_in">NSThread</span> alloc] initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(networkRequestThreadEntryPoint:) object:<span class="literal">nil</span>];</span><br><span class="line">        [_networkRequestThread start];</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _networkRequestThread;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用runloop生成一个常驻的线程，所有的网络请求都使用这个线程</p>
 <p>所有的connection都由这个runloop发起，回调也是它接收</p>
-<h6 id="把一个异步任务加入group,防止多线程不执行block">把一个异步任务加入group,防止多线程不执行block</h6><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dispatch_group_enter(group)<span class="comment">; </span></span><br><span class="line">[strongSelf performBlock:^()&#123; </span><br><span class="line">    block()<span class="comment">; </span></span><br><span class="line">    dispatch_group_leave(group)<span class="comment">; </span></span><br><span class="line">&#125;]<span class="comment">;</span></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">###### 回调代码</span><br></pre></td></tr></table></figure>
+<h6 id="把一个异步任务加入group-防止多线程不执行block"><a href="#把一个异步任务加入group-防止多线程不执行block" class="headerlink" title="把一个异步任务加入group,防止多线程不执行block"></a>把一个异步任务加入group,防止多线程不执行block</h6><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dispatch_group_enter(group); </span><br><span class="line">[strongSelf performBlock:^()&#123; </span><br><span class="line">    block(); </span><br><span class="line">    dispatch_group_leave(group); </span><br><span class="line">&#125;];</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">###### 回调代码</span><br></pre></td></tr></table></figure>
 <ul>
-<li>(void)setCompletionBlock:(void (^)(void))block {<br>  [self.lock lock];<br>  if (!block) {<pre><code>[<span class="keyword">super</span> <span class="symbol">setCompletionBlock:</span><span class="literal">nil</span>];
-</code></pre>  } else {<pre><code>__<span class="keyword">weak</span> __<span class="keyword">typeof</span>(<span class="keyword">self</span>)weakSelf = <span class="keyword">self</span>;
-[<span class="keyword">super</span> setCompletionBlock:^ {
-    __<span class="keyword">strong</span> __<span class="keyword">typeof</span>(weakSelf)strongSelf = weakSelf;
+<li>(void)setCompletionBlock:(void (^)(void))block {<br>  [self.lock lock];<br>  if (!block) {<pre><code>[super setCompletionBlock:nil];
+</code></pre>  } else {<pre><code>__weak __typeof(self)weakSelf = self;
+[super setCompletionBlock:^ {
+    __strong __typeof(weakSelf)strongSelf = weakSelf;
 </code></pre></li>
 </ul>
 <p>#pragma clang diagnostic push</p>
 <p>#pragma clang diagnostic ignored “-Wgnu”<br>            dispatch_group_t group = strongSelf.completionGroup ?: url_request_operation_completion_group();<br>            dispatch_queue_t queue = strongSelf.completionQueue ?: dispatch_get_main_queue();</p>
 <p>#pragma clang diagnostic pop</p>
 <pre><code>        dispatch_group_async(group, queue, ^{
-            block()<span class="comment">;</span>
-        })<span class="comment">;</span>
+            block();
+        });
 
         dispatch_group_notify(group, url_request_operation_completion_queue(), ^{
-            [strongSelf setCompletionBlock:nil]<span class="comment">;</span>
-        })<span class="comment">;</span>
-    }]<span class="comment">;</span>
+            [strongSelf setCompletionBlock:nil];
+        });
+    }];
 }
-[self.lock unlock]<span class="comment">;</span>
-</code></pre><p>}<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">1.</span> 成员变量的对外接口都加了<span class="built_in">NSRecursiveLock</span>递归锁</span><br><span class="line"><span class="number">2.</span> __<span class="keyword">weak</span> __<span class="keyword">typeof</span>(<span class="keyword">self</span>)weakSelf = <span class="keyword">self</span>;防止循环引用__<span class="keyword">strong</span> __<span class="keyword">typeof</span>(weakSelf)strongSelf = weakSelf;强引用防止被释放后出错</span><br><span class="line"><span class="number">3.</span> dispatch_group_t group = strongSelf<span class="variable">.completionGroup</span> ?: url_request_operation_completion_group();单例生成，完成时候，在group和main线程里面执行，执行完后回收</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">######使用batchOfRequest访问多组网络请求</span></span><br></pre></td></tr></table></figure></p>
+[self.lock unlock];
+</code></pre><p>}<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. 成员变量的对外接口都加了NSRecursiveLock递归锁</span><br><span class="line">2. __weak __typeof(self)weakSelf = self;防止循环引用__strong __typeof(weakSelf)strongSelf = weakSelf;强引用防止被释放后出错</span><br><span class="line">3. dispatch_group_t<span class="built_in"> group </span>= strongSelf.completionGroup ?: url_request_operation_completion_group();单例生成，完成时候，在group和main线程里面执行，执行完后回收</span><br><span class="line"></span><br><span class="line"><span class="comment">######使用batchOfRequest访问多组网络请求</span></span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>(NSArray <em>)batchOfRequestOperations:(NSArray </em>)operations<pre><code>  progressBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NSUInteger</span> numberOfFinishedOperations, <span class="built_in">NSUInteger</span> totalNumberOfOperations))progressBlock
-completionBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NSArray</span> *operations))completionBlock
-</code></pre>```</li>
+<li>(NSArray <em>)batchOfRequestOperations:(NSArray </em>)operations<pre><code>  progressBlock:(void (^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progressBlock
+completionBlock:(void (^)(NSArray *operations))completionBlock
+</code></pre><code>`</code></li>
 </ul>
-<h6 id="使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求">使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求</h6>
+<h6 id="使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求"><a href="#使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求" class="headerlink" title="使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求"></a>使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求</h6>
       
     </div>
 
@@ -421,7 +390,7 @@ completionBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NS
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -432,9 +401,7 @@ completionBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NS
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -484,7 +451,7 @@ completionBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NS
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#start方法"><span class="nav-number">1.</span> <span class="nav-text">start方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#生成常驻线程"><span class="nav-number">1.1.</span> <span class="nav-text">生成常驻线程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#把一个异步任务加入group,防止多线程不执行block"><span class="nav-number">1.2.</span> <span class="nav-text">把一个异步任务加入group,防止多线程不执行block</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求"><span class="nav-number">1.3.</span> <span class="nav-text">使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#start方法"><span class="nav-number">1.</span> <span class="nav-text">start方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#生成常驻线程"><span class="nav-number">1.1.</span> <span class="nav-text">生成常驻线程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#把一个异步任务加入group-防止多线程不执行block"><span class="nav-number">1.2.</span> <span class="nav-text">把一个异步任务加入group,防止多线程不执行block</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求"><span class="nav-number">1.3.</span> <span class="nav-text">使用setShouldExecuteAsBackgroundTaskWithExpirationHandler决定APP进入后台后是否继续发送接收请求</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -503,10 +470,10 @@ completionBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NS
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,65 +36,41 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS," />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="iOS,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="先不多说，上效果图
-
-
-demo:github
-这个和很多图片处理应用的效果一样，比如玩图的马赛克。之前已经实现过了in的涂抹效果涂抹
-因为涂抹的效果和我预期的不是很理想，所以一直困扰我，当时也没什么好的想法思路，做成现在这个效果。偶然想到了这个思路，所以实现了一下模糊涂抹，下面介绍思路
-
-思路
-
-两张图片，一张原图，一张高斯模糊的图。原图作为背景绘制到view上，比如直接矩形，设置填充颜色为这个">
+<meta name="description" content="先不多说，上效果图   demo:github 这个和很多图片处理应用的效果一样，比如玩图的马赛克。之前已经实现过了in的涂抹效果涂抹 因为涂抹的效果和我预期的不是很理想，所以一直困扰我，当时也没什么好的想法思路，做成现在这个效果。偶然想到了这个思路，所以实现了一下模糊涂抹，下面介绍思路  思路  两张图片，一张原图，一张高斯模糊的图。原图作为背景绘制到view上，比如直接矩形，设置填充颜色为这">
+<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS利用高斯模糊做涂抹和马赛克效果">
 <meta property="og:url" content="http://blog.huangcheng.com/2016/04/27/iOS利用高斯模糊做涂抹和马赛克效果/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="先不多说，上效果图
-
-
-demo:github
-这个和很多图片处理应用的效果一样，比如玩图的马赛克。之前已经实现过了in的涂抹效果涂抹
-因为涂抹的效果和我预期的不是很理想，所以一直困扰我，当时也没什么好的想法思路，做成现在这个效果。偶然想到了这个思路，所以实现了一下模糊涂抹，下面介绍思路
-
-思路
-
-两张图片，一张原图，一张高斯模糊的图。原图作为背景绘制到view上，比如直接矩形，设置填充颜色为这个">
-<meta property="og:image" content="http://7xpas5.com1.z0.glb.clouddn.com/mosaic_sketch?imageView/1/w/375/h/667">
-<meta property="og:updated_time" content="2016-04-27T04:51:44.000Z">
+<meta property="og:description" content="先不多说，上效果图   demo:github 这个和很多图片处理应用的效果一样，比如玩图的马赛克。之前已经实现过了in的涂抹效果涂抹 因为涂抹的效果和我预期的不是很理想，所以一直困扰我，当时也没什么好的想法思路，做成现在这个效果。偶然想到了这个思路，所以实现了一下模糊涂抹，下面介绍思路  思路  两张图片，一张原图，一张高斯模糊的图。原图作为背景绘制到view上，比如直接矩形，设置填充颜色为这">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.monunu.com/mosaic_sketch?imageView/1/w/375/h/667">
+<meta property="og:updated_time" content="2019-08-29T03:40:09.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS利用高斯模糊做涂抹和马赛克效果">
-<meta name="twitter:description" content="先不多说，上效果图
-
-
-demo:github
-这个和很多图片处理应用的效果一样，比如玩图的马赛克。之前已经实现过了in的涂抹效果涂抹
-因为涂抹的效果和我预期的不是很理想，所以一直困扰我，当时也没什么好的想法思路，做成现在这个效果。偶然想到了这个思路，所以实现了一下模糊涂抹，下面介绍思路
-
-思路
-
-两张图片，一张原图，一张高斯模糊的图。原图作为背景绘制到view上，比如直接矩形，设置填充颜色为这个">
+<meta name="twitter:description" content="先不多说，上效果图   demo:github 这个和很多图片处理应用的效果一样，比如玩图的马赛克。之前已经实现过了in的涂抹效果涂抹 因为涂抹的效果和我预期的不是很理想，所以一直困扰我，当时也没什么好的想法思路，做成现在这个效果。偶然想到了这个思路，所以实现了一下模糊涂抹，下面介绍思路  思路  两张图片，一张原图，一张高斯模糊的图。原图作为背景绘制到view上，比如直接矩形，设置填充颜色为这">
+<meta name="twitter:image" content="http://img.monunu.com/mosaic_sketch?imageView/1/w/375/h/667">
 
 
 
@@ -141,7 +117,7 @@ demo:github
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -168,7 +144,7 @@ demo:github
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -178,7 +154,7 @@ demo:github
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -188,7 +164,7 @@ demo:github
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -198,7 +174,7 @@ demo:github
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -284,23 +260,23 @@ demo:github
         <blockquote>
 <p>先不多说，上效果图</p>
 </blockquote>
-<p><img src="http://7xpas5.com1.z0.glb.clouddn.com/mosaic_sketch?imageView/1/w/375/h/667" alt="image"></p>
-<p>demo:<a href="https://github.com/Mikora/ImageEdit" target="_blank" rel="external">github</a></p>
-<p>这个和很多图片处理应用的效果一样，比如玩图的马赛克。之前已经实现过了in的涂抹效果<a href="https://github.com/Mikora/CTCamera" target="_blank" rel="external">涂抹</a></p>
+<p><img src="http://img.monunu.com/mosaic_sketch?imageView/1/w/375/h/667" alt="image"></p>
+<p>demo:<a href="https://github.com/Mikora/ImageEdit" target="_blank" rel="noopener">github</a></p>
+<p>这个和很多图片处理应用的效果一样，比如玩图的马赛克。之前已经实现过了in的涂抹效果<a href="https://github.com/Mikora/CTCamera" target="_blank" rel="noopener">涂抹</a></p>
 <p>因为涂抹的效果和我预期的不是很理想，所以一直困扰我，当时也没什么好的想法思路，做成现在这个效果。偶然想到了这个思路，所以实现了一下模糊涂抹，下面介绍思路</p>
 <blockquote>
 <p>思路</p>
 </blockquote>
 <p>两张图片，一张原图，一张高斯模糊的图。原图作为背景绘制到view上，比如直接矩形，设置填充颜色为这个原图。画笔作为绘制的东西，路径填充色为高斯图。最后合成到一起。路径使用NSArray记录，这样可以支持前进后退。如果需要橡皮擦，则取原图为橡皮擦路径的填充色即可。</p>
 <p>不用流程图示意了。</p>
-<h4 id="过程">过程</h4><p>1.根据原图获得一张高斯模糊图或者马赛克图</p>
+<h4 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h4><p>1.根据原图获得一张高斯模糊图或者马赛克图</p>
 <p>推荐： 使用GPUimage，简单性能极好</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+ (UIImage*)filterForGaussianBlur:(UIImage*)<span class="built_in">image</span>&#123;</span><br><span class="line">    GPUImageGaussianBlurFilter *<span class="built_in">filter</span> = [[GPUImageGaussianBlurFilter alloc]init];</span><br><span class="line">    [<span class="built_in">filter</span> forceProcessingAtSize:<span class="built_in">image</span>.<span class="built_in">size</span>];</span><br><span class="line">    <span class="built_in">filter</span>.blurRadiusInPixels = <span class="number">10.0</span>;<span class="comment">//这个越大，越模糊，模糊半径</span></span><br><span class="line">    </span><br><span class="line">    GPUImagePicture *pic = [[GPUImagePicture alloc]initWithImage:<span class="built_in">image</span>];</span><br><span class="line">    [pic addTarget:<span class="built_in">filter</span>];</span><br><span class="line">    [pic processImage];</span><br><span class="line">    [<span class="built_in">filter</span> useNextFrameForImageCapture];</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">filter</span> imageFromCurrentFramebuffer];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+ (UIImage*)filterForGaussianBlur:(UIImage*)<span class="keyword">image</span>&#123;</span><br><span class="line">    GPUImageGaussianBlurFilter *<span class="keyword">filter</span> = [[GPUImageGaussianBlurFilter alloc]init];</span><br><span class="line">    [<span class="keyword">filter</span> forceProcessingAtSize:<span class="keyword">image</span>.<span class="keyword">size</span>];</span><br><span class="line">    <span class="keyword">filter</span>.blurRadiusInPixels = <span class="number">10.0</span>;<span class="comment">//这个越大，越模糊，模糊半径</span></span><br><span class="line">    </span><br><span class="line">    GPUImagePicture *pic = [[GPUImagePicture alloc]initWithImage:<span class="keyword">image</span>];</span><br><span class="line">    [pic addTarget:<span class="keyword">filter</span>];</span><br><span class="line">    [pic processImage];</span><br><span class="line">    [<span class="keyword">filter</span> useNextFrameForImageCapture];</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">filter</span> imageFromCurrentFramebuffer];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>其他马赛克等不做介绍</p>
 <p>2.获取路径</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *lineArray;<span class="comment">//总路径</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *nowPointArray;<span class="comment">//当前手指绘制路径</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesBegan:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    <span class="comment">//每次重新绘制的时候相当于一条新路径</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.nowPointArray</span> = [[<span class="built_in">NSMutableArray</span> alloc]init];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.lineArray</span> addObject:<span class="keyword">self</span><span class="variable">.nowPointArray</span>];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesCancelled:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesCancelled:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesEnded:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesEnded:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesMoved:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesMoved:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addPoint:(<span class="built_in">CGPoint</span>)p&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSValue</span> *point = [<span class="built_in">NSValue</span> valueWith<span class="built_in">CGPoint</span>:p];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.nowPointArray</span> addObject:point];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> setNeedsDisplay];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *lineArray;<span class="comment">//总路径</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *nowPointArray;<span class="comment">//当前手指绘制路径</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesBegan:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    <span class="comment">//每次重新绘制的时候相当于一条新路径</span></span><br><span class="line">    <span class="keyword">self</span>.nowPointArray = [[<span class="built_in">NSMutableArray</span> alloc]init];</span><br><span class="line">    [<span class="keyword">self</span>.lineArray addObject:<span class="keyword">self</span>.nowPointArray];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesCancelled:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesCancelled:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesEnded:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesEnded:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesMoved:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesMoved:touches withEvent:event];</span><br><span class="line">    <span class="built_in">CGPoint</span> p = [[touches anyObject] locationInView:<span class="keyword">self</span>];</span><br><span class="line">    [<span class="keyword">self</span> addPoint:p];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addPoint:(<span class="built_in">CGPoint</span>)p&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSValue</span> *point = [<span class="built_in">NSValue</span> valueWithCGPoint:p];</span><br><span class="line">    [<span class="keyword">self</span>.nowPointArray addObject:point];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> setNeedsDisplay];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>3.绘制背景以及路径</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect&#123;</span><br><span class="line">    [<span class="keyword">super</span> drawRect:rect];</span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSetLineCap</span>(context, k<span class="built_in">CGLineCapRound</span>);</span><br><span class="line">    <span class="built_in">CGContextSetLineWidth</span>(context, rect<span class="variable">.size</span><span class="variable">.width</span>);</span><br><span class="line">    <span class="built_in">CGContextSetStrokeColorWithColor</span>(context, [<span class="built_in">UIColor</span> clearColor]<span class="variable">.CGColor</span>);</span><br><span class="line">    <span class="built_in">CGContextSetFillColorWithColor</span>(context, [<span class="built_in">UIColor</span> colorWithPatternImage:<span class="keyword">self</span><span class="variable">.image</span>]<span class="variable">.CGColor</span>);</span><br><span class="line">    <span class="built_in">CGContextFillRect</span>(context, rect);<span class="comment">//绘制背景</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSetStrokeColorWithColor</span>(context, [<span class="built_in">UIColor</span> colorWithPatternImage:<span class="keyword">self</span><span class="variable">.filterGaussan</span>]<span class="variable">.CGColor</span>);<span class="comment">//设置路径的色值</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSetLineWidth</span>(context, <span class="number">20</span>);</span><br><span class="line">    <span class="comment">//根据cgpoint设置路径</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="keyword">self</span><span class="variable">.lineArray</span><span class="variable">.count</span> ; i ++ ) &#123;</span><br><span class="line">        <span class="built_in">NSMutableArray</span> *array = [<span class="keyword">self</span><span class="variable">.lineArray</span> objectAtIndex:i];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; array<span class="variable">.count</span> ; i ++ ) &#123;</span><br><span class="line">            <span class="built_in">NSValue</span> *value = [array objectAtIndex:i];</span><br><span class="line">            <span class="built_in">CGPoint</span> p = [value <span class="built_in">CGPointValue</span>];</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">CGContextMoveToPoint</span>(context, p<span class="variable">.x</span>, p<span class="variable">.y</span>);</span><br><span class="line">                <span class="built_in">CGContextAddLineToPoint</span>(context, p<span class="variable">.x</span>, p<span class="variable">.y</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">CGContextAddLineToPoint</span>(context, p<span class="variable">.x</span>, p<span class="variable">.y</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">CGContextDrawPath</span>(context, k<span class="built_in">CGPathStroke</span>);<span class="comment">//绘制路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect&#123;</span><br><span class="line">    [<span class="keyword">super</span> drawRect:rect];</span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSetLineCap</span>(context, kCGLineCapRound);</span><br><span class="line">    <span class="built_in">CGContextSetLineWidth</span>(context, rect.size.width);</span><br><span class="line">    <span class="built_in">CGContextSetStrokeColorWithColor</span>(context, [<span class="built_in">UIColor</span> clearColor].CGColor);</span><br><span class="line">    <span class="built_in">CGContextSetFillColorWithColor</span>(context, [<span class="built_in">UIColor</span> colorWithPatternImage:<span class="keyword">self</span>.image].CGColor);</span><br><span class="line">    <span class="built_in">CGContextFillRect</span>(context, rect);<span class="comment">//绘制背景</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSetStrokeColorWithColor</span>(context, [<span class="built_in">UIColor</span> colorWithPatternImage:<span class="keyword">self</span>.filterGaussan].CGColor);<span class="comment">//设置路径的色值</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextSetLineWidth</span>(context, <span class="number">20</span>);</span><br><span class="line">    <span class="comment">//根据cgpoint设置路径</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="keyword">self</span>.lineArray.count ; i ++ ) &#123;</span><br><span class="line">        <span class="built_in">NSMutableArray</span> *array = [<span class="keyword">self</span>.lineArray objectAtIndex:i];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; array.count ; i ++ ) &#123;</span><br><span class="line">            <span class="built_in">NSValue</span> *value = [array objectAtIndex:i];</span><br><span class="line">            <span class="built_in">CGPoint</span> p = [value <span class="built_in">CGPointValue</span>];</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="built_in">CGContextMoveToPoint</span>(context, p.x, p.y);</span><br><span class="line">                <span class="built_in">CGContextAddLineToPoint</span>(context, p.x, p.y);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">CGContextAddLineToPoint</span>(context, p.x, p.y);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">CGContextDrawPath</span>(context, kCGPathStroke);<span class="comment">//绘制路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -382,7 +358,7 @@ demo:github
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -393,9 +369,7 @@ demo:github
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -464,10 +438,10 @@ demo:github
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

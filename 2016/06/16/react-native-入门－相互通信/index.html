@@ -6,19 +6,15 @@
 
 
 <html class="theme-next muse use-motion">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -27,7 +23,11 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -36,73 +36,38 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0">
 
 
 
 
 
 
-<meta name="description" content="###react-native的双向通信
-demo项目下载
-
-react-&amp;gt;native
-
-实现提供给react的模块，模块需要实现RCTBridgeModule协议，然后暴露给react的类名和希望react调起的方法
-
-例如：
-
-iOS project：
-
-RNNativeBridgeModule.h
-12345678#import &amp;lt;Foundation/Foundation.h">
+<meta name="description" content="###react-native的双向通信 demo项目下载  react-&amp;gt;native  实现提供给react的模块，模块需要实现RCTBridgeModule协议，然后暴露给react的类名和希望react调起的方法  例如：  iOS project：  RNNativeBridgeModule.h 12345678#import &amp;lt;Foundation/Foundation.h">
 <meta property="og:type" content="article">
 <meta property="og:title" content="react-native 入门－相互通信">
 <meta property="og:url" content="http://blog.huangcheng.com/2016/06/16/react-native-入门－相互通信/index.html">
 <meta property="og:site_name" content="随笔">
-<meta property="og:description" content="###react-native的双向通信
-demo项目下载
-
-react-&amp;gt;native
-
-实现提供给react的模块，模块需要实现RCTBridgeModule协议，然后暴露给react的类名和希望react调起的方法
-
-例如：
-
-iOS project：
-
-RNNativeBridgeModule.h
-12345678#import &amp;lt;Foundation/Foundation.h">
+<meta property="og:description" content="###react-native的双向通信 demo项目下载  react-&amp;gt;native  实现提供给react的模块，模块需要实现RCTBridgeModule协议，然后暴露给react的类名和希望react调起的方法  例如：  iOS project：  RNNativeBridgeModule.h 12345678#import &amp;lt;Foundation/Foundation.h">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-06-16T07:40:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react-native 入门－相互通信">
-<meta name="twitter:description" content="###react-native的双向通信
-demo项目下载
-
-react-&amp;gt;native
-
-实现提供给react的模块，模块需要实现RCTBridgeModule协议，然后暴露给react的类名和希望react调起的方法
-
-例如：
-
-iOS project：
-
-RNNativeBridgeModule.h
-12345678#import &amp;lt;Foundation/Foundation.h">
+<meta name="twitter:description" content="###react-native的双向通信 demo项目下载  react-&amp;gt;native  实现提供给react的模块，模块需要实现RCTBridgeModule协议，然后暴露给react的类名和希望react调起的方法  例如：  iOS project：  RNNativeBridgeModule.h 12345678#import &amp;lt;Foundation/Foundation.h">
 
 
 
@@ -149,7 +114,7 @@ RNNativeBridgeModule.h
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">随笔</span>
       <span class="logo-line-after"><i></i></span>
@@ -176,7 +141,7 @@ RNNativeBridgeModule.h
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br>
             
             首页
           </a>
@@ -186,7 +151,7 @@ RNNativeBridgeModule.h
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br>
             
             分类
           </a>
@@ -196,7 +161,7 @@ RNNativeBridgeModule.h
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br>
             
             归档
           </a>
@@ -206,7 +171,7 @@ RNNativeBridgeModule.h
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br>
             
             标签
           </a>
@@ -290,7 +255,7 @@ RNNativeBridgeModule.h
 
       
         <p>###react-native的双向通信</p>
-<p><a href="https://github.com/Mikora/ReactNativeDemo" target="_blank" rel="external">demo项目下载</a></p>
+<p><a href="https://github.com/Mikora/ReactNativeDemo" target="_blank" rel="noopener">demo项目下载</a></p>
 <blockquote>
 <p>react-&gt;native</p>
 </blockquote>
@@ -298,49 +263,49 @@ RNNativeBridgeModule.h
 
 例如：
 
-iOS <span class="keyword">project</span>：
+iOS project：
 
 RNNativeBridgeModule.h
-</code></pre><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"RCTBridgeModule.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">RNNativeBridgeModule</span> : <span class="title">NSObject</span>  &lt;<span class="title">RCTBridgeModule</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)sendMsg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+</code></pre><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"RCTBridgeModule.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">RNNativeBridgeModule</span> : <span class="title">NSObject</span>  &lt;<span class="title">RCTBridgeModule</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)sendMsg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <p>RNNativeBridgeModule.m</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"RNNativeBridgeModule.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">RNNativeBridgeModule</span></span></span><br><span class="line"></span><br><span class="line">RCT_EXPORT_MODULE()</span><br><span class="line"></span><br><span class="line">RCT_EXPORT_METHOD(AddEvent:(<span class="built_in">NSDictionary</span> *)dictionary)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"接收到RN传过来的数据为:%@"</span>,dictionary);</span><br><span class="line">    <span class="comment">// Date is ready to use!</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```	</span><br><span class="line">	</span><br><span class="line">React端：</span><br><span class="line">	</span><br><span class="line">导入：</span><br></pre></td></tr></table></figure>
-<p>var { NativeModules } = require(‘react-native’);<br>var RNNativeBridgeModule = NativeModules.RNNativeBridgeModule;<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用：</span><br></pre></td></tr></table></figure></p>
-<p>RNNativeBridgeModule.AddEvent({‘name’:’huangcheng’});<br><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="groovy">&gt; iOS-&gt;react</span><br><span class="line"></span><br><span class="line">在iOS初始化的时候，需要实例一个RCTRootView</span><br><span class="line"></span><br><span class="line">基本我们初始化都是：</span><br><span class="line"></span><br><span class="line">```RCTRootView *view = [[RCTRootView alloc]<span class="string">initWithBundleURL:</span>jsCodeLocation <span class="string">moduleName:</span>@<span class="string">"demo"</span> <span class="string">initialProperties:</span>nil <span class="string">launchOptions:</span>nil];</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"RNNativeBridgeModule.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">RNNativeBridgeModule</span></span></span><br><span class="line"></span><br><span class="line">RCT_EXPORT_MODULE()</span><br><span class="line"></span><br><span class="line">RCT_EXPORT_METHOD(AddEvent:(<span class="built_in">NSDictionary</span> *)dictionary)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"接收到RN传过来的数据为:%@"</span>,dictionary);</span><br><span class="line">    <span class="comment">// Date is ready to use!</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```	</span><br><span class="line">	</span><br><span class="line">React端：</span><br><span class="line">	</span><br><span class="line">导入：</span><br></pre></td></tr></table></figure>
+<p>var { NativeModules } = require(‘react-native’);<br>var RNNativeBridgeModule = NativeModules.RNNativeBridgeModule;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用：</span><br></pre></td></tr></table></figure></p>
+<p>RNNativeBridgeModule.AddEvent({‘name’:’huangcheng’});<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; iOS-&gt;react</span><br><span class="line"></span><br><span class="line">在iOS初始化的时候，需要实例一个RCTRootView</span><br><span class="line"></span><br><span class="line">基本我们初始化都是：</span><br><span class="line"></span><br><span class="line">```RCTRootView *view = [[RCTRootView alloc]initWithBundleURL:jsCodeLocation moduleName:@"demo" initialProperties:nil launchOptions:nil];</span><br></pre></td></tr></table></figure></p>
 <p>这里面需要仔细阅读源码（我还没怎么看）<br>这种方式会给view生成一个RCTBridge,同时会把这个bridge传给所有实现协议的模块，引用的只需要</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">synthesize</span> bridge = _bridge</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">synthesize</span> bridge = _bridge;</span><br></pre></td></tr></table></figure>
 <p>这里给react发送消息，需要通过bridge的eventDispatcher，简单做法就是：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[self.rtView.bridge.eventDispatcher sendAppEventWithName:@<span class="string">"EventReminder"</span> body:@<span class="collection">&#123;@<span class="string">"name"</span>:@<span class="string">"huangcheng"</span>&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self.rtView.bridge.eventDispatcher sendAppEventWithName:@<span class="string">"EventReminder"</span> body:@&#123;@<span class="string">"name"</span>:@<span class="string">"huangcheng"</span>&#125;]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>这时候需要在react端监听：</p>
 <p>导入:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; NativeAppEventEmitter &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; NativeAppEventEmitter &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br></pre></td></tr></table></figure>
 <p>添加监听：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NativeAppEventEmitter.addListener(</span><br><span class="line">         <span class="string">'EventReminder'</span>,</span><br><span class="line">          <span class="function"><span class="params">(reminder)</span> =&gt;</span> &#123;</span><br><span class="line">            let errorCode=reminder.errorCode;</span><br><span class="line">            <span class="regexp">//m</span><span class="attribute">sg</span>:reminder.name获取获取的消息</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">         );</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NativeAppEventEmitter.addListener(</span><br><span class="line">         <span class="string">'EventReminder'</span>,</span><br><span class="line">          (reminder) =&gt; &#123;</span><br><span class="line">            <span class="keyword">let</span> errorCode=reminder.errorCode;</span><br><span class="line">            <span class="comment">//msg:reminder.name获取获取的消息</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">         );</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>react-&gt;native并且回调结果给react</p>
 </blockquote>
 <p>在之前的原生模块中加入如下模式的方法</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RCT_EXPORT_METHOD(RNInvokeOCCallBack:(<span class="built_in">NSDictionary</span> *)dictionary callback:(RCTResponseSenderBlock)callback)&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"接收到RN传过来的数据为:%@"</span>,dictionary);</span><br><span class="line">    <span class="built_in">NSArray</span> *events = [[<span class="built_in">NSArray</span> alloc] initWithObjects:<span class="string">@"黄成"</span>,<span class="string">@"huangcheng"</span>, <span class="literal">nil</span>];</span><br><span class="line">    callback(@[[<span class="built_in">NSNull</span> null], events]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>react端调用：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RNNativeBridgeModule.RNInvokeOCCallBack(&#123;<span class="string">'name'</span>:<span class="string">'huangcheng'</span>&#125;, <span class="function"><span class="params">(error,events)</span>=&gt;</span>&#123;</span><br><span class="line">				<span class="regexp">//</span><span class="attribute">events</span>:events获取到的数据</span><br><span class="line">          &#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RNNativeBridgeModule.RNInvokeOCCallBack(&#123;<span class="string">'name'</span>:<span class="string">'huangcheng'</span>&#125;, <span class="function"><span class="params">(<span class="built_in">error</span>,events)</span>=&gt;</span>&#123;</span><br><span class="line">				//<span class="name">events</span>:events获取到的数据</span><br><span class="line">          &#125;)</span><br></pre></td></tr></table></figure>
 <p>附带：</p>
 <ol>
-<li>下载atom<a href="https://atom.io" target="_blank" rel="external">下载地址</a></li>
+<li>下载atom<a href="https://atom.io" target="_blank" rel="noopener">下载地址</a></li>
 <li>安装nuclide：atom-&gt;setting-&gt;install-&gt;nuclide</li>
 <li>设置atom-&gt;setting-&gt;install recommended packages on startup</li>
 <li>安装nuclide server:</li>
 </ol>
 <p>iOS上使用：</p>
-<p>运行后会自动启动react的服务，地址为<a href="http://localhost:8081/index.ios.bundle" target="_blank" rel="external">http://localhost:8081/index.ios.bundle</a></p>
+<p>运行后会自动启动react的服务，地址为<a href="http://localhost:8081/index.ios.bundle" target="_blank" rel="noopener">http://localhost:8081/index.ios.bundle</a></p>
 <ol>
 <li><p>iOS IDE: Xcode </p>
 <pre><code>依赖管理: cocoapods
 </code></pre><p> 假如react项目地址:/Users/xxx/Desktop/reactnative/demo<br> 那么pod依赖为这样:<br> pod ‘React’, :path =&gt; ‘/Users/xxx/Desktop/reactnative/demo/    node_modules/react-native’, :subspecs =&gt; [<br> ‘Core’,<br> ‘RCTImage’,<br> ‘RCTNetwork’,<br> ‘RCTText’,<br> ‘RCTWebSocket’,<br> ]</p>
 </li>
 <li><p>加载：</p>
-<p> 服务启动后访问<a href="http://localhost:8081/index.ios.bundle可以看到实际加载的东西" target="_blank" rel="external">http://localhost:8081/index.ios.bundle可以看到实际加载的东西</a><br>然后假设一个view去加载：</p>
+<p> 服务启动后访问<a href="http://localhost:8081/index.ios.bundle可以看到实际加载的东西" target="_blank" rel="noopener">http://localhost:8081/index.ios.bundle可以看到实际加载的东西</a><br>然后假设一个view去加载：</p>
 </li>
 </ol>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[self.view addSubview:<span class="list">(<span class="collection">&#123;</span><br><span class="line">       NSURL *jsCodeLocation = <span class="collection">[NSURL URLWithString:@<span class="string">"http://localhost:8081/index.ios.bundle?platform=ios&amp;dev=true"</span>]</span><span class="comment">;</span></span><br><span class="line">       RCTRootView *view = <span class="collection">[<span class="collection">[RCTRootView alloc]</span>initWithBundleURL:jsCodeLocation moduleName:@<span class="string">"Project"</span> initialProperties:nil launchOptions:nil]</span><span class="comment">;</span></span><br><span class="line">       view.frame = self.view.bounds;</span><br><span class="line">       view;</span><br><span class="line">   &#125;</span>)</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[self.view <span class="keyword">addSubview:(&#123;</span></span><br><span class="line"><span class="keyword"> </span>      NSURL *<span class="keyword">jsCodeLocation </span>= [NSURL URLWithString:@<span class="string">"http://localhost:8081/index.ios.bundle?platform=ios&amp;dev=true"</span>]<span class="comment">;</span></span><br><span class="line">       RCTRootView *view = [[RCTRootView alloc]initWithBundleURL:<span class="keyword">jsCodeLocation </span>moduleName:@<span class="string">"Project"</span> initialProperties:nil launchOptions:nil]<span class="comment">;</span></span><br><span class="line">       view.frame = self.view.<span class="keyword">bounds;</span></span><br><span class="line"><span class="keyword"> </span>      view<span class="comment">;</span></span><br><span class="line">   &#125;)]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -415,7 +380,7 @@ RNNativeBridgeModule.h
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -426,9 +391,7 @@ RNNativeBridgeModule.h
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait"
-               alt="黄 成" />
+          <img class="site-author-image" itemprop="image" src="http://7xoou1.com1.z0.glb.clouddn.com/default_portrait" alt="黄 成">
           <p class="site-author-name" itemprop="name">黄 成</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
@@ -497,10 +460,10 @@ RNNativeBridgeModule.h
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
